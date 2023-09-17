@@ -9,8 +9,7 @@ apiParams = {
     disabled: true
   },
   headerParams: [
-    { key: 'Content-Type', value: 'application/json' },
-    { key: 'Authorization', value: '' }
+    { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
   ],
   userParams: [
     {

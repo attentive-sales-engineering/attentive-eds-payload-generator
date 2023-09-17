@@ -1,20 +1,49 @@
 apiParams = {
   url: 'https://api.attentivemobile.com/v1/attributes/custom',
   method: 'POST',
-  pathParams: [],
-  queryParams: [],
-  jsonParams: {
-    properties: {
-      'favorite color': 'Blue and Green',
-      'Favorite team': 'Seattle Seahawks'
+  propParams: [
+    {
+      key: 'pageUrl',
+      value: 'https://google.com',
+      placeholder: 'https://google.com'
     },
-    user: {
-      phone: '+12063996576'
+    {
+      key: 'buttonId',
+      value: 'abc123',
+      placeholder: 'abc123'
     }
+  ],
+  queryParams: [
+    {
+      key: 'favorite color',
+      value: 'Blue and Green',
+      placeholder: 'Blue and Green'
+    },
+    {
+      key: 'Favorite team',
+      value: 'Seattle Seahawks',
+      placeholder: 'Seattle Seahawks'
+    }
+  ],
+  jsonParams: {
+    // properties: {
+    //   'favorite color': 'Blue and Green',
+    //   'Favorite team': 'Seattle Seahawks'
+    // }
   },
   headerParams: [
-    { key: 'Content-Type', value: 'application/json' },
-    { key: 'Authorization', value: '' }
+    { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
   ],
-  authParams: []
+  userParams: [
+    {
+      key: 'phone',
+      value: '+12063996576',
+      placeholder: '+12063996576'
+    },
+    {
+      key: 'email',
+      value: 'jchaffee@attentivemobile.com',
+      placeholder: 'jchaffee@attentivemobile.com'
+    }
+  ]
 }

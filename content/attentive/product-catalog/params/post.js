@@ -1,14 +1,24 @@
 apiParams = {
   url: 'https://api.attentivemobile.com/v1/product-catalog/uploads',
   method: 'POST',
-  pathParams: [],
+  propParams: [
+    {
+      key: 'pageUrl',
+      value: 'https://google.com',
+      placeholder: 'https://google.com'
+    },
+    {
+      key: 'buttonId',
+      value: 'abc123',
+      placeholder: 'abc123'
+    }
+  ],
   queryParams: [],
   jsonParams: {
     validateOnly: false
   },
   headerParams: [
-    { key: 'Content-Type', value: 'application/json' },
-    { key: 'Authorization', value: '' }
+    { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
   ],
   userParams: [
     {

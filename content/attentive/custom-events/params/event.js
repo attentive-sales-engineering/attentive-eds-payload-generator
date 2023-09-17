@@ -1,21 +1,38 @@
 apiParams = {
   url: 'https://api.attentivemobile.com/v1/events/custom',
   method: 'POST',
-  pathParams: [],
-  queryParams: [],
-  jsonParams: {
-    type: 'Clicked Button',
-    properties: {
-      pageUrl: 'johnchaffee.github.io/index.html',
-      buttonId: '12345'
+  propParams: [
+    {
+      key: 'pageUrl',
+      value: 'https://google.com',
+      placeholder: 'https://google.com'
     },
-    user: {
-      phone: '+12063996576'
+    {
+      key: 'buttonId',
+      value: 'abc123',
+      placeholder: 'abc123'
     }
-  },
+  ],
+  queryParams: [
+    {
+      key: 'type',
+      value: 'Clicked Button',
+      placeholder: 'Clicked Button'
+    },
+    {
+      key: 'externalEventId',
+      value: '37fb97a9-6cfd-4983-bd65-68d104d53b70',
+      placeholder: '37fb97a9-6cfd-4983-bd65-68d104d53b70'
+    },
+    {
+      key: 'occurredAt',
+      value: '2021-03-30T14:38:29+0000',
+      placeholder: '2021-03-30T14:38:29+0000'
+    }
+  ],
+  jsonParams: {},
   headerParams: [
-    { key: 'Content-Type', value: 'application/json' },
-    { key: 'Authorization', value: '' }
+    { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
   ],
   userParams: [
     {

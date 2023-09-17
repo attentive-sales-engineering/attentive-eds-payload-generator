@@ -1,7 +1,18 @@
 apiParams = {
   url: 'https://api.attentivemobile.com/v1/webhooks',
   method: 'GET',
-  pathParams: [],
+  propParams: [
+    {
+      key: 'pageUrl',
+      value: 'https://google.com',
+      placeholder: 'https://google.com'
+    },
+    {
+      key: 'buttonId',
+      value: 'abc123',
+      placeholder: 'abc123'
+    }
+  ],
   queryParams: [
     {
       key: '',

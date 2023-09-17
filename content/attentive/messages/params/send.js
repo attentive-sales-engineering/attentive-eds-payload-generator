@@ -1,7 +1,18 @@
 apiParams = {
   url: 'https://api.attentivemobile.com/v1/text/send',
   method: 'POST',
-  pathParams: [],
+  propParams: [
+    {
+      key: 'pageUrl',
+      value: 'https://google.com',
+      placeholder: 'https://google.com'
+    },
+    {
+      key: 'buttonId',
+      value: 'abc123',
+      placeholder: 'abc123'
+    }
+  ],
   queryParams: [],
   jsonParams: {
     to: '+12063996576',
@@ -9,8 +20,7 @@ apiParams = {
     subscriptionType: 'MARKETING'
   },
   headerParams: [
-    { key: 'Content-Type', value: 'application/json' },
-    { key: 'Authorization', value: '' }
+    { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
   ],
   userParams: [
     {

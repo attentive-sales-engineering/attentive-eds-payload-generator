@@ -1,15 +1,25 @@
 apiParams = {
   url: 'https://api.attentivemobile.com/v1/webhooks',
   method: 'POST',
-  pathParams: [],
+  propParams: [
+    {
+      key: 'pageUrl',
+      value: 'https://google.com',
+      placeholder: 'https://google.com'
+    },
+    {
+      key: 'buttonId',
+      value: 'abc123',
+      placeholder: 'abc123'
+    }
+  ],
   queryParams: [],
   jsonParams: {
     url: 'https://example.com/webhooks',
     events: ['sms.sent', 'phone.subscribed']
   },
   headerParams: [
-    { key: 'Content-Type', value: 'application/json' },
-    { key: 'Authorization', value: '' }
+    { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
   ],
   userParams: [
     {
