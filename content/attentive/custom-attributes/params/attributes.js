@@ -3,18 +3,6 @@ apiParams = {
   method: 'POST',
   propParams: [
     {
-      key: 'pageUrl',
-      value: 'https://google.com',
-      placeholder: 'https://google.com'
-    },
-    {
-      key: 'buttonId',
-      value: 'abc123',
-      placeholder: 'abc123'
-    }
-  ],
-  queryParams: [
-    {
       key: 'favorite color',
       value: 'Blue and Green',
       placeholder: 'Blue and Green'
@@ -25,12 +13,8 @@ apiParams = {
       placeholder: 'Seattle Seahawks'
     }
   ],
-  jsonParams: {
-    // properties: {
-    //   'favorite color': 'Blue and Green',
-    //   'Favorite team': 'Seattle Seahawks'
-    // }
-  },
+  queryParams: [],
+  jsonParams: {},
   headerParams: [
     { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
   ],

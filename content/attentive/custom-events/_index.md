@@ -19,9 +19,4 @@ Make a call to this endpoint for any event-based data representing user actions
 {{< api-explorer id=`event` file=`./params/event.js` >}}
 {{< /tab >}}
 
-{{< tab "SPARKFLY" >}}
-Make a call to this endpoint for any event-based data representing user actions
-{{< api-explorer id=`sparkfly` file=`./params/sparkfly.js` >}}
-{{< /tab >}}
-
 {{< /tabs >}}
