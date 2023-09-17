@@ -34,7 +34,7 @@
         <button class="nav-link active" id="{{ .Params.id }}-query-params-tab" data-bs-toggle="tab"
           data-bs-target="#{{ .Params.id }}-query-params" type="button" role="tab" aria-controls="query-params"
           aria-selected="true">
-          Params
+          Payload
         </button>
       </li>
       <li class="nav-item d-none" role="presentation" data-user-params-section>
@@ -55,12 +55,12 @@
     <div class="tab-content p-3 border-top-0 border">
       <div class="tab-pane fade show active" id="{{ .Params.id }}-query-params" role="tabpanel"
         aria-labelledby="query-params-tab">
-        <div class="d-none" data-request-path-section>
-          <div class="section-title">Path Params</div>
-          <div data-request-path></div>
+        <div class="d-none" data-request-prop-section>
+          <div class="section-title">Properties</div>
+          <div data-request-prop></div>
         </div>
         <div class="d-none" data-query-params-section>
-          <div class="section-title">Query Params</div>
+          <div class="section-title">Params</div>
           <div data-query-params></div>
           <button data-add-query-param-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
@@ -183,17 +183,17 @@
     })
   }
 
-  // If Path Params, unhide & append key value pairs
-  if (apiParams.pathParams?.length > 0) {
+  // If Property Params, unhide & append key value pairs
+  if (apiParams.propParams?.length > 0) {
     document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-    document.querySelector("#{{ .Params.id }} [data-request-path-section]").classList.remove("d-none")
-    apiParams.pathParams?.forEach((pathParam) => {
-      document.querySelector("#{{ .Params.id }} [data-request-path]").append(
+    document.querySelector("#{{ .Params.id }} [data-request-prop-section]").classList.remove("d-none")
+    apiParams.propParams?.forEach((propParam) => {
+      document.querySelector("#{{ .Params.id }} [data-request-prop]").append(
         createKeyValuePair(
           "{{ .Params.id }}",
-          pathParam.key,
-          pathParam.value,
-          pathParam.placeholder
+          propParam.key,
+          propParam.value,
+          propParam.placeholder
         )
       )
     })
@@ -258,51 +258,43 @@
 
     let url
     let method
-    let user
-    let path
-    let headers
+    let header_mapping
     let params
-    let qs
-    let data
+    let prop
+    let user
+    let payload_mapping
     let myRequest
 
     // Set variable values from query selectors
     url = document.querySelector("#{{ .Params.id }} [data-url]").value
     method = document.querySelector("#{{ .Params.id }} [data-method]").value
-    user = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-user]"))
-    path = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-path]"))
-    headers = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-headers]"))
+    header_mapping = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-headers]"))
     params = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-query-params]"))
+    prop = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-prop]"))
+    user = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-user]"))
     jsonBody = document.querySelector("#{{ .Params.id }} .ace_content")?.textContent
     console.log("JSON BODY:", jsonBody)
-
-    // If POST or PUT, format data object as query string or json body based on content type
-    if (method === "POST" || method === "PUT") {
-      console.log("METHOD POST || PUT")
-      console.log("HEADERS[CONTENT-TYPE]:", headers["Content-Type"])
-      if (headers["Content-Type"] && headers["Content-Type"] === "application/json") {
-        console.log("APPLICATION/JSON")
-        data = jsonBody
-      } else {
-        console.log("APPLICATION/X-WWW-FORM-URLENCODED")
-        qs = new URLSearchParams(params).toString()
-        console.log("QS:", qs)
-        data = qs
-      }
-      console.log("DATA:", data)
-    }
+    payload_mapping = {}
 
     console.log("URL", url)
     console.log("METHOD:", method)
-    console.log("USER:", user)
-    console.log("PATH:", path)
-    Object.entries(path).forEach((entry) => {
-      const [key, value] = entry
-      console.log(`${key}: ${value}`)
-    })
-    console.log("HEADERS:", headers)
+    console.log("HEADERS:", header_mapping)
     console.log("PARAMS:", params)
-    console.log("DATA:", data)
+    // Object.entries(params).forEach((entry) => {
+    //   const [key, value] = entry
+    //   console.log(`${key}: ${value}`)
+    // })
+    if (params && Object.entries(params).length > 0) {
+      Object.entries(params).forEach((entry) => {
+        const [key, value] = entry
+        payload_mapping[key] = value
+      })
+    }
+    console.log("PROP:", prop)
+    if (prop && Object.entries(prop).length > 0) payload_mapping.properties = prop
+    console.log("USER:", user)
+    if (user && Object.entries(user).length > 0) payload_mapping.user = user
+    console.log("PAYLOAD MAPPING", payload_mapping)
 
     // Hide previous Response if it existed
     document.querySelector("#{{ .Params.id }} [data-response-section]").classList.add("d-none")
@@ -311,22 +303,9 @@
     myRequest = {
       url,
       method,
-      headers,
+      header_mapping,
+      payload_mapping
     }
-    // Set MyRequest variables
-    if (path && Object.entries(path).length > 0) myRequest.path_params = path
-    if (params && Object.entries(params).length > 0) myRequest.query_params = params
-    // If data string starts with '{', convert it to a JSON object for MyRequest.data
-    if (data && data[0] === '{') myRequest.data = JSON.parse(data)
-    if (user && Object.entries(user).length > 0) myRequest.user = user
-    // if (auth !== null) myRequest.auth = auth
-    // Mask sensitive fields in MyRequest
-    // if (auth?.password) myRequest.auth.password = "**********"
-    // if (headers?.api_key) myRequest.headers.api_key = "**********"
-    // if (headers?.Authorization) myRequest.headers.Authorization = "Bearer **********"
-    // if (headers && headers['X-Shopify-Access-Token']) myRequest.headers['X-Shopify-Access-Token'] = "**********"
-    // if (params && params?.StatusCallback) myRequest.query_params.StatusCallback = "**********"
-    // if (path && path?.apiKey) myRequest.path_params.apiKey = "**********"
     console.log("MY REQUEST", myRequest)
 
     document.querySelector("#{{ .Params.id }} [data-response-section]").classList.remove("d-none")
