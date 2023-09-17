@@ -27,7 +27,7 @@
         <option value="DELETE">DELETE</option>
       </select>
       <input data-url required class="form-control mono-url" type="url" placeholder="https://example.com" value="" />
-      <button type="submit" class="btn">Send</button>
+      <button type="submit" class="btn btn-primary">Generate</button>
     </div>
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item d-none" role="presentation" data-params-section>
@@ -82,17 +82,20 @@
       </div>
       <div class="tab-pane fade" id="{{ .Params.id }}-request-auth" role="tabpanel" aria-labelledby="request-auth-tab">
         <div data-request-auth></div>
+        <button data-add-request-auth-btn class="mt-2 btn btn-outline-success" type="button">
+          &plus;
+        </button>
       </div>
     </div>
   </form>
   <div class="d-none" data-response-section>
     <div class="border-top-0 border p-3">
-      <div class="section-title">Request</div>
+      <div class="section-title">Target Payload</div>
       <div class="ace-border">
         <div id="{{ .Params.id }}" class="ace-editor" data-my-request></div>
       </div>
     </div>
-    <div class="border-top-0 border p-3">
+    <div class="d-none border-top-0 border p-3">
       <div class="section-title">Response</div>
       <div class="d-flex my-1">
         <div class="mr-3">Status: <span data-status></span></div>
@@ -132,31 +135,38 @@
     )
   })
 
+  // Add Auth params Add button click listener
+  document.querySelector("#{{ .Params.id }} [data-add-request-auth-btn]").addEventListener("click", () => {
+    document.querySelector("#{{ .Params.id }} [data-request-auth]").append(
+      createKeyValuePair("{{ .Params.id }}")
+    )
+  })
+
   // Set url param
   document.querySelector("#{{ .Params.id }} [data-url]").value = apiParams.url
 
   // Set method param
   document.querySelector("#{{ .Params.id }} [data-method]").value = apiParams?.method || "GET"
 
-  // Change Submit button label and color
-  this_method = document.querySelector("#{{ .Params.id }} [data-method]").value
-  this_submit = document.querySelector("#{{ .Params.id }} [type=submit]")
-  this_submit.textContent = this_method
+  // // Change Submit button label and color
+  // this_method = document.querySelector("#{{ .Params.id }} [data-method]").value
+  // this_submit = document.querySelector("#{{ .Params.id }} [type=submit]")
+  // this_submit.textContent = this_method
 
-  switch (this_method) {
-    case "POST":
-      this_submit.classList.add("btn-primary")
-      break
-    case "PUT":
-      this_submit.classList.add("btn-warning")
-      break
-    case "DELETE":
-      this_submit.classList.add("btn-danger")
-      break
-    default:
-      // Must be GET
-      this_submit.classList.add("btn-success")
-  }
+  // switch (this_method) {
+  //   case "POST":
+  //     this_submit.classList.add("btn-primary")
+  //     break
+  //   case "PUT":
+  //     this_submit.classList.add("btn-warning")
+  //     break
+  //   case "DELETE":
+  //     this_submit.classList.add("btn-danger")
+  //     break
+  //   default:
+  //     // Must be GET
+  //     this_submit.classList.add("btn-success")
+  // }
 
   // If Query Params, unhide & append key value pairs
   if (apiParams.queryParams?.length > 0) {
@@ -336,43 +346,68 @@
     document.querySelector("#{{ .Params.id }} [data-response-section]").classList.add("d-none")
     console.log(`Hide "#{{ .Params.id }} [data-response-section]"`)
 
-    axios({
+    myRequest = {
       url,
       method,
-      auth,
-      params,
       headers,
-      data,
-    })
-      .catch((e) => e.response)
-      .then((response) => {
-        console.log("RESPONSE:", response)
-        myRequest = {
-          url,
-          method,
-          // auth,
-          headers,
-        }
-        // Set MyRequest variables
-        if (path && Object.entries(path).length > 0) myRequest.path_params = path
-        if (params && Object.entries(params).length > 0) myRequest.query_params = params
-        // If data string starts with '{', convert it to a JSON object for MyRequest.data
-        if (data && data[0] === '{') myRequest.data = JSON.parse(data)
-        if (auth) myRequest.auth = auth
-        // Mask sensitive fields in MyRequest
-        if (auth?.password) myRequest.auth.password = "**********"
-        if (headers?.api_key) myRequest.headers.api_key = "**********"
-        if (headers?.Authorization) myRequest.headers.Authorization = "Bearer **********"
-        if (headers && headers['X-Shopify-Access-Token']) myRequest.headers['X-Shopify-Access-Token'] = "**********"
-        if (params && params?.StatusCallback) myRequest.query_params.StatusCallback = "**********"
-        if (path && path?.apiKey) myRequest.path_params.apiKey = "**********"
-        console.log("MY REQUEST", myRequest)
+    }
+    // Set MyRequest variables
+    if (path && Object.entries(path).length > 0) myRequest.path_params = path
+    if (params && Object.entries(params).length > 0) myRequest.query_params = params
+    // If data string starts with '{', convert it to a JSON object for MyRequest.data
+    if (data && data[0] === '{') myRequest.data = JSON.parse(data)
+    if (auth !== null) myRequest.auth = auth
+    // Mask sensitive fields in MyRequest
+    // if (auth?.password) myRequest.auth.password = "**********"
+    // if (headers?.api_key) myRequest.headers.api_key = "**********"
+    // if (headers?.Authorization) myRequest.headers.Authorization = "Bearer **********"
+    // if (headers && headers['X-Shopify-Access-Token']) myRequest.headers['X-Shopify-Access-Token'] = "**********"
+    // if (params && params?.StatusCallback) myRequest.query_params.StatusCallback = "**********"
+    // if (path && path?.apiKey) myRequest.path_params.apiKey = "**********"
+    console.log("MY REQUEST", myRequest)
 
-        document.querySelector("#{{ .Params.id }} [data-response-section]").classList.remove("d-none")
-        updateResponseStatus("{{ .Params.id }}", response?.status || 403)
-        updateResponseBody("{{ .Params.id }}", response?.data || undefined)
-        updateMyRequestBody("{{ .Params.id }}", myRequest)
-      })
+    document.querySelector("#{{ .Params.id }} [data-response-section]").classList.remove("d-none")
+    // updateResponseStatus("{{ .Params.id }}", response?.status || 403)
+    // updateResponseBody("{{ .Params.id }}", response?.data || undefined)
+    updateMyRequestBody("{{ .Params.id }}", myRequest)
+
+    // axios({
+    //   url,
+    //   method,
+    //   auth,
+    //   params,
+    //   headers,
+    //   data,
+    // })
+    //   .catch((e) => e.response)
+    //   .then((response) => {
+    //     console.log("RESPONSE:", response)
+    //     myRequest = {
+    //       url,
+    //       method,
+    //       auth,
+    //       headers,
+    //     }
+    //     // Set MyRequest variables
+    //     if (path && Object.entries(path).length > 0) myRequest.path_params = path
+    //     if (params && Object.entries(params).length > 0) myRequest.query_params = params
+    //     // If data string starts with '{', convert it to a JSON object for MyRequest.data
+    //     if (data && data[0] === '{') myRequest.data = JSON.parse(data)
+    //     if (auth) myRequest.auth = auth
+    //     // Mask sensitive fields in MyRequest
+    //     if (auth?.password) myRequest.auth.password = "**********"
+    //     if (headers?.api_key) myRequest.headers.api_key = "**********"
+    //     if (headers?.Authorization) myRequest.headers.Authorization = "Bearer **********"
+    //     if (headers && headers['X-Shopify-Access-Token']) myRequest.headers['X-Shopify-Access-Token'] = "**********"
+    //     if (params && params?.StatusCallback) myRequest.query_params.StatusCallback = "**********"
+    //     if (path && path?.apiKey) myRequest.path_params.apiKey = "**********"
+    //     console.log("MY REQUEST", myRequest)
+
+    //     document.querySelector("#{{ .Params.id }} [data-response-section]").classList.remove("d-none")
+    //     updateResponseStatus("{{ .Params.id }}", response?.status || 403)
+    //     updateResponseBody("{{ .Params.id }}", response?.data || undefined)
+    //     updateMyRequestBody("{{ .Params.id }}", myRequest)
+    // })
   })
 
 </script>

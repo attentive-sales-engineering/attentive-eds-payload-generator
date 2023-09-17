@@ -1,5 +1,5 @@
-baseURL = "https://johnchaffee.github.io/api-explorer/"
-title = "API Explorer"
+baseURL = "https://johnchaffee.github.io/attentive-eds-payload-generator/"
+title = "Attentive EDS Payload Generator"
 theme = "hugo-geekdoc"
 publishDir = "docs"
 

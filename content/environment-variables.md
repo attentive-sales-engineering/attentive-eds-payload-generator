@@ -8,6 +8,6 @@ tags:
 geekdocHidden: true
 ---
 
-Enter key/value environment variables to use in Postman API requests.
+Enter key/value environment variables to use in API requests.
 
 {{< environment-variables id=`settings` >}}

@@ -3,8 +3,8 @@ more:
   - name: Environment Variables
     ref: "/environment-variables"
     icon: "gdoc_brightness_light"
-  - name: Github Repo
-    ref: "https://github.com/johnchaffee/twilio-apis"
+  - name: Github
+    ref: "https://github.com/johnchaffee/attentive-eds-payload-generator"
     external: true
     icon: "gdoc_github"
   - name: Attentive Docs
