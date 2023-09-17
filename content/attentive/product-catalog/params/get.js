@@ -1,6 +1,5 @@
 apiParams = {
-  url:
-    'https://api.attentivemobile.com/v1/product-catalog/uploads/{{uploadId}}',
+  url: 'https://api.attentivemobile.com/v1/product-catalog/uploads/{{uploadId}}',
   method: 'GET',
   pathParams: [
     {
@@ -12,5 +11,16 @@ apiParams = {
   queryParams: [],
   jsonParams: {},
   headerParams: [{ key: 'Authorization', value: '' }],
-  authParams: []
+  userParams: [
+    {
+      key: 'phone',
+      value: '+12063996576',
+      placeholder: '+12063996576'
+    },
+    {
+      key: 'email',
+      value: 'jchaffee@attentivemobile.com',
+      placeholder: 'jchaffee@attentivemobile.com'
+    }
+  ]
 }

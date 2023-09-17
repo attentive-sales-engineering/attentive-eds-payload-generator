@@ -1,6 +1,5 @@
 apiParams = {
-  url:
-    'http://localhost:4000/ticketmaster/{{apiKey}}',
+  url: 'http://localhost:4000/ticketmaster/{{apiKey}}',
   method: 'GET',
   pathParams: [
     {
@@ -38,5 +37,16 @@ apiParams = {
   ],
   jsonParams: {},
   headerParams: [],
-  authParams: []
+  userParams: [
+    {
+      key: 'phone',
+      value: '+12063996576',
+      placeholder: '+12063996576'
+    },
+    {
+      key: 'email',
+      value: 'jchaffee@attentivemobile.com',
+      placeholder: 'jchaffee@attentivemobile.com'
+    }
+  ]
 }

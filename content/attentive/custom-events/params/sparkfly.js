@@ -9,7 +9,8 @@ apiParams = {
       sf_base_url: 'https://mp.sparkfly.com/',
       sf_xid: 'abcd1234',
       sf_uid: 'xyz789',
-      sf_hmac: '8ae200df99cd0576b98779833292829190dad6e0d63e9217b7a529f8ad6aa57b',
+      sf_hmac:
+        '8ae200df99cd0576b98779833292829190dad6e0d63e9217b7a529f8ad6aa57b',
       sf_ctid: '+12063996576',
       ts: '1704038400',
       url: 'https://mp.sparkfly.com/abcd1234?sf_uid=xyz789&sf_hmac=8ae200df99cd0576b98779833292829190dad6e0d63e9217b7a529f8ad6aa57b&sf_ctid=%2012063996576&ts=1704038400'
@@ -22,5 +23,16 @@ apiParams = {
     { key: 'Content-Type', value: 'application/json' },
     { key: 'Authorization', value: '' }
   ],
-  authParams: []
+  userParams: [
+    {
+      key: 'phone',
+      value: '+12063996576',
+      placeholder: '+12063996576'
+    },
+    {
+      key: 'email',
+      value: 'jchaffee@attentivemobile.com',
+      placeholder: 'jchaffee@attentivemobile.com'
+    }
+  ]
 }

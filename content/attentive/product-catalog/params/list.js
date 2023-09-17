@@ -11,5 +11,16 @@ apiParams = {
   ],
   jsonParams: {},
   headerParams: [{ key: 'Authorization', value: '' }],
-  authParams: []
+  userParams: [
+    {
+      key: 'phone',
+      value: '+12063996576',
+      placeholder: '+12063996576'
+    },
+    {
+      key: 'email',
+      value: 'jchaffee@attentivemobile.com',
+      placeholder: 'jchaffee@attentivemobile.com'
+    }
+  ]
 }
