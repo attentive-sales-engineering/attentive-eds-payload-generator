@@ -37,11 +37,11 @@
           Params
         </button>
       </li>
-      <li class="nav-item d-none" role="presentation" data-auth-params-section>
-        <button class="nav-link" id="{{ .Params.id }}-request-auth-tab" data-bs-toggle="tab"
-          data-bs-target="#{{ .Params.id }}-request-auth" type="button" role="tab" aria-controls="request-auth"
+      <li class="nav-item d-none" role="presentation" data-user-params-section>
+        <button class="nav-link" id="{{ .Params.id }}-request-user-tab" data-bs-toggle="tab"
+          data-bs-target="#{{ .Params.id }}-request-user" type="button" role="tab" aria-controls="request-user"
           aria-selected="false">
-          Auth
+          User
         </button>
       </li>
       <li class="nav-item" role="presentation">
@@ -80,9 +80,9 @@
           &plus;
         </button>
       </div>
-      <div class="tab-pane fade" id="{{ .Params.id }}-request-auth" role="tabpanel" aria-labelledby="request-auth-tab">
-        <div data-request-auth></div>
-        <button data-add-request-auth-btn class="mt-2 btn btn-outline-success" type="button">
+      <div class="tab-pane fade" id="{{ .Params.id }}-request-user" role="tabpanel" aria-labelledby="request-user-tab">
+        <div data-request-user></div>
+        <button data-add-request-user-btn class="mt-2 btn btn-outline-success" type="button">
           &plus;
         </button>
       </div>
@@ -135,9 +135,9 @@
     )
   })
 
-  // Add Auth params Add button click listener
-  document.querySelector("#{{ .Params.id }} [data-add-request-auth-btn]").addEventListener("click", () => {
-    document.querySelector("#{{ .Params.id }} [data-request-auth]").append(
+  // Add User params Add button click listener
+  document.querySelector("#{{ .Params.id }} [data-add-request-user-btn]").addEventListener("click", () => {
+    document.querySelector("#{{ .Params.id }} [data-request-user]").append(
       createKeyValuePair("{{ .Params.id }}")
     )
   })
@@ -237,16 +237,16 @@
     )
   })
 
-  // If Auth Params, unhide & append key value pairs
-  if (apiParams.authParams?.length > 0) {
-    document.querySelector("#{{ .Params.id }} [data-auth-params-section]").classList.remove("d-none")
-    apiParams.authParams?.forEach((authParam) => {
-      document.querySelector("#{{ .Params.id }} [data-request-auth]").append(
+  // If User Params, unhide & append key value pairs
+  if (apiParams.userParams?.length > 0) {
+    document.querySelector("#{{ .Params.id }} [data-user-params-section]").classList.remove("d-none")
+    apiParams.userParams?.forEach((userParam) => {
+      document.querySelector("#{{ .Params.id }} [data-request-user]").append(
         createKeyValuePair(
           "{{ .Params.id }}",
-          authParam.key,
-          authParam.value,
-          authParam.placeholder
+          userParam.key,
+          userParam.value,
+          userParam.placeholder
         )
       )
     })
@@ -258,7 +258,7 @@
 
     let url
     let method
-    let auth
+    let user
     let path
     let headers
     let params
@@ -268,7 +268,7 @@
 
     // Set variable values from query selectors
     method = document.querySelector("#{{ .Params.id }} [data-method]").value
-    auth = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-auth]"))
+    user = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-user]"))
     path = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-path]"))
     headers = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-headers]"))
     params = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-query-params]"))
@@ -325,14 +325,14 @@
     url = url.replace("chafco.myshopify.com", "johnchaffee.ngrok.io/shopify-proxy")
     console.log("PROXY URL", url)
     console.log("METHOD:", method)
-    console.log("AUTH:", auth)
-    authLength = JSON.stringify(auth, null, 2).length
-    console.log("AUTH LENGTH:", authLength)
+    console.log("USER:", user)
+    // authLength = JSON.stringify(auth, null, 2).length
+    // console.log("AUTH LENGTH:", authLength)
     // If Auth object is empty, set to null so it's not used to authenticate via Axios
-    if (authLength == 2) {
-      auth = null
-      console.log("AUTH NULL:", auth)
-    }
+    // if (authLength == 2) {
+    //   auth = null
+    //   console.log("AUTH NULL:", auth)
+    // }
     console.log("PATH:", path)
     Object.entries(path).forEach((entry) => {
       const [key, value] = entry
@@ -356,7 +356,8 @@
     if (params && Object.entries(params).length > 0) myRequest.query_params = params
     // If data string starts with '{', convert it to a JSON object for MyRequest.data
     if (data && data[0] === '{') myRequest.data = JSON.parse(data)
-    if (auth !== null) myRequest.auth = auth
+    if (user && Object.entries(user).length > 0) myRequest.user = user
+    // if (auth !== null) myRequest.auth = auth
     // Mask sensitive fields in MyRequest
     // if (auth?.password) myRequest.auth.password = "**********"
     // if (headers?.api_key) myRequest.headers.api_key = "**********"
