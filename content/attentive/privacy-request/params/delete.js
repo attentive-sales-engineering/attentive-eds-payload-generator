@@ -1,7 +1,8 @@
 apiParams = {
   url: 'https://api.attentivemobile.com/v1/privacy/delete-request',
   method: 'POST',
-  propParams: [
+  propParams: [],
+  queryParams: [
     {
       key: 'subjectPhone',
       value: '+12063996576',
@@ -18,7 +19,6 @@ apiParams = {
       placeholder: 'The subscriber requested to be removed'
     }
   ],
-  queryParams: [],
   jsonParams: {},
   headerParams: [
     { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }

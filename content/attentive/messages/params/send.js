@@ -1,7 +1,8 @@
 apiParams = {
   url: 'https://api.attentivemobile.com/v1/text/send',
   method: 'POST',
-  propParams: [
+  propParams: [],
+  queryParams: [
     {
       key: 'to',
       value: '+12063996576',
@@ -43,7 +44,6 @@ apiParams = {
       placeholder: 'MARKETING or TRANSACTIONAL (required)'
     }
   ],
-  queryParams: [],
   jsonParams: {},
   headerParams: [
     { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
