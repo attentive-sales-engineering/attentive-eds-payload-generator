@@ -1,6 +1,38 @@
 apiParams = {
   url: 'https://api.attentivemobile.com/v1/subscriptions/unsubscribe',
   method: 'POST',
+  sourceParams: [
+    {
+      key: 'Client Name',
+      value: 'Chafco',
+      placeholder: 'Chafco'
+    },
+    {
+      key: 'Client ID',
+      value: '83006',
+      placeholder: '83006'
+    },
+    {
+      key: 'File Path and Name',
+      value: 'chafco/uploads/custom_attributes.csv',
+      placeholder: 'chafco/uploads/custom_attributes.csv'
+    },
+    {
+      key: 'File Type',
+      value: 'CSV',
+      placeholder: 'CSV, TSV or PSV'
+    },
+    {
+      key: 'Date Format',
+      value: '[[yyyyMMdd]]',
+      placeholder: '[[yyyyMMdd]]'
+    },
+    {
+      key: 'Time Zone',
+      value: '<&America/New_York&>',
+      placeholder: '<&America/New_York&>'
+    }
+  ],
   propParams: [],
   queryParams: [
     {
