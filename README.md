@@ -1,6 +1,6 @@
 # api-explorer
  
-View the API Explorer browser client here: https://johnchaffee.github.io/api-explorer/
+View this app here: https://johnchaffee.github.io/attentive-eds-payload-generator
 
 ## TODO
 - Explain how this works
