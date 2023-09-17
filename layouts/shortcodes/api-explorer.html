@@ -58,6 +58,9 @@
         <div class="d-none" data-request-prop-section>
           <div class="section-title">Properties</div>
           <div data-request-prop></div>
+          <button data-add-request-prop-btn class="mt-2 btn btn-outline-success" type="button">
+            &plus;
+          </button>
         </div>
         <div class="d-none" data-query-params-section>
           <div class="section-title">Params</div>
@@ -121,6 +124,13 @@
 </div>
 
 <script>
+  // Add query params Add button click listener
+  document.querySelector("#{{ .Params.id }} [data-add-request-prop-btn]").addEventListener("click", () => {
+    document.querySelector("#{{ .Params.id }} [data-request-prop]").append(
+      createKeyValuePair("{{ .Params.id }}")
+    )
+  })
+
   // Add query params Add button click listener
   document.querySelector("#{{ .Params.id }} [data-add-query-param-btn]").addEventListener("click", () => {
     document.querySelector("#{{ .Params.id }} [data-query-params]").append(
