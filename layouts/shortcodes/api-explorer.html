@@ -370,44 +370,6 @@
     // updateResponseStatus("{{ .Params.id }}", response?.status || 403)
     // updateResponseBody("{{ .Params.id }}", response?.data || undefined)
     updateMyRequestBody("{{ .Params.id }}", myRequest)
-
-    // axios({
-    //   url,
-    //   method,
-    //   auth,
-    //   params,
-    //   headers,
-    //   data,
-    // })
-    //   .catch((e) => e.response)
-    //   .then((response) => {
-    //     console.log("RESPONSE:", response)
-    //     myRequest = {
-    //       url,
-    //       method,
-    //       auth,
-    //       headers,
-    //     }
-    //     // Set MyRequest variables
-    //     if (path && Object.entries(path).length > 0) myRequest.path_params = path
-    //     if (params && Object.entries(params).length > 0) myRequest.query_params = params
-    //     // If data string starts with '{', convert it to a JSON object for MyRequest.data
-    //     if (data && data[0] === '{') myRequest.data = JSON.parse(data)
-    //     if (auth) myRequest.auth = auth
-    //     // Mask sensitive fields in MyRequest
-    //     if (auth?.password) myRequest.auth.password = "**********"
-    //     if (headers?.api_key) myRequest.headers.api_key = "**********"
-    //     if (headers?.Authorization) myRequest.headers.Authorization = "Bearer **********"
-    //     if (headers && headers['X-Shopify-Access-Token']) myRequest.headers['X-Shopify-Access-Token'] = "**********"
-    //     if (params && params?.StatusCallback) myRequest.query_params.StatusCallback = "**********"
-    //     if (path && path?.apiKey) myRequest.path_params.apiKey = "**********"
-    //     console.log("MY REQUEST", myRequest)
-
-    //     document.querySelector("#{{ .Params.id }} [data-response-section]").classList.remove("d-none")
-    //     updateResponseStatus("{{ .Params.id }}", response?.status || 403)
-    //     updateResponseBody("{{ .Params.id }}", response?.data || undefined)
-    //     updateMyRequestBody("{{ .Params.id }}", myRequest)
-    // })
   })
 
 </script>
