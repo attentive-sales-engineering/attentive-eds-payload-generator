@@ -1,41 +1,3 @@
-// let apiParams
-// let updatedKey
-// let updatedValue
-// let closest
-// let this_submit
-// let this_method
-
-function updateResponseStatus (id, status) {
-  console.log(`updateResponseStatus: .querySelector(#${id} [data-status])`)
-  document.querySelector(`#${id} [data-status]`).textContent = status
-}
-
-function updateResponseBody (id, data) {
-  console.log('DATA:', data)
-  let jsonBody = ""
-  if (data != undefined) {
-    jsonBody = JSON.stringify(data, null, 2)
-  }
-  console.log('JSON BODY:', jsonBody)
-  console.log(`updateResponseBody: .querySelector(#${id} [data-json-response-body])`)
-
-  // Render JSON Response
-  aceJsonResponse = ace.edit(document.querySelector(`#${id} [data-json-response-body]`))
-  aceJsonResponse.setTheme('ace/theme/monokai')
-  aceJsonResponse.session.setMode('ace/mode/json')
-  aceJsonResponse.setValue(null)
-  aceJsonResponse.insert(jsonBody)
-  aceJsonResponse.setReadOnly(true)
-  aceJsonResponse.setOptions({
-    maxLines: Infinity,
-    highlightActiveLine: false,
-    showLineNumbers: false,
-    showGutter: false,
-    showPrintMargin: false,
-    fontSize: 14
-  })
-}
-
 function updateMyRequestBody (id, myRequest) {
   console.log('MY REQUEST:', myRequest)
   const jsonReq = JSON.stringify(myRequest, null, 2)
@@ -60,7 +22,9 @@ function updateMyRequestBody (id, myRequest) {
 }
 
 function createKeyValuePair (id, key, value, placeholder) {
-  const element = document.querySelector(`#${id} [data-key-value-template]`).content.cloneNode(true)
+  const element = document
+    .querySelector(`#${id} [data-key-value-template]`)
+    .content.cloneNode(true)
   let thisKey = element.querySelector('[data-key]')
   thisKey.value = key || null
   let thisValue = element.querySelector('[data-value]')
@@ -95,8 +59,10 @@ function createKeyValuePair (id, key, value, placeholder) {
       updatedKey = closest.querySelector('[data-key]').value
       console.log('UPDATEDKEY', updatedKey)
       newEnvVarDialog.querySelector('[data-key]').value = updatedKey
-      newEnvVarDialog.querySelector('[data-value]').value = localStorage.getItem(updatedKey)
-      newEnvVarDialog.querySelector('[data-value]').placeholder = closest.querySelector('[data-value]').placeholder
+      newEnvVarDialog.querySelector('[data-value]').value =
+        localStorage.getItem(updatedKey)
+      newEnvVarDialog.querySelector('[data-value]').placeholder =
+        closest.querySelector('[data-value]').placeholder
       newEnvVarDialog.showModal()
 
       // Enter key listener -> Listen for the "Enter" key in newEnvVar modal
@@ -128,7 +94,8 @@ function createKeyValuePair (id, key, value, placeholder) {
           // Update the value of all matching keys that are already loaded in browser
           document.querySelectorAll('[data-key]').forEach(item => {
             if (item.value === updatedKey) {
-              item.parentElement.querySelector('[data-value]').value = updatedValue
+              item.parentElement.querySelector('[data-value]').value =
+                updatedValue
             }
           })
           // window.location = window.location.href

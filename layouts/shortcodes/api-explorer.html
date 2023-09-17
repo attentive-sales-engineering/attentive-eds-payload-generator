@@ -148,26 +148,6 @@
   // Set method param
   document.querySelector("#{{ .Params.id }} [data-method]").value = apiParams?.method || "GET"
 
-  // // Change Submit button label and color
-  // this_method = document.querySelector("#{{ .Params.id }} [data-method]").value
-  // this_submit = document.querySelector("#{{ .Params.id }} [type=submit]")
-  // this_submit.textContent = this_method
-
-  // switch (this_method) {
-  //   case "POST":
-  //     this_submit.classList.add("btn-primary")
-  //     break
-  //   case "PUT":
-  //     this_submit.classList.add("btn-warning")
-  //     break
-  //   case "DELETE":
-  //     this_submit.classList.add("btn-danger")
-  //     break
-  //   default:
-  //     // Must be GET
-  //     this_submit.classList.add("btn-success")
-  // }
-
   // If Query Params, unhide & append key value pairs
   if (apiParams.queryParams?.length > 0) {
     document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
@@ -309,8 +289,6 @@
     console.log("MY REQUEST", myRequest)
 
     document.querySelector("#{{ .Params.id }} [data-response-section]").classList.remove("d-none")
-    // updateResponseStatus("{{ .Params.id }}", response?.status || 403)
-    // updateResponseBody("{{ .Params.id }}", response?.data || undefined)
     updateMyRequestBody("{{ .Params.id }}", myRequest)
   })
 
