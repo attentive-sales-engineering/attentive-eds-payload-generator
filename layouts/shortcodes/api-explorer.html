@@ -44,6 +44,13 @@
           User
         </button>
       </li>
+      <li class="nav-item d-none" role="presentation" data-source-params-section>
+        <button class="nav-link" id="{{ .Params.id }}-request-source-tab" data-bs-toggle="tab"
+          data-bs-target="#{{ .Params.id }}-request-source" type="button" role="tab" aria-controls="request-source"
+          aria-selected="false">
+          Source
+        </button>
+      </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="{{ .Params.id }}-request-headers-tab" data-bs-toggle="tab"
           data-bs-target="#{{ .Params.id }}-request-headers" type="button" role="tab" aria-controls="request-headers"
@@ -89,6 +96,20 @@
           &plus;
         </button>
       </div>
+      <div class="tab-pane fade" id="{{ .Params.id }}-request-source" role="tabpanel"
+        aria-labelledby="request-source-tab">
+        <div data-request-source></div>
+        <button data-add-request-source-btn class="mt-2 btn btn-outline-success" type="button">
+          &plus;
+        </button>
+      </div>
+      <div class="tab-pane fade" id="{{ .Params.id }}-request-source" role="tabpanel"
+        aria-labelledby="request-source-tab">
+        <div data-request-source></div>
+        <button data-add-request-source-btn class="mt-2 btn btn-outline-success" type="button">
+          &plus;
+        </button>
+      </div>
     </div>
   </form>
   <div class="d-none" data-response-section>
@@ -113,7 +134,7 @@
     <div class="input-group my-1" data-key-value-pair>
       <input type="text" data-key class="form-control" style="flex: 1" placeholder="Key" value="" />
       <input type="text" data-value class="form-control" style="flex: 1" placeholder="Value" value="" />
-      <button type="button" data-update-btn class="btn btn-outline-success">
+      <button type="button" data-update-btn class="btn btn-outline-success d-none">
         &#9998;
       </button>
       <button type="button" data-remove-btn class="btn btn-outline-danger">
@@ -148,6 +169,13 @@
   // Add User params Add button click listener
   document.querySelector("#{{ .Params.id }} [data-add-request-user-btn]").addEventListener("click", () => {
     document.querySelector("#{{ .Params.id }} [data-request-user]").append(
+      createKeyValuePair("{{ .Params.id }}")
+    )
+  })
+
+  // Add Source params Add button click listener
+  document.querySelector("#{{ .Params.id }} [data-add-request-source-btn]").addEventListener("click", () => {
+    document.querySelector("#{{ .Params.id }} [data-request-source]").append(
       createKeyValuePair("{{ .Params.id }}")
     )
   })
@@ -242,6 +270,21 @@
     })
   }
 
+  // If Source Params, unhide & append key value pairs
+  if (apiParams.sourceParams?.length > 0) {
+    document.querySelector("#{{ .Params.id }} [data-source-params-section]").classList.remove("d-none")
+    apiParams.sourceParams?.forEach((sourceParam) => {
+      document.querySelector("#{{ .Params.id }} [data-request-source]").append(
+        createKeyValuePair(
+          "{{ .Params.id }}",
+          sourceParam.key,
+          sourceParam.value,
+          sourceParam.placeholder
+        )
+      )
+    })
+  }
+
   // Form Submit listener
   document.querySelector("#{{ .Params.id }} [data-form]").addEventListener("submit", (e) => {
     e.preventDefault()
@@ -253,6 +296,7 @@
     let prop
     let items
     let user
+    let source
     let payload_mapping
     let myRequest
 
@@ -263,6 +307,7 @@
     params = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-query-params]"))
     prop = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-prop]"))
     user = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-user]"))
+    source = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-source]"))
     jsonBody = document.querySelector("#{{ .Params.id }} .ace_content")?.textContent
     console.log("JSON BODY:", jsonBody)
     payload_mapping = {}
@@ -293,6 +338,10 @@
     }
     console.log("USER:", user)
     if (user && Object.entries(user).length > 0) payload_mapping.user = user
+    console.log("PAYLOAD MAPPING", payload_mapping)
+
+    console.log("SOURCE:", source)
+    if (source && Object.entries(source).length > 0) payload_mapping.source = source
     console.log("PAYLOAD MAPPING", payload_mapping)
 
     // Hide previous Response if it existed
