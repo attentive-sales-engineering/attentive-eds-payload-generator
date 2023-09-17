@@ -267,6 +267,7 @@
     let myRequest
 
     // Set variable values from query selectors
+    url = document.querySelector("#{{ .Params.id }} [data-url]").value
     method = document.querySelector("#{{ .Params.id }} [data-method]").value
     user = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-user]"))
     path = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-path]"))
@@ -291,48 +292,9 @@
       console.log("DATA:", data)
     }
 
-    // Replace all path environment variables in url
-    url = document.querySelector("#{{ .Params.id }} [data-url]").value
-    console.log("URL BEFORE:", url)
-    let urlSplit = url.split("/")
-    console.log("URL SPLIT BEFORE:", urlSplit)
-    let count = 0
-    let urlEnvVar
-    let urlKey
-    let urlVal
-    urlSplit.forEach((word) => {
-      if (word.match(/\{\{\w+}}/)) {
-        urlEnvVar = word.match(/\{\{\w+}}/).toString()
-        urlKey = urlEnvVar.replaceAll(/[{}]/g, "")
-        Object.entries(path).forEach((entry) => {
-          const [key, value] = entry
-          console.log(`${key}: ${value}`)
-          if (key == urlKey) {
-            console.log("key == urlKey")
-            urlVal = value
-            urlSplit[count] = word.replace(/\{\{\w+}}/, urlVal)
-          }
-        })
-      }
-      count += 1
-    })
-    console.log("URL SPLIT AFTER", urlSplit)
-    url = urlSplit.join("/")
-    console.log("URL AFTER", url)
-    // Reroute attentive API calls through proxy
-    url = url.replace("api.attentivemobile.com/v1", "attentive-api-swagger.herokuapp.com")
-    // Reroute Shopify API calls through proxy
-    url = url.replace("chafco.myshopify.com", "johnchaffee.ngrok.io/shopify-proxy")
-    console.log("PROXY URL", url)
+    console.log("URL", url)
     console.log("METHOD:", method)
     console.log("USER:", user)
-    // authLength = JSON.stringify(auth, null, 2).length
-    // console.log("AUTH LENGTH:", authLength)
-    // If Auth object is empty, set to null so it's not used to authenticate via Axios
-    // if (authLength == 2) {
-    //   auth = null
-    //   console.log("AUTH NULL:", auth)
-    // }
     console.log("PATH:", path)
     Object.entries(path).forEach((entry) => {
       const [key, value] = entry
