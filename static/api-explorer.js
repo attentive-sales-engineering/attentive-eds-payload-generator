@@ -36,19 +36,19 @@ function createKeyValuePair (id, key, value, placeholder) {
     thisValue.value = localStorage.getItem(key)
   }
 
-  // Mask passwords and sensitive values
-  if (
-    thisKey.value === 'password' ||
-    thisKey.value === 'AuthToken' ||
-    thisKey.value === 'StatusCallback' ||
-    thisKey.value === 'StatusCallbackUrl' ||
-    thisKey.value === 'Authorization' ||
-    thisKey.value === 'apiKey' ||
-    thisKey.value === 'BasicAuth' ||
-    thisKey.value === 'X-Shopify-Access-Token'
-  ) {
-    thisValue.type = 'password'
-  }
+  // // Mask passwords and sensitive values
+  // if (
+  //   thisKey.value === 'password' ||
+  //   thisKey.value === 'AuthToken' ||
+  //   thisKey.value === 'StatusCallback' ||
+  //   thisKey.value === 'StatusCallbackUrl' ||
+  //   thisKey.value === 'Authorization' ||
+  //   thisKey.value === 'apiKey' ||
+  //   thisKey.value === 'BasicAuth' ||
+  //   thisKey.value === 'X-Shopify-Access-Token'
+  // ) {
+  //   thisValue.type = 'password'
+  // }
 
   // Update button
   element.querySelector('[data-update-btn]').addEventListener('click', e => {
