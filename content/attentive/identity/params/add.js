@@ -1,36 +1,8 @@
 apiParams = {
   url: 'https://api.attentivemobile.com/v1/identity-resolution/user-identifiers',
   method: 'POST',
-  propParams: [
-    {
-      key: 'pageUrl',
-      value: 'https://google.com',
-      placeholder: 'https://google.com'
-    },
-    {
-      key: 'buttonId',
-      value: 'abc123',
-      placeholder: 'abc123'
-    }
-  ],
-  queryParams: [],
-  jsonParams: {
-    phone: '+12063996576',
-    email: 'jchaffee@attentivemobile.com',
-    shopifyId: '123456789000',
-    klaviyoId: '0123456789ABCDEFGHIJKLMNOP',
-    clientUserId: '123456',
-    customIdentifiers: [
-      {
-        name: 'sf_uid',
-        value: 'xyz789'
-      }
-    ]
-  },
-  headerParams: [
-    { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
-  ],
-  userParams: [
+  propParams: [],
+  queryParams: [
     {
       key: 'phone',
       value: '+12063996576',
@@ -42,7 +14,17 @@ apiParams = {
       placeholder: 'jchaffee@attentivemobile.com'
     },
     {
-      key: 'externalIdentifiers.clientUserId',
+      key: 'shopifyId',
+      value: 'shopify123',
+      placeholder: 'shopify123'
+    },
+    {
+      key: 'klaviyoId',
+      value: 'klaviyo123',
+      placeholder: 'klaviyo123'
+    },
+    {
+      key: 'clientUserId',
       value: 'abc123',
       placeholder: 'abc123'
     },
@@ -56,5 +38,10 @@ apiParams = {
       value: 'myCustom123',
       placeholder: 'myCustom123'
     }
-  ]
+  ],
+  jsonParams: {},
+  headerParams: [
+    { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
+  ],
+  userParams: []
 }

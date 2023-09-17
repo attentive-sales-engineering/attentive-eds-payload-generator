@@ -3,22 +3,48 @@ apiParams = {
   method: 'POST',
   propParams: [
     {
-      key: 'pageUrl',
-      value: 'https://google.com',
-      placeholder: 'https://google.com'
+      key: 'to',
+      value: '+12063996576',
+      placeholder: '+12063996576 (required)'
     },
     {
-      key: 'buttonId',
+      key: 'subscriberExternalId',
       value: 'abc123',
-      placeholder: 'abc123'
+      placeholder: 'abc123  (required if no to)'
+    },
+    {
+      key: 'body',
+      value: 'This is my message body',
+      placeholder: 'This is my message body (required)'
+    },
+    {
+      key: 'mediaUrl',
+      value: 'https://example.com/image.png',
+      placeholder: 'https://example.com/image.png (optional)'
+    },
+    {
+      key: 'messageName',
+      value: 'myMessageName',
+      placeholder: 'myMessageName (optional)'
+    },
+    {
+      key: 'useShortLinks',
+      value: 'true',
+      placeholder: 'true (optional)'
+    },
+    {
+      key: 'skipFatigue',
+      value: 'true',
+      placeholder: 'true (required)'
+    },
+    {
+      key: 'subscriptionType',
+      value: 'MARKETING',
+      placeholder: 'MARKETING or TRANSACTIONAL (required)'
     }
   ],
   queryParams: [],
-  jsonParams: {
-    to: '+12063996576',
-    body: 'Hello from Attentive',
-    subscriptionType: 'MARKETING'
-  },
+  jsonParams: {},
   headerParams: [
     { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
   ],

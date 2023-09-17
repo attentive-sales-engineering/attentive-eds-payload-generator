@@ -3,39 +3,48 @@ apiParams = {
   method: 'POST',
   propParams: [
     {
-      key: 'pageUrl',
-      value: 'https://google.com',
-      placeholder: 'https://google.com'
+      key: 'productId',
+      value: 'AB12345',
+      placeholder: 'AB12345'
     },
     {
-      key: 'buttonId',
-      value: 'abc123',
-      placeholder: 'abc123'
+      key: 'productVariantId',
+      value: 'AB12345',
+      placeholder: 'AB12345'
+    },
+    {
+      key: 'productImage',
+      value: 'http://my.cdn.com/products/new-product.png',
+      placeholder: 'http://my.cdn.com/products/new-product.png'
+    },
+    {
+      key: 'productUrl',
+      value: 'http://my-store.com/products/shirts/my-shirt',
+      placeholder: 'http://my-store.com/products/shirts/my-shirt'
+    },
+    {
+      key: 'name',
+      value: 'T-Shirt',
+      placeholder: 'T-Shirt'
+    },
+    {
+      key: 'price[0].value',
+      value: '19.99',
+      placeholder: '19.99'
+    },
+    {
+      key: 'price[0].currency',
+      value: 'USD',
+      placeholder: 'USD'
+    },
+    {
+      key: 'quantity',
+      value: '1',
+      placeholder: '1'
     }
   ],
   queryParams: [],
-  jsonParams: {
-    items: [
-      {
-        productId: 'AB12345',
-        productVariantId: 'CD12345',
-        productImage: 'http://my.cdn.com/products/new-product.png',
-        productUrl: 'http://my-store.com/products/shirts/my-shirt',
-        name: 'T-Shirt',
-        price: [
-          {
-            value: 19.99,
-            currency: 'USD'
-          }
-        ],
-        quantity: 1
-      }
-    ],
-    user: {
-      phone: '+12063996576',
-      email: 'jchaffee@attentivemobile.com'
-    }
-  },
+  jsonParams: {},
   headerParams: [
     { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
   ],

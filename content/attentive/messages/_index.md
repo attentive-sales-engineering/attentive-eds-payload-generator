@@ -17,19 +17,9 @@ Make calls to the [Messages API](https://docs.attentive.com/pages/api-reference/
 
 {{< tabs "messages" >}}
 
-{{< tab "SEND MESSAGE" >}}
+{{< tab "SEND" >}}
 Make a call to this endpoint to send a message to a subscriber.
 {{< api-explorer id=`send` file=`./params/send.js` >}}
-{{< /tab >}}
-
-{{< tab "SEND SHORTLINK" >}}
-Make a call to this endpoint to send a message to a subscriber.
-{{< api-explorer id=`shortlink` file=`./params/shortlink.js` >}}
-{{< /tab >}}
-
-{{< tab "SEND BULK MESSAGES" >}}
-Make a call to this endpoint to send messages in bulk to subscribers. Note that we do not accept batches of more than 1,000 messages at a time.
-{{< api-explorer id=`bulk` file=`./params/bulk.js` >}}
 {{< /tab >}}
 
 {{< /tabs >}}

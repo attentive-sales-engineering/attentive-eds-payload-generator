@@ -1,5 +1,5 @@
 ---
-title: "Subscribers"
+title: "Unsubscribe"
 draft: false
 weight: 1000
 tags:
@@ -17,26 +17,6 @@ Notes:
 - By default, if a subscription already exists, it will try and record the attempt to create the subscription again. For TEXT subscriptions, this will result in a message being sent to the person indicating that they are already subscribed.{{< /expand >}}
 
 {{< tabs "webhooks" >}}
-
-{{< tab "GET" >}}
-Get subscription eligibility for a user
-{{< api-explorer id=`get` file=`./params/get.js` >}}
-{{< /tab >}}
-
-{{< tab "SUBSCRIBE" >}}
-Subscribe user
-{{< api-explorer id=`subscribe` file=`./params/subscribe.js` >}}
-{{< /tab >}}
-
-{{< tab "MARKETING" >}}
-Subscribe user
-{{< api-explorer id=`subscribe-marketing` file=`./params/subscribe-marketing.js` >}}
-{{< /tab >}}
-
-{{< tab "TRANSACTIONAL" >}}
-Subscribe user
-{{< api-explorer id=`subscribe-transactional` file=`./params/subscribe-transactional.js` >}}
-{{< /tab >}}
 
 {{< tab "UNSUBSCRIBE" >}}
 Unsubscribe subscriptions for a user

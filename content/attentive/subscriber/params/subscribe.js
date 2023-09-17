@@ -1,0 +1,73 @@
+apiParams = {
+  url: 'https://api.attentivemobile.com/v1/subscriptions',
+  method: 'POST',
+  propParams: [],
+  queryParams: [
+    {
+      key: 'signUpSourceId',
+      value: '12345',
+      placeholder: '12345'
+    },
+    {
+      key: 'externalIdentifiers.clientUserId',
+      value: 'abc123',
+      placeholder: 'abc123'
+    },
+    {
+      key: 'externalIdentifiers.shopifyId',
+      value: 'shopify123',
+      placeholder: 'shopify123'
+    },
+    {
+      key: 'externalIdentifiers.klaviyoId',
+      value: 'klaviyo123',
+      placeholder: 'klaviyo123'
+    },
+    {
+      key: 'externalIdentifiers.customIdentifiers[0].name',
+      value: 'myCustomId',
+      placeholder: 'myCustomId'
+    },
+    {
+      key: 'externalIdentifiers.customIdentifiers[0].value',
+      value: 'myCustom123',
+      placeholder: 'myCustom123'
+    },
+    {
+      key: 'subscriptionType',
+      value: 'MARKETING',
+      placeholder: 'MARKETING'
+    },
+    {
+      key: 'singleOptIn',
+      value: 'true',
+      placeholder: 'true'
+    },
+    {
+      key: 'locale.language',
+      value: 'en',
+      placeholder: 'en'
+    },
+    {
+      key: 'locale.country',
+      value: 'US',
+      placeholder: 'US'
+    }
+  ],
+  jsonParams: {},
+  headerParams: [
+    { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
+  ],
+  userParams: [
+    {
+      key: 'phone',
+      value: '+12063996576',
+      placeholder: '+12063996576'
+    },
+    {
+      key: 'email',
+      value: 'jchaffee@attentivemobile.com',
+      placeholder: 'jchaffee@attentivemobile.com'
+    }
+  ]
+}
