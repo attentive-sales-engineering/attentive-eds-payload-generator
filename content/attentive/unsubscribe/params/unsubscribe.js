@@ -13,24 +13,24 @@ apiParams = {
       placeholder: '83006'
     },
     {
-      key: 'File Path and Name',
+      key: 'fileName',
       value: 'chafco/uploads/custom_attributes.csv',
       placeholder: 'chafco/uploads/custom_attributes.csv'
     },
     {
-      key: 'File Type',
-      value: 'CSV',
-      placeholder: 'CSV, TSV or PSV'
+      key: 'delimiter',
+      value: 'comma',
+      placeholder: 'comma, tab or pipe'
     },
     {
-      key: 'Date Format',
-      value: '[[yyyyMMdd]]',
-      placeholder: '[[yyyyMMdd]]'
+      key: 'dateFormat',
+      value: 'yyyyMMdd',
+      placeholder: 'yyyyMMdd'
     },
     {
-      key: 'Time Zone',
-      value: '<&America/New_York&>',
-      placeholder: '<&America/New_York&>'
+      key: 'timeZone',
+      value: 'America/New_York',
+      placeholder: 'America/New_York'
     }
   ],
   propParams: [],
