@@ -343,7 +343,7 @@
     let params = {}
     let prop = {}
     let items = {}
-    // items = []
+    // let items = []
     // items[0] = {}
     // items[0].price = []
     // items[0].price.value = {}
@@ -388,7 +388,7 @@
     if (prop && Object.entries(prop).length > 0) payload_mapping.properties = prop
 
     console.log("ITEMS:", items)
-    if (items && Object.entries(items).length > 0) payload_mapping.items = items
+    if (items && Object.entries(items).length > 0) payload_mapping.items = [items]
 
     console.log("USER:", user)
     if (user && Object.entries(user).length > 0) payload_mapping.user = user
