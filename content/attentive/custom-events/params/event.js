@@ -35,21 +35,46 @@ apiParams = {
   ],
   propParams: [
     {
-      key: 'pageUrl',
-      value: 'https://google.com',
-      placeholder: 'https://google.com'
+      key: 'orderStatusURL',
+      value: 'example.com/orderstatus/54321',
+      placeholder: 'example.com/orderstatus/54321'
     },
     {
-      key: 'buttonId',
-      value: 'abc123',
-      placeholder: 'abc123'
+      key: 'delivery_date',
+      value: 'May 10',
+      placeholder: 'May 10'
+    },
+    {
+      key: 'Order Id',
+      value: '54321',
+      placeholder: '54321'
+    },
+    {
+      key: 'products[0]',
+      value: 'productId1',
+      placeholder: 'productId1'
+    },
+    {
+      key: 'products[1]',
+      value: 'productId2',
+      placeholder: 'productId2'
+    },
+    {
+      key: 'shipment.carrier',
+      value: 'fedex',
+      placeholder: 'fedex'
+    },
+    {
+      key: 'shipment.trackingNumber',
+      value: '12345',
+      placeholder: '12345'
     }
   ],
   queryParams: [
     {
       key: 'type',
-      value: 'Clicked Button',
-      placeholder: 'Clicked Button'
+      value: 'Order Shirpped',
+      placeholder: 'Order Shipped'
     },
     {
       key: 'externalEventId',
