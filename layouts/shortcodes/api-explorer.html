@@ -306,6 +306,8 @@
     let items
     let user
     let source
+    let source_mapping
+    let key_name
     let payload_mapping
     let myRequest
 
@@ -320,7 +322,15 @@
     jsonBody = document.querySelector("#{{ .Params.id }} .ace_content")?.textContent
     console.log("JSON BODY:", jsonBody)
     payload_mapping = {}
-
+    source_mapping = {
+      "bucket_name": "solutions-sftp-bucket-prod",
+      "options": {
+        "match_prefix": true,
+        "max_files": 1
+      }
+    }
+    console.log("SOURCE:", source)
+    console.log("SOURCE MAPPING BEFORE:", source_mapping)
     console.log("URL", url)
     console.log("METHOD:", method)
     console.log("HEADERS:", header_mapping)
@@ -349,9 +359,17 @@
     if (user && Object.entries(user).length > 0) payload_mapping.user = user
     console.log("PAYLOAD MAPPING", payload_mapping)
 
-    console.log("SOURCE:", source)
-    if (source && Object.entries(source).length > 0) payload_mapping.source = source
-    console.log("PAYLOAD MAPPING", payload_mapping)
+    if (source && Object.entries(source).length > 0) {
+      key_name = `${source["fileName"].replace(/(\.\w*)/, '')}_[[${source["dateFormat"]}]]<&${source["timeZone"]}&>`
+      console.log("KEY NAME:", key_name)
+      source_mapping.key_name = key_name
+      if (source["delimiter"]) {
+        delimiter = source["delimiter"]
+        console.log("DELIMITER:", delimiter)
+        source_mapping.delimiter = delimiter
+      }
+      console.log("SOURCE MAPPING AFTER:", source_mapping)
+    }
 
     // Hide previous Response if it existed
     document.querySelector("#{{ .Params.id }} [data-response-section]").classList.add("d-none")
@@ -361,7 +379,8 @@
       url,
       method,
       header_mapping,
-      payload_mapping
+      payload_mapping,
+      source_mapping
     }
     console.log("MY REQUEST", myRequest)
 
