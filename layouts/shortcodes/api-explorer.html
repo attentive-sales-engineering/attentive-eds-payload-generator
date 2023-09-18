@@ -76,7 +76,7 @@
         <div class="d-none" data-request-prop-section>
           <!-- <div class="section-title">Properties</div> -->
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1" data-prop-section-title>Properties</div>
+            <div class="section-title pl-75" style="flex: 1">Properties</div>
             <div class="section-title pl-75 mr-38" style="flex: 1">Column Header</div>
           </div>
           <div data-request-prop></div>
@@ -219,10 +219,6 @@
   // If Property Params, unhide & append key value pairs
   if (apiParams.propParams?.length > 0) {
     document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-    if (apiParams.url.match("ecommerce")) {
-      console.log("ECOMMERCE: PROP TEXT CONTENT = ITEMS")
-      document.querySelector("#{{ .Params.id }} [data-prop-section-title]").textContent = "Items"
-    }
     document.querySelector("#{{ .Params.id }} [data-request-prop-section]").classList.remove("d-none")
     apiParams.propParams?.forEach((propParam) => {
       document.querySelector("#{{ .Params.id }} [data-request-prop]").append(
@@ -313,6 +309,10 @@
     let params
     let prop
     let items
+    // items = []
+    // items[0] = {}
+    // items[0].price = []
+    // items[0].price.value = {}
     let user
     let source
     let key_name
@@ -351,6 +351,7 @@
       if (url.match("ecommerce")) {
         console.log("ECOMMERCE: ITEM = PROP")
         payload_mapping.items = prop
+        // payload_mapping.items = [prop]
       } else {
         payload_mapping.properties = prop
       }
