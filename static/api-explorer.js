@@ -1,7 +1,7 @@
 function updateTargetPayloadBody (id, targetPayload) {
   console.log('TARGET PAYLOAD:', targetPayload)
   const jsonReq = JSON.stringify(targetPayload, null, 2)
-  console.log('JSON BODY:', jsonBody)
+  // console.log('JSON BODY:', jsonBody)
   console.log(
     `updateTargetPayloadBody: .querySelector(#${id} [data-target-payload])`
   )
@@ -9,6 +9,33 @@ function updateTargetPayloadBody (id, targetPayload) {
   // Render Target Payload
   aceJsonRequest = ace.edit(
     document.querySelector(`#${id} [data-target-payload]`)
+  )
+  aceJsonRequest.setTheme('ace/theme/monokai')
+  aceJsonRequest.session.setMode('ace/mode/json')
+  aceJsonRequest.setValue(null)
+  aceJsonRequest.insert(jsonReq)
+  aceJsonRequest.setReadOnly(true)
+  aceJsonRequest.setOptions({
+    maxLines: 30,
+    highlightActiveLine: false,
+    showLineNumbers: false,
+    showGutter: false,
+    showPrintMargin: false,
+    fontSize: 14
+  })
+}
+
+function updateSourcePayloadBody (id, sourcePayload) {
+  console.log('SOURCE PAYLOAD:', sourcePayload)
+  const jsonReq = JSON.stringify(sourcePayload, null, 2)
+  // console.log('JSON BODY:', jsonBody)
+  console.log(
+    `updateSourcePayloadBody: .querySelector(#${id} [data-source-payload])`
+  )
+
+  // Render Source Payload
+  aceJsonRequest = ace.edit(
+    document.querySelector(`#${id} [data-source-payload]`)
   )
   aceJsonRequest.setTheme('ace/theme/monokai')
   aceJsonRequest.session.setMode('ace/mode/json')
