@@ -20,7 +20,7 @@ apiParams = {
     {
       key: 'delimiter',
       value: 'comma',
-      placeholder: 'comma, tab or pipe'
+      placeholder: 'comma, tab, pipe, or ndjson'
     },
     {
       key: 'dateFormat',
@@ -75,7 +75,13 @@ apiParams = {
       placeholder: '1'
     }
   ],
-  queryParams: [],
+  queryParams: [
+    {
+      key: 'occurredAt',
+      value: '2021-03-30T14:38:29+0000',
+      placeholder: 'Leave blank to auto-enter current date'
+    }
+  ],
   jsonParams: {},
   headerParams: [
     { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }

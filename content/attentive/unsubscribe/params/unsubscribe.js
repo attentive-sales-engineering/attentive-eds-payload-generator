@@ -20,7 +20,7 @@ apiParams = {
     {
       key: 'delimiter',
       value: 'comma',
-      placeholder: 'comma, tab or pipe'
+      placeholder: 'comma, tab, pipe, or ndjson'
     },
     {
       key: 'dateFormat',
