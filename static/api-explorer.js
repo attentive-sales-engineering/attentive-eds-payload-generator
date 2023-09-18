@@ -1,11 +1,15 @@
-function updateMyRequestBody (id, myRequest) {
-  console.log('MY REQUEST:', myRequest)
-  const jsonReq = JSON.stringify(myRequest, null, 2)
+function updateTargetPayloadBody (id, targetPayload) {
+  console.log('TARGET PAYLOAD:', targetPayload)
+  const jsonReq = JSON.stringify(targetPayload, null, 2)
   console.log('JSON BODY:', jsonBody)
-  console.log(`updateMyRequestBody: .querySelector(#${id} [data-my-request])`)
+  console.log(
+    `updateTargetPayloadBody: .querySelector(#${id} [data-target-payload])`
+  )
 
-  // Render My Request
-  aceJsonRequest = ace.edit(document.querySelector(`#${id} [data-my-request]`))
+  // Render Target Payload
+  aceJsonRequest = ace.edit(
+    document.querySelector(`#${id} [data-target-payload]`)
+  )
   aceJsonRequest.setTheme('ace/theme/monokai')
   aceJsonRequest.session.setMode('ace/mode/json')
   aceJsonRequest.setValue(null)

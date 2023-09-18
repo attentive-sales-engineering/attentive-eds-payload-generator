@@ -125,7 +125,7 @@
     <div class="border-top-0 border p-3">
       <div class="section-title">Target Payload</div>
       <div class="ace-border">
-        <div id="{{ .Params.id }}" class="ace-editor" data-my-request></div>
+        <div id="{{ .Params.id }}" class="ace-editor" data-target-payload></div>
       </div>
     </div>
     <div class="d-none border-top-0 border p-3">
@@ -309,7 +309,7 @@
     let source_mapping
     let key_name
     let payload_mapping
-    let myRequest
+    let targetPayload
 
     // Set variable values from query selectors
     url = document.querySelector("#{{ .Params.id }} [data-url]").value
@@ -375,17 +375,17 @@
     document.querySelector("#{{ .Params.id }} [data-response-section]").classList.add("d-none")
     console.log(`Hide "#{{ .Params.id }} [data-response-section]"`)
 
-    myRequest = {
+    targetPayload = {
       url,
       method,
       header_mapping,
       payload_mapping,
       source_mapping
     }
-    console.log("MY REQUEST", myRequest)
+    console.log("TARGET PAYLOAD", targetPayload)
 
     document.querySelector("#{{ .Params.id }} [data-response-section]").classList.remove("d-none")
-    updateMyRequestBody("{{ .Params.id }}", myRequest)
+    updateTargetPayloadBody("{{ .Params.id }}", targetPayload)
   })
 
 </script>
