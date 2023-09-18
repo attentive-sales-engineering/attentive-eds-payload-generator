@@ -121,7 +121,7 @@
       </div>
     </div>
   </form>
-  <div class="d-none" data-response-section>
+  <div class="" data-response-section>
     <div class="border-top-0 border p-3">
       <div class="section-title">Target Payload</div>
       <div class="ace-border">
@@ -301,8 +301,7 @@
   }
 
   // Form Submit listener
-  document.querySelector("#{{ .Params.id }} [data-form]").addEventListener("submit", (e) => {
-    e.preventDefault()
+  updatePayload = function (e) {
 
     let url
     let method
@@ -375,7 +374,9 @@
     console.log("SOURCE MAPPING BEFORE:", sourcePayload)
 
     if (source && Object.entries(source).length > 0) {
-      key_name = `${source["fileName"].replace(/(\.\w*)/, '')}_[[${source["dateFormat"]}]]<&${source["timeZone"]}&>`
+      key_name = `${source["fileName"].replace(/(\.\w*)/, '')}`
+      if (source["dateFormat"]) key_name += `_[[${source["dateFormat"]}]]`
+      if (source["timeZone"]) key_name += `<&${source["timeZone"]}&>`
       console.log("KEY NAME:", key_name)
       sourcePayload.key_name = key_name
       if (source["delimiter"]) {
@@ -386,15 +387,14 @@
       console.log("SOURCE PAYLOAD AFTER:", sourcePayload)
     }
 
-    // Hide previous Response if it existed
-    document.querySelector("#{{ .Params.id }} [data-response-section]").classList.add("d-none")
-    console.log(`Hide "#{{ .Params.id }} [data-response-section]"`)
-
-    document.querySelector("#{{ .Params.id }} [data-response-section]").classList.remove("d-none")
     updateTargetPayloadBody("{{ .Params.id }}", targetPayload)
-
-    document.querySelector("#{{ .Params.id }} [data-response-section]").classList.remove("d-none")
     updateSourcePayloadBody("{{ .Params.id }}", sourcePayload)
-  })
+  }
+
+  // Add our event listeners
+  window.addEventListener('DOMContentLoaded', updatePayload, false)
+  document.querySelector("#{{ .Params.id }} [data-form]").addEventListener('keyup', updatePayload, false)
+  document.querySelector("#{{ .Params.id }} [data-form]").addEventListener('click', updatePayload, false)
+
 
 </script>

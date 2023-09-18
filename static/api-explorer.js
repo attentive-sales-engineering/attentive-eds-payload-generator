@@ -164,7 +164,7 @@ function keyValuePairsToObjects (id, container) {
       console.log('VALUE:', value)
       console.log(`localStorage.getItem(${valueEnvVar})`)
     }
-    if (key === '' || value === null || value === '') return data
+    // if (key === '' || value === null || value === '') return data
     return { ...data, [key]: value }
   }, {})
 }
