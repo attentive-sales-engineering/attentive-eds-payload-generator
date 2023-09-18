@@ -84,6 +84,17 @@
             &plus;
           </button>
         </div>
+        <div class="d-none" data-request-items-section>
+          <!-- <div class="section-title">Properties</div> -->
+          <div class="input-group">
+            <div class="section-title pl-75" style="flex: 1">Items</div>
+            <div class="section-title pl-75 mr-38" style="flex: 1">Column Header</div>
+          </div>
+          <div data-request-items></div>
+          <button data-add-request-items-btn class="mt-2 btn btn-outline-success" type="button">
+            &plus;
+          </button>
+        </div>
         <div class="d-none" data-json-body-section>
           <div class="section-title">JSON Body</div>
           <div class="ace-border">
@@ -168,6 +179,13 @@
   })
 
   // Add query params Add button click listener
+  document.querySelector("#{{ .Params.id }} [data-add-request-items-btn]").addEventListener("click", () => {
+    document.querySelector("#{{ .Params.id }} [data-request-items]").append(
+      createKeyValuePair("{{ .Params.id }}")
+    )
+  })
+
+  // Add query params Add button click listener
   document.querySelector("#{{ .Params.id }} [data-add-query-param-btn]").addEventListener("click", () => {
     document.querySelector("#{{ .Params.id }} [data-query-params]").append(
       createKeyValuePair("{{ .Params.id }}")
@@ -227,6 +245,22 @@
           propParam.key,
           propParam.value,
           propParam.placeholder
+        )
+      )
+    })
+  }
+
+  // If Items Params, unhide & append key value pairs
+  if (apiParams.itemsParams?.length > 0) {
+    document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
+    document.querySelector("#{{ .Params.id }} [data-request-items-section]").classList.remove("d-none")
+    apiParams.itemsParams?.forEach((itemsParam) => {
+      document.querySelector("#{{ .Params.id }} [data-request-items]").append(
+        createKeyValuePair(
+          "{{ .Params.id }}",
+          itemsParam.key,
+          itemsParam.value,
+          itemsParam.placeholder
         )
       )
     })
@@ -303,22 +337,22 @@
   // Form Submit listener
   updatePayload = function (e) {
 
-    let url
-    let method
-    let header_mapping
-    let params
-    let prop
-    let items
+    let url = ''
+    let method = ''
+    let header_mapping = {}
+    let params = {}
+    let prop = {}
+    let items = {}
     // items = []
     // items[0] = {}
     // items[0].price = []
     // items[0].price.value = {}
-    let user
-    let source
-    let key_name
-    let payload_mapping
-    let targetPayload
-    let sourcePayload
+    let user = {}
+    let payload_mapping = {}
+    let targetPayload = {}
+    let source = {}
+    let key_name = ''
+    let sourcePayload = {}
 
     // Set variable values from query selectors
     url = document.querySelector("#{{ .Params.id }} [data-url]").value
@@ -326,38 +360,39 @@
     header_mapping = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-headers]"))
     params = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-query-params]"))
     prop = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-prop]"))
+    items = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-items]"))
     user = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-user]"))
     source = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-source]"))
     jsonBody = document.querySelector("#{{ .Params.id }} .ace_content")?.textContent
     console.log("JSON BODY:", jsonBody)
-    payload_mapping = {}
     console.log("URL", url)
     console.log("METHOD:", method)
     console.log("HEADERS:", header_mapping)
-    console.log("PARAMS:", params)
+
+    // console.log("PARAMS:", params)
     // Object.entries(params).forEach((entry) => {
     //   const [key, value] = entry
     //   console.log(`${key}: ${value}`)
     // })
-    if (params && Object.entries(params).length > 0) {
-      Object.entries(params).forEach((entry) => {
-        const [key, value] = entry
-        payload_mapping[key] = value
-      })
-    }
+    // if (params && Object.entries(params).length > 0) {
+    //   Object.entries(params).forEach((entry) => {
+    //     const [key, value] = entry
+    //     payload_mapping[key] = value
+    //   })
+    // }
+
+    console.log("PARAMS:", params)
+    if (params && Object.entries(params).length > 0) payload_mapping = params
+
     console.log("PROP:", prop)
-    if (prop && Object.entries(prop).length > 0) {
-      // If ecommerce events, copy properties to items
-      if (url.match("ecommerce")) {
-        console.log("ECOMMERCE: ITEM = PROP")
-        payload_mapping.items = prop
-        // payload_mapping.items = [prop]
-      } else {
-        payload_mapping.properties = prop
-      }
-    }
+    if (prop && Object.entries(prop).length > 0) payload_mapping.properties = prop
+
+    console.log("ITEMS:", items)
+    if (items && Object.entries(items).length > 0) payload_mapping.items = items
+
     console.log("USER:", user)
     if (user && Object.entries(user).length > 0) payload_mapping.user = user
+
     console.log("PAYLOAD MAPPING", payload_mapping)
 
     targetPayload = {

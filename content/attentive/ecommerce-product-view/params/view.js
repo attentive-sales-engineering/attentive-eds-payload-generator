@@ -33,7 +33,8 @@ apiParams = {
       placeholder: 'America/New_York'
     }
   ],
-  propParams: [
+  propParams: [],
+  itemsParams: [
     {
       key: 'productId',
       value: 'AB12345',
