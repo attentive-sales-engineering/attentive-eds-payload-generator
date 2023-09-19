@@ -343,6 +343,7 @@
     let params = {}
     let prop = {}
     let items = {}
+    let foo
     // let items = []
     // items[0] = {}
     // items[0].price = []
@@ -357,12 +358,12 @@
     // Set variable values from query selectors
     url = document.querySelector("#{{ .Params.id }} [data-url]").value
     method = document.querySelector("#{{ .Params.id }} [data-method]").value
-    header_mapping = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-headers]"))
-    params = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-query-params]"))
-    prop = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-prop]"))
-    items = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-items]"))
-    user = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-user]"))
-    source = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-source]"))
+    header_mapping = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-headers]")).tempObject
+    params = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-query-params]")).tempObject
+    prop = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-prop]")).tempObject
+    items = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-items]")).tempObject
+    user = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-user]")).tempObject
+    source = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-source]")).tempObject
     jsonBody = document.querySelector("#{{ .Params.id }} .ace_content")?.textContent
     console.log("JSON BODY:", jsonBody)
     console.log("URL", url)

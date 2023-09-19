@@ -148,23 +148,55 @@ function createKeyValuePair (id, key, value, placeholder) {
   return element
 }
 
+// function keyValuePairsToObjects (id, container) {
+//   const pairs = container.querySelectorAll(`#${id} [data-key-value-pair]`)
+//   console.log('PAIRS:', pairs)
+//   return [...pairs].reduce((data, pair) => {
+//     const key = pair.querySelector('[data-key]').value
+//     console.log('KEY:', key)
+//     let value = pair.querySelector('[data-value]').value
+//     console.log('VALUE:', value)
+//     if (value.match(/{{\w+}}/)) {
+//       console.log(`value is {{envVar}} -> fetch variable from localStorage`)
+//       let valueEnvVar = value.replaceAll(/[{}]/g, '')
+//       console.log('VALUE ENV VAR:', valueEnvVar)
+//       value = localStorage.getItem(valueEnvVar)
+//       console.log('VALUE:', value)
+//       console.log(`localStorage.getItem(${valueEnvVar})`)
+//     }
+//     console.log('DATA:', data)
+//     // if (key === '' || value === null || value === '') return data
+//     return { ...data, [key]: value }
+//   }, {})
+// }
+
 function keyValuePairsToObjects (id, container) {
   const pairs = container.querySelectorAll(`#${id} [data-key-value-pair]`)
   console.log('PAIRS:', pairs)
+  const tempObject = {}
   return [...pairs].reduce((data, pair) => {
+    let container = tempObject
     const key = pair.querySelector('[data-key]').value
     console.log('KEY:', key)
     let value = pair.querySelector('[data-value]').value
     console.log('VALUE:', value)
-    if (value.match(/{{\w+}}/)) {
-      console.log(`value is {{envVar}} -> fetch variable from localStorage`)
-      let valueEnvVar = value.replaceAll(/[{}]/g, '')
-      console.log('VALUE ENV VAR:', valueEnvVar)
-      value = localStorage.getItem(valueEnvVar)
-      console.log('VALUE:', value)
-      console.log(`localStorage.getItem(${valueEnvVar})`)
-    }
+    console.log('DATA:', data)
+    key.split('.').map((k, i, arr) => {
+      console.log('k, i, arr:', k, i, arr)
+      console.log('tempObject before:', tempObject)
+      console.log('container before:', container)
+      if (i == arr.length - 1) {
+        container = container[k] = value
+      } else {
+        container = container[k] = {}
+        return
+      }
+      console.log('container afer:', container)
+      console.log('tempObject after:', tempObject)
+    })
+    console.log('tempObject outside:', tempObject)
     // if (key === '' || value === null || value === '') return data
-    return { ...data, [key]: value }
+    // return { ...data, [key]: value }
+    return { ...data, tempObject }
   }, {})
 }
