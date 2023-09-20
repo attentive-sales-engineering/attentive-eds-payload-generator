@@ -55,11 +55,6 @@ apiParams = {
       placeholder: 'productId1'
     },
     {
-      key: 'shipment.carrier',
-      value: 'fedex',
-      placeholder: 'fedex'
-    },
-    {
       key: 'shipment.trackingNumber',
       value: '12345',
       placeholder: '12345'

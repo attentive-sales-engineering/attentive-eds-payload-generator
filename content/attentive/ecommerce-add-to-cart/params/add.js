@@ -61,19 +61,21 @@ apiParams = {
       placeholder: 'T-Shirt'
     },
     {
-      key: 'price[0].value',
+      key: 'quantity',
+      value: '1',
+      placeholder: '1'
+    }
+  ],
+  priceParams: [
+    {
+      key: 'value',
       value: '19.99',
       placeholder: '19.99'
     },
     {
-      key: 'price[0].currency',
+      key: 'currency',
       value: 'USD',
       placeholder: 'USD'
-    },
-    {
-      key: 'quantity',
-      value: '1',
-      placeholder: '1'
     }
   ],
   queryParams: [

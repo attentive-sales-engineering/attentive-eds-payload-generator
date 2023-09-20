@@ -95,6 +95,17 @@
             &plus;
           </button>
         </div>
+        <div class="d-none" data-request-price-section>
+          <!-- <div class="section-title">Properties</div> -->
+          <div class="input-group">
+            <div class="section-title pl-75" style="flex: 1">Price</div>
+            <div class="section-title pl-75 mr-38" style="flex: 1">Column Header</div>
+          </div>
+          <div data-request-price></div>
+          <!-- <button data-add-request-price-btn class="mt-2 btn btn-outline-success" type="button">
+            &plus;
+          </button> -->
+        </div>
         <div class="d-none" data-json-body-section>
           <div class="section-title">JSON Body</div>
           <div class="ace-border">
@@ -178,12 +189,19 @@
     )
   })
 
-  // Add query params Add button click listener
+  // Add Items params Add button click listener
   document.querySelector("#{{ .Params.id }} [data-add-request-items-btn]").addEventListener("click", () => {
     document.querySelector("#{{ .Params.id }} [data-request-items]").append(
       createKeyValuePair("{{ .Params.id }}")
     )
   })
+
+  // // Add Price params Add button click listener
+  // document.querySelector("#{{ .Params.id }} [data-add-request-price-btn]").addEventListener("click", () => {
+  //   document.querySelector("#{{ .Params.id }} [data-request-price]").append(
+  //     createKeyValuePair("{{ .Params.id }}")
+  //   )
+  // })
 
   // Add query params Add button click listener
   document.querySelector("#{{ .Params.id }} [data-add-query-param-btn]").addEventListener("click", () => {
@@ -266,6 +284,22 @@
     })
   }
 
+  // If Price Params, unhide & append key value pairs
+  if (apiParams.priceParams?.length > 0) {
+    document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
+    document.querySelector("#{{ .Params.id }} [data-request-price-section]").classList.remove("d-none")
+    apiParams.priceParams?.forEach((priceParam) => {
+      document.querySelector("#{{ .Params.id }} [data-request-price]").append(
+        createKeyValuePair(
+          "{{ .Params.id }}",
+          priceParam.key,
+          priceParam.value,
+          priceParam.placeholder
+        )
+      )
+    })
+  }
+
   // If JSON Params, unhide & set textContent
   if (typeof apiParams.jsonParams != "undefined") {
     console.log("JSON PARAMS:", apiParams.jsonParams)
@@ -343,6 +377,7 @@
     let params = {}
     let prop = {}
     let items = {}
+    let price = {}
     let foo
     // let items = []
     // items[0] = {}
@@ -362,6 +397,7 @@
     params = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-query-params]")).tempObject
     prop = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-prop]")).tempObject
     items = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-items]")).tempObject
+    price = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-price]")).tempObject
     user = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-user]")).tempObject
     source = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-source]")).tempObject
     jsonBody = document.querySelector("#{{ .Params.id }} .ace_content")?.textContent
@@ -390,6 +426,9 @@
 
     console.log("ITEMS:", items)
     if (items && Object.entries(items).length > 0) payload_mapping.items = [items]
+
+    console.log("PRICE:", price)
+    if (price && Object.entries(price).length > 0) payload_mapping.items[0].price = [price]
 
     console.log("USER:", user)
     if (user && Object.entries(user).length > 0) payload_mapping.user = user
