@@ -105,5 +105,17 @@ apiParams = {
       value: 'abc123',
       placeholder: 'abc123'
     }
+  ],
+  customParams: [
+    {
+      key: 'name',
+      value: 'myCustomId',
+      placeholder: 'myCustomId'
+    },
+    {
+      key: 'value',
+      value: 'abc123',
+      placeholder: 'abc123'
+    }
   ]
 }

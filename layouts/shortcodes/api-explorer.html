@@ -37,7 +37,7 @@
           Payload
         </button>
       </li>
-      <li class="nav-item d-none" role="presentation" data-user-params-section>
+      <li class="nav-item d-none" role="presentation" data-user-section>
         <button class="nav-link" id="{{ .Params.id }}-request-user-tab" data-bs-toggle="tab"
           data-bs-target="#{{ .Params.id }}-request-user" type="button" role="tab" aria-controls="request-user"
           aria-selected="false">
@@ -63,7 +63,6 @@
       <div class="tab-pane fade show active" id="{{ .Params.id }}-query-params" role="tabpanel"
         aria-labelledby="query-params-tab">
         <div class="d-none" data-query-params-section>
-          <!-- <div class="section-title">Params</div> -->
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Params</div>
             <div class="section-title pl-75 mr-38" style="flex: 1">Column Header</div>
@@ -74,7 +73,6 @@
           </button>
         </div>
         <div class="d-none" data-request-prop-section>
-          <!-- <div class="section-title">Properties</div> -->
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Properties</div>
             <div class="section-title pl-75 mr-38" style="flex: 1">Column Header</div>
@@ -85,7 +83,6 @@
           </button>
         </div>
         <div class="d-none" data-request-items-section>
-          <!-- <div class="section-title">Properties</div> -->
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Items</div>
             <div class="section-title pl-75 mr-38" style="flex: 1">Column Header</div>
@@ -96,7 +93,6 @@
           </button>
         </div>
         <div class="d-none" data-request-price-section>
-          <!-- <div class="section-title">Properties</div> -->
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Price</div>
             <div class="section-title pl-75 mr-38" style="flex: 1">Column Header</div>
@@ -121,14 +117,26 @@
         </button>
       </div>
       <div class="tab-pane fade" id="{{ .Params.id }}-request-user" role="tabpanel" aria-labelledby="request-user-tab">
-        <div class="input-group">
-          <div class="section-title pl-75" style="flex: 1">User Properties</div>
-          <div class="section-title pl-75 mr-38" style="flex: 1">Column Header</div>
+        <div class="d-none" data-user-params-section>
+          <div class="input-group">
+            <div class="section-title pl-75" style="flex: 1">User Properties</div>
+            <div class="section-title pl-75 mr-38" style="flex: 1">Column Header</div>
+          </div>
+          <div data-request-user></div>
+          <button data-add-request-user-btn class="mt-2 btn btn-outline-success" type="button">
+            &plus;
+          </button>
         </div>
-        <div data-request-user></div>
-        <button data-add-request-user-btn class="mt-2 btn btn-outline-success" type="button">
-          &plus;
-        </button>
+        <div class="d-none" data-custom-section>
+          <div class="input-group">
+            <div class="section-title pl-75" style="flex: 1">Custom Identifer Properties</div>
+            <div class="section-title pl-75 mr-38" style="flex: 1">Column Header</div>
+          </div>
+          <div data-request-custom></div>
+          <!-- <button data-add-request-custom-btn class="mt-2 btn btn-outline-success" type="button">
+            &plus;
+          </button> -->
+        </div>
       </div>
       <div class="tab-pane fade" id="{{ .Params.id }}-request-source" role="tabpanel"
         aria-labelledby="request-source-tab">
@@ -223,6 +231,13 @@
       createKeyValuePair("{{ .Params.id }}")
     )
   })
+
+  // // Add Custom Identifier params Add button click listener
+  // document.querySelector("#{{ .Params.id }} [data-add-request-custom-btn]").addEventListener("click", () => {
+  //   document.querySelector("#{{ .Params.id }} [data-request-custom]").append(
+  //     createKeyValuePair("{{ .Params.id }}")
+  //   )
+  // })
 
   // Add Source params Add button click listener
   document.querySelector("#{{ .Params.id }} [data-add-request-source-btn]").addEventListener("click", () => {
@@ -340,6 +355,7 @@
 
   // If User Params, unhide & append key value pairs
   if (apiParams.userParams?.length > 0) {
+    document.querySelector("#{{ .Params.id }} [data-user-section]").classList.remove("d-none")
     document.querySelector("#{{ .Params.id }} [data-user-params-section]").classList.remove("d-none")
     apiParams.userParams?.forEach((userParam) => {
       document.querySelector("#{{ .Params.id }} [data-request-user]").append(
@@ -353,6 +369,21 @@
     })
   }
 
+  // If Custom Identifier Params, unhide & append key value pairs
+  if (apiParams.customParams?.length > 0) {
+    document.querySelector("#{{ .Params.id }} [data-user-section]").classList.remove("d-none")
+    document.querySelector("#{{ .Params.id }} [data-custom-section]").classList.remove("d-none")
+    apiParams.customParams?.forEach((customParam) => {
+      document.querySelector("#{{ .Params.id }} [data-request-custom]").append(
+        createKeyValuePair(
+          "{{ .Params.id }}",
+          customParam.key,
+          customParam.value,
+          customParam.placeholder
+        )
+      )
+    })
+  }
   // If Source Params, unhide & append key value pairs
   if (apiParams.sourceParams?.length > 0) {
     document.querySelector("#{{ .Params.id }} [data-source-params-section]").classList.remove("d-none")
@@ -378,12 +409,8 @@
     let prop = {}
     let items = {}
     let price = {}
-    let foo
-    // let items = []
-    // items[0] = {}
-    // items[0].price = []
-    // items[0].price.value = {}
     let user = {}
+    let custom = {}
     let payload_mapping = {}
     let targetPayload = {}
     let source = {}
@@ -399,6 +426,7 @@
     items = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-items]")).tempObject
     price = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-price]")).tempObject
     user = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-user]")).tempObject
+    custom = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-custom]")).tempObject
     source = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-source]")).tempObject
     jsonBody = document.querySelector("#{{ .Params.id }} .ace_content")?.textContent
     console.log("JSON BODY:", jsonBody)
@@ -432,6 +460,12 @@
 
     console.log("USER:", user)
     if (user && Object.entries(user).length > 0) payload_mapping.user = user
+
+    console.log("CUSTOM IDENTIFIER:", custom)
+    if (custom && Object.entries(custom).length > 0) {
+      payload_mapping.user.externalIdentifiers.customIdentifiers = []
+      payload_mapping.user.externalIdentifiers.customIdentifiers[0] = custom
+    }
 
     console.log("PAYLOAD MAPPING", payload_mapping)
 
