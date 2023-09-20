@@ -56,16 +56,6 @@ apiParams = {
       placeholder: 'klaviyo123'
     },
     {
-      key: 'externalIdentifiers.customIdentifiers[0].name',
-      value: 'myCustomId',
-      placeholder: 'myCustomId'
-    },
-    {
-      key: 'externalIdentifiers.customIdentifiers[0].value',
-      value: 'myCustom123',
-      placeholder: 'myCustom123'
-    },
-    {
       key: 'subscriptionType',
       value: 'MARKETING',
       placeholder: 'MARKETING'

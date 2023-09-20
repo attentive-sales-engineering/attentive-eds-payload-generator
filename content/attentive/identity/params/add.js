@@ -59,16 +59,6 @@ apiParams = {
       key: 'clientUserId',
       value: 'abc123',
       placeholder: 'abc123'
-    },
-    {
-      key: 'externalIdentifiers.customIdentifiers[0].name',
-      value: 'myCustomId',
-      placeholder: 'myCustomId'
-    },
-    {
-      key: 'externalIdentifiers.customIdentifiers[0].value',
-      value: 'myCustom123',
-      placeholder: 'myCustom123'
     }
   ],
   jsonParams: {},

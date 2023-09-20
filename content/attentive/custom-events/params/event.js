@@ -50,14 +50,9 @@ apiParams = {
       placeholder: '54321'
     },
     {
-      key: 'products[0]',
+      key: 'productId',
       value: 'productId1',
       placeholder: 'productId1'
-    },
-    {
-      key: 'products[1]',
-      value: 'productId2',
-      placeholder: 'productId2'
     },
     {
       key: 'shipment.carrier',
@@ -106,16 +101,6 @@ apiParams = {
       key: 'externalIdentifiers.clientUserId',
       value: 'abc123',
       placeholder: 'abc123'
-    },
-    {
-      key: 'externalIdentifiers.customIdentifiers[0].name',
-      value: 'myCustomId',
-      placeholder: 'myCustomId'
-    },
-    {
-      key: 'externalIdentifiers.customIdentifiers[0].value',
-      value: 'myCustom123',
-      placeholder: 'myCustom123'
     }
   ]
 }
