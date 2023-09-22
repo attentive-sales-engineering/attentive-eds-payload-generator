@@ -67,9 +67,9 @@
             <div class="section-title pl-75 mr-38" style="flex: 1">Column Header</div>
           </div>
           <div data-query-params></div>
-          <button data-add-query-param-btn class="mt-2 btn btn-outline-success" type="button">
+          <!-- <button data-add-query-param-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
-          </button>
+          </button> -->
         </div>
         <div class="d-none" data-request-prop-section>
           <div class="input-group">
@@ -87,9 +87,9 @@
             <div class="section-title pl-75 mr-38" style="flex: 1">Column Header</div>
           </div>
           <div data-request-items></div>
-          <button data-add-request-items-btn class="mt-2 btn btn-outline-success" type="button">
+          <!-- <button data-add-request-items-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
-          </button>
+          </button> -->
         </div>
         <div class="d-none" data-request-price-section>
           <div class="input-group">
@@ -160,9 +160,9 @@
           <div class="section-title pl-75 mr-38" style="flex: 1">Column Header</div>
         </div>
         <div data-request-source></div>
-        <button data-add-request-source-btn class="mt-2 btn btn-outline-success" type="button">
+        <!-- <button data-add-request-source-btn class="mt-2 btn btn-outline-success" type="button">
           &plus;
-        </button>
+        </button> -->
       </div>
     </div>
   </div>
@@ -212,12 +212,12 @@
     )
   })
 
-  // Add Items params Add button click listener
-  document.querySelector("#{{ .Params.id }} [data-add-request-items-btn]").addEventListener("click", () => {
-    document.querySelector("#{{ .Params.id }} [data-request-items]").append(
-      createKeyValuePair("{{ .Params.id }}")
-    )
-  })
+  // // Add Items params Add button click listener
+  // document.querySelector("#{{ .Params.id }} [data-add-request-items-btn]").addEventListener("click", () => {
+  //   document.querySelector("#{{ .Params.id }} [data-request-items]").append(
+  //     createKeyValuePair("{{ .Params.id }}")
+  //   )
+  // })
 
   // // Add Price params Add button click listener
   // document.querySelector("#{{ .Params.id }} [data-add-request-price-btn]").addEventListener("click", () => {
@@ -233,12 +233,12 @@
   //   )
   // })
 
-  // Add query params Add button click listener
-  document.querySelector("#{{ .Params.id }} [data-add-query-param-btn]").addEventListener("click", () => {
-    document.querySelector("#{{ .Params.id }} [data-query-params]").append(
-      createKeyValuePair("{{ .Params.id }}")
-    )
-  })
+  // // Add query params Add button click listener
+  // document.querySelector("#{{ .Params.id }} [data-add-query-param-btn]").addEventListener("click", () => {
+  //   document.querySelector("#{{ .Params.id }} [data-query-params]").append(
+  //     createKeyValuePair("{{ .Params.id }}")
+  //   )
+  // })
 
   // Add header params Add button click listener
   document.querySelector("#{{ .Params.id }} [data-add-request-header-btn]").addEventListener("click", () => {
@@ -261,12 +261,12 @@
   //   )
   // })
 
-  // Add Source params Add button click listener
-  document.querySelector("#{{ .Params.id }} [data-add-request-source-btn]").addEventListener("click", () => {
-    document.querySelector("#{{ .Params.id }} [data-request-source]").append(
-      createKeyValuePair("{{ .Params.id }}")
-    )
-  })
+  // // Add Source params Add button click listener
+  // document.querySelector("#{{ .Params.id }} [data-add-request-source-btn]").addEventListener("click", () => {
+  //   document.querySelector("#{{ .Params.id }} [data-request-source]").append(
+  //     createKeyValuePair("{{ .Params.id }}")
+  //   )
+  // })
 
   // Set url param
   document.querySelector("#{{ .Params.id }} [data-url]").value = apiParams.url
