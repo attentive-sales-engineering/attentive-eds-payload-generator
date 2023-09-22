@@ -120,10 +120,16 @@
       </div>
       <div class="tab-pane fade" id="{{ .Params.id }}-request-headers" role="tabpanel"
         aria-labelledby="request-headers-tab">
-        <div data-request-headers></div>
-        <button data-add-request-header-btn class="mt-2 btn btn-outline-success" type="button">
-          &plus;
-        </button>
+        <div class="" data-request-headers-section>
+          <div class="input-group">
+            <div class="section-title pl-75" style="flex: 1">Authorization Header</div>
+            <div class="section-title pl-75 mr-38" style="flex: 1">Bearer Token</div>
+          </div>
+          <div data-request-headers></div>
+          <button data-add-request-header-btn class="mt-2 btn btn-outline-success" type="button">
+            &plus;
+          </button>
+        </div>
       </div>
       <div class="tab-pane fade" id="{{ .Params.id }}-request-user" role="tabpanel" aria-labelledby="request-user-tab">
         <div class="d-none" data-user-params-section>
