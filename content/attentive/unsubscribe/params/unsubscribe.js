@@ -34,46 +34,17 @@ apiParams = {
     }
   ],
   propParams: [],
-  queryParams: [
+  queryParams: [],
+  subscriptionsParams: [
     {
-      key: 'subscriptions[0].type',
+      key: 'type',
       value: 'MARKETING',
-      placeholder: 'MARKETING'
+      placeholder: 'MARKETING or TRANSACTIONAL'
     },
     {
-      key: 'subscriptions[0].channel',
+      key: 'channel',
       value: 'TEXT',
-      placeholder: 'TEXT'
-    },
-    {
-      key: 'subscriptions[1].type',
-      value: 'MARKETING',
-      placeholder: 'MARKETING'
-    },
-    {
-      key: 'subscriptions[1].channel',
-      value: 'EMAIL',
-      placeholder: 'EMAIL'
-    },
-    {
-      key: 'subscriptions[2].type',
-      value: 'TRANSACTIONAL',
-      placeholder: 'TRANSACTIONAL'
-    },
-    {
-      key: 'subscriptions[2].channel',
-      value: 'TEXT',
-      placeholder: 'TEXT'
-    },
-    {
-      key: 'subscriptions[3].type',
-      value: 'TRANSACTIONAL',
-      placeholder: 'TRANSACTIONAL'
-    },
-    {
-      key: 'subscriptions[3].channel',
-      value: 'EMAIL',
-      placeholder: 'EMAIL'
+      placeholder: 'TEXT or EMAIL'
     }
   ],
   jsonParams: {},
