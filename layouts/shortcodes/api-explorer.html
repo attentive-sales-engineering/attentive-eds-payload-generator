@@ -30,8 +30,15 @@
       <button type="submit" class="btn btn-primary">Generate</button>
     </div>
     <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item d-none" role="presentation" data-source-params-section>
+        <button class="nav-link active" id="{{ .Params.id }}-request-source-tab" data-bs-toggle="tab"
+          data-bs-target="#{{ .Params.id }}-request-source" type="button" role="tab" aria-controls="request-source"
+          aria-selected="false">
+          Source
+        </button>
+      </li>
       <li class="nav-item d-none" role="presentation" data-params-section>
-        <button class="nav-link active" id="{{ .Params.id }}-query-params-tab" data-bs-toggle="tab"
+        <button class="nav-link" id="{{ .Params.id }}-query-params-tab" data-bs-toggle="tab"
           data-bs-target="#{{ .Params.id }}-query-params" type="button" role="tab" aria-controls="query-params"
           aria-selected="true">
           Payload
@@ -42,13 +49,6 @@
           data-bs-target="#{{ .Params.id }}-request-user" type="button" role="tab" aria-controls="request-user"
           aria-selected="false">
           User
-        </button>
-      </li>
-      <li class="nav-item d-none" role="presentation" data-source-params-section>
-        <button class="nav-link" id="{{ .Params.id }}-request-source-tab" data-bs-toggle="tab"
-          data-bs-target="#{{ .Params.id }}-request-source" type="button" role="tab" aria-controls="request-source"
-          aria-selected="false">
-          Source
         </button>
       </li>
       <li class="nav-item" role="presentation">
