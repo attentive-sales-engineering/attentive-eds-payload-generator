@@ -60,8 +60,7 @@
       </li>
     </ul>
     <div class="tab-content p-3 border-top-0 border">
-      <div class="tab-pane fade show active" id="{{ .Params.id }}-query-params" role="tabpanel"
-        aria-labelledby="query-params-tab">
+      <div class="tab-pane fade" id="{{ .Params.id }}-query-params" role="tabpanel" aria-labelledby="query-params-tab">
         <div class="d-none" data-query-params-section>
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Params</div>
@@ -148,7 +147,7 @@
           </button> -->
         </div>
       </div>
-      <div class="tab-pane fade" id="{{ .Params.id }}-request-source" role="tabpanel"
+      <div class="tab-pane fade show active" id="{{ .Params.id }}-request-source" role="tabpanel"
         aria-labelledby="request-source-tab">
         <div class="input-group">
           <div class="section-title pl-75" style="flex: 1">Source Params</div>
