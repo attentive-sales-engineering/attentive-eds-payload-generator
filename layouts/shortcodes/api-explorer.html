@@ -527,7 +527,7 @@
 
     if (source && Object.entries(source).length > 0) {
       key_name = `${source["fileName"].replace(/(\.\w*)/, '')}`
-      if (source["dateFormat"]) key_name += `_[[${source["dateFormat"]}]]`
+      if (source["dateFormat"]) key_name += `[[${source["dateFormat"]}]]`
       if (source["timeZone"]) key_name += `<&${source["timeZone"]}&>`
       console.log("KEY NAME:", key_name)
       sourcePayload.key_name = key_name
