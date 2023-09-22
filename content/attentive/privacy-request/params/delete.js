@@ -4,23 +4,23 @@ apiParams = {
   sourceParams: [
     {
       key: 'Client Name',
-      value: 'Chafco',
-      placeholder: 'Chafco'
+      value: '',
+      placeholder: ''
     },
     {
       key: 'Client ID',
-      value: '83006',
-      placeholder: '83006'
+      value: '',
+      placeholder: ''
     },
     {
       key: 'fileName',
-      value: 'chafco/uploads/custom_attributes.csv',
+      value: '',
       placeholder: 'chafco/uploads/custom_attributes.csv'
     },
     {
       key: 'delimiter',
-      value: 'comma',
-      placeholder: 'comma, tab, pipe, or ndjson'
+      value: '',
+      placeholder: '(optional) comma (default), tab, pipe, or ndjson'
     },
     {
       key: 'dateFormat',
@@ -37,18 +37,18 @@ apiParams = {
   queryParams: [
     {
       key: 'subjectPhone',
-      value: '+12063996576',
-      placeholder: '+12063996576'
+      value: '{{subjectPhone}}',
+      placeholder: '{{subjectPhone}}'
     },
     {
       key: 'subjectEmail',
-      value: 'jchaffee@attentivemobile.com',
-      placeholder: 'jchaffee@attentivemobile.com'
+      value: '{{subjectEmail}}',
+      placeholder: '{{subjectEmail}}'
     },
     {
       key: 'requestMsg',
-      value: 'The subscriber requested to be removed',
-      placeholder: 'The subscriber requested to be removed'
+      value: '',
+      placeholder: 'The subscriber requested to be removed (optional)'
     }
   ],
   jsonParams: {},
