@@ -195,7 +195,7 @@ function keyValuePairsToObjects (id, container) {
       console.log('tempObject after:', tempObject)
     })
     console.log('tempObject outside:', tempObject)
-    // if (key === '' || value === null || value === '') return data
+    if (key === '' || value === null || value === '') return data
     // return { ...data, [key]: value }
     return { ...data, tempObject }
   }, {})
