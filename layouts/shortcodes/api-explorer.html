@@ -506,8 +506,8 @@
 
     console.log("CUSTOM IDENTIFIER:", custom)
     if (custom && Object.entries(custom).length > 0) {
-      payload_mapping.user.externalIdentifiers.customIdentifiers = []
-      payload_mapping.user.externalIdentifiers.customIdentifiers[0] = custom
+      payload_mapping.user.externalIdentifiers.custom = []
+      payload_mapping.user.externalIdentifiers.custom[0] = custom
     }
 
     console.log("PAYLOAD MAPPING", payload_mapping)
