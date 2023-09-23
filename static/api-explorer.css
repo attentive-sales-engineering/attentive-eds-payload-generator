@@ -310,3 +310,7 @@ select {
 dialog::backdrop {
   background: rgba(0, 0, 0, 0.4);
 }
+
+::placeholder {
+  font-style: italic;
+}
