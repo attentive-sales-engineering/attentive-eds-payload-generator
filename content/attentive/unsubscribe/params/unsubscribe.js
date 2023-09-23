@@ -4,33 +4,33 @@ apiParams = {
   sourceParams: [
     {
       key: 'Client Name',
-      value: 'Chafco',
-      placeholder: 'Chafco'
+      value: '',
+      placeholder: 'Chafco (required)'
     },
     {
       key: 'Client ID',
-      value: '83006',
-      placeholder: '83006'
+      value: '',
+      placeholder: '83006 (required)'
     },
     {
       key: 'fileName',
-      value: 'chafco/uploads/custom_attributes.csv',
-      placeholder: 'chafco/uploads/custom_attributes.csv'
+      value: '',
+      placeholder: 'chafco/uploads/custom_attributes.csv (required)'
     },
     {
       key: 'delimiter',
-      value: 'comma',
-      placeholder: 'comma, tab, pipe, or ndjson'
+      value: '',
+      placeholder: 'comma, tab, pipe, ndjson (optional, default comma)'
     },
     {
       key: 'dateFormat',
-      value: 'yyyyMMdd',
-      placeholder: 'yyyyMMdd'
+      value: '',
+      placeholder: 'yyyyMMdd, yyyyMMddHH00 (required, if scheduled)'
     },
     {
       key: 'timeZone',
-      value: 'America/New_York',
-      placeholder: 'America/New_York'
+      value: '',
+      placeholder: 'America/New_York, Europe/London (required, if scheduled)'
     }
   ],
   propParams: [],
@@ -38,29 +38,33 @@ apiParams = {
   subscriptionsParams: [
     {
       key: 'type',
-      value: 'MARKETING',
-      placeholder: 'MARKETING or TRANSACTIONAL'
+      value: '',
+      placeholder: 'MARKETING, TRANSACTIONAL (required)'
     },
     {
       key: 'channel',
-      value: 'TEXT',
-      placeholder: 'TEXT or EMAIL'
+      value: '',
+      placeholder: 'TEXT, EMAIL (required)'
     }
   ],
   jsonParams: {},
   headerParams: [
-    { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
+    {
+      key: 'Authorization',
+      value: 'Bearer <API Key>',
+      placeholder: 'Bearer <API Key> (required)'
+    }
   ],
   userParams: [
     {
       key: 'phone',
-      value: '+12063996576',
-      placeholder: '+12063996576'
+      value: '',
+      placeholder: 'phone (required, E.164 format)'
     },
     {
       key: 'email',
-      value: 'jchaffee@attentivemobile.com',
-      placeholder: 'jchaffee@attentivemobile.com'
+      value: '',
+      placeholder: 'email (phone or email required)'
     }
   ]
 }

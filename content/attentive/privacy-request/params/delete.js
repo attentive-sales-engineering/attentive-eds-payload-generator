@@ -15,7 +15,7 @@ apiParams = {
     {
       key: 'fileName',
       value: '',
-      placeholder: 'chafco/uploads/custom_attributes.csv'
+      placeholder: 'chafco/uploads/custom_attributes.csv (required)'
     },
     {
       key: 'delimiter',
@@ -24,36 +24,40 @@ apiParams = {
     },
     {
       key: 'dateFormat',
-      value: 'yyyyMMdd',
-      placeholder: 'yyyyMMdd'
+      value: '',
+      placeholder: 'yyyyMMdd, yyyyMMddHH00 (required, if scheduled)'
     },
     {
       key: 'timeZone',
-      value: 'America/New_York',
-      placeholder: 'America/New_York'
+      value: '',
+      placeholder: 'America/New_York, Europe/London (required, if scheduled)'
     }
   ],
   propParams: [],
   queryParams: [
     {
       key: 'subjectPhone',
-      value: '{{subjectPhone}}',
-      placeholder: '{{subjectPhone}}'
+      value: '',
+      placeholder: 'subjectPhone (subjectPhone or subjectEmail required)'
     },
     {
       key: 'subjectEmail',
-      value: '{{subjectEmail}}',
-      placeholder: '{{subjectEmail}}'
+      value: '',
+      placeholder: 'subjectEmail (subjectPhone or subjectEmail required)'
     },
     {
       key: 'requestMsg',
       value: '',
-      placeholder: 'The subscriber requested to be removed (optional)'
+      placeholder: 'requestMsg (optional)'
     }
   ],
   jsonParams: {},
   headerParams: [
-    { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
+    {
+      key: 'Authorization',
+      value: 'Bearer <API Key>',
+      placeholder: 'Bearer <API Key> (required)'
+    }
   ],
   userParams: []
 }

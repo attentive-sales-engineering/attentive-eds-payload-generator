@@ -5,122 +5,138 @@ apiParams = {
     {
       key: 'Client Name',
       value: '',
-      placeholder: 'Chafco'
+      placeholder: 'Chafco (required)'
     },
     {
       key: 'Client ID',
       value: '',
-      placeholder: '83006'
+      placeholder: '83006 (required)'
     },
     {
       key: 'fileName',
       value: '',
-      placeholder: 'chafco/uploads/custom_attributes.csv'
+      placeholder: 'chafco/uploads/custom_attributes.csv (required)'
     },
     {
       key: 'delimiter',
       value: '',
-      placeholder: 'comma, tab, pipe, or ndjson'
+      placeholder: 'comma, tab, pipe, ndjson (optional, default comma)'
     },
     {
       key: 'dateFormat',
       value: '',
-      placeholder: 'yyyyMMdd'
+      placeholder: 'yyyyMMdd, yyyyMMddHH00 (required, if scheduled)'
     },
     {
       key: 'timeZone',
       value: '',
-      placeholder: 'America/New_York'
+      placeholder: 'America/New_York, Europe/London (required, if scheduled)'
     }
   ],
   propParams: [
     {
       key: 'prop1',
       value: '',
-      placeholder: '{{prop1}}'
-    },
-    {
-      key: 'prop2',
-      value: '',
-      placeholder: '{{prop2}}'
+      placeholder: 'prop1 (required)'
     }
   ],
   itemsParams: [
     {
       key: 'productId',
       value: '',
-      placeholder: 'AB12345'
+      placeholder: 'productId (required)'
     },
     {
       key: 'productVariantId',
       value: '',
-      placeholder: 'AB12345'
+      placeholder: 'productId (required)'
     },
     {
       key: 'productImage',
       value: '',
-      placeholder: 'http://my.cdn.com/products/new-product.png'
+      placeholder: 'imageUrl (optional)'
     },
     {
       key: 'productUrl',
       value: '',
-      placeholder: 'http://my-store.com/products/shirts/my-shirt'
+      placeholder: 'productUrl (optional)'
     },
     {
       key: 'name',
       value: '',
-      placeholder: 'T-Shirt'
+      placeholder: 'productName (optional)'
     },
     {
       key: 'quantity',
       value: '',
-      placeholder: '1'
+      placeholder: 'quantity (optional)'
     }
   ],
   priceParams: [
     {
       key: 'value',
       value: '',
-      placeholder: '19.99'
+      placeholder: 'price (required)'
     },
     {
       key: 'currency',
       value: '',
-      placeholder: 'USD'
+      placeholder: 'USD, CAD, GBP (optional)'
     }
   ],
-  queryParams: [],
+  queryParams: [
+    {
+      key: 'type',
+      value: '',
+      placeholder: 'Order Shipped (required)'
+    },
+    {
+      key: 'externalEventId',
+      value: '',
+      placeholder: 'externalEventId (optional)'
+    },
+    {
+      key: 'occurredAt',
+      value: '',
+      placeholder:
+        '2021-03-30T14:38:29+0000 (optional, default = now, if prop omitted)'
+    }
+  ],
   jsonParams: {},
   headerParams: [
-    { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
+    {
+      key: 'Authorization',
+      value: 'Bearer <API Key>',
+      placeholder: 'Bearer <API Key> (required)'
+    }
   ],
   userParams: [
     {
       key: 'phone',
       value: '',
-      placeholder: '{{phone}}'
+      placeholder: 'phone (required, E.164 format)'
     },
     {
       key: 'email',
       value: '',
-      placeholder: '{{email}}'
+      placeholder: 'email (phone or email required)'
     },
     {
       key: 'externalIdentifiers.clientUserId',
       value: '',
-      placeholder: '{{clientUserId}}'
+      placeholder: 'clientUserId (optional)'
     }
   ],
   customParams: [
     {
       key: 'name',
       value: '',
-      placeholder: '{{myCustomId}}'
+      placeholder: 'customIdentifierName (optional)'
     },
     {
       key: 'value',
       value: '',
-      placeholder: '{{abc123}}'
+      placeholder: 'clientUserId (optional)'
     }
   ]
 }

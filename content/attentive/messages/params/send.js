@@ -4,109 +4,87 @@ apiParams = {
   sourceParams: [
     {
       key: 'Client Name',
-      value: 'Chafco',
-      placeholder: 'Chafco'
+      value: '',
+      placeholder: 'Chafco (required)'
     },
     {
       key: 'Client ID',
-      value: '83006',
-      placeholder: '83006'
+      value: '',
+      placeholder: '83006 (required)'
     },
     {
       key: 'fileName',
-      value: 'chafco/uploads/custom_attributes.csv',
-      placeholder: 'chafco/uploads/custom_attributes.csv'
+      value: '',
+      placeholder: 'chafco/uploads/custom_attributes.csv (required)'
     },
     {
       key: 'delimiter',
-      value: 'comma',
-      placeholder: 'comma, tab, pipe, or ndjson'
+      value: '',
+      placeholder: 'comma, tab, pipe, ndjson (optional, default comma)'
     },
     {
       key: 'dateFormat',
-      value: 'yyyyMMdd',
-      placeholder: 'yyyyMMdd'
+      value: '',
+      placeholder: 'yyyyMMdd, yyyyMMddHH00 (required, if scheduled)'
     },
     {
       key: 'timeZone',
-      value: 'America/New_York',
-      placeholder: 'America/New_York'
+      value: '',
+      placeholder: 'America/New_York, Europe/London (required, if scheduled)'
     }
   ],
   propParams: [],
   queryParams: [
     {
       key: 'to',
-      value: '+12063996576',
-      placeholder: '+12063996576 (required)'
+      value: '',
+      placeholder: 'to (required, E.164 format)'
     },
     {
       key: 'subscriberExternalId',
-      value: 'abc123',
-      placeholder: 'abc123  (required if no to)'
+      value: '',
+      placeholder: 'subscriberExternalId (required, if no `to`)'
     },
     {
       key: 'body',
-      value: 'This is my message body',
-      placeholder: 'This is my message body (required)'
+      value: '',
+      placeholder: 'body (required)'
     },
     {
       key: 'mediaUrl',
-      value: 'https://example.com/image.png',
-      placeholder: 'https://example.com/image.png (optional)'
+      value: '',
+      placeholder: 'mediaUrl (optional)'
     },
     {
       key: 'messageName',
-      value: 'myMessageName',
-      placeholder: 'myMessageName (optional)'
+      value: '',
+      placeholder: 'messageName (optional)'
     },
     {
       key: 'useShortLinks',
-      value: 'true',
-      placeholder: 'true (optional)'
+      value: '',
+      placeholder:
+        'true, false (required, true requires a non-null messageName.)'
     },
     {
       key: 'skipFatigue',
-      value: 'true',
-      placeholder: 'true (required)'
+      value: '',
+      placeholder: 'true, false (required, default = true)'
     },
     {
       key: 'subscriptionType',
-      value: 'MARKETING',
-      placeholder: 'MARKETING or TRANSACTIONAL (required)'
+      value: '',
+      placeholder: 'MARKETING, TRANSACTIONAL (required)'
     }
   ],
   jsonParams: {},
   headerParams: [
-    { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
-  ],
-  userParams: [
     {
-      key: 'phone',
-      value: '+12063996576',
-      placeholder: '+12063996576'
-    },
-    {
-      key: 'email',
-      value: 'jchaffee@attentivemobile.com',
-      placeholder: 'jchaffee@attentivemobile.com'
-    },
-    {
-      key: 'externalIdentifiers.clientUserId',
-      value: 'abc123',
-      placeholder: 'abc123'
+      key: 'Authorization',
+      value: 'Bearer <API Key>',
+      placeholder: 'Bearer <API Key> (required)'
     }
   ],
-  customParams: [
-    {
-      key: 'name',
-      value: 'myCustomId',
-      placeholder: 'myCustomId'
-    },
-    {
-      key: 'value',
-      value: 'abc123',
-      placeholder: 'abc123'
-    }
-  ]
+  userParams: [],
+  customParams: []
 }

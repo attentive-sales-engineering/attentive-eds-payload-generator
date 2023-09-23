@@ -4,110 +4,95 @@ apiParams = {
   sourceParams: [
     {
       key: 'Client Name',
-      value: 'Chafco',
-      placeholder: 'Chafco'
+      value: '',
+      placeholder: 'Chafco (required)'
     },
     {
       key: 'Client ID',
-      value: '83006',
-      placeholder: '83006'
+      value: '',
+      placeholder: '83006 (required)'
     },
     {
       key: 'fileName',
-      value: 'chafco/uploads/custom_attributes.csv',
-      placeholder: 'chafco/uploads/custom_attributes.csv'
+      value: '',
+      placeholder: 'chafco/uploads/custom_attributes.csv (required)'
     },
     {
       key: 'delimiter',
-      value: 'comma',
-      placeholder: 'comma, tab, pipe, or ndjson'
+      value: '',
+      placeholder: 'comma, tab, pipe, ndjson (optional, default comma)'
     },
     {
       key: 'dateFormat',
-      value: 'yyyyMMdd',
-      placeholder: 'yyyyMMdd'
+      value: '',
+      placeholder: 'yyyyMMdd, yyyyMMddHH00 (required, if scheduled)'
     },
     {
       key: 'timeZone',
-      value: 'America/New_York',
-      placeholder: 'America/New_York'
+      value: '',
+      placeholder: 'America/New_York, Europe/London (required, if scheduled)'
     }
   ],
   propParams: [
     {
-      key: 'orderStatusURL',
-      value: 'example.com/orderstatus/54321',
-      placeholder: 'example.com/orderstatus/54321'
-    },
-    {
-      key: 'delivery_date',
-      value: 'May 10',
-      placeholder: 'May 10'
-    },
-    {
-      key: 'Order Id',
-      value: '54321',
-      placeholder: '54321'
-    },
-    {
-      key: 'productId',
-      value: 'productId1',
-      placeholder: 'productId1'
-    },
-    {
-      key: 'shipment.trackingNumber',
-      value: '12345',
-      placeholder: '12345'
+      key: 'prop1',
+      value: '',
+      placeholder: 'prop1 (optional)'
     }
   ],
   queryParams: [
     {
       key: 'type',
-      value: 'Order Shirpped',
-      placeholder: 'Order Shipped'
+      value: '',
+      placeholder: 'Order Shipped (required)'
     },
     {
       key: 'externalEventId',
-      value: '37fb97a9-6cfd-4983-bd65-68d104d53b70',
-      placeholder: '37fb97a9-6cfd-4983-bd65-68d104d53b70'
+      value: '',
+      placeholder: 'externalEventId (optional)'
     },
     {
       key: 'occurredAt',
-      value: '2021-03-30T14:38:29+0000',
-      placeholder: '2021-03-30T14:38:29+0000'
+      value: '',
+      placeholder:
+        '2021-03-30T14:38:29+0000 (optional, default = now, if prop omitted)'
     }
   ],
   jsonParams: {},
   headerParams: [
-    { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
+    {
+      key: 'Authorization',
+      value: 'Bearer <API Key>',
+      placeholder: 'Bearer <API Key> (required)'
+    }
   ],
   userParams: [
     {
       key: 'phone',
-      value: '+12063996576',
-      placeholder: '+12063996576'
+      value: '',
+      placeholder: 'phone (required, E.164 format)'
     },
     {
       key: 'email',
-      value: 'jchaffee@attentivemobile.com',
-      placeholder: 'jchaffee@attentivemobile.com'
+      value: '',
+      placeholder: 'email (phone or email required)'
     },
     {
       key: 'externalIdentifiers.clientUserId',
-      value: 'abc123',
-      placeholder: 'abc123'
+      value: '',
+      placeholder: 'clientUserId (optional)'
     }
   ],
   customParams: [
     {
       key: 'name',
-      value: 'myCustomId',
-      placeholder: 'myCustomId'
+      value: '',
+      placeholder: 'customIdentifierName (optional)'
     },
     {
       key: 'value',
-      value: 'abc123',
-      placeholder: 'abc123'
+      value: '',
+      placeholder: 'clientUserId (optional)'
     }
   ]
 }

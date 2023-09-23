@@ -4,118 +4,123 @@ apiParams = {
   sourceParams: [
     {
       key: 'Client Name',
-      value: 'Chafco',
-      placeholder: 'Chafco'
+      value: '',
+      placeholder: 'Chafco (required)'
     },
     {
       key: 'Client ID',
-      value: '83006',
-      placeholder: '83006'
+      value: '',
+      placeholder: '83006 (required)'
     },
     {
       key: 'fileName',
-      value: 'chafco/uploads/custom_attributes.csv',
-      placeholder: 'chafco/uploads/custom_attributes.csv'
+      value: '',
+      placeholder: 'chafco/uploads/custom_attributes.csv (required)'
     },
     {
       key: 'delimiter',
-      value: 'comma',
-      placeholder: 'comma, tab, pipe, or ndjson'
+      value: '',
+      placeholder: 'comma, tab, pipe, ndjson (optional, default comma)'
     },
     {
       key: 'dateFormat',
-      value: 'yyyyMMdd',
-      placeholder: 'yyyyMMdd'
+      value: '',
+      placeholder: 'yyyyMMdd, yyyyMMddHH00 (required, if scheduled)'
     },
     {
       key: 'timeZone',
-      value: 'America/New_York',
-      placeholder: 'America/New_York'
+      value: '',
+      placeholder: 'America/New_York, Europe/London (required, if scheduled)'
     }
   ],
   propParams: [],
   itemsParams: [
     {
       key: 'productId',
-      value: 'AB12345',
-      placeholder: 'AB12345'
+      value: '',
+      placeholder: 'productId (required)'
     },
     {
       key: 'productVariantId',
-      value: 'AB12345',
-      placeholder: 'AB12345'
+      value: '',
+      placeholder: 'productVariantId (required, can be same as productId)'
     },
     {
       key: 'productImage',
-      value: 'http://my.cdn.com/products/new-product.png',
-      placeholder: 'http://my.cdn.com/products/new-product.png'
+      value: '',
+      placeholder: 'imageUrl (optional)'
     },
     {
       key: 'productUrl',
-      value: 'http://my-store.com/products/shirts/my-shirt',
-      placeholder: 'http://my-store.com/products/shirts/my-shirt'
+      value: '',
+      placeholder: 'productUrl (optional)'
     },
     {
       key: 'name',
-      value: 'T-Shirt',
-      placeholder: 'T-Shirt'
+      value: '',
+      placeholder: 'productName (optional)'
     },
     {
       key: 'quantity',
-      value: '1',
-      placeholder: '1'
+      value: '',
+      placeholder: 'quantity (optional)'
     }
   ],
   priceParams: [
     {
       key: 'value',
-      value: '19.99',
-      placeholder: '19.99'
+      value: '',
+      placeholder: 'price (required)'
     },
     {
       key: 'currency',
-      value: 'USD',
-      placeholder: 'USD'
+      value: '',
+      placeholder: 'USD, CAD, GBP (optional)'
     }
   ],
   queryParams: [
     {
       key: 'occurredAt',
-      value: '2021-03-30T14:38:29+0000',
-      placeholder: 'Leave blank to auto-enter current date'
+      value: '',
+      placeholder:
+        '2021-03-30T14:38:29+0000 (optional, default = now, if prop omitted)'
     }
   ],
   jsonParams: {},
   headerParams: [
-    { key: 'Authorization', value: '', placeholder: 'Bearer <API Key>' }
+    {
+      key: 'Authorization',
+      value: 'Bearer <API Key>',
+      placeholder: 'Bearer <API Key> (required)'
+    }
   ],
   userParams: [
     {
       key: 'phone',
-      value: '+12063996576',
-      placeholder: '+12063996576'
+      value: '',
+      placeholder: 'phone (required, E.164 format)'
     },
     {
       key: 'email',
-      value: 'jchaffee@attentivemobile.com',
-      placeholder: 'jchaffee@attentivemobile.com'
+      value: '',
+      placeholder: 'email (phone or email required)'
     },
     {
       key: 'externalIdentifiers.clientUserId',
-      value: 'abc123',
-      placeholder: 'abc123'
+      value: '',
+      placeholder: 'clientUserId (optional)'
     }
   ],
   customParams: [
     {
       key: 'name',
-      value: 'myCustomId',
-      placeholder: 'myCustomId'
+      value: '',
+      placeholder: 'customIdentifierName (optional)'
     },
     {
       key: 'value',
-      value: 'abc123',
-      placeholder: 'abc123'
+      value: '',
+      placeholder: 'clientUserId (optional)'
     }
   ]
 }
