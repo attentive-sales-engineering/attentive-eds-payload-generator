@@ -461,17 +461,23 @@
     url = document.querySelector("#{{ .Params.id }} [data-url]", false).value
     method = document.querySelector("#{{ .Params.id }} [data-method]", false).value
     header_mapping = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-headers]"), false).tempObject
-    params = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-query-params]"), true).tempObject
+    if (url.match("subscriptions")) {
+      console.log("SUBSCRIPTIONS")
+      console.log("curlyBraces OFF")
+      params = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-query-params]"), false).tempObject
+    } else {
+      params = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-query-params]"), true).tempObject
+    }
     prop = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-prop]"), true).tempObject
     items = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-items]"), true).tempObject
     price = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-price]"), true).tempObject
-    subscriptions = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-subscriptions]"), true).tempObject
+    subscriptions = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-subscriptions]"), false).tempObject
     user = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-user]"), true).tempObject
     custom = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-custom]"), true).tempObject
     source = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-source]"), false).tempObject
     jsonBody = document.querySelector("#{{ .Params.id }} .ace_content")?.textContent
     // console.log("JSON BODY:", jsonBody)
-    // console.log("URL", url)
+    console.log("URL", url)
     // console.log("METHOD:", method)
     // console.log("HEADERS:", header_mapping)
 
