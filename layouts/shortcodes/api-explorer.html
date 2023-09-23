@@ -454,6 +454,7 @@
     let targetPayload = {}
     let source = {}
     let key_name = ''
+    let extension = ''
     let sourcePayload = {}
 
     // Set variable values from query selectors
@@ -553,9 +554,14 @@
 
     if (source && Object.entries(source).length > 0) {
       key_name = `${source["fileName"].replace(/(\.\w*)/, '')}`
+      // console.log("KEY_NAME:", key_name)
       if (source["dateFormat"]) key_name += `[[${source["dateFormat"]}]]`
+      if (key_name && source["fileName"].match(/\.\w*/)) {
+        extension = source["fileName"].match(/\.\w*/).toString()
+        // console.log("EXTENSION", extension)
+        key_name += extension
+      }
       if (source["timeZone"]) key_name += `<&${source["timeZone"]}&>`
-      // console.log("KEY NAME:", key_name)
       sourcePayload.key_name = key_name
       if (source["delimiter"]) {
         delimiter = source["delimiter"]
