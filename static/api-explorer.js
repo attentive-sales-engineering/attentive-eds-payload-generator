@@ -178,7 +178,13 @@ function keyValuePairsToObjects (id, container, crulyBraces) {
     let container = tempObject
     const key = pair.querySelector('[data-key]').value
     // console.log('KEY:', key)
-    let value = pair.querySelector('[data-value]').value
+    let value
+    // let value = pair.querySelector('[data-value]').value
+    if (crulyBraces === true) {
+      value = `{{${pair.querySelector('[data-value]').value}}}`
+    } else {
+      value = pair.querySelector('[data-value]').value
+    }
     // console.log('VALUE:', value)
     // console.log('DATA:', data)
     key.split('.').map((k, i, arr) => {
@@ -195,7 +201,7 @@ function keyValuePairsToObjects (id, container, crulyBraces) {
       // console.log('tempObject after:', tempObject)
     })
     // console.log('tempObject outside:', tempObject)
-    if (key === '' || value === null || value === '') return data
+    // if (key === '' || value === null || value === '') return data
     // return { ...data, [key]: value }
     return { ...data, tempObject }
   }, {})
