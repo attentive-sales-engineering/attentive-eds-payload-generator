@@ -30,7 +30,7 @@
       <button type="submit" class="btn btn-primary">Generate</button>
     </div>
     <ul class="nav nav-tabs" role="tablist">
-      <li class="nav-item d-none" role="presentation" data-source-params-section>
+      <li class="nav-item d-none" role="presentation" data-source-section>
         <button class="nav-link active" id="{{ .Params.id }}-request-source-tab" data-bs-toggle="tab"
           data-bs-target="#{{ .Params.id }}-request-source" type="button" role="tab" aria-controls="request-source"
           aria-selected="false">
@@ -71,42 +71,42 @@
             &plus;
           </button> -->
         </div>
-        <div class="d-none" data-request-prop-section>
+        <div class="d-none" data-props-section>
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Properties</div>
             <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
           </div>
-          <div data-request-prop></div>
+          <div data-props></div>
           <button data-add-request-prop-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
           </button>
         </div>
-        <div class="d-none" data-request-items-section>
+        <div class="d-none" data-items-section>
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Items</div>
             <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
           </div>
-          <div data-request-items></div>
+          <div data-items></div>
           <!-- <button data-add-request-items-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
           </button> -->
         </div>
-        <div class="d-none" data-request-price-section>
+        <div class="d-none" data-price-section>
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Price</div>
             <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
           </div>
-          <div data-request-price></div>
+          <div data-price></div>
           <!-- <button data-add-request-price-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
           </button> -->
         </div>
-        <div class="d-none" data-request-subscriptions-section>
+        <div class="d-none" data-subscriptions-section>
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Subscriptions</div>
             <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
           </div>
-          <div data-request-subscriptions></div>
+          <div data-subscriptions></div>
           <!-- <button data-add-request-subscriptions-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
           </button> -->
@@ -137,17 +137,17 @@
             <div class="section-title pl-75" style="flex: 1">User Properties</div>
             <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
           </div>
-          <div data-request-user></div>
+          <div data-user></div>
           <button data-add-request-user-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
           </button>
         </div>
-        <div class="d-none" data-custom-section>
+        <div class="d-none" data-user-custom-section>
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Custom User Identifer Properties</div>
             <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
           </div>
-          <div data-request-custom></div>
+          <div data-user-custom></div>
           <!-- <button data-add-request-custom-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
           </button> -->
@@ -159,7 +159,7 @@
           <div class="section-title pl-75" style="flex: 1">Source Params</div>
           <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
         </div>
-        <div data-request-source></div>
+        <div data-source></div>
         <!-- <button data-add-request-source-btn class="mt-2 btn btn-outline-success" type="button">
           &plus;
         </button> -->
@@ -207,28 +207,28 @@
 <script>
   // Add query params Add button click listener
   document.querySelector("#{{ .Params.id }} [data-add-request-prop-btn]").addEventListener("click", () => {
-    document.querySelector("#{{ .Params.id }} [data-request-prop]").append(
+    document.querySelector("#{{ .Params.id }} [data-props]").append(
       createKeyValuePair("{{ .Params.id }}")
     )
   })
 
   // // Add Items params Add button click listener
   // document.querySelector("#{{ .Params.id }} [data-add-request-items-btn]").addEventListener("click", () => {
-  //   document.querySelector("#{{ .Params.id }} [data-request-items]").append(
+  //   document.querySelector("#{{ .Params.id }} [data-items]").append(
   //     createKeyValuePair("{{ .Params.id }}")
   //   )
   // })
 
   // // Add Price params Add button click listener
   // document.querySelector("#{{ .Params.id }} [data-add-request-price-btn]").addEventListener("click", () => {
-  //   document.querySelector("#{{ .Params.id }} [data-request-price]").append(
+  //   document.querySelector("#{{ .Params.id }} [data-price]").append(
   //     createKeyValuePair("{{ .Params.id }}")
   //   )
   // })
 
   // // Add Subscriptions params Add button click listener
   // document.querySelector("#{{ .Params.id }} [data-add-request-subscriptions-btn]").addEventListener("click", () => {
-  //   document.querySelector("#{{ .Params.id }} [data-request-subscriptions]").append(
+  //   document.querySelector("#{{ .Params.id }} [data-subscriptions]").append(
   //     createKeyValuePair("{{ .Params.id }}")
   //   )
   // })
@@ -249,21 +249,21 @@
 
   // Add User params Add button click listener
   document.querySelector("#{{ .Params.id }} [data-add-request-user-btn]").addEventListener("click", () => {
-    document.querySelector("#{{ .Params.id }} [data-request-user]").append(
+    document.querySelector("#{{ .Params.id }} [data-user]").append(
       createKeyValuePair("{{ .Params.id }}")
     )
   })
 
   // // Add Custom Identifier params Add button click listener
   // document.querySelector("#{{ .Params.id }} [data-add-request-custom-btn]").addEventListener("click", () => {
-  //   document.querySelector("#{{ .Params.id }} [data-request-custom]").append(
+  //   document.querySelector("#{{ .Params.id }} [data-user-custom]").append(
   //     createKeyValuePair("{{ .Params.id }}")
   //   )
   // })
 
   // // Add Source params Add button click listener
   // document.querySelector("#{{ .Params.id }} [data-add-request-source-btn]").addEventListener("click", () => {
-  //   document.querySelector("#{{ .Params.id }} [data-request-source]").append(
+  //   document.querySelector("#{{ .Params.id }} [data-source]").append(
   //     createKeyValuePair("{{ .Params.id }}")
   //   )
   // })
@@ -292,9 +292,9 @@
   // If Property Params, unhide & append key value pairs
   if (apiParams.propParams?.length > 0) {
     document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-    document.querySelector("#{{ .Params.id }} [data-request-prop-section]").classList.remove("d-none")
+    document.querySelector("#{{ .Params.id }} [data-props-section]").classList.remove("d-none")
     apiParams.propParams?.forEach((propParam) => {
-      document.querySelector("#{{ .Params.id }} [data-request-prop]").append(
+      document.querySelector("#{{ .Params.id }} [data-props]").append(
         createKeyValuePair(
           "{{ .Params.id }}",
           propParam.key,
@@ -308,9 +308,9 @@
   // If Items Params, unhide & append key value pairs
   if (apiParams.itemsParams?.length > 0) {
     document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-    document.querySelector("#{{ .Params.id }} [data-request-items-section]").classList.remove("d-none")
+    document.querySelector("#{{ .Params.id }} [data-items-section]").classList.remove("d-none")
     apiParams.itemsParams?.forEach((itemsParam) => {
-      document.querySelector("#{{ .Params.id }} [data-request-items]").append(
+      document.querySelector("#{{ .Params.id }} [data-items]").append(
         createKeyValuePair(
           "{{ .Params.id }}",
           itemsParam.key,
@@ -324,9 +324,9 @@
   // If Price Params, unhide & append key value pairs
   if (apiParams.priceParams?.length > 0) {
     document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-    document.querySelector("#{{ .Params.id }} [data-request-price-section]").classList.remove("d-none")
+    document.querySelector("#{{ .Params.id }} [data-price-section]").classList.remove("d-none")
     apiParams.priceParams?.forEach((priceParam) => {
-      document.querySelector("#{{ .Params.id }} [data-request-price]").append(
+      document.querySelector("#{{ .Params.id }} [data-price]").append(
         createKeyValuePair(
           "{{ .Params.id }}",
           priceParam.key,
@@ -340,9 +340,9 @@
   // If Subscriptions Params, unhide & append key value pairs
   if (apiParams.subscriptionsParams?.length > 0) {
     document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-    document.querySelector("#{{ .Params.id }} [data-request-subscriptions-section]").classList.remove("d-none")
+    document.querySelector("#{{ .Params.id }} [data-subscriptions-section]").classList.remove("d-none")
     apiParams.subscriptionsParams?.forEach((subscriptionsParam) => {
-      document.querySelector("#{{ .Params.id }} [data-request-subscriptions]").append(
+      document.querySelector("#{{ .Params.id }} [data-subscriptions]").append(
         createKeyValuePair(
           "{{ .Params.id }}",
           subscriptionsParam.key,
@@ -396,7 +396,7 @@
     document.querySelector("#{{ .Params.id }} [data-user-section]").classList.remove("d-none")
     document.querySelector("#{{ .Params.id }} [data-user-params-section]").classList.remove("d-none")
     apiParams.userParams?.forEach((userParam) => {
-      document.querySelector("#{{ .Params.id }} [data-request-user]").append(
+      document.querySelector("#{{ .Params.id }} [data-user]").append(
         createKeyValuePair(
           "{{ .Params.id }}",
           userParam.key,
@@ -410,9 +410,9 @@
   // If Custom Identifier Params, unhide & append key value pairs
   if (apiParams.customParams?.length > 0) {
     document.querySelector("#{{ .Params.id }} [data-user-section]").classList.remove("d-none")
-    document.querySelector("#{{ .Params.id }} [data-custom-section]").classList.remove("d-none")
+    document.querySelector("#{{ .Params.id }} [data-user-custom-section]").classList.remove("d-none")
     apiParams.customParams?.forEach((customParam) => {
-      document.querySelector("#{{ .Params.id }} [data-request-custom]").append(
+      document.querySelector("#{{ .Params.id }} [data-user-custom]").append(
         createKeyValuePair(
           "{{ .Params.id }}",
           customParam.key,
@@ -424,9 +424,9 @@
   }
   // If Source Params, unhide & append key value pairs
   if (apiParams.sourceParams?.length > 0) {
-    document.querySelector("#{{ .Params.id }} [data-source-params-section]").classList.remove("d-none")
+    document.querySelector("#{{ .Params.id }} [data-source-section]").classList.remove("d-none")
     apiParams.sourceParams?.forEach((sourceParam) => {
-      document.querySelector("#{{ .Params.id }} [data-request-source]").append(
+      document.querySelector("#{{ .Params.id }} [data-source]").append(
         createKeyValuePair(
           "{{ .Params.id }}",
           sourceParam.key,
@@ -468,13 +468,13 @@
     } else {
       params = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-query-params]"), true).tempObject
     }
-    prop = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-prop]"), true).tempObject
-    items = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-items]"), true).tempObject
-    price = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-price]"), true).tempObject
-    subscriptions = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-subscriptions]"), false).tempObject
-    user = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-user]"), true).tempObject
-    custom = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-custom]"), true).tempObject
-    source = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-source]"), false).tempObject
+    prop = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-props]"), true).tempObject
+    items = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-items]"), true).tempObject
+    price = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-price]"), true).tempObject
+    subscriptions = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-subscriptions]"), false).tempObject
+    user = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-user]"), true).tempObject
+    custom = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-user-custom]"), true).tempObject
+    source = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-source]"), false).tempObject
     jsonBody = document.querySelector("#{{ .Params.id }} .ace_content")?.textContent
     // console.log("JSON BODY:", jsonBody)
     console.log("URL", url)
@@ -500,22 +500,22 @@
 
     // console.log("PROP:", prop)
     if (prop && Object.entries(prop).length > 0) { payload_mapping.properties = prop } else {
-      document.querySelector("#{{ .Params.id }} [data-request-prop-section]").classList.add("d-none")
+      document.querySelector("#{{ .Params.id }} [data-props-section]").classList.add("d-none")
     }
 
     // console.log("ITEMS:", items)
     if (items && Object.entries(items).length > 0) { payload_mapping.items = [items] } else {
-      document.querySelector("#{{ .Params.id }} [data-request-items-section]").classList.add("d-none")
+      document.querySelector("#{{ .Params.id }} [data-items-section]").classList.add("d-none")
     }
 
     // console.log("PRICE:", price)
     if (price && Object.entries(price).length > 0) { payload_mapping.items[0].price = [price] } else {
-      document.querySelector("#{{ .Params.id }} [data-request-price-section]").classList.add("d-none")
+      document.querySelector("#{{ .Params.id }} [data-price-section]").classList.add("d-none")
     }
 
     // console.log("SUBSCRIPTIONS:", subscriptions)
     if (subscriptions && Object.entries(subscriptions).length > 0) { payload_mapping.subscriptions = [subscriptions] } else {
-      document.querySelector("#{{ .Params.id }} [data-request-subscriptions-section]").classList.add("d-none")
+      document.querySelector("#{{ .Params.id }} [data-subscriptions-section]").classList.add("d-none")
     }
 
     // console.log("USER:", user)
@@ -528,7 +528,7 @@
       payload_mapping.user.externalIdentifiers.custom = []
       payload_mapping.user.externalIdentifiers.custom[0] = custom
     } else {
-      document.querySelector("#{{ .Params.id }} [data-custom-section]").classList.add("d-none")
+      document.querySelector("#{{ .Params.id }} [data-user-custom-section]").classList.add("d-none")
     }
 
     console.log("PAYLOAD MAPPING", payload_mapping)
