@@ -1,10 +1,10 @@
 function updateTargetPayloadBody (id, targetPayload) {
-  console.log('TARGET PAYLOAD:', targetPayload)
+  // console.log('TARGET PAYLOAD:', targetPayload)
   const jsonReq = JSON.stringify(targetPayload, null, 2)
   // console.log('JSON BODY:', jsonBody)
-  console.log(
-    `updateTargetPayloadBody: .querySelector(#${id} [data-target-payload])`
-  )
+  // console.log(
+  //   `updateTargetPayloadBody: .querySelector(#${id} [data-target-payload])`
+  // )
 
   // Render Target Payload
   aceJsonRequest = ace.edit(
@@ -26,12 +26,12 @@ function updateTargetPayloadBody (id, targetPayload) {
 }
 
 function updateSourcePayloadBody (id, sourcePayload) {
-  console.log('SOURCE PAYLOAD:', sourcePayload)
+  // console.log('SOURCE PAYLOAD:', sourcePayload)
   const jsonReq = JSON.stringify(sourcePayload, null, 2)
   // console.log('JSON BODY:', jsonBody)
-  console.log(
-    `updateSourcePayloadBody: .querySelector(#${id} [data-source-payload])`
-  )
+  // console.log(
+  //   `updateSourcePayloadBody: .querySelector(#${id} [data-source-payload])`
+  // )
 
   // Render Source Payload
   aceJsonRequest = ace.edit(
@@ -170,31 +170,31 @@ function createKeyValuePair (id, key, value, placeholder) {
 //   }, {})
 // }
 
-function keyValuePairsToObjects (id, container) {
+function keyValuePairsToObjects (id, container, crulyBraces) {
   const pairs = container.querySelectorAll(`#${id} [data-key-value-pair]`)
-  console.log('PAIRS:', pairs)
+  // console.log('PAIRS:', pairs)
   const tempObject = {}
   return [...pairs].reduce((data, pair) => {
     let container = tempObject
     const key = pair.querySelector('[data-key]').value
-    console.log('KEY:', key)
+    // console.log('KEY:', key)
     let value = pair.querySelector('[data-value]').value
-    console.log('VALUE:', value)
-    console.log('DATA:', data)
+    // console.log('VALUE:', value)
+    // console.log('DATA:', data)
     key.split('.').map((k, i, arr) => {
-      console.log('k, i, arr:', k, i, arr)
-      console.log('tempObject before:', tempObject)
-      console.log('container before:', container)
+      // console.log('k, i, arr:', k, i, arr)
+      // console.log('tempObject before:', tempObject)
+      // console.log('container before:', container)
       if (i == arr.length - 1) {
         container = container[k] = value
       } else {
         container = container[k] = {}
         return
       }
-      console.log('container afer:', container)
-      console.log('tempObject after:', tempObject)
+      // console.log('container afer:', container)
+      // console.log('tempObject after:', tempObject)
     })
-    console.log('tempObject outside:', tempObject)
+    // console.log('tempObject outside:', tempObject)
     if (key === '' || value === null || value === '') return data
     // return { ...data, [key]: value }
     return { ...data, tempObject }
