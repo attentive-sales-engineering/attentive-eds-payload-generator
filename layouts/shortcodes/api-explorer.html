@@ -17,6 +17,9 @@
   .Page.Title => {{ .Page.Title }}
   </pre> -->
 
+  <div class="p-3">
+    <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary" export-btn>Export</button></a>
+  </div>
   <div data-form>
     <div class="input-group mb-3">
       <select class="form-select flex-grow-0 w-auto d-none" data-method>
@@ -27,7 +30,7 @@
         <option value="DELETE">DELETE</option>
       </select>
       <input data-url required class="form-control mono-url" type="url" placeholder="https://example.com" value="" />
-      <button type="submit" class="btn btn-primary">Generate</button>
+      <!-- <button type="submit" class="btn btn-primary">Generate</button> -->
     </div>
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item d-none" role="presentation" data-source-section>
@@ -205,6 +208,20 @@
 </div>
 
 <script>
+  // Add Export button click listener
+  document.querySelector("#{{ .Params.id }} [export-btn]").addEventListener("click", () => {
+    // console.log("CLICKED EXPORT")
+    // console.log("EDS PAYLOAD:", edsPayload)
+    const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
+    // console.log("DOWNLOAD BTN DATA", data)
+    const downloadBtn = document.getElementById("downloadBtn")
+    downloadBtn.href = 'data:' + data
+    let filename = edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')
+    // console.log("FILENAME:", filename)
+    if (filename === null || filename === '') filename = 'data'
+    downloadBtn.download = `${filename}.json`
+  })
+
   // Add query params Add button click listener
   document.querySelector("#{{ .Params.id }} [data-add-request-prop-btn]").addEventListener("click", () => {
     document.querySelector("#{{ .Params.id }} [data-props]").append(
@@ -437,6 +454,8 @@
     })
   }
 
+  let edsPayload = {}
+
   // Form Submit listener
   updatePayload = function (e) {
 
@@ -552,6 +571,7 @@
     // console.log("SOURCE:", source)
     // console.log("SOURCE MAPPING BEFORE:", sourcePayload)
 
+    // Concatenate source params
     if (source && Object.entries(source).length > 0) {
       key_name = `${source["fileName"].replace(/(\.\w*)/, '')}`
       // console.log("KEY_NAME:", key_name)
@@ -571,6 +591,9 @@
       // console.log("SOURCE PAYLOAD AFTER:", sourcePayload)
     }
     console.log("SOURCE PAYLOAD:", sourcePayload)
+    edsPayload.targetPayload = targetPayload
+    edsPayload.sourcePayload = sourcePayload
+    console.log("EDS PAYLOAD:", edsPayload)
 
 
     updateTargetPayloadBody("{{ .Params.id }}", targetPayload)
