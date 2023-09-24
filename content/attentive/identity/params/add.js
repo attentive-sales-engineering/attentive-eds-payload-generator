@@ -69,5 +69,33 @@ apiParams = {
       placeholder: 'Bearer <API Key> (required)'
     }
   ],
-  userParams: []
+  userParams: [
+    {
+      key: 'phone',
+      value: '',
+      placeholder: 'phone (required, E.164 format)'
+    },
+    {
+      key: 'email',
+      value: '',
+      placeholder: 'email (phone or email required)'
+    },
+    {
+      key: 'externalIdentifiers.clientUserId',
+      value: '',
+      placeholder: 'clientUserId (optional)'
+    }
+  ],
+  customParams: [
+    {
+      key: 'name',
+      value: '',
+      placeholder: 'customIdentifierName (optional)'
+    },
+    {
+      key: 'value',
+      value: '',
+      placeholder: 'customIdentifierValue (optional)'
+    }
+  ]
 }
