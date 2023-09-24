@@ -1,14 +1,14 @@
 apiParams = {
-  url: 'https://api.attentivemobile.com/v1/x',
-  method: 'POST',
+  url: '',
+  method: '',
   sourceParams: [
     {
-      key: 'Client Name',
+      key: 'clientName',
       value: '',
       placeholder: 'Chafco (required)'
     },
     {
-      key: 'Client ID',
+      key: 'clientId',
       value: '',
       placeholder: '83006 (required)'
     },
@@ -33,83 +33,12 @@ apiParams = {
       placeholder: 'America/New_York, Europe/London (required, if scheduled)'
     }
   ],
-  propParams: [
-    {
-      key: 'prop1',
-      value: '',
-      placeholder: 'prop1 (required)'
-    }
-  ],
-  itemsParams: [
-    {
-      key: 'productId',
-      value: '',
-      placeholder: 'productId (required)'
-    },
-    {
-      key: 'productVariantId',
-      value: '',
-      placeholder: 'productId (required)'
-    },
-    {
-      key: 'productImage',
-      value: '',
-      placeholder: 'imageUrl (optional)'
-    },
-    {
-      key: 'productUrl',
-      value: '',
-      placeholder: 'productUrl (optional)'
-    },
-    {
-      key: 'name',
-      value: '',
-      placeholder: 'productName (optional)'
-    },
-    {
-      key: 'quantity',
-      value: '',
-      placeholder: 'quantity (optional)'
-    }
-  ],
-  priceParams: [
-    {
-      key: 'value',
-      value: '',
-      placeholder: 'price (required)'
-    },
-    {
-      key: 'currency',
-      value: '',
-      placeholder: 'USD, CAD, GBP (optional)'
-    }
-  ],
-  queryParams: [
-    {
-      key: 'type',
-      value: '',
-      placeholder: 'Order Shipped (required)'
-    },
-    {
-      key: 'externalEventId',
-      value: '',
-      placeholder: 'externalEventId (optional)'
-    },
-    {
-      key: 'occurredAt',
-      value: '',
-      placeholder:
-        '2021-03-30T14:38:29+0000 (optional, default = now, if prop omitted)'
-    }
-  ],
+  propParams: [],
+  itemsParams: [],
+  priceParams: [],
+  queryParams: [],
   jsonParams: {},
-  headerParams: [
-    {
-      key: 'Authorization',
-      value: 'Bearer <API Key>',
-      placeholder: 'Bearer <API Key> (required)'
-    }
-  ],
+  headerParams: [],
   userParams: [
     {
       key: 'phone',
@@ -127,16 +56,5 @@ apiParams = {
       placeholder: 'clientUserId (optional)'
     }
   ],
-  customParams: [
-    {
-      key: 'name',
-      value: '',
-      placeholder: 'customIdentifierName (optional)'
-    },
-    {
-      key: 'value',
-      value: '',
-      placeholder: 'clientUserId (optional)'
-    }
-  ]
+  customParams: []
 }

@@ -3,12 +3,12 @@ apiParams = {
   method: 'POST',
   sourceParams: [
     {
-      key: 'Client Name',
+      key: 'clientName',
       value: '',
       placeholder: ''
     },
     {
-      key: 'Client ID',
+      key: 'clientId',
       value: '',
       placeholder: ''
     },
