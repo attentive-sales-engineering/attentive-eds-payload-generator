@@ -1,6 +1,8 @@
 <div class="p-2" id="{{ .Params.id }}">
-  <!-- Load queryParams and headerParams from file -->
+
+  <!-- Load apiParams from file -->
   <script await src="{{ .Params.file }}"></script>
+
   <script>
     console.log("API PARAMS: {{ .Params.file }}", apiParams)
   </script>
@@ -9,17 +11,25 @@
   {{ range $elem_key, $elem_val := .Params }}
   <b>{{ $elem_key }}</b>: <code>{{ $elem_val }}</code><br />
   {{ end }}
-  
+
   <pre>
   .Site => {{ .Site }}
   .Site.Title => {{ .Site.Title }}
   .Page => {{ .Page }}
   .Page.Title => {{ .Page.Title }}
+  .Params.id => {{ .Params.id }}
+  .Params.file => {{ .Params.file }}
   </pre> -->
 
   <div class="p-3">
     <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary" export-btn>Export</button></a>
   </div>
+  <form method="post" enctype="multipart/form-data">
+    <div>
+      <label class="btn btn-primary" for="json_upload">Import</label>
+      <input type="file" id="json_upload" name="json_upload" accept=".json" />
+    </div>
+  </form>
   <div data-form>
     <div class="input-group mb-3">
       <select class="form-select flex-grow-0 w-auto d-none" data-method>
@@ -208,19 +218,56 @@
 </div>
 
 <script>
+
+
   // Add Export button click listener
   document.querySelector("#{{ .Params.id }} [export-btn]").addEventListener("click", () => {
     // console.log("CLICKED EXPORT")
     // console.log("EDS PAYLOAD:", edsPayload)
-    const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
+    // const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
+    const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(apiParams))
     // console.log("DOWNLOAD BTN DATA", data)
     const downloadBtn = document.getElementById("downloadBtn")
     downloadBtn.href = 'data:' + data
-    let filename = edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')
+    // let filename = edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')
+    let filename = "foo.json"
     // console.log("FILENAME:", filename)
     if (filename === null || filename === '') filename = 'data'
     downloadBtn.download = `${filename}.json`
   })
+
+  const input = document.querySelector("#json_upload")
+
+  input.style.opacity = 0
+
+  input.addEventListener("change", importJson)
+
+  function importJson() {
+    console.log("CHANGE")
+
+    const files = input.files
+    console.log("FILES.LENGTH:", input.files.length)
+    let jsonFile
+    if (files.length > 0) {
+      jsonFile = input.files[0]
+      console.log("files[0]:", files[0])
+    }
+    const reader = new FileReader()
+    reader.onload = function (e) {
+      const text = e.target.result
+      console.log("TEXT:", text)
+      const stringify = JSON.stringify(text)
+      console.log("STRINGIFY:", stringify)
+      const parsed = JSON.parse(stringify)
+      console.log("PARSED:", parsed)
+      localStorage.setItem("import", text)
+      const getItem = localStorage.getItem("import")
+      console.log("GET ITEM:", getItem)
+      window.location.href = "../custom"
+    }
+    reader.readAsText(jsonFile)
+  }
+
 
   // Add query params Add button click listener
   document.querySelector("#{{ .Params.id }} [data-add-request-prop-btn]").addEventListener("click", () => {
