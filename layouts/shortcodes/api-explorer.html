@@ -1,20 +1,10 @@
 <div class="p-2" id="{{ .Params.id }}">
 
   <!-- Load apiParams from file -->
-  <script await src="{{ .Params.file }}"></script>
-
-  <script>
-    console.log("API PARAMS: {{ .Params.file }}", apiParams)
-  </script>
+  <!-- <script await src="{{ .Params.file }}"></script> -->
 
   <!-- <script>
-    if ("{{ .Params.id }}" == 'custom') {
-      console.log("CUSTOM")
-      const importFile = JSON.parse(localStorage.getItem("import"))
-      console.log("IMPORT OBJECT:", importFile)
-      console.log("API PARAMS BEFORE:", apiParams)
-      // apiParams = importFile
-    } 
+    console.log("API PARAMS: {{ .Params.file }}", apiParams)
   </script> -->
 
   <!-- <h3>Hugo Params</h3>
@@ -233,298 +223,316 @@
 </div>
 
 <script>
-  // Add Export button click listener
-  document.querySelector("#{{ .Params.id }} [export-eds-btn]").addEventListener("click", () => {
-    const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
-    // const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(apiParams))
-    const downloadBtn = document.getElementById("downloadEdsBtn")
-    downloadBtn.href = 'data:' + data
-    const filename = "EDS Payload"
-    if (edsPayload.sourcePayload["key_name"].length > 0) {
-      filename += ` ${edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
+
+  async function fetchApiParams() {
+
+    if ("{{ .Params.id }}" == 'custom') {
+      console.log("CUSTOM")
+      const apiParams = JSON.parse(localStorage.getItem("import"))
+      console.log("API PARAMS:", apiParams)
+      return apiParams
+    } else {
+      const response = await fetch('./params/params.json')
+      const jsonResponse = await response.json()
+      console.log("ASYNC FETCH:", jsonResponse)
+      return jsonResponse
     }
-    if (filename === null || filename === '') filename = 'data'
-    downloadBtn.download = `${filename}.json`
-  })
-
-  // Add Export button click listener
-  document.querySelector("#{{ .Params.id }} [export-params-btn]").addEventListener("click", () => {
-    // const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
-    const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(apiParams))
-    const downloadBtn = document.getElementById("downloadParamsBtn")
-    downloadBtn.href = 'data:' + data
-    const filename = "API Params"
-    if (edsPayload.sourcePayload["key_name"].length > 0) {
-      filename += ` ${edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
-    }
-    if (filename === null || filename === '') filename = 'data'
-    downloadBtn.download = `${filename}.json`
-  })
-
-  const input = document.querySelector("#json_upload")
-
-  input.style.opacity = 0
-
-  input.addEventListener("change", importJson)
-
-  function importJson() {
-    console.log("CHANGE")
-
-    const files = input.files
-    console.log("FILES.LENGTH:", input.files.length)
-    let jsonFile
-    if (files.length > 0) {
-      jsonFile = input.files[0]
-      console.log("files[0]:", files[0])
-    }
-    const reader = new FileReader()
-    reader.onload = function (e) {
-      const text = e.target.result
-      console.log("TEXT:", text)
-      const stringify = JSON.stringify(text)
-      console.log("STRINGIFY:", stringify)
-      const parsed = JSON.parse(stringify)
-      console.log("PARSED:", parsed)
-      localStorage.setItem("import", text)
-      const getItem = localStorage.getItem("import")
-      console.log("GET ITEM:", getItem)
-      window.location.href = "../custom"
-    }
-    reader.readAsText(jsonFile)
   }
 
+  fetchApiParams()
+    .then(response => {
+      console.log("THEN FETCH:", response)
+      const apiParams = response
 
-  // Add query params Add button click listener
-  document.querySelector("#{{ .Params.id }} [data-add-request-prop-btn]").addEventListener("click", () => {
-    document.querySelector("#{{ .Params.id }} [data-props]").append(
-      createKeyValuePair("{{ .Params.id }}")
-    )
-  })
-
-  // // Add Items params Add button click listener
-  // document.querySelector("#{{ .Params.id }} [data-add-request-items-btn]").addEventListener("click", () => {
-  //   document.querySelector("#{{ .Params.id }} [data-items]").append(
-  //     createKeyValuePair("{{ .Params.id }}")
-  //   )
-  // })
-
-  // // Add Price params Add button click listener
-  // document.querySelector("#{{ .Params.id }} [data-add-request-price-btn]").addEventListener("click", () => {
-  //   document.querySelector("#{{ .Params.id }} [data-price]").append(
-  //     createKeyValuePair("{{ .Params.id }}")
-  //   )
-  // })
-
-  // // Add Subscriptions params Add button click listener
-  // document.querySelector("#{{ .Params.id }} [data-add-request-subscriptions-btn]").addEventListener("click", () => {
-  //   document.querySelector("#{{ .Params.id }} [data-subscriptions]").append(
-  //     createKeyValuePair("{{ .Params.id }}")
-  //   )
-  // })
-
-  // // Add query params Add button click listener
-  // document.querySelector("#{{ .Params.id }} [data-add-query-param-btn]").addEventListener("click", () => {
-  //   document.querySelector("#{{ .Params.id }} [data-query-params]").append(
-  //     createKeyValuePair("{{ .Params.id }}")
-  //   )
-  // })
-
-  // Add header params Add button click listener
-  document.querySelector("#{{ .Params.id }} [data-add-request-header-btn]").addEventListener("click", () => {
-    document.querySelector("#{{ .Params.id }} [data-request-headers]").append(
-      createKeyValuePair("{{ .Params.id }}")
-    )
-  })
-
-  // Add User params Add button click listener
-  document.querySelector("#{{ .Params.id }} [data-add-request-user-btn]").addEventListener("click", () => {
-    document.querySelector("#{{ .Params.id }} [data-user]").append(
-      createKeyValuePair("{{ .Params.id }}")
-    )
-  })
-
-  // // Add Custom Identifier params Add button click listener
-  // document.querySelector("#{{ .Params.id }} [data-add-request-custom-btn]").addEventListener("click", () => {
-  //   document.querySelector("#{{ .Params.id }} [data-user-custom]").append(
-  //     createKeyValuePair("{{ .Params.id }}")
-  //   )
-  // })
-
-  // // Add Source params Add button click listener
-  // document.querySelector("#{{ .Params.id }} [data-add-request-source-btn]").addEventListener("click", () => {
-  //   document.querySelector("#{{ .Params.id }} [data-source]").append(
-  //     createKeyValuePair("{{ .Params.id }}")
-  //   )
-  // })
-
-  // Set url param
-  document.querySelector("#{{ .Params.id }} [data-url]").value = apiParams.url
-
-  // Set method param
-  document.querySelector("#{{ .Params.id }} [data-method]").value = apiParams?.method || "GET"
-
-  // If Query Params, unhide & append key value pairs
-  if (apiParams.queryParams?.length > 0) {
-    document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-    document.querySelector("#{{ .Params.id }} [data-query-params-section]").classList.remove("d-none")
-    apiParams.queryParams?.forEach((queryParam) => {
-      document.querySelector("#{{ .Params.id }} [data-query-params]").append(
-        createKeyValuePair(
-          "{{ .Params.id }}",
-          queryParam.key,
-          queryParam.value,
-          queryParam.placeholder)
-      )
-    })
-  }
-
-  // If Property Params, unhide & append key value pairs
-  if (apiParams.propParams?.length > 0) {
-    document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-    document.querySelector("#{{ .Params.id }} [data-props-section]").classList.remove("d-none")
-    apiParams.propParams?.forEach((propParam) => {
-      document.querySelector("#{{ .Params.id }} [data-props]").append(
-        createKeyValuePair(
-          "{{ .Params.id }}",
-          propParam.key,
-          propParam.value,
-          propParam.placeholder
-        )
-      )
-    })
-  }
-
-  // If Items Params, unhide & append key value pairs
-  if (apiParams.itemsParams?.length > 0) {
-    document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-    document.querySelector("#{{ .Params.id }} [data-items-section]").classList.remove("d-none")
-    apiParams.itemsParams?.forEach((itemsParam) => {
-      document.querySelector("#{{ .Params.id }} [data-items]").append(
-        createKeyValuePair(
-          "{{ .Params.id }}",
-          itemsParam.key,
-          itemsParam.value,
-          itemsParam.placeholder
-        )
-      )
-    })
-  }
-
-  // If Price Params, unhide & append key value pairs
-  if (apiParams.priceParams?.length > 0) {
-    document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-    document.querySelector("#{{ .Params.id }} [data-price-section]").classList.remove("d-none")
-    apiParams.priceParams?.forEach((priceParam) => {
-      document.querySelector("#{{ .Params.id }} [data-price]").append(
-        createKeyValuePair(
-          "{{ .Params.id }}",
-          priceParam.key,
-          priceParam.value,
-          priceParam.placeholder
-        )
-      )
-    })
-  }
-
-  // If Subscriptions Params, unhide & append key value pairs
-  if (apiParams.subscriptionsParams?.length > 0) {
-    document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-    document.querySelector("#{{ .Params.id }} [data-subscriptions-section]").classList.remove("d-none")
-    apiParams.subscriptionsParams?.forEach((subscriptionsParam) => {
-      document.querySelector("#{{ .Params.id }} [data-subscriptions]").append(
-        createKeyValuePair(
-          "{{ .Params.id }}",
-          subscriptionsParam.key,
-          subscriptionsParam.value,
-          subscriptionsParam.placeholder
-        )
-      )
-    })
-  }
-
-  // If JSON Params, unhide & set textContent
-  if (typeof apiParams.jsonParams != "undefined") {
-    // console.log("JSON PARAMS:", apiParams.jsonParams)
-    jsonString = JSON.stringify(apiParams.jsonParams, null, 2)
-    // console.log(jsonString)
-    // console.log(jsonString.length)
-    if (jsonString.length > 2) {
-      document.querySelector("#{{ .Params.id }} [data-json-body]").textContent = jsonString
-      document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-      document.querySelector("#{{ .Params.id }} [data-json-body-section]").classList.remove("d-none")
-
-      // JSON Body Editor - Ace Code Editor for the Web
-      editor = ace.edit(document.querySelector("#{{ .Params.id }} [data-json-body]"))
-      editor.setTheme("ace/theme/monokai")
-      editor.session.setMode("ace/mode/json")
-      editor.setOptions({
-        "maxLines": Infinity,
-        "highlightActiveLine": false,
-        "showLineNumbers": false,
-        "showGutter": false,
-        "showPrintMargin": false,
-        "fontSize": 14
+      // Export button click listener
+      document.querySelector("#{{ .Params.id }} [export-eds-btn]").addEventListener("click", () => {
+        const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
+        const downloadBtn = document.getElementById("downloadEdsBtn")
+        downloadBtn.href = 'data:' + data
+        const filename = "EDS Payload"
+        if (edsPayload.sourcePayload["key_name"].length > 0) {
+          filename += ` ${edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
+        }
+        if (filename === null || filename === '') filename = 'data'
+        downloadBtn.download = `${filename}.json`
       })
-    }
-  }
 
-  // Append header params key value pairs
-  apiParams.headerParams?.forEach((headerParam) => {
-    document.querySelector("#{{ .Params.id }} [data-request-headers]").append(
-      createKeyValuePair(
-        "{{ .Params.id }}",
-        headerParam.key,
-        headerParam.value,
-        headerParam.placeholder
-      )
-    )
-  })
+      // Export button click listener
+      document.querySelector("#{{ .Params.id }} [export-params-btn]").addEventListener("click", () => {
+        const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(apiParams))
+        const downloadBtn = document.getElementById("downloadParamsBtn")
+        downloadBtn.href = 'data:' + data
+        const filename = "API Params"
+        if (edsPayload.sourcePayload["key_name"].length > 0) {
+          filename += ` ${edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
+        }
+        if (filename === null || filename === '') filename = 'data'
+        downloadBtn.download = `${filename}.json`
+      })
 
-  // If User Params, unhide & append key value pairs
-  if (apiParams.userParams?.length > 0) {
-    document.querySelector("#{{ .Params.id }} [data-user-section]").classList.remove("d-none")
-    document.querySelector("#{{ .Params.id }} [data-user-params-section]").classList.remove("d-none")
-    apiParams.userParams?.forEach((userParam) => {
-      document.querySelector("#{{ .Params.id }} [data-user]").append(
-        createKeyValuePair(
-          "{{ .Params.id }}",
-          userParam.key,
-          userParam.value,
-          userParam.placeholder
-        )
-      )
-    })
-  }
+      // Import button click listener
+      const input = document.querySelector("#json_upload")
+      input.style.opacity = 0
+      input.addEventListener("change", importJson)
 
-  // If Custom Identifier Params, unhide & append key value pairs
-  if (apiParams.customParams?.length > 0) {
-    document.querySelector("#{{ .Params.id }} [data-user-section]").classList.remove("d-none")
-    document.querySelector("#{{ .Params.id }} [data-user-custom-section]").classList.remove("d-none")
-    apiParams.customParams?.forEach((customParam) => {
-      document.querySelector("#{{ .Params.id }} [data-user-custom]").append(
-        createKeyValuePair(
-          "{{ .Params.id }}",
-          customParam.key,
-          customParam.value,
-          customParam.placeholder
+      function importJson() {
+        console.log("CHANGE")
+        const files = input.files
+        console.log("FILES.LENGTH:", input.files.length)
+        let jsonFile
+        if (files.length > 0) {
+          jsonFile = input.files[0]
+          console.log("files[0]:", files[0])
+        }
+        const reader = new FileReader()
+        reader.onload = function (e) {
+          const text = e.target.result
+          console.log("TEXT:", text)
+          const stringify = JSON.stringify(text)
+          console.log("STRINGIFY:", stringify)
+          const parsed = JSON.parse(stringify)
+          console.log("PARSED:", parsed)
+          localStorage.setItem("import", text)
+          const getItem = localStorage.getItem("import")
+          console.log("GET ITEM:", getItem)
+          window.location.href = "../custom"
+        }
+        reader.readAsText(jsonFile)
+      }
+
+      // Add query params Add button click listener
+      document.querySelector("#{{ .Params.id }} [data-add-request-prop-btn]").addEventListener("click", () => {
+        document.querySelector("#{{ .Params.id }} [data-props]").append(
+          createKeyValuePair("{{ .Params.id }}")
         )
-      )
-    })
-  }
-  // If Source Params, unhide & append key value pairs
-  if (apiParams.sourceParams?.length > 0) {
-    document.querySelector("#{{ .Params.id }} [data-source-section]").classList.remove("d-none")
-    apiParams.sourceParams?.forEach((sourceParam) => {
-      document.querySelector("#{{ .Params.id }} [data-source]").append(
-        createKeyValuePair(
-          "{{ .Params.id }}",
-          sourceParam.key,
-          sourceParam.value,
-          sourceParam.placeholder
+      })
+
+      // // Add Items params Add button click listener
+      // document.querySelector("#{{ .Params.id }} [data-add-request-items-btn]").addEventListener("click", () => {
+      //   document.querySelector("#{{ .Params.id }} [data-items]").append(
+      //     createKeyValuePair("{{ .Params.id }}")
+      //   )
+      // })
+
+      // // Add Price params Add button click listener
+      // document.querySelector("#{{ .Params.id }} [data-add-request-price-btn]").addEventListener("click", () => {
+      //   document.querySelector("#{{ .Params.id }} [data-price]").append(
+      //     createKeyValuePair("{{ .Params.id }}")
+      //   )
+      // })
+
+      // // Add Subscriptions params Add button click listener
+      // document.querySelector("#{{ .Params.id }} [data-add-request-subscriptions-btn]").addEventListener("click", () => {
+      //   document.querySelector("#{{ .Params.id }} [data-subscriptions]").append(
+      //     createKeyValuePair("{{ .Params.id }}")
+      //   )
+      // })
+
+      // // Add query params Add button click listener
+      // document.querySelector("#{{ .Params.id }} [data-add-query-param-btn]").addEventListener("click", () => {
+      //   document.querySelector("#{{ .Params.id }} [data-query-params]").append(
+      //     createKeyValuePair("{{ .Params.id }}")
+      //   )
+      // })
+
+      // Add header params Add button click listener
+      document.querySelector("#{{ .Params.id }} [data-add-request-header-btn]").addEventListener("click", () => {
+        document.querySelector("#{{ .Params.id }} [data-request-headers]").append(
+          createKeyValuePair("{{ .Params.id }}")
         )
-      )
+      })
+
+      // Add User params Add button click listener
+      document.querySelector("#{{ .Params.id }} [data-add-request-user-btn]").addEventListener("click", () => {
+        document.querySelector("#{{ .Params.id }} [data-user]").append(
+          createKeyValuePair("{{ .Params.id }}")
+        )
+      })
+
+      // // Add Custom Identifier params Add button click listener
+      // document.querySelector("#{{ .Params.id }} [data-add-request-custom-btn]").addEventListener("click", () => {
+      //   document.querySelector("#{{ .Params.id }} [data-user-custom]").append(
+      //     createKeyValuePair("{{ .Params.id }}")
+      //   )
+      // })
+
+      // // Add Source params Add button click listener
+      // document.querySelector("#{{ .Params.id }} [data-add-request-source-btn]").addEventListener("click", () => {
+      //   document.querySelector("#{{ .Params.id }} [data-source]").append(
+      //     createKeyValuePair("{{ .Params.id }}")
+      //   )
+      // })
+
+      // Set url param
+      document.querySelector("#{{ .Params.id }} [data-url]").value = apiParams.url
+
+      // Set method param
+      document.querySelector("#{{ .Params.id }} [data-method]").value = apiParams?.method || "GET"
+
+      // If Query Params, unhide & append key value pairs
+      if (apiParams.queryParams?.length > 0) {
+        document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
+        document.querySelector("#{{ .Params.id }} [data-query-params-section]").classList.remove("d-none")
+        apiParams.queryParams?.forEach((queryParam) => {
+          document.querySelector("#{{ .Params.id }} [data-query-params]").append(
+            createKeyValuePair(
+              "{{ .Params.id }}",
+              queryParam.key,
+              queryParam.value,
+              queryParam.placeholder)
+          )
+        })
+      }
+
+      // If Property Params, unhide & append key value pairs
+      if (apiParams.propParams?.length > 0) {
+        document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
+        document.querySelector("#{{ .Params.id }} [data-props-section]").classList.remove("d-none")
+        apiParams.propParams?.forEach((propParam) => {
+          document.querySelector("#{{ .Params.id }} [data-props]").append(
+            createKeyValuePair(
+              "{{ .Params.id }}",
+              propParam.key,
+              propParam.value,
+              propParam.placeholder
+            )
+          )
+        })
+      }
+
+      // If Items Params, unhide & append key value pairs
+      if (apiParams.itemsParams?.length > 0) {
+        document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
+        document.querySelector("#{{ .Params.id }} [data-items-section]").classList.remove("d-none")
+        apiParams.itemsParams?.forEach((itemsParam) => {
+          document.querySelector("#{{ .Params.id }} [data-items]").append(
+            createKeyValuePair(
+              "{{ .Params.id }}",
+              itemsParam.key,
+              itemsParam.value,
+              itemsParam.placeholder
+            )
+          )
+        })
+      }
+
+      // If Price Params, unhide & append key value pairs
+      if (apiParams.priceParams?.length > 0) {
+        document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
+        document.querySelector("#{{ .Params.id }} [data-price-section]").classList.remove("d-none")
+        apiParams.priceParams?.forEach((priceParam) => {
+          document.querySelector("#{{ .Params.id }} [data-price]").append(
+            createKeyValuePair(
+              "{{ .Params.id }}",
+              priceParam.key,
+              priceParam.value,
+              priceParam.placeholder
+            )
+          )
+        })
+      }
+
+      // If Subscriptions Params, unhide & append key value pairs
+      if (apiParams.subscriptionsParams?.length > 0) {
+        document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
+        document.querySelector("#{{ .Params.id }} [data-subscriptions-section]").classList.remove("d-none")
+        apiParams.subscriptionsParams?.forEach((subscriptionsParam) => {
+          document.querySelector("#{{ .Params.id }} [data-subscriptions]").append(
+            createKeyValuePair(
+              "{{ .Params.id }}",
+              subscriptionsParam.key,
+              subscriptionsParam.value,
+              subscriptionsParam.placeholder
+            )
+          )
+        })
+      }
+
+      // If JSON Params, unhide & set textContent
+      if (typeof apiParams.jsonParams != "undefined") {
+        // console.log("JSON PARAMS:", apiParams.jsonParams)
+        jsonString = JSON.stringify(apiParams.jsonParams, null, 2)
+        // console.log(jsonString)
+        // console.log(jsonString.length)
+        if (jsonString.length > 2) {
+          document.querySelector("#{{ .Params.id }} [data-json-body]").textContent = jsonString
+          document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
+          document.querySelector("#{{ .Params.id }} [data-json-body-section]").classList.remove("d-none")
+
+          // JSON Body Editor - Ace Code Editor for the Web
+          editor = ace.edit(document.querySelector("#{{ .Params.id }} [data-json-body]"))
+          editor.setTheme("ace/theme/monokai")
+          editor.session.setMode("ace/mode/json")
+          editor.setOptions({
+            "maxLines": Infinity,
+            "highlightActiveLine": false,
+            "showLineNumbers": false,
+            "showGutter": false,
+            "showPrintMargin": false,
+            "fontSize": 14
+          })
+        }
+      }
+
+      // Append header params key value pairs
+      apiParams.headerParams?.forEach((headerParam) => {
+        document.querySelector("#{{ .Params.id }} [data-request-headers]").append(
+          createKeyValuePair(
+            "{{ .Params.id }}",
+            headerParam.key,
+            headerParam.value,
+            headerParam.placeholder
+          )
+        )
+      })
+
+      // If User Params, unhide & append key value pairs
+      if (apiParams.userParams?.length > 0) {
+        document.querySelector("#{{ .Params.id }} [data-user-section]").classList.remove("d-none")
+        document.querySelector("#{{ .Params.id }} [data-user-params-section]").classList.remove("d-none")
+        apiParams.userParams?.forEach((userParam) => {
+          document.querySelector("#{{ .Params.id }} [data-user]").append(
+            createKeyValuePair(
+              "{{ .Params.id }}",
+              userParam.key,
+              userParam.value,
+              userParam.placeholder
+            )
+          )
+        })
+      }
+
+      // If Custom Identifier Params, unhide & append key value pairs
+      if (apiParams.customParams?.length > 0) {
+        document.querySelector("#{{ .Params.id }} [data-user-section]").classList.remove("d-none")
+        document.querySelector("#{{ .Params.id }} [data-user-custom-section]").classList.remove("d-none")
+        apiParams.customParams?.forEach((customParam) => {
+          document.querySelector("#{{ .Params.id }} [data-user-custom]").append(
+            createKeyValuePair(
+              "{{ .Params.id }}",
+              customParam.key,
+              customParam.value,
+              customParam.placeholder
+            )
+          )
+        })
+      }
+      // If Source Params, unhide & append key value pairs
+      if (apiParams.sourceParams?.length > 0) {
+        document.querySelector("#{{ .Params.id }} [data-source-section]").classList.remove("d-none")
+        apiParams.sourceParams?.forEach((sourceParam) => {
+          document.querySelector("#{{ .Params.id }} [data-source]").append(
+            createKeyValuePair(
+              "{{ .Params.id }}",
+              sourceParam.key,
+              sourceParam.value,
+              sourceParam.placeholder
+            )
+          )
+        })
+      }
     })
-  }
+
 
   let edsPayload = {}
 
@@ -649,7 +657,7 @@
     if (source && Object.entries(source).length > 0) {
       if (source["clientName"]) clientPayload.clientName = source["clientName"]
       if (source["clientId"]) clientPayload.clientId = source["clientId"]
-      key_name = `${source["fileName"].replace(/(\.\w*)/, '')}`
+      if (source["fileName"]) key_name = `${source["fileName"].replace(/(\.\w*)/, '')}`
       // console.log("KEY_NAME:", key_name)
       if (source["dateFormat"]) key_name += `[[${source["dateFormat"]}]]`
       if (key_name && source["fileName"].match(/\.\w*/)) {
