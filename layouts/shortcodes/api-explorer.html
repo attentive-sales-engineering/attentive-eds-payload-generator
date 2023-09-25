@@ -21,20 +21,18 @@
   .Params.file => {{ .Params.file }}
   </pre> -->
 
-  <div class="p-3">
-    <a id="downloadEdsBtn" href=""><button type="submit" class="btn btn-primary" export-eds-btn>Export EDS
+  <div class="">
+    <a id="downloadEdsBtn" href=""><button type="submit" class="btn btn-primary right" export-eds-btn>Export
         Payload</button></a>
-  </div>
-  <div class="p-3">
-    <a id="downloadParamsBtn" href=""><button type="submit" class="btn btn-primary" export-params-btn>Export API
+    <a id="downloadParamsBtn" href=""><button type="submit" class="btn btn-primary right mr-2" export-params-btn>Export
         Params</button></a>
+    <form method="post" enctype="multipart/form-data">
+      <div>
+        <label class="btn btn-primary right mr-2" for="json_upload">Import Params</label>
+        <input type="file" id="json_upload" name="json_upload" accept=".json" />
+      </div>
+    </form>
   </div>
-  <form method="post" enctype="multipart/form-data">
-    <div>
-      <label class="btn btn-primary" for="json_upload">Import</label>
-      <input type="file" id="json_upload" name="json_upload" accept=".json" />
-    </div>
-  </form>
   <div data-form>
     <div class="input-group mb-3">
       <select class="form-select flex-grow-0 w-auto d-none" data-method>
