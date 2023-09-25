@@ -7,6 +7,16 @@
     console.log("API PARAMS: {{ .Params.file }}", apiParams)
   </script>
 
+  <!-- <script>
+    if ("{{ .Params.id }}" == 'custom') {
+      console.log("CUSTOM")
+      const importFile = JSON.parse(localStorage.getItem("import"))
+      console.log("IMPORT OBJECT:", importFile)
+      console.log("API PARAMS BEFORE:", apiParams)
+      // apiParams = importFile
+    } 
+  </script> -->
+
   <!-- <h3>Hugo Params</h3>
   {{ range $elem_key, $elem_val := .Params }}
   <b>{{ $elem_key }}</b>: <code>{{ $elem_val }}</code><br />
@@ -22,7 +32,12 @@
   </pre> -->
 
   <div class="p-3">
-    <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary" export-btn>Export</button></a>
+    <a id="downloadEdsBtn" href=""><button type="submit" class="btn btn-primary" export-eds-btn>Export EDS
+        Payload</button></a>
+  </div>
+  <div class="p-3">
+    <a id="downloadParamsBtn" href=""><button type="submit" class="btn btn-primary" export-params-btn>Export API
+        Params</button></a>
   </div>
   <form method="post" enctype="multipart/form-data">
     <div>
@@ -218,20 +233,30 @@
 </div>
 
 <script>
-
+  // Add Export button click listener
+  document.querySelector("#{{ .Params.id }} [export-eds-btn]").addEventListener("click", () => {
+    const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
+    // const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(apiParams))
+    const downloadBtn = document.getElementById("downloadEdsBtn")
+    downloadBtn.href = 'data:' + data
+    const filename = "EDS Payload"
+    if (edsPayload.sourcePayload["key_name"].length > 0) {
+      filename += ` ${edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
+    }
+    if (filename === null || filename === '') filename = 'data'
+    downloadBtn.download = `${filename}.json`
+  })
 
   // Add Export button click listener
-  document.querySelector("#{{ .Params.id }} [export-btn]").addEventListener("click", () => {
-    // console.log("CLICKED EXPORT")
-    // console.log("EDS PAYLOAD:", edsPayload)
+  document.querySelector("#{{ .Params.id }} [export-params-btn]").addEventListener("click", () => {
     // const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
     const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(apiParams))
-    // console.log("DOWNLOAD BTN DATA", data)
-    const downloadBtn = document.getElementById("downloadBtn")
+    const downloadBtn = document.getElementById("downloadParamsBtn")
     downloadBtn.href = 'data:' + data
-    // let filename = edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')
-    let filename = "foo.json"
-    // console.log("FILENAME:", filename)
+    const filename = "API Params"
+    if (edsPayload.sourcePayload["key_name"].length > 0) {
+      filename += ` ${edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
+    }
     if (filename === null || filename === '') filename = 'data'
     downloadBtn.download = `${filename}.json`
   })
@@ -522,6 +547,7 @@
     let key_name = ''
     let extension = ''
     let sourcePayload = {}
+    let clientPayload = {}
 
     // Set variable values from query selectors
     // Pass the id, the selector, and whether or not the value result should be enclosed in curly braces (true|false)
@@ -606,7 +632,7 @@
       header_mapping,
       payload_mapping,
     }
-    console.log("TARGET PAYLOAD", targetPayload)
+    // console.log("TARGET PAYLOAD", targetPayload)
 
     sourcePayload = {
       "bucket_name": "solutions-sftp-bucket-prod",
@@ -615,11 +641,14 @@
         "max_files": 1
       }
     }
+
     // console.log("SOURCE:", source)
     // console.log("SOURCE MAPPING BEFORE:", sourcePayload)
 
     // Concatenate source params
     if (source && Object.entries(source).length > 0) {
+      if (source["clientName"]) clientPayload.clientName = source["clientName"]
+      if (source["clientId"]) clientPayload.clientId = source["clientId"]
       key_name = `${source["fileName"].replace(/(\.\w*)/, '')}`
       // console.log("KEY_NAME:", key_name)
       if (source["dateFormat"]) key_name += `[[${source["dateFormat"]}]]`
@@ -637,8 +666,11 @@
       }
       // console.log("SOURCE PAYLOAD AFTER:", sourcePayload)
     }
-    console.log("SOURCE PAYLOAD:", sourcePayload)
+    console.log("CLIENT PAYLOAD:", clientPayload)
+    edsPayload.clientPayload = clientPayload
+    console.log("TARGET PAYLOAD:", clientPayload)
     edsPayload.targetPayload = targetPayload
+    console.log("SOURCE PAYLOAD:", sourcePayload)
     edsPayload.sourcePayload = sourcePayload
     console.log("EDS PAYLOAD:", edsPayload)
 
