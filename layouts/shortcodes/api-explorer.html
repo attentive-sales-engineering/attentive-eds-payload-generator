@@ -224,10 +224,210 @@
 
   async function fetchApiParams() {
     if ("{{ .Params.id }}" == 'custom') {
+
+      let apiParams = {
+        url: '',
+        method: '',
+        sourceParams: [
+          {
+            key: 'clientName',
+            value: '',
+            placeholder: 'Chafco (required)'
+          },
+          {
+            key: 'clientId',
+            value: '',
+            placeholder: '83006 (required)'
+          },
+          {
+            key: 'fileName',
+            value: '',
+            placeholder: 'chafco/uploads/custom_attributes.csv (required)'
+          },
+          {
+            key: 'delimiter',
+            value: '',
+            placeholder: 'comma, tab, pipe, ndjson (optional, default comma)'
+          },
+          {
+            key: 'dateFormat',
+            value: '',
+            placeholder: 'yyyyMMdd, yyyyMMddHH00 (required, if scheduled)'
+          },
+          {
+            key: 'timeZone',
+            value: '',
+            placeholder: 'America/New_York, Europe/London (required, if scheduled)'
+          }
+        ],
+        propParams: [],
+        itemsParams: [],
+        priceParams: [],
+        queryParams: [],
+        jsonParams: {},
+        headerParams: [],
+        userParams: [
+          {
+            key: 'phone',
+            value: '',
+            placeholder: 'phone (required, E.164 format)'
+          },
+          {
+            key: 'email',
+            value: '',
+            placeholder: 'email (phone or email required)'
+          },
+          {
+            key: 'externalIdentifiers.clientUserId',
+            value: '',
+            placeholder: 'clientUserId (optional)'
+          }
+        ],
+        customParams: []
+      }
+
       console.log("CUSTOM")
-      const apiParams = JSON.parse(localStorage.getItem("import"))
-      console.log("API PARAMS:", apiParams)
+      console.log("API PARAMS BEFORE:", apiParams)
+
+      const importFile = JSON.parse(localStorage.getItem("import"))
+      console.log("IMPORT OBJECT:", importFile)
+
+      // apiParams = importFile
+      const custom = apiParams
+      console.log("CUSTOM:", custom)
+      const target = importFile.targetPayload
+      console.log("TARGET:", target)
+      const source = importFile.sourcePayload
+      console.log("SOURCE:", source)
+      const client = importFile.clientPayload
+      console.log("CLIENT:", client)
+
+      function createParams(paramName, myObject, myParams) {
+        // console.log('paramName', paramName)
+        Object.entries(myParams).forEach(entry => {
+          const [key, value] = entry
+          console.log(`PROP ${key}: ${value}`)
+          if (paramName === 'queryParams') {
+            if (
+              `${key}` === 'properties' ||
+              `${key}` === 'items' ||
+              `${key}` === 'user'
+            ) {
+              return
+            }
+          }
+
+          const thisObj = {
+            key: key,
+            value: value.slice(2, -2),
+            placeholder: ''
+          }
+
+          myObject.push(thisObj)
+        })
+      }
+
+      custom.url = target.url
+      custom.method = target.method
+      // const props = target.payload_mapping.properties
+      // custom.propParams[0] = target.payload_mapping.properties
+
+      // propParams
+      if (target.payload_mapping.properties) {
+        createParams('propParams', custom.propParams, target.payload_mapping.properties)
+      }
+
+      // priceParams
+      if (target.payload_mapping.items && target.payload_mapping.items[0].price[0]) {
+        createParams(
+          'priceParams',
+          custom.priceParams,
+          target.payload_mapping.items[0].price[0]
+        )
+      }
+
+      // itemsParams
+      if (target.payload_mapping.items) {
+        createParams('itemsParams', custom.itemsParams, target.payload_mapping.items[0])
+        custom.itemsParams.splice(6, 1)
+      }
+
+      // headerParams
+      if (target.header_mapping) {
+        createParams('headerParams', custom.headerParams, target.header_mapping)
+      }
+
+      // userParams
+      if (target.payload_mapping.user.externalIdentifiers.clientUserId) {
+        // custom.log('externalIdentifiers.clientUserId')
+        custom.userParams[2].value =
+          target.payload_mapping.user.externalIdentifiers.clientUserId.slice(2, -2)
+      } else {
+        // custom.log('DELETE externalIdentifiers.clientUserId')
+        custom.userParams.splice(2, 1)
+      }
+      if (target.payload_mapping.user.email) {
+        // custom.log('EMAIL')
+        custom.userParams[1].value = target.payload_mapping.user.email.slice(2, -2)
+      } else {
+        // custom.log('DELETE email')
+        custom.userParams.splice(1, 1)
+      }
+      if (target.payload_mapping.user.phone) {
+        // custom.log('PHONE')
+        custom.userParams[0].value = target.payload_mapping.user.phone.slice(2, -2)
+      } else {
+        // custom.log('DELETE phone')
+        custom.userParams.splice(0, 1)
+      }
+      // custom.customParams = target.payload_mapping.user.externalIdentifiers.custom
+
+      // customParams
+      if (target.payload_mapping.user.externalIdentifiers.custom[0]) {
+        createParams(
+          'customParams',
+          custom.customParams,
+          target.payload_mapping.user.externalIdentifiers.custom[0]
+        )
+      }
+
+      // queryParams
+      if (target.payload_mapping) {
+        createParams('queryParams', custom.queryParams, target.payload_mapping)
+      }
+
+      // sourceParams
+      const key_name = source.key_name
+      let dateFormat = key_name.match(/\[\[\w+\]\]/)
+      if (dateFormat) {
+        dateFormat = dateFormat.toString().replace('[[', '').replace(']]', '')
+      }
+      let timeZone = key_name.match(/<&\S+&>/)
+      if (timeZone) {
+        timeZone = timeZone.toString().replace('<&', '').replace('&>', '')
+      }
+      let fileName = key_name.replace(/\[\[\w+\]\]/, '').replace(/<&\S+&>/, '')
+      custom.sourceParams[0].value = client.clientName
+        ? client.clientName
+        : ''
+      custom.sourceParams[1].value = client.clientId
+        ? client.clientId
+        : ''
+      custom.sourceParams[2].value = fileName
+      custom.sourceParams[3].value = source.delimiter
+        ? source.delimiter
+        : ''
+      custom.sourceParams[4].value = dateFormat
+      custom.sourceParams[5].value = timeZone
+
+      console.log('CUSTOM AT END:', custom)
+      apiParams = custom
+      console.log('apiParams AFTER:', apiParams)
+      // console.log('edsPayload:', JSON.stringify(edsPayload, null, 2))
+
+      // console.log('custom:', JSON.stringify(custom, null, 2))
       return apiParams
+
     } else {
       const response = await fetch('./params/params.json')
       const jsonResponse = await response.json()
@@ -235,6 +435,7 @@
       return jsonResponse
     }
   }
+
 
   fetchApiParams()
     .then(response => {
@@ -246,7 +447,7 @@
         const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
         const downloadBtn = document.getElementById("downloadEdsBtn")
         downloadBtn.href = 'data:' + data
-        const filename = "EDS Payload"
+        let filename = "EDS Payload"
         if (edsPayload.sourcePayload["key_name"].length > 0) {
           filename += ` ${edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
         }
@@ -259,7 +460,7 @@
         const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(apiParams))
         const downloadBtn = document.getElementById("downloadParamsBtn")
         downloadBtn.href = 'data:' + data
-        const filename = "API Params"
+        let filename = "API Params"
         if (edsPayload.sourcePayload["key_name"].length > 0) {
           filename += ` ${edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
         }
