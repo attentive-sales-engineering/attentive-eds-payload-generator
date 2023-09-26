@@ -289,8 +289,9 @@
       console.log("CUSTOM")
       console.log("API PARAMS BEFORE:", apiParams)
 
-      const importFile = JSON.parse(localStorage.getItem("import"))
+      const importFile = JSON.parse(localStorage.getItem("eds-import"))
       console.log("IMPORT OBJECT:", importFile)
+      if (importFile === null) window.location.href = '../custom-attributes'
 
       // apiParams = importFile
       const custom = apiParams
@@ -487,8 +488,8 @@
           console.log("STRINGIFY:", stringify)
           const parsed = JSON.parse(stringify)
           console.log("PARSED:", parsed)
-          localStorage.setItem("import", text)
-          const getItem = localStorage.getItem("import")
+          localStorage.setItem("eds-import", text)
+          const getItem = localStorage.getItem("eds-import")
           console.log("GET ITEM:", getItem)
           window.location.href = "../custom"
         }
