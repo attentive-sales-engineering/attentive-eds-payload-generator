@@ -22,6 +22,8 @@
   </pre> -->
 
   <div class="mt-x">
+    <a id="createBtn" href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4"
+        create-btn>Create</button></a>
     <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary right ml-2 mb-4"
         export-btn>Export</button></a>
     <form method="post" enctype="multipart/form-data">
@@ -361,7 +363,7 @@
       }
 
       // userParams
-      if (target.payload_mapping.user.externalIdentifiers.clientUserId) {
+      if (target.payload_mapping.user.externalIdentifiers?.clientUserId) {
         // custom.log('externalIdentifiers.clientUserId')
         custom.userParams[2].value =
           target.payload_mapping.user.externalIdentifiers.clientUserId.slice(2, -2)
@@ -386,7 +388,7 @@
       // custom.customParams = target.payload_mapping.user.externalIdentifiers.custom
 
       // customParams
-      if (target.payload_mapping.user.externalIdentifiers.custom[0]) {
+      if (target.payload_mapping.user.externalIdentifiers?.custom[0]) {
         createParams(
           'customParams',
           custom.customParams,
@@ -444,6 +446,11 @@
     .then(response => {
       console.log("THEN FETCH:", response)
       const apiParams = response
+
+      // Create button click listener
+      document.querySelector("#{{ .Params.id }} [create-btn]").addEventListener("click", () => {
+        window.open("https://ui.attentivemobile.com/tactical/event-destinations/create?companyId=" + edsPayload.clientPayload.clientId, '_blank')
+      })
 
       // Export button click listener
       document.querySelector("#{{ .Params.id }} [export-btn]").addEventListener("click", () => {
