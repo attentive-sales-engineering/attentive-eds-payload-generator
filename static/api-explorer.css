@@ -89,6 +89,10 @@
   margin-bottom: 1.5rem;
 }
 
+.mb-5 {
+  margin-bottom: 2rem;
+}
+
 .ml-2 {
   margin-left: 0.5rem;
 }
@@ -119,6 +123,10 @@
 
 .mt-5 {
   margin-top: 3rem;
+}
+
+.mt-x {
+  margin-top: -60px;
 }
 
 .my-1 {

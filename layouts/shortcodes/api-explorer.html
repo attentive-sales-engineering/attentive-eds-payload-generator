@@ -21,8 +21,8 @@
   .Params.file => {{ .Params.file }}
   </pre> -->
 
-  <div class="">
-    <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary right ml-2 mb-3"
+  <div class="mt-x">
+    <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary right ml-2 mb-4"
         export-btn>Export</button></a>
     <form method="post" enctype="multipart/form-data">
       <div>
@@ -304,7 +304,7 @@
         // console.log('paramName', paramName)
         Object.entries(myParams).forEach(entry => {
           const [key, value] = entry
-          console.log(`PROP ${key}: ${value}`)
+          // console.log(`PROP ${key}: ${value}`)
           if (paramName === 'queryParams') {
             if (
               `${key}` === 'properties' ||
@@ -315,9 +315,14 @@
             }
           }
 
+          let val = value
+          if (key != "Authorization") {
+            val = val.slice(2, -2)
+          }
+
           const thisObj = {
             key: key,
-            value: value.slice(2, -2),
+            value: val,
             placeholder: ''
           }
 
