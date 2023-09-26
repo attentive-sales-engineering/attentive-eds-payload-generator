@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /tags/*
+
+Sitemap: https://johnchaffee.github.io/attentive-eds-payload-generator/sitemap.xml

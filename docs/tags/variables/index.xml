@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>variables on Attentive EDS Payload Generator</title>
+    <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/variables/</link>
+    <description>Recent content in variables on Attentive EDS Payload Generator</description>
+    <generator>Hugo -- gohugo.io</generator><atom:link href="https://johnchaffee.github.io/attentive-eds-payload-generator/tags/variables/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Environment Variables</title>
+      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/environment-variables/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/environment-variables/</guid>
+      <description>Enter key/value environment variables to use in API requests.
+Add Custom Environment Variable Environment Variables Edit Delete </description>
+    </item>
+    
+  </channel>
+</rss>
