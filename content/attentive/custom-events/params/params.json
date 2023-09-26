@@ -91,7 +91,7 @@
     {
       "key": "value",
       "value": "",
-      "placeholder": "clientUserId (optional)"
+      "placeholder": "customIdentifier (optional)"
     }
   ]
 }
