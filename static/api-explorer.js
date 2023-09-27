@@ -362,3 +362,233 @@ function parseImportFile (edsFile) {
 
   console.log('apiParams AFTER:', apiParams)
 }
+
+// Update the json payload when various change events fire
+function updatePayload (e, paramsId) {
+  // console.log("LISTENER:", e)
+  // console.log("LISTENER TYPE:", e.type)
+  console.log('EVENT:', e.type)
+  console.log('PARAMS ID:', paramsId)
+
+  let url = ''
+  let method = ''
+  let header_mapping = {}
+  let params = {}
+  let prop = {}
+  let items = {}
+  let price = {}
+  let subscriptions = {}
+  let user = {}
+  let custom = {}
+  let payload_mapping = {}
+  let targetPayload = {}
+  let source = {}
+  let key_name = ''
+  let extension = ''
+  let sourcePayload = {}
+  let clientPayload = {}
+  let clientName = ''
+  let clientId = ''
+
+  // Set variable values from query selectors
+  // Pass the id, the selector, and whether or not the value result should be enclosed in curly braces (true|false)
+  url = document.querySelector(`#${paramsId} ` + '[data-url]', false).value
+  method = document.querySelector(
+    `#${paramsId} ` + '[data-method]',
+    false
+  ).value
+  header_mapping = keyValuePairsToObjects(
+    paramsId,
+    document.querySelector(`#${paramsId} ` + '[data-request-headers]'),
+    false
+  ).tempObject
+  if (url.match('subscriptions')) {
+    console.log('SUBSCRIPTIONS')
+    console.log('curlyBraces OFF')
+    params = keyValuePairsToObjects(
+      paramsId,
+      document.querySelector(`#${paramsId} ` + '[data-query-params]'),
+      false
+    ).tempObject
+  } else {
+    params = keyValuePairsToObjects(
+      paramsId,
+      document.querySelector(`#${paramsId} ` + '[data-query-params]'),
+      true
+    ).tempObject
+  }
+  prop = keyValuePairsToObjects(
+    paramsId,
+    document.querySelector(`#${paramsId} ` + '[data-props]'),
+    true
+  ).tempObject
+  items = keyValuePairsToObjects(
+    paramsId,
+    document.querySelector(`#${paramsId} ` + '[data-items]'),
+    true
+  ).tempObject
+  price = keyValuePairsToObjects(
+    paramsId,
+    document.querySelector(`#${paramsId} ` + '[data-price]'),
+    true
+  ).tempObject
+  subscriptions = keyValuePairsToObjects(
+    paramsId,
+    document.querySelector(`#${paramsId} ` + '[data-subscriptions]'),
+    false
+  ).tempObject
+  user = keyValuePairsToObjects(
+    paramsId,
+    document.querySelector(`#${paramsId} ` + '[data-user]'),
+    true
+  ).tempObject
+  custom = keyValuePairsToObjects(
+    paramsId,
+    document.querySelector(`#${paramsId} ` + '[data-user-custom]'),
+    true
+  ).tempObject
+  source = keyValuePairsToObjects(
+    paramsId,
+    document.querySelector(`#${paramsId} ` + '[data-source]'),
+    false
+  ).tempObject
+  jsonBody = document.querySelector(
+    `#${paramsId} ` + '.ace_content'
+  )?.textContent
+
+  // console.log("JSON BODY:", jsonBody)
+  // console.log("URL", url)
+  // console.log("METHOD:", method)
+  // console.log("HEADERS:", header_mapping)
+
+  // console.log("PARAMS:", params)
+  // Object.entries(params).forEach((entry) => {
+  //   const [key, value] = entry
+  //   console.log(`${key}: ${value}`)
+  // })
+  // if (params && Object.entries(params).length > 0) {
+  //   Object.entries(params).forEach((entry) => {
+  //     const [key, value] = entry
+  //     payload_mapping[key] = value
+  //   })
+  // }
+
+  // console.log("PARAMS:", params)
+  if (params && Object.entries(params).length > 0) {
+    payload_mapping = params
+  } else {
+    document
+      .querySelector(`#${paramsId} ` + '[data-query-params-section]')
+      .classList.add('d-none')
+  }
+
+  // console.log("PROP:", prop)
+  if (prop && Object.entries(prop).length > 0) {
+    payload_mapping.properties = prop
+  } else {
+    document
+      .querySelector(`#${paramsId} ` + '[data-props-section]')
+      .classList.add('d-none')
+  }
+
+  // console.log("ITEMS:", items)
+  if (items && Object.entries(items).length > 0) {
+    payload_mapping.items = [items]
+  } else {
+    document
+      .querySelector(`#${paramsId} ` + '[data-items-section]')
+      .classList.add('d-none')
+  }
+
+  // console.log("PRICE:", price)
+  if (price && Object.entries(price).length > 0) {
+    payload_mapping.items[0].price = [price]
+  } else {
+    document
+      .querySelector(`#${paramsId} ` + '[data-price-section]')
+      .classList.add('d-none')
+  }
+
+  // console.log("SUBSCRIPTIONS:", subscriptions)
+  if (subscriptions && Object.entries(subscriptions).length > 0) {
+    payload_mapping.subscriptions = [subscriptions]
+  } else {
+    document
+      .querySelector(`#${paramsId} ` + '[data-subscriptions-section]')
+      .classList.add('d-none')
+  }
+
+  // console.log("USER:", user)
+  if (user && Object.entries(user).length > 0) {
+    payload_mapping.user = user
+  } else {
+    document
+      .querySelector(`#${paramsId} ` + '[data-user-params-section]')
+      .classList.add('d-none')
+  }
+
+  // console.log("CUSTOM IDENTIFIER:", custom)
+  if (custom && Object.entries(custom).length > 0) {
+    payload_mapping.user.externalIdentifiers.custom = []
+    payload_mapping.user.externalIdentifiers.custom[0] = custom
+  } else {
+    document
+      .querySelector(`#${paramsId} ` + '[data-user-custom-section]')
+      .classList.add('d-none')
+  }
+
+  // console.log("PAYLOAD MAPPING", payload_mapping)
+
+  targetPayload = {
+    url,
+    method,
+    header_mapping,
+    payload_mapping
+  }
+
+  sourcePayload = {
+    bucket_name: 'solutions-sftp-bucket-prod',
+    options: {
+      match_prefix: true,
+      max_files: 1
+    }
+  }
+
+  // Concatenate source params
+  if (source && Object.entries(source).length > 0) {
+    if (source['clientName']) clientPayload.clientName = source['clientName']
+    if (source['clientId']) clientPayload.clientId = source['clientId']
+    if (source['fileName'])
+      key_name = `${source['fileName'].replace(/(\.\w*)/, '')}`
+    // console.log("KEY_NAME:", key_name)
+    if (source['dateFormat']) key_name += `[[${source['dateFormat']}]]`
+    if (key_name && source['fileName'].match(/\.\w*/)) {
+      extension = source['fileName'].match(/\.\w*/).toString()
+      // console.log("EXTENSION", extension)
+      key_name += extension
+    }
+    if (source['timeZone']) key_name += `<&${source['timeZone']}&>`
+    sourcePayload.key_name = key_name
+    if (source['delimiter']) {
+      delimiter = source['delimiter']
+      // console.log("DELIMITER:", delimiter)
+      sourcePayload.delimiter = delimiter
+    }
+  }
+
+  // console.log("CLIENT PAYLOAD:", clientPayload)
+  edsPayload.clientPayload = clientPayload
+  // console.log("TARGET PAYLOAD:", clientPayload)
+  edsPayload.targetPayload = targetPayload
+  // console.log("SOURCE PAYLOAD:", sourcePayload)
+  edsPayload.sourcePayload = sourcePayload
+  console.log('EDS PAYLOAD:', edsPayload)
+  if (e.type === 'change') {
+    console.log('CHANGE EVENT: EDS-RECENT -> LOCAL STORAGE')
+    localStorage.setItem('eds-recent', JSON.stringify(edsPayload, null, 2))
+    // console.log("LOCAL STORAGE:", localStorage.getItem("eds-recent"))
+  } else {
+    updateTargetPayloadBody(paramsId, targetPayload)
+    updateSourcePayloadBody(paramsId, sourcePayload)
+  }
+}
