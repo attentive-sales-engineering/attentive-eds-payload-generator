@@ -1,17 +1,16 @@
 <div class="p-2" id="{{ .Params.id }}">
 
-  <h3>Hugo Params</h3>
+  <!-- <h3>Hugo Params</h3>
   {{ range $elem_key, $elem_val := .Params }}
   <b>{{ $elem_key }}</b>: <code>{{ $elem_val }}</code><br />
   {{ end }}
-
   <pre>
   .Site => {{ .Site }}
   .Site.Title => {{ .Site.Title }}
   .Page => {{ .Page }}
   .Page.Title => {{ .Page.Title }}
   .Params.id => {{ .Params.id }}
-  </pre>
+  </pre> -->
 
   <div class="mt-x">
     <a id="createBtn" href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4"
@@ -237,7 +236,7 @@
           importFile = JSON.parse(localStorage.getItem("eds-recent"))
         }
         console.log("IMPORT OBJECT:", importFile)
-        if (importFile === null) window.location.href = '../custom-attributes'
+        if (importFile === null) window.location.href = '../../attentive/custom-attributes'
 
         let target = {}
         target = importFile.targetPayload
@@ -402,7 +401,7 @@
         reader.onload = function (e) {
           const text = e.target.result
           localStorage.setItem("eds-import", text)
-          window.location.href = "../custom"
+          window.location.href = "../../other/custom"
         }
         reader.readAsText(jsonFile)
       }
