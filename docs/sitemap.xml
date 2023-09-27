@@ -22,7 +22,11 @@
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/unsubscribe/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/custom/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/other/custom/</loc>
+  </url><url>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/other/recent/</loc>
+  </url><url>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/other/sow/</loc>
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/</loc>
   </url><url>
@@ -39,6 +43,8 @@
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/events/</loc>
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/messages/</loc>
+  </url><url>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/other/</loc>
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/preferences/</loc>
   </url><url>

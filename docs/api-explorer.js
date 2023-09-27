@@ -206,3 +206,159 @@ function keyValuePairsToObjects (id, container, crulyBraces) {
     return { ...data, tempObject }
   }, {})
 }
+
+// Parse the eds json files stored in local storage
+function parseImportFile (edsFile) {
+  console.log('CUSTOM or RECENT:', edsFile)
+
+  let importFile
+  if (edsFile == 'custom') {
+    importFile = JSON.parse(localStorage.getItem('eds-import'))
+  } else if (edsFile == 'recent') {
+    importFile = JSON.parse(localStorage.getItem('eds-recent'))
+  }
+  console.log('IMPORT OBJECT:', importFile)
+  if (importFile === null)
+    window.location.href = '../../attentive/custom-attributes'
+
+  // Call the function here
+  // doSomething with the ImportFile
+  // parseThisImportFile(custom|recent)
+
+  let target = {}
+  target = importFile.targetPayload
+  console.log('TARGET:', target)
+  let source = {}
+  source = importFile.sourcePayload
+  console.log('SOURCE:', source)
+  let client = {}
+  client = importFile.clientPayload
+  console.log('CLIENT:', client)
+
+  function createParams (paramName, myObject, myParams) {
+    // console.log('paramName', paramName)
+    Object.entries(myParams).forEach(entry => {
+      const [key, value] = entry
+      // console.log(`PROP ${key}: ${value}`)
+      if (paramName === 'queryParams') {
+        if (
+          `${key}` === 'properties' ||
+          `${key}` === 'items' ||
+          `${key}` === 'user'
+        ) {
+          return
+        }
+      }
+
+      let val = value
+      if (key != 'Authorization') {
+        val = val.slice(2, -2)
+      }
+
+      const thisObj = {
+        key: key,
+        value: val,
+        placeholder: ''
+      }
+
+      myObject.push(thisObj)
+    })
+  }
+
+  apiParams.url = target.url
+  apiParams.method = target.method
+
+  // propParams
+  if (target.payload_mapping.properties) {
+    createParams(
+      'propParams',
+      apiParams.propParams,
+      target.payload_mapping.properties
+    )
+  }
+
+  // priceParams
+  if (
+    target.payload_mapping.items &&
+    target.payload_mapping.items[0].price[0]
+  ) {
+    createParams(
+      'priceParams',
+      apiParams.priceParams,
+      target.payload_mapping.items[0].price[0]
+    )
+  }
+
+  // itemsParams
+  if (target.payload_mapping.items) {
+    createParams(
+      'itemsParams',
+      apiParams.itemsParams,
+      target.payload_mapping.items[0]
+    )
+    apiParams.itemsParams.splice(6, 1)
+  }
+
+  // headerParams
+  if (target.header_mapping) {
+    createParams('headerParams', apiParams.headerParams, target.header_mapping)
+  }
+
+  // userParams
+  if (target.payload_mapping.user.externalIdentifiers?.clientUserId) {
+    apiParams.userParams[2].value =
+      target.payload_mapping.user.externalIdentifiers.clientUserId.slice(2, -2)
+  } else {
+    apiParams.userParams.splice(2, 1)
+  }
+  if (target.payload_mapping.user.email) {
+    apiParams.userParams[1].value = target.payload_mapping.user.email.slice(
+      2,
+      -2
+    )
+  } else {
+    apiParams.userParams.splice(1, 1)
+  }
+  if (target.payload_mapping.user.phone) {
+    apiParams.userParams[0].value = target.payload_mapping.user.phone.slice(
+      2,
+      -2
+    )
+  } else {
+    apiParams.userParams.splice(0, 1)
+  }
+
+  // customParams
+  if (target.payload_mapping.user.externalIdentifiers?.custom[0]) {
+    createParams(
+      'customParams',
+      apiParams.customParams,
+      target.payload_mapping.user.externalIdentifiers.custom[0]
+    )
+  }
+
+  // queryParams
+  if (target.payload_mapping) {
+    createParams('queryParams', apiParams.queryParams, target.payload_mapping)
+  }
+
+  // sourceParams
+  const key_name = source.key_name
+  let dateFormat = key_name.match(/\[\[\w+\]\]/)
+  if (dateFormat) {
+    dateFormat = dateFormat.toString().replace('[[', '').replace(']]', '')
+  }
+  let timeZone = key_name.match(/<&\S+&>/)
+  if (timeZone) {
+    timeZone = timeZone.toString().replace('<&', '').replace('&>', '')
+  }
+  let fileName = key_name.replace(/\[\[\w+\]\]/, '').replace(/<&\S+&>/, '')
+  apiParams.sourceParams[0].value = client?.clientName ? client.clientName : ''
+  apiParams.sourceParams[1].value = client?.clientId ? client.clientId : ''
+  apiParams.sourceParams[2].value = fileName
+  apiParams.sourceParams[3].value = source.delimiter ? source.delimiter : ''
+  apiParams.sourceParams[4].value = dateFormat
+  apiParams.sourceParams[5].value = timeZone
+
+  console.log('apiParams AFTER:', apiParams)
+}
