@@ -682,7 +682,7 @@
 
   // Form Submit listener
   updatePayload = function (e) {
-    console.log("LISTENER:", e)
+    // console.log("LISTENER:", e)
     console.log("LISTENER TYPE:", e.type)
 
     let url = ''
@@ -704,7 +704,6 @@
     let clientPayload = {}
     let clientName = ''
     let clientId = ''
-
 
     // Set variable values from query selectors
     // Pass the id, the selector, and whether or not the value result should be enclosed in curly braces (true|false)
@@ -804,8 +803,8 @@
 
     // Concatenate source params
     if (source && Object.entries(source).length > 0) {
-      if (source["clientName"]) clientName = source["clientName"]
-      if (source["clientId"]) clientId = source["clientId"]
+      if (source["clientName"]) clientPayload.clientName = source["clientName"]
+      if (source["clientId"]) clientPayload.clientId = source["clientId"]
       if (source["fileName"]) key_name = `${source["fileName"].replace(/(\.\w*)/, '')}`
       // console.log("KEY_NAME:", key_name)
       if (source["dateFormat"]) key_name += `[[${source["dateFormat"]}]]`
@@ -830,15 +829,19 @@
     console.log("SOURCE PAYLOAD:", sourcePayload)
     edsPayload.sourcePayload = sourcePayload
     console.log("EDS PAYLOAD:", edsPayload)
-    localStorage.setItem("eds-recent", JSON.stringify(edsPayload, null, 2))
-    // console.log("LOCAL STORAGE:", localStorage.getItem("eds-recent"))
-
-    updateTargetPayloadBody("{{ .Params.id }}", targetPayload)
-    updateSourcePayloadBody("{{ .Params.id }}", sourcePayload)
+    if (e.type === "change") {
+      console.log("CHANGE")
+      localStorage.setItem("eds-recent", JSON.stringify(edsPayload, null, 2))
+      console.log("LOCAL STORAGE:", localStorage.getItem("eds-recent"))
+    } else {
+      updateTargetPayloadBody("{{ .Params.id }}", targetPayload)
+      updateSourcePayloadBody("{{ .Params.id }}", sourcePayload)
+    }
   }
 
   // Add our event listeners
   window.addEventListener('DOMContentLoaded', updatePayload, false)
+  document.querySelector("#{{ .Params.id }} [data-form]").addEventListener('change', updatePayload, false)
   document.querySelector("#{{ .Params.id }} [data-form]").addEventListener('keyup', updatePayload, false)
   document.querySelector("#{{ .Params.id }} [data-form]").addEventListener('click', updatePayload, false)
 
