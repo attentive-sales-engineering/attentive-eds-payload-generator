@@ -251,13 +251,16 @@
         if (importFile === null) window.location.href = '../custom-attributes'
 
         // apiParams = importFile
-        const custom = apiParams
-        console.log("CUSTOM:", custom)
-        const target = importFile.targetPayload
+        // const custom = apiParams
+        // console.log("CUSTOM:", custom)
+        let target = {}
+        target = importFile.targetPayload
         console.log("TARGET:", target)
-        const source = importFile.sourcePayload
+        let source = {}
+        source = importFile.sourcePayload
         console.log("SOURCE:", source)
-        const client = importFile.clientPayload
+        let client = {}
+        client = importFile.clientPayload
         console.log("CLIENT:", client)
 
         function createParams(paramName, myObject, myParams) {
@@ -290,73 +293,73 @@
           })
         }
 
-        custom.url = target.url
-        custom.method = target.method
+        apiParams.url = target.url
+        apiParams.method = target.method
         // const props = target.payload_mapping.properties
-        // custom.propParams[0] = target.payload_mapping.properties
+        // apiParams.propParams[0] = target.payload_mapping.properties
 
         // propParams
         if (target.payload_mapping.properties) {
-          createParams('propParams', custom.propParams, target.payload_mapping.properties)
+          createParams('propParams', apiParams.propParams, target.payload_mapping.properties)
         }
 
         // priceParams
         if (target.payload_mapping.items && target.payload_mapping.items[0].price[0]) {
           createParams(
             'priceParams',
-            custom.priceParams,
+            apiParams.priceParams,
             target.payload_mapping.items[0].price[0]
           )
         }
 
         // itemsParams
         if (target.payload_mapping.items) {
-          createParams('itemsParams', custom.itemsParams, target.payload_mapping.items[0])
-          custom.itemsParams.splice(6, 1)
+          createParams('itemsParams', apiParams.itemsParams, target.payload_mapping.items[0])
+          apiParams.itemsParams.splice(6, 1)
         }
 
         // headerParams
         if (target.header_mapping) {
-          createParams('headerParams', custom.headerParams, target.header_mapping)
+          createParams('headerParams', apiParams.headerParams, target.header_mapping)
         }
 
         // userParams
         if (target.payload_mapping.user.externalIdentifiers?.clientUserId) {
-          // custom.log('externalIdentifiers.clientUserId')
-          custom.userParams[2].value =
+          // apiParams.log('externalIdentifiers.clientUserId')
+          apiParams.userParams[2].value =
             target.payload_mapping.user.externalIdentifiers.clientUserId.slice(2, -2)
         } else {
-          // custom.log('DELETE externalIdentifiers.clientUserId')
-          custom.userParams.splice(2, 1)
+          // apiParams.log('DELETE externalIdentifiers.clientUserId')
+          apiParams.userParams.splice(2, 1)
         }
         if (target.payload_mapping.user.email) {
-          // custom.log('EMAIL')
-          custom.userParams[1].value = target.payload_mapping.user.email.slice(2, -2)
+          // apiParams.log('EMAIL')
+          apiParams.userParams[1].value = target.payload_mapping.user.email.slice(2, -2)
         } else {
-          // custom.log('DELETE email')
-          custom.userParams.splice(1, 1)
+          // apiParams.log('DELETE email')
+          apiParams.userParams.splice(1, 1)
         }
         if (target.payload_mapping.user.phone) {
-          // custom.log('PHONE')
-          custom.userParams[0].value = target.payload_mapping.user.phone.slice(2, -2)
+          // apiParams.log('PHONE')
+          apiParams.userParams[0].value = target.payload_mapping.user.phone.slice(2, -2)
         } else {
-          // custom.log('DELETE phone')
-          custom.userParams.splice(0, 1)
+          // apiParams.log('DELETE phone')
+          apiParams.userParams.splice(0, 1)
         }
-        // custom.customParams = target.payload_mapping.user.externalIdentifiers.custom
+        // apiParams.customParams = target.payload_mapping.user.externalIdentifiers.custom
 
         // customParams
         if (target.payload_mapping.user.externalIdentifiers?.custom[0]) {
           createParams(
             'customParams',
-            custom.customParams,
+            apiParams.customParams,
             target.payload_mapping.user.externalIdentifiers.custom[0]
           )
         }
 
         // queryParams
         if (target.payload_mapping) {
-          createParams('queryParams', custom.queryParams, target.payload_mapping)
+          createParams('queryParams', apiParams.queryParams, target.payload_mapping)
         }
 
         // sourceParams
@@ -370,21 +373,21 @@
           timeZone = timeZone.toString().replace('<&', '').replace('&>', '')
         }
         let fileName = key_name.replace(/\[\[\w+\]\]/, '').replace(/<&\S+&>/, '')
-        custom.sourceParams[0].value = client.clientName
+        apiParams.sourceParams[0].value = client?.clientName
           ? client.clientName
           : ''
-        custom.sourceParams[1].value = client.clientId
+        apiParams.sourceParams[1].value = client?.clientId
           ? client.clientId
           : ''
-        custom.sourceParams[2].value = fileName
-        custom.sourceParams[3].value = source.delimiter
+        apiParams.sourceParams[2].value = fileName
+        apiParams.sourceParams[3].value = source.delimiter
           ? source.delimiter
           : ''
-        custom.sourceParams[4].value = dateFormat
-        custom.sourceParams[5].value = timeZone
+        apiParams.sourceParams[4].value = dateFormat
+        apiParams.sourceParams[5].value = timeZone
 
-        console.log('CUSTOM AT END:', custom)
-        apiParams = custom
+        // console.log('CUSTOM AT END:', custom)
+        // apiParams = custom
         console.log('apiParams AFTER:', apiParams)
         // console.log('edsPayload:', JSON.stringify(edsPayload, null, 2))
         // console.log('custom:', JSON.stringify(custom, null, 2))
@@ -699,6 +702,9 @@
     let extension = ''
     let sourcePayload = {}
     let clientPayload = {}
+    let clientName = ''
+    let clientId = ''
+
 
     // Set variable values from query selectors
     // Pass the id, the selector, and whether or not the value result should be enclosed in curly braces (true|false)
@@ -798,8 +804,8 @@
 
     // Concatenate source params
     if (source && Object.entries(source).length > 0) {
-      if (source["clientName"]) clientPayload.clientName = source["clientName"]
-      if (source["clientId"]) clientPayload.clientId = source["clientId"]
+      if (source["clientName"]) clientName = source["clientName"]
+      if (source["clientId"]) clientId = source["clientId"]
       if (source["fileName"]) key_name = `${source["fileName"].replace(/(\.\w*)/, '')}`
       // console.log("KEY_NAME:", key_name)
       if (source["dateFormat"]) key_name += `[[${source["dateFormat"]}]]`
@@ -825,7 +831,7 @@
     edsPayload.sourcePayload = sourcePayload
     console.log("EDS PAYLOAD:", edsPayload)
     localStorage.setItem("eds-recent", JSON.stringify(edsPayload, null, 2))
-    console.log("LOCAL STORAGE:", localStorage.getItem("eds-recent"))
+    // console.log("LOCAL STORAGE:", localStorage.getItem("eds-recent"))
 
     updateTargetPayloadBody("{{ .Params.id }}", targetPayload)
     updateSourcePayloadBody("{{ .Params.id }}", sourcePayload)
