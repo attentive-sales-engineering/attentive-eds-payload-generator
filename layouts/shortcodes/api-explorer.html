@@ -505,10 +505,12 @@
 
   let edsPayload = {}
 
-  // Form Submit listener
-  updatePayload = function (e) {
+  // Update the json payload when various change events fire
+  function updatePayload(e, paramsId) {
     // console.log("LISTENER:", e)
     // console.log("LISTENER TYPE:", e.type)
+    console.log("EVENT:", e.type)
+    console.log("PARAMS ID:", paramsId)
 
     let url = ''
     let method = ''
@@ -532,24 +534,24 @@
 
     // Set variable values from query selectors
     // Pass the id, the selector, and whether or not the value result should be enclosed in curly braces (true|false)
-    url = document.querySelector("#{{ .Params.id }} [data-url]", false).value
-    method = document.querySelector("#{{ .Params.id }} [data-method]", false).value
-    header_mapping = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-request-headers]"), false).tempObject
+    url = document.querySelector(`#${paramsId} ` + "[data-url]", false).value
+    method = document.querySelector(`#${paramsId} ` + "[data-method]", false).value
+    header_mapping = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector(`#${paramsId} ` + "[data-request-headers]"), false).tempObject
     if (url.match("subscriptions")) {
       console.log("SUBSCRIPTIONS")
       console.log("curlyBraces OFF")
-      params = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-query-params]"), false).tempObject
+      params = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector(`#${paramsId} ` + "[data-query-params]"), false).tempObject
     } else {
-      params = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-query-params]"), true).tempObject
+      params = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector(`#${paramsId} ` + "[data-query-params]"), true).tempObject
     }
-    prop = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-props]"), true).tempObject
-    items = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-items]"), true).tempObject
-    price = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-price]"), true).tempObject
-    subscriptions = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-subscriptions]"), false).tempObject
-    user = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-user]"), true).tempObject
-    custom = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-user-custom]"), true).tempObject
-    source = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-source]"), false).tempObject
-    jsonBody = document.querySelector("#{{ .Params.id }} .ace_content")?.textContent
+    prop = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector(`#${paramsId} ` + "[data-props]"), true).tempObject
+    items = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector(`#${paramsId} ` + "[data-items]"), true).tempObject
+    price = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector(`#${paramsId} ` + "[data-price]"), true).tempObject
+    subscriptions = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector(`#${paramsId} ` + "[data-subscriptions]"), false).tempObject
+    user = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector(`#${paramsId} ` + "[data-user]"), true).tempObject
+    custom = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector(`#${paramsId} ` + "[data-user-custom]"), true).tempObject
+    source = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector(`#${paramsId} ` + "[data-source]"), false).tempObject
+    jsonBody = document.querySelector(`#${paramsId} ` + ".ace_content")?.textContent
 
     // console.log("JSON BODY:", jsonBody)
     // console.log("URL", url)
@@ -570,32 +572,32 @@
 
     // console.log("PARAMS:", params)
     if (params && Object.entries(params).length > 0) { payload_mapping = params } else {
-      document.querySelector("#{{ .Params.id }} [data-query-params-section]").classList.add("d-none")
+      document.querySelector(`#${paramsId} ` + "[data-query-params-section]").classList.add("d-none")
     }
 
     // console.log("PROP:", prop)
     if (prop && Object.entries(prop).length > 0) { payload_mapping.properties = prop } else {
-      document.querySelector("#{{ .Params.id }} [data-props-section]").classList.add("d-none")
+      document.querySelector(`#${paramsId} ` + "[data-props-section]").classList.add("d-none")
     }
 
     // console.log("ITEMS:", items)
     if (items && Object.entries(items).length > 0) { payload_mapping.items = [items] } else {
-      document.querySelector("#{{ .Params.id }} [data-items-section]").classList.add("d-none")
+      document.querySelector(`#${paramsId} ` + "[data-items-section]").classList.add("d-none")
     }
 
     // console.log("PRICE:", price)
     if (price && Object.entries(price).length > 0) { payload_mapping.items[0].price = [price] } else {
-      document.querySelector("#{{ .Params.id }} [data-price-section]").classList.add("d-none")
+      document.querySelector(`#${paramsId} ` + "[data-price-section]").classList.add("d-none")
     }
 
     // console.log("SUBSCRIPTIONS:", subscriptions)
     if (subscriptions && Object.entries(subscriptions).length > 0) { payload_mapping.subscriptions = [subscriptions] } else {
-      document.querySelector("#{{ .Params.id }} [data-subscriptions-section]").classList.add("d-none")
+      document.querySelector(`#${paramsId} ` + "[data-subscriptions-section]").classList.add("d-none")
     }
 
     // console.log("USER:", user)
     if (user && Object.entries(user).length > 0) { payload_mapping.user = user } else {
-      document.querySelector("#{{ .Params.id }} [data-user-params-section]").classList.add("d-none")
+      document.querySelector(`#${paramsId} ` + "[data-user-params-section]").classList.add("d-none")
     }
 
     // console.log("CUSTOM IDENTIFIER:", custom)
@@ -603,7 +605,7 @@
       payload_mapping.user.externalIdentifiers.custom = []
       payload_mapping.user.externalIdentifiers.custom[0] = custom
     } else {
-      document.querySelector("#{{ .Params.id }} [data-user-custom-section]").classList.add("d-none")
+      document.querySelector(`#${paramsId} ` + "[data-user-custom-section]").classList.add("d-none")
     }
 
     // console.log("PAYLOAD MAPPING", payload_mapping)
@@ -660,11 +662,23 @@
       updateSourcePayloadBody("{{ .Params.id }}", sourcePayload)
     }
   }
+  function testEvent(e, paramsId) {
+    console.log("EVENT:", e.type)
+    console.log("PARAMS ID:", paramsId)
+  }
 
-  // Add our event listeners
-  window.addEventListener('DOMContentLoaded', updatePayload, false)
-  document.querySelector("#{{ .Params.id }} [data-form]").addEventListener('change', updatePayload, false)
-  document.querySelector("#{{ .Params.id }} [data-form]").addEventListener('keyup', updatePayload, false)
-  document.querySelector("#{{ .Params.id }} [data-form]").addEventListener('click', updatePayload, false)
+  // Add event listeners
+  window.addEventListener('DOMContentLoaded', function (e) {
+    updatePayload(e, "{{ .Params.id }}")
+  })
+  window.addEventListener('change', function (e) {
+    updatePayload(e, "{{ .Params.id }}")
+  })
+  window.addEventListener('keyup', function (e) {
+    updatePayload(e, "{{ .Params.id }}")
+  })
+  window.addEventListener('click', function (e) {
+    updatePayload(e, "{{ .Params.id }}")
+  })
 
 </script>
