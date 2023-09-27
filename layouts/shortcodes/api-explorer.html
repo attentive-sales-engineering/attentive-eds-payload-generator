@@ -223,73 +223,21 @@
 <script>
 
   async function fetchApiParams() {
-    if ("{{ .Params.id }}" == 'custom') {
-
-      let apiParams = {
-        url: '',
-        method: '',
-        sourceParams: [
-          {
-            key: 'clientName',
-            value: '',
-            placeholder: 'Chafco (required)'
-          },
-          {
-            key: 'clientId',
-            value: '',
-            placeholder: '83006 (required)'
-          },
-          {
-            key: 'fileName',
-            value: '',
-            placeholder: 'chafco/uploads/custom_attributes.csv (required)'
-          },
-          {
-            key: 'delimiter',
-            value: '',
-            placeholder: 'comma, tab, pipe, ndjson (optional, default comma)'
-          },
-          {
-            key: 'dateFormat',
-            value: '',
-            placeholder: 'yyyyMMdd, yyyyMMddHH00 (required, if scheduled)'
-          },
-          {
-            key: 'timeZone',
-            value: '',
-            placeholder: 'America/New_York, Europe/London (required, if scheduled)'
-          }
-        ],
-        propParams: [],
-        itemsParams: [],
-        priceParams: [],
-        queryParams: [],
-        jsonParams: {},
-        headerParams: [],
-        userParams: [
-          {
-            key: 'phone',
-            value: '',
-            placeholder: 'phone (required, E.164 format)'
-          },
-          {
-            key: 'email',
-            value: '',
-            placeholder: 'email (phone or email required)'
-          },
-          {
-            key: 'externalIdentifiers.clientUserId',
-            value: '',
-            placeholder: 'clientUserId (optional)'
-          }
-        ],
-        customParams: []
-      }
+    if ("{{ .Params.id }}" == 'custom' || "{{ .Params.id }}" == 'recent') {
+      const response = await fetch('./params/params.json')
+      const jsonResponse = await response.json()
+      console.log("ASYNC FETCH:", jsonResponse)
+      let apiParams = jsonResponse
 
       console.log("CUSTOM")
       console.log("API PARAMS BEFORE:", apiParams)
 
-      const importFile = JSON.parse(localStorage.getItem("eds-import"))
+      let importFile
+      if ("{{ .Params.id }}" == 'custom') {
+        importFile = JSON.parse(localStorage.getItem("eds-import"))
+      } else if ("{{ .Params.id }}" == 'recent') {
+        importFile = JSON.parse(localStorage.getItem("eds-recent"))
+      }
       console.log("IMPORT OBJECT:", importFile)
       if (importFile === null) window.location.href = '../custom-attributes'
 
@@ -489,8 +437,7 @@
           const parsed = JSON.parse(stringify)
           console.log("PARSED:", parsed)
           localStorage.setItem("eds-import", text)
-          const getItem = localStorage.getItem("eds-import")
-          console.log("GET ITEM:", getItem)
+          console.log("LOCAL STORAGE:", localStorage.getItem("eds-import"))
           window.location.href = "../custom"
         }
         reader.readAsText(jsonFile)
@@ -734,6 +681,8 @@
 
   // Form Submit listener
   updatePayload = function (e) {
+    console.log("LISTENER:", e)
+    console.log("LISTENER TYPE:", e.type)
 
     let url = ''
     let method = ''
@@ -877,7 +826,8 @@
     console.log("SOURCE PAYLOAD:", sourcePayload)
     edsPayload.sourcePayload = sourcePayload
     console.log("EDS PAYLOAD:", edsPayload)
-
+    localStorage.setItem("eds-recent", JSON.stringify(edsPayload, null, 2))
+    console.log("LOCAL STORAGE:", localStorage.getItem("eds-recent"))
 
     updateTargetPayloadBody("{{ .Params.id }}", targetPayload)
     updateSourcePayloadBody("{{ .Params.id }}", sourcePayload)
