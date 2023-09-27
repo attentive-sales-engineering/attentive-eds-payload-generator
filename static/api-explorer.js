@@ -207,8 +207,7 @@ function keyValuePairsToObjects (id, container, crulyBraces) {
   }, {})
 }
 
-// Moved file here
-
+// Parse the eds json files stored in local storage
 function parseImportFile (edsFile) {
   console.log('CUSTOM or RECENT:', edsFile)
 
