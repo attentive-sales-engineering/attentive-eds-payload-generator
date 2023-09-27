@@ -1,12 +1,5 @@
 <div class="p-2" id="{{ .Params.id }}">
 
-  <!-- Load apiParams from file -->
-  <!-- <script await src="{{ .Params.file }}"></script> -->
-
-  <!-- <script>
-    console.log("API PARAMS: {{ .Params.file }}", apiParams)
-  </script> -->
-
   <!-- <h3>Hugo Params</h3>
   {{ range $elem_key, $elem_val := .Params }}
   <b>{{ $elem_key }}</b>: <code>{{ $elem_val }}</code><br />
@@ -237,9 +230,7 @@
 
       if ("{{ .Params.id }}" == 'custom' || "{{ .Params.id }}" == 'recent') {
         apiParams = response
-
-        console.log("CUSTOM")
-        console.log("API PARAMS BEFORE:", apiParams)
+        console.log("CUSTOM apiParams AFTER:", apiParams)
 
         let importFile
         if ("{{ .Params.id }}" == 'custom') {
@@ -250,9 +241,6 @@
         console.log("IMPORT OBJECT:", importFile)
         if (importFile === null) window.location.href = '../custom-attributes'
 
-        // apiParams = importFile
-        // const custom = apiParams
-        // console.log("CUSTOM:", custom)
         let target = {}
         target = importFile.targetPayload
         console.log("TARGET:", target)
@@ -295,8 +283,6 @@
 
         apiParams.url = target.url
         apiParams.method = target.method
-        // const props = target.payload_mapping.properties
-        // apiParams.propParams[0] = target.payload_mapping.properties
 
         // propParams
         if (target.payload_mapping.properties) {
@@ -325,28 +311,21 @@
 
         // userParams
         if (target.payload_mapping.user.externalIdentifiers?.clientUserId) {
-          // apiParams.log('externalIdentifiers.clientUserId')
           apiParams.userParams[2].value =
             target.payload_mapping.user.externalIdentifiers.clientUserId.slice(2, -2)
         } else {
-          // apiParams.log('DELETE externalIdentifiers.clientUserId')
           apiParams.userParams.splice(2, 1)
         }
         if (target.payload_mapping.user.email) {
-          // apiParams.log('EMAIL')
           apiParams.userParams[1].value = target.payload_mapping.user.email.slice(2, -2)
         } else {
-          // apiParams.log('DELETE email')
           apiParams.userParams.splice(1, 1)
         }
         if (target.payload_mapping.user.phone) {
-          // apiParams.log('PHONE')
           apiParams.userParams[0].value = target.payload_mapping.user.phone.slice(2, -2)
         } else {
-          // apiParams.log('DELETE phone')
           apiParams.userParams.splice(0, 1)
         }
-        // apiParams.customParams = target.payload_mapping.user.externalIdentifiers.custom
 
         // customParams
         if (target.payload_mapping.user.externalIdentifiers?.custom[0]) {
@@ -386,12 +365,7 @@
         apiParams.sourceParams[4].value = dateFormat
         apiParams.sourceParams[5].value = timeZone
 
-        // console.log('CUSTOM AT END:', custom)
-        // apiParams = custom
         console.log('apiParams AFTER:', apiParams)
-        // console.log('edsPayload:', JSON.stringify(edsPayload, null, 2))
-        // console.log('custom:', JSON.stringify(custom, null, 2))
-
       } else {
         apiParams = response
       }
@@ -725,8 +699,9 @@
     custom = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-user-custom]"), true).tempObject
     source = keyValuePairsToObjects("{{ .Params.id }}", document.querySelector("#{{ .Params.id }} [data-source]"), false).tempObject
     jsonBody = document.querySelector("#{{ .Params.id }} .ace_content")?.textContent
+
     // console.log("JSON BODY:", jsonBody)
-    console.log("URL", url)
+    // console.log("URL", url)
     // console.log("METHOD:", method)
     // console.log("HEADERS:", header_mapping)
 
@@ -788,7 +763,6 @@
       header_mapping,
       payload_mapping,
     }
-    // console.log("TARGET PAYLOAD", targetPayload)
 
     sourcePayload = {
       "bucket_name": "solutions-sftp-bucket-prod",
@@ -797,9 +771,6 @@
         "max_files": 1
       }
     }
-
-    // console.log("SOURCE:", source)
-    // console.log("SOURCE MAPPING BEFORE:", sourcePayload)
 
     // Concatenate source params
     if (source && Object.entries(source).length > 0) {
@@ -820,8 +791,8 @@
         // console.log("DELIMITER:", delimiter)
         sourcePayload.delimiter = delimiter
       }
-      // console.log("SOURCE PAYLOAD AFTER:", sourcePayload)
     }
+
     console.log("CLIENT PAYLOAD:", clientPayload)
     edsPayload.clientPayload = clientPayload
     console.log("TARGET PAYLOAD:", clientPayload)
@@ -844,6 +815,5 @@
   document.querySelector("#{{ .Params.id }} [data-form]").addEventListener('change', updatePayload, false)
   document.querySelector("#{{ .Params.id }} [data-form]").addEventListener('keyup', updatePayload, false)
   document.querySelector("#{{ .Params.id }} [data-form]").addEventListener('click', updatePayload, false)
-
 
 </script>
