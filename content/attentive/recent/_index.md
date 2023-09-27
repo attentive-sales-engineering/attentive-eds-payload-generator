@@ -8,5 +8,5 @@ tags:
 geekdocBreadcrumb: false
 ---
 
-{{< api-explorer id=`recent` file=`./params/custom.js` >}}
+{{< api-explorer id=`recent` >}}
 

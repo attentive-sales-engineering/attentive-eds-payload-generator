@@ -8,5 +8,5 @@ tags:
 geekdocBreadcrumb: false
 ---
 
-{{< api-explorer id=`event` file=`./params/event.js` >}}
+{{< api-explorer id=`event` >}}
 

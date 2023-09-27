@@ -8,4 +8,4 @@ tags:
 geekdocBreadcrumb: false
 ---
 
-{{< api-explorer id=`subscribe` file=`./params/subscribe.js` >}}
+{{< api-explorer id=`subscribe` >}}

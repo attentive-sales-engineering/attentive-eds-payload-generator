@@ -8,4 +8,4 @@ tags:
 geekdocBreadcrumb: false
 ---
 
-{{< api-explorer id=`view` file=`./params/view.js` >}}
+{{< api-explorer id=`view` >}}

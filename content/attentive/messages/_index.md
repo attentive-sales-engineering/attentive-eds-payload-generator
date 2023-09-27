@@ -9,4 +9,4 @@ tags:
 geekdocBreadcrumb: false
 ---
 
-{{< api-explorer id=`send` file=`./params/send.js` >}}
+{{< api-explorer id=`send` >}}
