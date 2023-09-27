@@ -250,15 +250,15 @@
       })
 
       // Import button click listener
-      const input = document.querySelector("#json_upload")
-      input.style.opacity = 0
-      input.addEventListener("change", importJson)
+      const importElement = document.querySelector("#json_upload")
+      importElement.style.opacity = 0
+      importElement.addEventListener("change", importJson)
 
       function importJson() {
-        const files = input.files
+        const files = importElement.files
         let jsonFile
         if (files.length > 0) {
-          jsonFile = input.files[0]
+          jsonFile = importElement.files[0]
         }
         const reader = new FileReader()
         reader.onload = function (e) {
@@ -503,6 +503,7 @@
     })
 
 
+  // Initialize edsPayload object, then trigger updatePayload function on change events
   let edsPayload = {}
 
   // Add event listeners
