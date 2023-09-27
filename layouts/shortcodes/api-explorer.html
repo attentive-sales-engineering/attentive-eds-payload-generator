@@ -218,14 +218,13 @@
   async function fetchApiParams() {
     const response = await fetch('./params/params.json')
     const jsonResponse = await response.json()
-    console.log("ASYNC FETCH:", jsonResponse)
+    console.log("FETCH API PARAMS:", jsonResponse)
     return jsonResponse
   }
 
 
   fetchApiParams()
     .then(response => {
-      console.log("THEN FETCH:", response)
       let apiParams
 
       if ("{{ .Params.id }}" == 'custom' || "{{ .Params.id }}" == 'recent') {
@@ -372,12 +371,12 @@
 
 
       // Create button click listener
-      document.querySelector("#{{ .Params.id }} [create-btn]").addEventListener("click", () => {
+      document.querySelector("[create-btn]").addEventListener("click", () => {
         window.open("https://ui.attentivemobile.com/tactical/event-destinations/create?companyId=" + edsPayload.clientPayload.clientId, '_blank')
       })
 
       // Export button click listener
-      document.querySelector("#{{ .Params.id }} [export-btn]").addEventListener("click", () => {
+      document.querySelector("[export-btn]").addEventListener("click", () => {
         const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
         const downloadBtn = document.getElementById("downloadBtn")
         downloadBtn.href = 'data:' + data
@@ -395,24 +394,15 @@
       input.addEventListener("change", importJson)
 
       function importJson() {
-        console.log("CHANGE")
         const files = input.files
-        console.log("FILES.LENGTH:", input.files.length)
         let jsonFile
         if (files.length > 0) {
           jsonFile = input.files[0]
-          console.log("files[0]:", files[0])
         }
         const reader = new FileReader()
         reader.onload = function (e) {
           const text = e.target.result
-          console.log("TEXT:", text)
-          const stringify = JSON.stringify(text)
-          console.log("STRINGIFY:", stringify)
-          const parsed = JSON.parse(stringify)
-          console.log("PARSED:", parsed)
           localStorage.setItem("eds-import", text)
-          console.log("LOCAL STORAGE:", localStorage.getItem("eds-import"))
           window.location.href = "../custom"
         }
         reader.readAsText(jsonFile)
@@ -657,7 +647,7 @@
   // Form Submit listener
   updatePayload = function (e) {
     // console.log("LISTENER:", e)
-    console.log("LISTENER TYPE:", e.type)
+    // console.log("LISTENER TYPE:", e.type)
 
     let url = ''
     let method = ''
@@ -755,7 +745,7 @@
       document.querySelector("#{{ .Params.id }} [data-user-custom-section]").classList.add("d-none")
     }
 
-    console.log("PAYLOAD MAPPING", payload_mapping)
+    // console.log("PAYLOAD MAPPING", payload_mapping)
 
     targetPayload = {
       url,
@@ -793,17 +783,17 @@
       }
     }
 
-    console.log("CLIENT PAYLOAD:", clientPayload)
+    // console.log("CLIENT PAYLOAD:", clientPayload)
     edsPayload.clientPayload = clientPayload
-    console.log("TARGET PAYLOAD:", clientPayload)
+    // console.log("TARGET PAYLOAD:", clientPayload)
     edsPayload.targetPayload = targetPayload
-    console.log("SOURCE PAYLOAD:", sourcePayload)
+    // console.log("SOURCE PAYLOAD:", sourcePayload)
     edsPayload.sourcePayload = sourcePayload
     console.log("EDS PAYLOAD:", edsPayload)
     if (e.type === "change") {
-      console.log("CHANGE")
+      console.log("CHANGE EVENT: EDS-RECENT -> LOCAL STORAGE")
       localStorage.setItem("eds-recent", JSON.stringify(edsPayload, null, 2))
-      console.log("LOCAL STORAGE:", localStorage.getItem("eds-recent"))
+      // console.log("LOCAL STORAGE:", localStorage.getItem("eds-recent"))
     } else {
       updateTargetPayloadBody("{{ .Params.id }}", targetPayload)
       updateSourcePayloadBody("{{ .Params.id }}", sourcePayload)
