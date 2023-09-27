@@ -215,7 +215,7 @@
 <script>
 
   async function fetchApiParams() {
-    const response = await fetch('./params/params.json')
+    const response = await fetch('./params.json')
     const jsonResponse = await response.json()
     console.log("FETCH API PARAMS:", jsonResponse)
     return jsonResponse
