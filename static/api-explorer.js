@@ -209,7 +209,7 @@ function keyValuePairsToObjects (id, container, crulyBraces) {
 
 // Parse the eds json files stored in local storage
 function parseImportFile (edsFile) {
-  console.log('CUSTOM or RECENT:', edsFile)
+  console.log('IMPORT or RECENT:', edsFile)
 
   let importFile
   if (edsFile == 'import') {
@@ -355,9 +355,14 @@ function parseImportFile (edsFile) {
   apiParams.sourceParams[0].value = client?.clientName ? client.clientName : ''
   apiParams.sourceParams[1].value = client?.clientId ? client.clientId : ''
   apiParams.sourceParams[2].value = fileName
-  apiParams.sourceParams[3].value = source.delimiter ? source.delimiter : ''
-  apiParams.sourceParams[4].value = dateFormat
-  apiParams.sourceParams[5].value = timeZone
+  apiParams.sourceParams[3].value = client?.fileType ? client.fileType : ''
+  apiParams.sourceParams[4].value = client?.delimiter ? client.delimiter : ''
+  apiParams.sourceParams[5].value = dateFormat
+  apiParams.sourceParams[6].value = client?.frequency ? client.frequency : ''
+  apiParams.sourceParams[7].value = client?.triggerTime
+    ? client.triggerTime
+    : ''
+  apiParams.sourceParams[8].value = timeZone
 
   console.log('apiParams AFTER:', apiParams)
 }
@@ -557,6 +562,13 @@ function updatePayload (e, paramsId) {
   if (source && Object.entries(source).length > 0) {
     if (source['clientName']) clientPayload.clientName = source['clientName']
     if (source['clientId']) clientPayload.clientId = source['clientId']
+    if (source['fileName']) clientPayload.fileName = source['fileName']
+    if (source['fileType']) clientPayload.fileType = source['fileType']
+    if (source['delimiter']) clientPayload.delimiter = source['delimiter']
+    if (source['dateFormat']) clientPayload.dateFormat = source['dateFormat']
+    if (source['frequency']) clientPayload.frequency = source['frequency']
+    if (source['triggerTime']) clientPayload.triggerTime = source['triggerTime']
+    if (source['timeZone']) clientPayload.timeZone = source['timeZone']
     if (source['fileName'])
       key_name = `${source['fileName'].replace(/(\.\w*)/, '')}`
     // console.log("KEY_NAME:", key_name)
