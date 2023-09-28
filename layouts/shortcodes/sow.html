@@ -29,18 +29,17 @@
 
   <h2>Specification</h2>
   <ol>
-    <li>Client will upload files to: <span class="param" data-path-and-filename>{pathAndFilename}</span></li>
+    <li>Client will upload files to: <span class="param" data-file-name-and-date>{fileNameAndDate}</span></li>
     <ul>
-      <li><span class="param" data-directory>{directory}</span> represents the SFTP directory.</li>
-      <li><span class="param" data-filename>{filename}</span> represents the filename.</li>
+      <li><span class="param" data-filename>{filename}</span> represents the path and filename.</li>
       <li><span class="param" data-date-format>{[[dateFormat]]}</span> represents the date the file will be processed.
       </li>
     </ul>
-    <!-- <li>The file will be in <span class="param" data-extension>{extension}</span> format</li> -->
+    <li>The file will be in <span class="param" data-filetype>{fileType}</span> format</li>
     <li>The file will contain a header row that lists the field names.</li>
     <li>Each data row will include the field values.</li>
     <li>The file will be processed <span class="param" data-frequency>{frequency}</span> at <span class="param"
-        data-time>{time}</span> (<span class="param" data-timezone>{timezone}</span> time)</li>
+        data-trigger-time>{triggerTime}</span> (<span class="param" data-timezone>{timezone}</span> time)</li>
   </ol>
 
   <h2>API Payload</h2>
@@ -138,39 +137,35 @@
 
   // key_name
   const key_name = edsPayload.sourcePayload.key_name
-  replaceText("key-name", key_name)
+  // replaceText("key-name", key_name)
 
-  // path-and-filename
-  const pathAndFilename = key_name.replace(/<&\S+&>/, '')
-  replaceText("path-and-filename", pathAndFilename)
+  // file-name-and-date
+  const fileNameAndDate = key_name.replace(/<&\S+&>/, '')
+  replaceText("file-name-and-date", fileNameAndDate)
 
   // filename
-  const filename = key_name.replace(/\w+\/\w+\//, '').replace(/<&\S+&>/, '')
-  replaceText("filename", filename)
+  const fileName = edsPayload.clientPayload.fileName
+  replaceText("filename", fileName)
 
-  // directory
-  const directory = key_name.match(/\w+\/\w+\//).toString()
-  replaceText("directory", directory)
+  // filetype
+  const fileType = edsPayload.clientPayload.fileType
+  replaceText("filetype", fileType)
 
   // dateFormat
   const dateFormat = key_name.match(/\[\[\w+\]\]/).toString()
   replaceText("date-format", dateFormat)
-
-  // // extension
-  // const extension = key_name.match(/\.\w*/).toString()
-  // replaceText("extension", extension)
 
   // frequency
   const frequency = "Daily"
   replaceText("frequency", frequency)
 
   // time
-  const time = '10:00 AM'
-  replaceText("time", time)
+  const triggerTime = edsPayload.clientPayload.triggerTime
+  replaceText("trigger-time", triggerTime)
 
   // timezone
-  const timezone = key_name.match(/<&\S+&>/).toString().replace('<&', '').replace('&>', '')
-  replaceText("timezone", timezone)
+  const timeZone = edsPayload.clientPayload.timeZone
+  replaceText("timezone", timeZone)
 
   // Mask API Key
   maskedPayload = edsPayload.targetPayload.header_mapping.Authorization.toString().replace(/Bearer (.*)/, 'Bearer ********')
