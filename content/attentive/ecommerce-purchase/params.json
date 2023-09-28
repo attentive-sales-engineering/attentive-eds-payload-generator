@@ -46,6 +46,11 @@
       "key": "timeZone",
       "value": "",
       "placeholder": "America/New_York, Europe/London (required, if scheduled)"
+    },
+    {
+      "key": "ticketId",
+      "value": "",
+      "placeholder": "Jira ticket link"
     }
   ],
   "propParams": [],
