@@ -1,12 +1,11 @@
 ---
-title: "SOW"
+title: "Scope of Work"
 draft: false
 weight: 4000
 tags:
   - events
-# geekdocNav: false
+geekdocNav: false
 geekdocBreadcrumb: false
 ---
 
-## SOW goes here
-
+{{< sow id=`sow` >}}

@@ -1,0 +1,197 @@
+<div class="p-2" id="{{ .Params.id }}">
+
+  <!-- <h3>Hugo Params</h3>
+  {{ range $elem_key, $elem_val := .Params }}
+  <b>{{ $elem_key }}</b>: <code>{{ $elem_val }}</code><br />
+  {{ end }}
+  <pre>
+  .Site => {{ .Site }}
+  .Site.Title => {{ .Site.Title }}
+  .Page => {{ .Page }}
+  .Page.Title => {{ .Page.Title }}
+  .Params.id => {{ .Params.id }}
+  </pre> -->
+
+
+  <h2><span class="" data-client-name>{Client Name}</span>&nbsp;&ndash;&nbsp;EDS&nbsp;<span class="param" data-api>{API}
+    </span>&nbsp;API
+  </h2>
+  <p><span class="" data-date>{Date}</span></p>
+
+  <h2>Background</h2>
+  <p>This Statement of Work defines the client's request to submit <span class="param" data-api>{API}</span> API
+    requests for users via CSV upload.
+  </p>
+
+  <h2>Purpose</h2>
+  <p>This Statement of Work covers the allowable scope of the project. Any term not defined herein shall have the
+    meaning set forth in the Attentive Master Subscription Agreement or the relevant Order Form.</p>
+
+  <h2>Specification</h2>
+  <ol>
+    <li>Client will upload files to: <span class="param" data-path-and-filename>{pathAndFilename}</span></li>
+    <ul>
+      <li><span class="param" data-directory>{directory}</span> represents the SFTP directory.</li>
+      <li><span class="param" data-filename>{filename}</span> represents the filename.</li>
+      <li><span class="param" data-date-format>{[[dateFormat]]}</span> represents the date the file will be processed.
+      </li>
+    </ul>
+    <!-- <li>The file will be in <span class="param" data-extension>{extension}</span> format</li> -->
+    <li>The file will contain a header row that lists the field names.</li>
+    <li>Each data row will include the field values.</li>
+    <li>The file will be processed <span class="param" data-frequency>{frequency}</span> at <span class="param"
+        data-time>{time}</span> (<span class="param" data-timezone>{timezone}</span> time)</li>
+  </ol>
+
+  <h2>API Payload</h2>
+  <p>The fields in the file will be mapped to the API as shown in the payload below, where API property names are
+    listed on the left, and field names are displayed in curly braces on the right.</p>
+  <div id="payload-container">
+    <div id="payload"></div>
+  </div>
+
+</div>
+
+<style>
+  .param {
+    font-weight: bold;
+    /* padding: 0.25rem; */
+    /* background-color: lightyellow; */
+  }
+
+  header {
+    display: none;
+  }
+
+  #payload-container {
+    padding: 20px;
+    border: 0.5px solid gray;
+  }
+</style>
+<script>
+
+  // Import file from local storage and assign to edsPayload
+  const edsPayload = JSON.parse(localStorage.getItem('eds-sow'))
+  if (edsPayload === null)
+    window.location.href = '../../attentive/custom-attributes'
+  console.log("EDS PAYLOAD:", edsPayload)
+
+  // Function for replacing html text variables
+  function replaceText(dataElement, value) {
+    console.log("ELEMENT ID:", dataElement)
+    console.log("VALUE:", value)
+    document.querySelectorAll(`[data-${dataElement}]`).forEach(element => {
+      console.log("ELEMENT:", element)
+      element.textContent = value
+    })
+  }
+
+  let api
+  let clientName = {}
+  let date
+  date = date = new Date().toLocaleDateString()
+
+  // Date
+  replaceText("date", date)
+
+  // Client Name
+  replaceText("client-name", edsPayload.clientPayload.clientName)
+
+  // API
+  const url = edsPayload.targetPayload.url
+  console.log("url:", url)
+  switch (url) {
+    case 'https://api.attentivemobile.com/v1/attributes/custom':
+      api = "Custom Attributes"
+      break
+    case "https://api.attentivemobile.com/v1/events/custom":
+      api = "Custom Events"
+      break
+    case "https://api.attentivemobile.com/v1/events/ecommerce/add-to-cart":
+      api = "eCommerce Add to Cart"
+      break
+    case "https://api.attentivemobile.com/v1/events/ecommerce/product-view":
+      api = "eCommerce Product View"
+      break
+    case "https://api.attentivemobile.com/v1/events/ecommerce/purchase":
+      api = "eCommerce Purchase"
+      break
+    case "https://api.attentivemobile.com/v1/identity-resolution/user-identifiers":
+      api = "Identity"
+      break
+    case "https://api.attentivemobile.com/v1/text/send":
+      api = "Messages"
+      break
+    case "https://api.attentivemobile.com/v1/privacy/delete-request":
+      api = "Privacy Request"
+      break
+    case "https://api.attentivemobile.com/v1/subscriptions":
+      api = "Subscribe"
+      break
+    case "https://api.attentivemobile.com/v1/subscriptions/unsubscribe":
+      api = "Unsubscribe"
+      break
+    default:
+      api = ""
+  }
+  replaceText("api", api)
+
+  // key_name
+  const key_name = edsPayload.sourcePayload.key_name
+  replaceText("key-name", key_name)
+
+  // path-and-filename
+  const pathAndFilename = key_name.replace(/<&\S+&>/, '')
+  replaceText("path-and-filename", pathAndFilename)
+
+  // filename
+  const filename = key_name.replace(/\w+\/\w+\//, '').replace(/<&\S+&>/, '')
+  replaceText("filename", filename)
+
+  // directory
+  const directory = key_name.match(/\w+\/\w+\//).toString()
+  replaceText("directory", directory)
+
+  // dateFormat
+  const dateFormat = key_name.match(/\[\[\w+\]\]/).toString()
+  replaceText("date-format", dateFormat)
+
+  // // extension
+  // const extension = key_name.match(/\.\w*/).toString()
+  // replaceText("extension", extension)
+
+  // frequency
+  const frequency = "Daily"
+  replaceText("frequency", frequency)
+
+  // time
+  const time = '10:00 AM'
+  replaceText("time", time)
+
+  // timezone
+  const timezone = key_name.match(/<&\S+&>/).toString().replace('<&', '').replace('&>', '')
+  replaceText("timezone", timezone)
+
+  // Mask API Key
+  maskedPayload = edsPayload.targetPayload.header_mapping.Authorization.toString().replace(/Bearer (.*)/, 'Bearer ********')
+  edsPayload.targetPayload.header_mapping.Authorization = maskedPayload
+
+  // Render Target Payload
+  aceJsonRequest = ace.edit(
+    document.querySelector("#payload")
+  )
+  aceJsonRequest.setTheme('ace/theme/xcode')
+  aceJsonRequest.session.setMode('ace/mode/json')
+  aceJsonRequest.setValue(null)
+  aceJsonRequest.insert(JSON.stringify(edsPayload.targetPayload, null, 2))
+  aceJsonRequest.setReadOnly(true)
+  aceJsonRequest.setOptions({
+    maxLines: 30,
+    highlightActiveLine: false,
+    showLineNumbers: false,
+    showGutter: false,
+    showPrintMargin: false,
+    fontSize: 14
+  })
+
+</script>
