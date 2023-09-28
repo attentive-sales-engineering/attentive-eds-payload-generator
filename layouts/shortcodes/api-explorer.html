@@ -13,7 +13,8 @@
   </pre> -->
 
   <div class="mt-x">
-    <a id="createBtn" href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4"
+    <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" sow-btn>SOW</button></a>
+    <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4"
         create-btn>Create</button></a>
     <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary right ml-2 mb-4"
         export-btn>Export</button></a>
@@ -227,9 +228,15 @@
       apiParams = response
       console.log("apiParams:", apiParams)
 
-      if ("{{ .Params.id }}" == 'custom' || "{{ .Params.id }}" == 'recent') {
+      if ("{{ .Params.id }}" == 'import' || "{{ .Params.id }}" == 'recent') {
         parseImportFile("{{ .Params.id }}")
       }
+
+      // SOW button click listener
+      document.querySelector("[sow-btn]").addEventListener("click", () => {
+        localStorage.setItem("eds-sow", JSON.stringify(edsPayload))
+        window.open("../../other/sow", '_blank')
+      })
 
       // Create button click listener
       document.querySelector("[create-btn]").addEventListener("click", () => {
@@ -264,7 +271,7 @@
         reader.onload = function (e) {
           const text = e.target.result
           localStorage.setItem("eds-import", text)
-          window.location.href = "../../other/custom"
+          window.location.href = "../../other/import"
         }
         reader.readAsText(jsonFile)
       }
@@ -514,10 +521,10 @@
   window.addEventListener('change', function (e) {
     updatePayload(e, "{{ .Params.id }}")
   })
-  window.addEventListener('keyup', function (e) {
+  document.querySelector("[data-form]").addEventListener('keyup', function (e) {
     updatePayload(e, "{{ .Params.id }}")
   })
-  window.addEventListener('click', function (e) {
+  document.querySelector("[data-form]").addEventListener('click', function (e) {
     updatePayload(e, "{{ .Params.id }}")
   })
 

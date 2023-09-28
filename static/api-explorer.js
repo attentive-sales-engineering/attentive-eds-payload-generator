@@ -212,7 +212,7 @@ function parseImportFile (edsFile) {
   console.log('CUSTOM or RECENT:', edsFile)
 
   let importFile
-  if (edsFile == 'custom') {
+  if (edsFile == 'import') {
     importFile = JSON.parse(localStorage.getItem('eds-import'))
   } else if (edsFile == 'recent') {
     importFile = JSON.parse(localStorage.getItem('eds-recent'))
@@ -221,9 +221,8 @@ function parseImportFile (edsFile) {
   if (importFile === null)
     window.location.href = '../../attentive/custom-attributes'
 
-  // Call the function here
-  // doSomething with the ImportFile
-  // parseThisImportFile(custom|recent)
+  console.log('IMPORT FILE:', importFile)
+  console.log('IMPORT FILE OBJECT:', { importFile })
 
   let target = {}
   target = importFile.targetPayload
