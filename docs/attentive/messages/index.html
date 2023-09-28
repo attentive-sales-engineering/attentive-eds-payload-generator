@@ -12,7 +12,7 @@
 <meta name="generator" content="Hugo 0.105.0">
 
 
-  <meta name="description" content=" Create Export Import GET POST PUT PATCH DELETE Source Payload User Headers Params Column Header Properties Column Header &plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &plus; User Properties Column Header &plus; Custom User Identifer Properties Column Header Source Params Column Header Source Payload Target Payload Response Status: &#9998; &#10005; " />
+  <meta name="description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Source Payload User Headers Params Column Header Properties Column Header &plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &plus; User Properties Column Header &plus; Custom User Identifer Properties Column Header Source Params Column Header Source Payload Target Payload Response Status: &#9998; &#10005; " />
 
     <title>Messages | Attentive EDS Payload Generator</title>
 
@@ -38,7 +38,7 @@
     content="Messages"
   />
   <meta property="og:site_name" content="Attentive EDS Payload Generator" />
-  <meta property="og:description" content=" Create Export Import GET POST PUT PATCH DELETE Source Payload User Headers Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &#43; User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Column Header Source Payload Target Payload Response Status: ✎ ✕ " />
+  <meta property="og:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Source Payload User Headers Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &#43; User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Column Header Source Payload Target Payload Response Status: ✎ ✕ " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/messages/" />
 
@@ -47,7 +47,7 @@
 
   <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Messages" />
-  <meta name="twitter:description" content=" Create Export Import GET POST PUT PATCH DELETE Source Payload User Headers Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &#43; User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Column Header Source Payload Target Payload Response Status: ✎ ✕ " />
+  <meta name="twitter:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Source Payload User Headers Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &#43; User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Column Header Source Payload Target Payload Response Status: ✎ ✕ " />
 
 
   <script type="application/ld+json">
@@ -58,8 +58,8 @@
       "name": "Messages",
       "url" : "https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/messages/",
       "headline": "Messages",
-      "description": " Create Export Import GET POST PUT PATCH DELETE Source Payload User Headers Params Column Header Properties Column Header \u002b Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token \u002b User Properties Column Header \u002b Custom User Identifer Properties Column Header Source Params Column Header Source Payload Target Payload Response Status: ✎ ✕ ",
-      "wordCount" : "58",
+      "description": " SOW Create Export Import GET POST PUT PATCH DELETE Source Payload User Headers Params Column Header Properties Column Header \u002b Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token \u002b User Properties Column Header \u002b Custom User Identifer Properties Column Header Source Params Column Header Source Payload Target Payload Response Status: ✎ ✕ ",
+      "wordCount" : "59",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
@@ -828,7 +828,7 @@
               
                 <span class="flex">
                   <a
-                    href="/attentive-eds-payload-generator/other/custom/"
+                    href="/attentive-eds-payload-generator/other/import/"
                     class="gdoc-nav__entry"
                   >
                     Imported Payload
@@ -919,7 +919,7 @@
                     href="/attentive-eds-payload-generator/other/sow/"
                     class="gdoc-nav__entry"
                   >
-                    SOW
+                    Scope of Work
                   </a>
                 </span>
               
@@ -1101,7 +1101,8 @@
   
 
   <div class="mt-x">
-    <a id="createBtn" href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4"
+    <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" sow-btn>SOW</button></a>
+    <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4"
         create-btn>Create</button></a>
     <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary right ml-2 mb-4"
         export-btn>Export</button></a>
@@ -1303,9 +1304,15 @@
       apiParams = response
       console.log("apiParams:", apiParams)
 
-      if ("send" == 'custom' || "send" == 'recent') {
+      if ("send" == 'import' || "send" == 'recent') {
         parseImportFile("send")
       }
+
+      
+      document.querySelector("[sow-btn]").addEventListener("click", () => {
+        localStorage.setItem("eds-sow", JSON.stringify(edsPayload))
+        window.open("../../other/sow", '_blank')
+      })
 
       
       document.querySelector("[create-btn]").addEventListener("click", () => {
@@ -1326,21 +1333,21 @@
       })
 
       
-      const input = document.querySelector("#json_upload")
-      input.style.opacity = 0
-      input.addEventListener("change", importJson)
+      const importElement = document.querySelector("#json_upload")
+      importElement.style.opacity = 0
+      importElement.addEventListener("change", importJson)
 
       function importJson() {
-        const files = input.files
+        const files = importElement.files
         let jsonFile
         if (files.length > 0) {
-          jsonFile = input.files[0]
+          jsonFile = importElement.files[0]
         }
         const reader = new FileReader()
         reader.onload = function (e) {
           const text = e.target.result
           localStorage.setItem("eds-import", text)
-          window.location.href = "../../other/custom"
+          window.location.href = "../../other/import"
         }
         reader.readAsText(jsonFile)
       }
@@ -1579,169 +1586,23 @@
     })
 
 
+  
   let edsPayload = {}
 
   
-  updatePayload = function (e) {
-    
-    
-
-    let url = ''
-    let method = ''
-    let header_mapping = {}
-    let params = {}
-    let prop = {}
-    let items = {}
-    let price = {}
-    let subscriptions = {}
-    let user = {}
-    let custom = {}
-    let payload_mapping = {}
-    let targetPayload = {}
-    let source = {}
-    let key_name = ''
-    let extension = ''
-    let sourcePayload = {}
-    let clientPayload = {}
-    let clientName = ''
-    let clientId = ''
-
-    
-    
-    url = document.querySelector("#send [data-url]", false).value
-    method = document.querySelector("#send [data-method]", false).value
-    header_mapping = keyValuePairsToObjects("send", document.querySelector("#send [data-request-headers]"), false).tempObject
-    if (url.match("subscriptions")) {
-      console.log("SUBSCRIPTIONS")
-      console.log("curlyBraces OFF")
-      params = keyValuePairsToObjects("send", document.querySelector("#send [data-query-params]"), false).tempObject
-    } else {
-      params = keyValuePairsToObjects("send", document.querySelector("#send [data-query-params]"), true).tempObject
-    }
-    prop = keyValuePairsToObjects("send", document.querySelector("#send [data-props]"), true).tempObject
-    items = keyValuePairsToObjects("send", document.querySelector("#send [data-items]"), true).tempObject
-    price = keyValuePairsToObjects("send", document.querySelector("#send [data-price]"), true).tempObject
-    subscriptions = keyValuePairsToObjects("send", document.querySelector("#send [data-subscriptions]"), false).tempObject
-    user = keyValuePairsToObjects("send", document.querySelector("#send [data-user]"), true).tempObject
-    custom = keyValuePairsToObjects("send", document.querySelector("#send [data-user-custom]"), true).tempObject
-    source = keyValuePairsToObjects("send", document.querySelector("#send [data-source]"), false).tempObject
-    jsonBody = document.querySelector("#send .ace_content")?.textContent
-
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    if (params && Object.entries(params).length > 0) { payload_mapping = params } else {
-      document.querySelector("#send [data-query-params-section]").classList.add("d-none")
-    }
-
-    
-    if (prop && Object.entries(prop).length > 0) { payload_mapping.properties = prop } else {
-      document.querySelector("#send [data-props-section]").classList.add("d-none")
-    }
-
-    
-    if (items && Object.entries(items).length > 0) { payload_mapping.items = [items] } else {
-      document.querySelector("#send [data-items-section]").classList.add("d-none")
-    }
-
-    
-    if (price && Object.entries(price).length > 0) { payload_mapping.items[0].price = [price] } else {
-      document.querySelector("#send [data-price-section]").classList.add("d-none")
-    }
-
-    
-    if (subscriptions && Object.entries(subscriptions).length > 0) { payload_mapping.subscriptions = [subscriptions] } else {
-      document.querySelector("#send [data-subscriptions-section]").classList.add("d-none")
-    }
-
-    
-    if (user && Object.entries(user).length > 0) { payload_mapping.user = user } else {
-      document.querySelector("#send [data-user-params-section]").classList.add("d-none")
-    }
-
-    
-    if (custom && Object.entries(custom).length > 0) {
-      payload_mapping.user.externalIdentifiers.custom = []
-      payload_mapping.user.externalIdentifiers.custom[0] = custom
-    } else {
-      document.querySelector("#send [data-user-custom-section]").classList.add("d-none")
-    }
-
-    
-
-    targetPayload = {
-      url,
-      method,
-      header_mapping,
-      payload_mapping,
-    }
-
-    sourcePayload = {
-      "bucket_name": "solutions-sftp-bucket-prod",
-      "options": {
-        "match_prefix": true,
-        "max_files": 1
-      }
-    }
-
-    
-    if (source && Object.entries(source).length > 0) {
-      if (source["clientName"]) clientPayload.clientName = source["clientName"]
-      if (source["clientId"]) clientPayload.clientId = source["clientId"]
-      if (source["fileName"]) key_name = `${source["fileName"].replace(/(\.\w*)/, '')}`
-      
-      if (source["dateFormat"]) key_name += `[[${source["dateFormat"]}]]`
-      if (key_name && source["fileName"].match(/\.\w*/)) {
-        extension = source["fileName"].match(/\.\w*/).toString()
-        
-        key_name += extension
-      }
-      if (source["timeZone"]) key_name += `<&${source["timeZone"]}&>`
-      sourcePayload.key_name = key_name
-      if (source["delimiter"]) {
-        delimiter = source["delimiter"]
-        
-        sourcePayload.delimiter = delimiter
-      }
-    }
-
-    
-    edsPayload.clientPayload = clientPayload
-    
-    edsPayload.targetPayload = targetPayload
-    
-    edsPayload.sourcePayload = sourcePayload
-    console.log("EDS PAYLOAD:", edsPayload)
-    if (e.type === "change") {
-      console.log("CHANGE EVENT: EDS-RECENT -> LOCAL STORAGE")
-      localStorage.setItem("eds-recent", JSON.stringify(edsPayload, null, 2))
-      
-    } else {
-      updateTargetPayloadBody("send", targetPayload)
-      updateSourcePayloadBody("send", sourcePayload)
-    }
-  }
-
-  
-  window.addEventListener('DOMContentLoaded', updatePayload, false)
-  document.querySelector("#send [data-form]").addEventListener('change', updatePayload, false)
-  document.querySelector("#send [data-form]").addEventListener('keyup', updatePayload, false)
-  document.querySelector("#send [data-form]").addEventListener('click', updatePayload, false)
+  console.log("EVENT LISTENERS PARAMS.ID:", "send")
+  window.addEventListener('DOMContentLoaded', function (e) {
+    updatePayload(e, "send")
+  })
+  window.addEventListener('change', function (e) {
+    updatePayload(e, "send")
+  })
+  document.querySelector("[data-form]").addEventListener('keyup', function (e) {
+    updatePayload(e, "send")
+  })
+  document.querySelector("[data-form]").addEventListener('click', function (e) {
+    updatePayload(e, "send")
+  })
 
 </script>
 

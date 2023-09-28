@@ -28,6 +28,16 @@
       "placeholder": "yyyyMMdd, yyyyMMddHH00 (required, if scheduled)"
     },
     {
+      "key": "frequency",
+      "value": "",
+      "placeholder": "Hourly, Daily, Weekly, Monthly, On-Demand (required)"
+    },
+    {
+      "key": "triggerTime",
+      "value": "",
+      "placeholder": "9:00 AM, 15:00, On-Demand (required)"
+    },
+    {
       "key": "timeZone",
       "value": "",
       "placeholder": "America/New_York, Europe/London (required, if scheduled)"

@@ -18,6 +18,11 @@
       "placeholder": "chafco/uploads/custom_attributes.csv (required)"
     },
     {
+      "key": "fileType",
+      "value": "",
+      "placeholder": "CSV, TXT, NDJSON (required)"
+    },
+    {
       "key": "delimiter",
       "value": "",
       "placeholder": "comma, tab, pipe, ndjson (optional, default comma)"
@@ -26,6 +31,16 @@
       "key": "dateFormat",
       "value": "",
       "placeholder": "yyyyMMdd, yyyyMMddHH00 (required, if scheduled)"
+    },
+    {
+      "key": "frequency",
+      "value": "",
+      "placeholder": "Hourly, Daily, Weekly, Monthly, On-Demand (required)"
+    },
+    {
+      "key": "triggerTime",
+      "value": "",
+      "placeholder": "9:00 AM, 15:00, On-Demand (required)"
     },
     {
       "key": "timeZone",
