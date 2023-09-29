@@ -81,6 +81,7 @@
       "placeholder": "clientUserId (optional)"
     }
   ],
+  "subscriptionsParams": [],
   "jsonParams": {},
   "headerParams": [
     {

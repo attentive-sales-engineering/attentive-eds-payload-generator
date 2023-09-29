@@ -96,6 +96,7 @@
       "placeholder": "MARKETING, TRANSACTIONAL (required)"
     }
   ],
+  "subscriptionsParams": [],
   "jsonParams": {},
   "headerParams": [
     {

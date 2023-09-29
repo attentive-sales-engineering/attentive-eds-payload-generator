@@ -71,6 +71,7 @@
       "placeholder": "true, false (disabled by default)"
     }
   ],
+  "subscriptionsParams": [],
   "jsonParams": {},
   "headerParams": [
     {
@@ -90,5 +91,6 @@
       "value": "",
       "placeholder": "email (phone or email required)"
     }
-  ]
+  ],
+  "customParams": []
 }
