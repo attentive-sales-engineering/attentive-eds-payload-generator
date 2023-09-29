@@ -165,7 +165,7 @@
         aria-labelledby="request-source-tab">
         <div class="input-group">
           <div class="section-title pl-75" style="flex: 1">Source Params</div>
-          <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
+          <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
         </div>
         <div data-source></div>
         <!-- <button data-add-request-source-btn class="mt-2 btn btn-outline-success" type="button">
@@ -234,6 +234,7 @@
 
       // SOW button click listener
       document.querySelector("[sow-btn]").addEventListener("click", () => {
+        console.log("CLICKED SOW BUTTON")
         localStorage.setItem("eds-sow", JSON.stringify(edsPayload))
         window.open("../../other/sow", '_blank')
       })
@@ -269,6 +270,7 @@
       importElement.addEventListener("change", importJson)
 
       function importJson() {
+        console.log("IMPORT JSON")
         const files = importElement.files
         let jsonFile
         if (files.length > 0) {
