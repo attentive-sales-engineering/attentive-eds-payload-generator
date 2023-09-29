@@ -3,11 +3,11 @@ more:
   # - name: Environment Variables
   #   ref: "/environment-variables"
   #   icon: "gdoc_brightness_light"
-  - name: Github
-    ref: "https://github.com/johnchaffee/attentive-eds-payload-generator"
-    external: true
-    icon: "gdoc_github"
   - name: Attentive Docs
     ref: "https://docs.attentive.com/"
     external: true
     icon: "gdoc_bookmark"
+  - name: Github
+    ref: "https://github.com/johnchaffee/attentive-eds-payload-generator"
+    external: true
+    icon: "gdoc_github"

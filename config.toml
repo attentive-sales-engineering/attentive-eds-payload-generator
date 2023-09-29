@@ -1,5 +1,5 @@
 baseURL = "https://johnchaffee.github.io/attentive-eds-payload-generator/"
-title = "Attentive EDS Payload Generator"
+title = "Attentive EDS"
 theme = "hugo-geekdoc"
 publishDir = "docs"
 

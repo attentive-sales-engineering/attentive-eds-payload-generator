@@ -1,5 +1,5 @@
 ---
-title: "Attentive EDS Payload Generator"
+title: "Attentive EDS"
 draft: false
 tags:
   - eds
