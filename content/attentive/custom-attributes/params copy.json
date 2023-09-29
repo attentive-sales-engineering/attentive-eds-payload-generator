@@ -1,5 +1,5 @@
 {
-  "url": "https://api.attentivemobile.com/v1/events/ecommerce/purchase",
+  "url": "https://api.attentivemobile.com/v1/attributes/custom",
   "method": "POST",
   "sourceParams": [
     {
@@ -53,58 +53,14 @@
       "placeholder": "Jira ticket link"
     }
   ],
-  "propParams": [],
-  "itemsParams": [
+  "propParams": [
     {
-      "key": "productId",
+      "key": "prop1",
       "value": "",
-      "placeholder": "productId (required)"
-    },
-    {
-      "key": "productVariantId",
-      "value": "",
-      "placeholder": "productVariantId (required, can be same as productId)"
-    },
-    {
-      "key": "productImage",
-      "value": "",
-      "placeholder": "imageUrl (optional)"
-    },
-    {
-      "key": "productUrl",
-      "value": "",
-      "placeholder": "productUrl (optional)"
-    },
-    {
-      "key": "name",
-      "value": "",
-      "placeholder": "productName (optional)"
-    },
-    {
-      "key": "quantity",
-      "value": "",
-      "placeholder": "quantity (optional)"
+      "placeholder": "prop1 (required)"
     }
   ],
-  "priceParams": [
-    {
-      "key": "value",
-      "value": "",
-      "placeholder": "price (required)"
-    },
-    {
-      "key": "currency",
-      "value": "",
-      "placeholder": "USD, CAD, GBP (optional)"
-    }
-  ],
-  "queryParams": [
-    {
-      "key": "occurredAt",
-      "value": "",
-      "placeholder": "2021-03-30T14:38:29+0000 (optional, default = now, if prop omitted)"
-    }
-  ],
+  "queryParams": [],
   "jsonParams": {},
   "headerParams": [
     {
@@ -130,5 +86,16 @@
       "placeholder": "clientUserId (optional)"
     }
   ],
-  "customParams": []
+  "customParams": [
+    {
+      "key": "name",
+      "value": "",
+      "placeholder": "customIdentifierName (optional)"
+    },
+    {
+      "key": "value",
+      "value": "",
+      "placeholder": "customIdentifierValue (optional)"
+    }
+  ]
 }
