@@ -251,7 +251,7 @@
         const downloadBtn = document.getElementById("downloadBtn")
         downloadBtn.href = 'data:' + data
         let filename = "EDS"
-        if (edsPayload.clientPayload["ticketId"] && edsPayload.clientPayload["ticketId"].length > 0) {
+        if (edsPayload.clientPayload["ticketId"] && edsPayload.clientPayload["ticketId"].length > 0 && edsPayload.clientPayload["ticketId"].match(/\d+$/)) {
           filename += `-${edsPayload.clientPayload["ticketId"].match(/\d+$/).toString()}`
         }
         if (edsPayload.clientPayload["clientName"] && edsPayload.clientPayload["clientName"].length > 0) {

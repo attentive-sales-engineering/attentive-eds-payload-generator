@@ -259,6 +259,8 @@ function parseImportFile (edsFile) {
         value: val,
         placeholder: ''
       }
+      // console.log('MY OBJECT:', myObject)
+      // console.log('THIS OBJECT:', thisObj)
 
       myObject.push(thisObj)
     })
@@ -328,7 +330,11 @@ function parseImportFile (edsFile) {
   }
 
   // customParams
-  if (target.payload_mapping.user.externalIdentifiers?.custom[0]) {
+  if (
+    target.payload_mapping.user.externalIdentifiers &&
+    target.payload_mapping.user.externalIdentifiers.custom &&
+    target.payload_mapping.user.externalIdentifiers.custom[0]
+  ) {
     createParams(
       'customParams',
       apiParams.customParams,
