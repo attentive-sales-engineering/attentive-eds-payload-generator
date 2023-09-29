@@ -53,6 +53,7 @@ function updateSourcePayloadBody (id, sourcePayload) {
 }
 
 function createKeyValuePair (id, key, value, placeholder) {
+  // console.log('createKeyValuePair:', id, key, value, placeholder)
   const element = document
     .querySelector(`#${id} [data-key-value-template]`)
     .content.cloneNode(true)
@@ -62,10 +63,10 @@ function createKeyValuePair (id, key, value, placeholder) {
   thisValue.value = value || null
   thisValue.placeholder = placeholder || 'Value'
 
-  // Show EnvVar values
-  if (thisValue.value === '') {
-    thisValue.value = localStorage.getItem(key)
-  }
+  // // Show EnvVar values
+  // if (thisValue.value === '') {
+  //   thisValue.value = localStorage.getItem(key)
+  // }
 
   // // Mask passwords and sensitive values
   // if (
@@ -81,69 +82,69 @@ function createKeyValuePair (id, key, value, placeholder) {
   //   thisValue.type = 'password'
   // }
 
-  // Update button
-  element.querySelector('[data-update-btn]').addEventListener('click', e => {
-    closest = e.target.closest('[data-key-value-pair]')
-    console.log('UPDATE CLOSEST', closest)
-    if (typeof newEnvVarDialog.showModal === 'function') {
-      console.log('NEW ENV VAR DIALOG', newEnvVarDialog)
-      updatedKey = closest.querySelector('[data-key]').value
-      console.log('UPDATEDKEY', updatedKey)
-      newEnvVarDialog.querySelector('[data-key]').value = updatedKey
-      newEnvVarDialog.querySelector('[data-value]').value =
-        localStorage.getItem(updatedKey)
-      newEnvVarDialog.querySelector('[data-value]').placeholder =
-        closest.querySelector('[data-value]').placeholder
-      newEnvVarDialog.showModal()
+  // // Update button
+  // element.querySelector('[data-update-btn]').addEventListener('click', e => {
+  //   closest = e.target.closest('[data-key-value-pair]')
+  //   console.log('UPDATE CLOSEST', closest)
+  //   if (typeof newEnvVarDialog.showModal === 'function') {
+  //     console.log('NEW ENV VAR DIALOG', newEnvVarDialog)
+  //     updatedKey = closest.querySelector('[data-key]').value
+  //     console.log('UPDATEDKEY', updatedKey)
+  //     newEnvVarDialog.querySelector('[data-key]').value = updatedKey
+  //     newEnvVarDialog.querySelector('[data-value]').value =
+  //       localStorage.getItem(updatedKey)
+  //     newEnvVarDialog.querySelector('[data-value]').placeholder =
+  //       closest.querySelector('[data-value]').placeholder
+  //     newEnvVarDialog.showModal()
 
-      // Enter key listener -> Listen for the "Enter" key in newEnvVar modal
-      newEnvVarDialog.addEventListener('keydown', e => {
-        if (e.code === 'Enter') {
-          setLocalStorage()
-          thisValue.value = localStorage.getItem(thisKey.value)
-        }
-      })
+  //     // Enter key listener -> Listen for the "Enter" key in newEnvVar modal
+  //     newEnvVarDialog.addEventListener('keydown', e => {
+  //       if (e.code === 'Enter') {
+  //         setLocalStorage()
+  //         thisValue.value = localStorage.getItem(thisKey.value)
+  //       }
+  //     })
 
-      // Save listener -> On newEnvVar dialog "close" because of [method="dialog"]
-      // Triggered via Cancel & Save buttons or Enter keypress
-      newEnvVarDialog.addEventListener('close', function onClose () {
-        if (newEnvVarDialog.returnValue !== 'cancel') {
-          setLocalStorage()
-          thisValue.value = localStorage.getItem(thisKey.value)
-        }
-      })
+  //     // Save listener -> On newEnvVar dialog "close" because of [method="dialog"]
+  //     // Triggered via Cancel & Save buttons or Enter keypress
+  //     newEnvVarDialog.addEventListener('close', function onClose () {
+  //       if (newEnvVarDialog.returnValue !== 'cancel') {
+  //         setLocalStorage()
+  //         thisValue.value = localStorage.getItem(thisKey.value)
+  //       }
+  //     })
 
-      // Store item in localStorage and refresh window
-      function setLocalStorage () {
-        if (
-          newEnvVarDialog.querySelector('[data-key]').value !== '' &&
-          newEnvVarDialog.querySelector('[data-value]').value !== ''
-        ) {
-          updatedValue = newEnvVarDialog.querySelector('[data-value]').value
-          // store the updatedValue for the updatedKey
-          localStorage.setItem(updatedKey, updatedValue)
-          // Update the value of all matching keys that are already loaded in browser
-          document.querySelectorAll('[data-key]').forEach(item => {
-            if (item.value === updatedKey) {
-              item.parentElement.querySelector('[data-value]').value =
-                updatedValue
-            }
-          })
-          // window.location = window.location.href
-        }
-      }
-    }
-  })
+  //     // Store item in localStorage and refresh window
+  //     function setLocalStorage () {
+  //       if (
+  //         newEnvVarDialog.querySelector('[data-key]').value !== '' &&
+  //         newEnvVarDialog.querySelector('[data-value]').value !== ''
+  //       ) {
+  //         updatedValue = newEnvVarDialog.querySelector('[data-value]').value
+  //         // store the updatedValue for the updatedKey
+  //         localStorage.setItem(updatedKey, updatedValue)
+  //         // Update the value of all matching keys that are already loaded in browser
+  //         document.querySelectorAll('[data-key]').forEach(item => {
+  //           if (item.value === updatedKey) {
+  //             item.parentElement.querySelector('[data-value]').value =
+  //               updatedValue
+  //           }
+  //         })
+  //         // window.location = window.location.href
+  //       }
+  //     }
+  //   }
+  // })
 
   // Remove button
   element.querySelector('[data-remove-btn]').addEventListener('click', e => {
     closest = e.target.closest('[data-key-value-pair]')
     closest.remove()
-    if (id === 'settings') {
-      let localStorageKey = closest.querySelector('[data-key]').value
-      localStorage.removeItem(localStorageKey)
-      window.location = window.location.href
-    }
+    // if (id === 'settings') {
+    //   let localStorageKey = closest.querySelector('[data-key]').value
+    //   localStorage.removeItem(localStorageKey)
+    //   window.location = window.location.href
+    // }
   })
   return element
 }
@@ -207,7 +208,7 @@ function keyValuePairsToObjects (id, container, crulyBraces) {
   }, {})
 }
 
-// Parse the eds json files stored in local storage
+// Parse the json import file and build apiParams
 function parseImportFile (edsFile) {
   console.log('IMPORT or RECENT:', edsFile)
 
@@ -234,15 +235,20 @@ function parseImportFile (edsFile) {
   client = importFile.clientPayload
   console.log('CLIENT:', client)
 
-  function createParams (paramName, myObject, myParams) {
+  // Build the apiParams from the EDS Payload
+  function createParams (paramName, paramObject, myParams) {
     // console.log('paramName', paramName)
     Object.entries(myParams).forEach(entry => {
       const [key, value] = entry
       // console.log(`PROP ${key}: ${value}`)
+      // The queryParams object contains top level properties as well as
+      // child objects and arrays. Skip the child objects and arrays
+      // as those will be processed separately
       if (paramName === 'queryParams') {
         if (
           `${key}` === 'properties' ||
           `${key}` === 'items' ||
+          `${key}` === 'subscriptions' ||
           `${key}` === 'user'
         ) {
           return
@@ -251,7 +257,9 @@ function parseImportFile (edsFile) {
 
       let val = value
       if (key != 'Authorization') {
-        val = val.slice(2, -2)
+        if (val && val.length > 0) {
+          val = val.slice(2, -2)
+        }
       }
 
       const thisObj = {
@@ -259,10 +267,10 @@ function parseImportFile (edsFile) {
         value: val,
         placeholder: ''
       }
-      // console.log('MY OBJECT:', myObject)
+      // console.log('PARAM OBJECT:', paramObject)
       // console.log('THIS OBJECT:', thisObj)
 
-      myObject.push(thisObj)
+      paramObject.push(thisObj)
     })
   }
 
@@ -300,19 +308,28 @@ function parseImportFile (edsFile) {
     apiParams.itemsParams.splice(6, 1)
   }
 
+  // subscriptionsParams
+  if (target.payload_mapping.subscriptions) {
+    createParams(
+      'subscriptionsParams',
+      apiParams.subscriptionsParams,
+      target.payload_mapping.subscriptions[0]
+    )
+  }
+
   // headerParams
   if (target.header_mapping) {
     createParams('headerParams', apiParams.headerParams, target.header_mapping)
   }
 
   // userParams
-  if (target.payload_mapping.user.externalIdentifiers?.clientUserId) {
+  if (target.payload_mapping.user?.externalIdentifiers?.clientUserId) {
     apiParams.userParams[2].value =
       target.payload_mapping.user.externalIdentifiers.clientUserId.slice(2, -2)
   } else {
     apiParams.userParams.splice(2, 1)
   }
-  if (target.payload_mapping.user.email) {
+  if (target.payload_mapping.user?.email) {
     apiParams.userParams[1].value = target.payload_mapping.user.email.slice(
       2,
       -2
@@ -320,7 +337,7 @@ function parseImportFile (edsFile) {
   } else {
     apiParams.userParams.splice(1, 1)
   }
-  if (target.payload_mapping.user.phone) {
+  if (target.payload_mapping.user?.phone) {
     apiParams.userParams[0].value = target.payload_mapping.user.phone.slice(
       2,
       -2
@@ -331,9 +348,8 @@ function parseImportFile (edsFile) {
 
   // customParams
   if (
-    target.payload_mapping.user.externalIdentifiers &&
-    target.payload_mapping.user.externalIdentifiers.custom &&
-    target.payload_mapping.user.externalIdentifiers.custom[0]
+    target.payload_mapping.user?.externalIdentifiers?.custom &&
+    target.payload_mapping.user?.externalIdentifiers?.custom[0]
   ) {
     createParams(
       'customParams',
