@@ -95,7 +95,7 @@ enableRobotsTXT = true
   # (Optional, default false) Auto-decrease brightness of images and add a slightly grayscale to avoid
   # bright spots while using the dark mode.
   geekdocDarkModeDim = false
-  geekdocDarkModeCode = true
+  geekdocDarkModeCode = false
 
   # (Optional, default true) Display a "Back to top" link in the site footer.
   geekdocBackToTop = false
