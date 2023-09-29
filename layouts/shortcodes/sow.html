@@ -42,7 +42,7 @@
         data-trigger-time>{triggerTime}</span> (<span class="param" data-timezone>{timezone}</span> time)</li>
   </ol>
 
-  <h2>API Payload</h2>
+  <h2 class="pagebreak">API Payload</h2>
   <p>The fields in the file will be mapped to the API as shown in the payload below, where API property names are
     listed on the left, and field names are displayed in curly braces on the right.</p>
   <div id="payload-container">
@@ -65,6 +65,12 @@
   #payload-container {
     padding: 20px;
     border: 0.5px solid gray;
+  }
+
+  @media print {
+    .pagebreak {
+      page-break-before: always;
+    }
   }
 </style>
 <script>
@@ -144,7 +150,7 @@
   replaceText("file-name-and-date", fileNameAndDate)
 
   // filename
-  const fileName = edsPayload.clientPayload.fileName
+  const fileName = edsPayload.clientPayload.fileName.replace(/\.\w*/, '')
   replaceText("filename", fileName)
 
   // filetype
