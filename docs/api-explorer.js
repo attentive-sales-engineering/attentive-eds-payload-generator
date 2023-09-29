@@ -363,6 +363,7 @@ function parseImportFile (edsFile) {
     ? client.triggerTime
     : ''
   apiParams.sourceParams[8].value = timeZone
+  apiParams.sourceParams[9].value = client?.ticketId ? client.ticketId : ''
 
   console.log('apiParams AFTER:', apiParams)
 }
@@ -391,8 +392,6 @@ function updatePayload (e, paramsId) {
   let extension = ''
   let sourcePayload = {}
   let clientPayload = {}
-  let clientName = ''
-  let clientId = ''
 
   // Set variable values from query selectors
   // Pass the id, the selector, and whether or not the value result should be enclosed in curly braces (true|false)
@@ -569,6 +568,7 @@ function updatePayload (e, paramsId) {
     if (source['frequency']) clientPayload.frequency = source['frequency']
     if (source['triggerTime']) clientPayload.triggerTime = source['triggerTime']
     if (source['timeZone']) clientPayload.timeZone = source['timeZone']
+    if (source['ticketId']) clientPayload.ticketId = source['ticketId']
     if (source['fileName'])
       key_name = `${source['fileName'].replace(/(\.\w*)/, '')}`
     // console.log("KEY_NAME:", key_name)

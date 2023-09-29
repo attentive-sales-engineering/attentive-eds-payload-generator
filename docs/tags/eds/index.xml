@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>eds on Attentive EDS Payload Generator</title>
+    <title>eds on Attentive EDS</title>
     <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/eds/</link>
-    <description>Recent content in eds on Attentive EDS Payload Generator</description>
+    <description>Recent content in eds on Attentive EDS</description>
     <generator>Hugo -- gohugo.io</generator><atom:link href="https://johnchaffee.github.io/attentive-eds-payload-generator/tags/eds/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Attentive EDS Payload Generator</title>
+      <title>Attentive EDS</title>
       <link>https://johnchaffee.github.io/attentive-eds-payload-generator/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
