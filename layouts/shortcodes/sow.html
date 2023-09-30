@@ -100,7 +100,9 @@
   replaceText("date", date)
 
   // Client Name
-  replaceText("client-name", edsPayload.clientPayload.clientName)
+  if (edsPayload.clientPayload.clientName) {
+    replaceText("client-name", edsPayload.clientPayload.clientName)
+  }
 
   // API
   const url = edsPayload.targetPayload.url
@@ -110,35 +112,48 @@
 
   // key_name
   const key_name = edsPayload.sourcePayload.key_name
+  console.log("KEY NAME:", key_name)
   // replaceText("key-name", key_name)
 
-  // file-name-and-date
-  const fileNameAndDate = key_name.replace(/<&\S+&>/, '')
-  replaceText("file-name-and-date", fileNameAndDate)
 
-  // filename
-  const fileName = edsPayload.clientPayload.fileName.replace(/\.\w*/, '')
-  replaceText("filename", fileName)
+  if (key_name != null && key_name != '') {
+    // filename
+    const fileName = edsPayload.clientPayload.fileName.replace(/\.\w*/, '').toString()
+    replaceText("filename", fileName)
+
+    // file-name-and-date
+    const fileNameAndDate = key_name.replace(/<&\S+&>/, '')
+    replaceText("file-name-and-date", fileNameAndDate)
+
+    // dateFormat
+    const dateFormat = key_name.match(/\[\[\w+\]\]/)
+    replaceText("date-format", dateFormat)
+
+  }
 
   // filetype
-  const fileType = edsPayload.clientPayload.fileType
-  replaceText("filetype", fileType)
-
-  // dateFormat
-  const dateFormat = key_name.match(/\[\[\w+\]\]/)
-  replaceText("date-format", dateFormat)
+  if (edsPayload.clientPayload.fileType) {
+    const fileType = edsPayload.clientPayload.fileType
+    replaceText("filetype", fileType)
+  }
 
   // frequency
-  const frequency = "Daily"
-  replaceText("frequency", frequency)
+  if (edsPayload.clientPayload.frequency) {
+    const frequency = edsPayload.clientPayload.frequency
+    replaceText("frequency", frequency)
+  }
 
   // time
-  const triggerTime = edsPayload.clientPayload.triggerTime
-  replaceText("trigger-time", triggerTime)
+  if (edsPayload.clientPayload.triggerTime) {
+    const triggerTime = edsPayload.clientPayload.triggerTime
+    replaceText("trigger-time", triggerTime)
 
+  }
   // timezone
-  const timeZone = edsPayload.clientPayload.timeZone
-  replaceText("timezone", timeZone)
+  if (edsPayload.clientPayload.timeZone) {
+    const timeZone = edsPayload.clientPayload.timeZone
+    replaceText("timezone", timeZone)
+  }
 
   // Mask API Key
   maskedPayload = edsPayload.targetPayload.header_mapping.Authorization.toString().replace(/Bearer (.*)/, 'Bearer ********')
