@@ -258,9 +258,9 @@
           filename += ` ${edsPayload.clientPayload["clientName"]}`
         }
         filename += " {{ .Page.Title }}"
-        if (edsPayload.sourcePayload["key_name"].length > 0) {
-          filename += ` ${edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
-        }
+        // if (edsPayload.sourcePayload["key_name"].length > 0) {
+        //   filename += ` ${edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
+        // }
         if (filename === null || filename === '') filename = 'data'
         downloadBtn.download = `${filename}.json`
       })
