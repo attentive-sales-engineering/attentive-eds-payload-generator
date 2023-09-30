@@ -28,11 +28,6 @@
       "placeholder": "comma, tab, pipe, ndjson (optional, default comma)"
     },
     {
-      "key": "dateFormat",
-      "value": "",
-      "placeholder": "yyyyMMdd, yyyyMMddHH00 (required, if scheduled)"
-    },
-    {
       "key": "frequency",
       "value": "",
       "placeholder": "Hourly, Daily, Weekly, Monthly, On-Demand (required)"

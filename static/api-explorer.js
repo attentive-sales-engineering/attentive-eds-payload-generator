@@ -403,10 +403,6 @@ function parseImportFile (edsFile) {
 
   // sourceParams
   const key_name = source.key_name
-  let dateFormat = key_name.match(/\[\[\w+\]\]/)
-  if (dateFormat) {
-    dateFormat = dateFormat.toString().replace('[[', '').replace(']]', '')
-  }
   let timeZone = key_name.match(/<&\S+&>/)
   if (timeZone) {
     timeZone = timeZone.toString().replace('<&', '').replace('&>', '')
@@ -417,13 +413,12 @@ function parseImportFile (edsFile) {
   apiParams.sourceParams[2].value = fileName
   apiParams.sourceParams[3].value = client?.fileType ? client.fileType : ''
   apiParams.sourceParams[4].value = client?.delimiter ? client.delimiter : ''
-  apiParams.sourceParams[5].value = dateFormat
-  apiParams.sourceParams[6].value = client?.frequency ? client.frequency : ''
-  apiParams.sourceParams[7].value = client?.triggerTime
+  apiParams.sourceParams[5].value = client?.frequency ? client.frequency : ''
+  apiParams.sourceParams[6].value = client?.triggerTime
     ? client.triggerTime
     : ''
-  apiParams.sourceParams[8].value = timeZone
-  apiParams.sourceParams[9].value = client?.ticketId ? client.ticketId : ''
+  apiParams.sourceParams[7].value = timeZone
+  apiParams.sourceParams[8].value = client?.ticketId ? client.ticketId : ''
 
   // Change h1 title from Imported Payload to the name of the API
   const api = getApiFromUrl(apiParams.url)
@@ -628,7 +623,6 @@ function updatePayload (e, paramsId) {
     if (source['fileName']) clientPayload.fileName = source['fileName']
     if (source['fileType']) clientPayload.fileType = source['fileType']
     if (source['delimiter']) clientPayload.delimiter = source['delimiter']
-    if (source['dateFormat']) clientPayload.dateFormat = source['dateFormat']
     if (source['frequency']) clientPayload.frequency = source['frequency']
     if (source['triggerTime']) clientPayload.triggerTime = source['triggerTime']
     if (source['timeZone']) clientPayload.timeZone = source['timeZone']
@@ -636,7 +630,6 @@ function updatePayload (e, paramsId) {
     if (source['fileName'])
       key_name = `${source['fileName'].replace(/(\.\w*)/, '')}`
     // console.log("KEY_NAME:", key_name)
-    if (source['dateFormat']) key_name += `[[${source['dateFormat']}]]`
     if (key_name && source['fileName'].match(/\.\w*/)) {
       extension = source['fileName'].match(/\.\w*/).toString()
       // console.log("EXTENSION", extension)
