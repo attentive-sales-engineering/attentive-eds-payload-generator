@@ -1,3 +1,41 @@
+function getApiFromUrl (url) {
+  switch (url) {
+    case 'https://api.attentivemobile.com/v1/attributes/custom':
+      api = 'Custom Attributes'
+      break
+    case 'https://api.attentivemobile.com/v1/events/custom':
+      api = 'Custom Events'
+      break
+    case 'https://api.attentivemobile.com/v1/events/ecommerce/add-to-cart':
+      api = 'eCommerce Add to Cart'
+      break
+    case 'https://api.attentivemobile.com/v1/events/ecommerce/product-view':
+      api = 'eCommerce Product View'
+      break
+    case 'https://api.attentivemobile.com/v1/events/ecommerce/purchase':
+      api = 'eCommerce Purchase'
+      break
+    case 'https://api.attentivemobile.com/v1/identity-resolution/user-identifiers':
+      api = 'Identity'
+      break
+    case 'https://api.attentivemobile.com/v1/text/send':
+      api = 'Messages'
+      break
+    case 'https://api.attentivemobile.com/v1/privacy/delete-request':
+      api = 'Privacy Request'
+      break
+    case 'https://api.attentivemobile.com/v1/subscriptions':
+      api = 'Subscribe'
+      break
+    case 'https://api.attentivemobile.com/v1/subscriptions/unsubscribe':
+      api = 'Unsubscribe'
+      break
+    default:
+      api = 'Custom Payload'
+  }
+  return api
+}
+
 function updateTargetPayloadBody (id, targetPayload) {
   // console.log('TARGET PAYLOAD:', targetPayload)
   const jsonReq = JSON.stringify(targetPayload, null, 2)
@@ -386,6 +424,10 @@ function parseImportFile (edsFile) {
     : ''
   apiParams.sourceParams[8].value = timeZone
   apiParams.sourceParams[9].value = client?.ticketId ? client.ticketId : ''
+
+  // Change h1 title from Imported Payload to the name of the API
+  const api = getApiFromUrl(apiParams.url)
+  document.querySelector('h1').textContent = api
 
   console.log('apiParams AFTER:', apiParams)
 }
