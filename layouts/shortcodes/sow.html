@@ -12,7 +12,6 @@
   .Params.id => {{ .Params.id }}
   </pre> -->
 
-
   <h2><span class="" data-client-name>{Client Name}</span>&nbsp;&ndash;&nbsp;EDS&nbsp;<span class="param" data-api>{API}
     </span>&nbsp;API
   </h2>
@@ -29,17 +28,17 @@
 
   <h2>Specification</h2>
   <ol>
-    <li>Client will upload files to: <span class="param" data-file-name-and-date>{fileNameAndDate}</span></li>
-    <ul>
-      <li><span class="param" data-filename>{filename}</span> represents the path and filename.</li>
-      <li><span class="param" data-date-format>{[[dateFormat]]}</span> represents the date the file will be processed.
-      </li>
-    </ul>
-    <li>The file will be in <span class="param" data-filetype>{fileType}</span> format</li>
+    <li>Client will upload files to SFTP with the following path and filename:<br><span class="param"
+        data-file-name-and-date>{fileNameAndDate}</span>.</li>
+    <li id="date-format" class=""><span class="param" data-date-format>{[[dateFormat]]}</span> represents the date the
+      file will be processed.</li>
+    <li id="frequency" class="">Files will be processed <span class="param" data-frequency>{frequency}</span>
+      at <span class="param" data-trigger-time>{triggerTime}</span> (<span class="param" data-timezone>{timezone}</span>
+      time).
+    </li>
+    <li>The file will be in <span class="param" data-filetype>{fileType}</span> format.</li>
     <li>The file will contain a header row that lists the field names.</li>
     <li>Each data row will include the field values.</li>
-    <li>The file will be processed <span class="param" data-frequency>{frequency}</span> at <span class="param"
-        data-trigger-time>{triggerTime}</span> (<span class="param" data-timezone>{timezone}</span> time)</li>
   </ol>
 
   <h2 class="pagebreak">API Payload</h2>
@@ -54,15 +53,13 @@
 <style>
   .param {
     font-weight: bold;
-    /* padding: 0.25rem; */
-    /* background-color: lightyellow; */
-  }
-
-  ul {
-    margin-bottom: 0;
   }
 
   header {
+    display: none;
+  }
+
+  .hidden {
     display: none;
   }
 
@@ -96,9 +93,8 @@
   }
 
   let api
-  let clientName = {}
   let date
-  date = date = new Date().toLocaleDateString()
+  date = new Date().toLocaleDateString()
 
   // Date
   replaceText("date", date)
@@ -110,15 +106,12 @@
 
   // API
   const url = edsPayload.targetPayload.url
-  console.log("url:", url)
   api = getApiFromUrl(url)
   replaceText("api", api)
 
   // key_name
   const key_name = edsPayload.sourcePayload.key_name
   console.log("KEY NAME:", key_name)
-  // replaceText("key-name", key_name)
-
 
   if (key_name != null && key_name != '') {
     // filename
@@ -131,28 +124,32 @@
 
     // dateFormat
     const dateFormat = key_name.match(/\[\[\w+\]\]/)
+    console.log("DATE FORMAT:", dateFormat)
     replaceText("date-format", dateFormat)
-
+    if (dateFormat === null) document.querySelector("#date-format").classList.add('hidden')
   }
 
   // filetype
+  let fileType = "CSV"
   if (edsPayload.clientPayload.fileType) {
-    const fileType = edsPayload.clientPayload.fileType
-    replaceText("filetype", fileType)
+    fileType = edsPayload.clientPayload.fileType
   }
+  replaceText("filetype", fileType)
 
   // frequency
+  let frequency = null
   if (edsPayload.clientPayload.frequency) {
-    const frequency = edsPayload.clientPayload.frequency
+    frequency = edsPayload.clientPayload.frequency
     replaceText("frequency", frequency)
   }
+  if (frequency === null) document.querySelector("#frequency").classList.add('hidden')
 
   // time
   if (edsPayload.clientPayload.triggerTime) {
     const triggerTime = edsPayload.clientPayload.triggerTime
     replaceText("trigger-time", triggerTime)
-
   }
+
   // timezone
   if (edsPayload.clientPayload.timeZone) {
     const timeZone = edsPayload.clientPayload.timeZone
