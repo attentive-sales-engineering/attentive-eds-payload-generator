@@ -418,7 +418,7 @@ function parseImportFile (edsFile) {
   if (timeZone) {
     timeZone = timeZone.toString().replace('<&', '').replace('&>', '')
   }
-  let fileName = key_name.replace(/\[\[\w+\]\]/, '').replace(/<&\S+&>/, '')
+  let fileName = key_name.replace(/<&\S+&>/, '')
   apiParams.sourceParams[0].value = client?.clientName ? client.clientName : ''
   apiParams.sourceParams[1].value = client?.clientId ? client.clientId : ''
   apiParams.sourceParams[2].value = fileName
