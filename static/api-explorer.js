@@ -209,7 +209,7 @@ function createKeyValuePair (id, key, value, placeholder) {
 //   }, {})
 // }
 
-function keyValuePairsToObjects (id, container, crulyBraces) {
+function keyValuePairsToObjects (id, container, curlyBraces) {
   const pairs = container.querySelectorAll(`#${id} [data-key-value-pair]`)
   // console.log('PAIRS:', pairs)
   const tempObject = {}
@@ -219,7 +219,7 @@ function keyValuePairsToObjects (id, container, crulyBraces) {
     // console.log('KEY:', key)
     let value
     // let value = pair.querySelector('[data-value]').value
-    if (crulyBraces === true) {
+    if (curlyBraces === true) {
       value = `{{${pair.querySelector('[data-value]').value}}}`
     } else {
       value = pair.querySelector('[data-value]').value
@@ -275,7 +275,9 @@ function parseImportFile (edsFile) {
 
   // Build the apiParams from the EDS Payload
   function createParams (paramName, paramObject, myParams) {
-    // console.log('paramName', paramName)
+    // console.log('paramName:', paramName)
+    // console.log('paramObject:', paramObject)
+    // console.log('myParams:', myParams)
     Object.entries(myParams).forEach(entry => {
       const [key, value] = entry
       // console.log(`PROP ${key}: ${value}`)
@@ -293,8 +295,17 @@ function parseImportFile (edsFile) {
         }
       }
 
+      // Don't remove curly braces from subscriptionsParams or headerParams
+      // Or keys with these names since they are fixed values for Subscriptions
       let val = value
-      if (key != 'Authorization') {
+      if (
+        paramName === 'subscriptionsParams' ||
+        paramName === 'headerParams' ||
+        key.match(/signUpSourceId|subscriptionType|singleOptIn/)
+      ) {
+        // Do nothing
+      } else {
+        // Remove curly braces
         if (val && val.length > 0) {
           val = val.slice(2, -2)
         }
@@ -465,7 +476,7 @@ function updatePayload (e, paramsId) {
     false
   ).tempObject
   if (url.match('subscriptions')) {
-    console.log('SUBSCRIPTIONS')
+    console.log('URL.MATCH: SUBSCRIPTIONS')
     console.log('curlyBraces OFF')
     params = keyValuePairsToObjects(
       paramsId,
