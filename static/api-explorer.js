@@ -1,3 +1,5 @@
+// This function determines the API from the URL for the
+// SOW and onscreen page title when importing a job
 function getApiFromUrl (url) {
   switch (url) {
     case 'https://api.attentivemobile.com/v1/attributes/custom':
@@ -36,15 +38,14 @@ function getApiFromUrl (url) {
   return api
 }
 
-function updateTargetPayloadBody (id, targetPayload) {
+// This function updates the json payload displayed on screen on each click or keyup
+function updateJsonPayloadBody (id, edsPayload) {
   // console.log('TARGET PAYLOAD:', targetPayload)
-  const jsonReq = JSON.stringify(targetPayload, null, 2)
-  // console.log('JSON BODY:', jsonBody)
-  // console.log(
-  //   `updateTargetPayloadBody: .querySelector(#${id} [data-target-payload])`
-  // )
+  let jsonReq
 
   // Render Target Payload
+  jsonReq = JSON.stringify(edsPayload.targetPayload, null, 2)
+  // console.log('JSON BODY:', jsonBody)
   aceJsonRequest = ace.edit(
     document.querySelector(`#${id} [data-target-payload]`)
   )
@@ -61,17 +62,10 @@ function updateTargetPayloadBody (id, targetPayload) {
     showPrintMargin: false,
     fontSize: 14
   })
-}
-
-function updateSourcePayloadBody (id, sourcePayload) {
-  // console.log('SOURCE PAYLOAD:', sourcePayload)
-  const jsonReq = JSON.stringify(sourcePayload, null, 2)
-  // console.log('JSON BODY:', jsonBody)
-  // console.log(
-  //   `updateSourcePayloadBody: .querySelector(#${id} [data-source-payload])`
-  // )
 
   // Render Source Payload
+  jsonReq = JSON.stringify(edsPayload.sourcePayload, null, 2)
+  // console.log('JSON BODY:', jsonBody)
   aceJsonRequest = ace.edit(
     document.querySelector(`#${id} [data-source-payload]`)
   )
@@ -696,7 +690,6 @@ function updatePayload (e, paramsId) {
     // console.log("LOCAL STORAGE:", localStorage.getItem("eds-recent"))
   } else {
     // Click or Keyup event will trigger updates to these payloads
-    updateTargetPayloadBody(paramsId, targetPayload)
-    updateSourcePayloadBody(paramsId, sourcePayload)
+    updateJsonPayloadBody(paramsId, edsPayload)
   }
 }
