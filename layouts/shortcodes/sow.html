@@ -59,10 +59,6 @@
     display: none;
   }
 
-  .hidden {
-    display: none;
-  }
-
   #payload-container {
     padding: 20px;
     border: 0.5px solid gray;
@@ -126,7 +122,7 @@
     const dateFormat = key_name.match(/\[\[\w+\]\]/)
     console.log("DATE FORMAT:", dateFormat)
     replaceText("date-format", dateFormat)
-    if (dateFormat === null) document.querySelector("#date-format").classList.add('hidden')
+    if (dateFormat === null) document.querySelector("#date-format").classList.add('d-none')
   }
 
   // filetype
@@ -138,21 +134,21 @@
 
   // frequency
   let frequency = null
-  if (edsPayload.clientPayload.frequency) {
-    frequency = edsPayload.clientPayload.frequency
+  if (edsPayload.schedulePayload.frequency) {
+    frequency = edsPayload.schedulePayload.frequency
     replaceText("frequency", frequency)
   }
-  if (frequency === null) document.querySelector("#frequency").classList.add('hidden')
+  if (frequency === null) document.querySelector("#frequency").classList.add('d-none')
 
   // time
-  if (edsPayload.clientPayload.triggerTime) {
-    const triggerTime = edsPayload.clientPayload.triggerTime
+  if (edsPayload.schedulePayload.triggerTime) {
+    const triggerTime = edsPayload.schedulePayload.triggerTime
     replaceText("trigger-time", triggerTime)
   }
 
   // timezone
-  if (edsPayload.clientPayload.timeZone) {
-    const timeZone = edsPayload.clientPayload.timeZone
+  if (edsPayload.schedulePayload.timeZone) {
+    const timeZone = edsPayload.schedulePayload.timeZone
     replaceText("timezone", timeZone)
   }
 

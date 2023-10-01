@@ -90,12 +90,13 @@ function updateSourcePayloadBody (id, sourcePayload) {
   })
 }
 
-function createKeyValuePair (id, key, value, placeholder) {
-  // console.log('createKeyValuePair:', id, key, value, placeholder)
+function createKeyValuePair (id, key, value, placeholder, readOnly) {
+  console.log('createKeyValuePair:', id, key, value, placeholder)
   const element = document
     .querySelector(`#${id} [data-key-value-template]`)
     .content.cloneNode(true)
   let thisKey = element.querySelector('[data-key]')
+  if (readOnly === true) thisKey.readOnly = true
   thisKey.value = key || null
   let thisValue = element.querySelector('[data-value]')
   thisValue.value = value || null
@@ -173,17 +174,26 @@ function createKeyValuePair (id, key, value, placeholder) {
   //     }
   //   }
   // })
-
   // Remove button
-  element.querySelector('[data-remove-btn]').addEventListener('click', e => {
-    closest = e.target.closest('[data-key-value-pair]')
-    closest.remove()
-    // if (id === 'settings') {
-    //   let localStorageKey = closest.querySelector('[data-key]').value
-    //   localStorage.removeItem(localStorageKey)
-    //   window.location = window.location.href
-    // }
-  })
+  if (
+    readOnly === true ||
+    thisKey.value.match(/signUpSourceId|subscriptionType/)
+  ) {
+    // Hide the delete button
+    element.querySelector('[data-remove-btn]').style.opacity = 0
+  } else {
+    // Add a listener to the delete button
+    element.querySelector('[data-remove-btn]').addEventListener('click', e => {
+      closest = e.target.closest('[data-key-value-pair]')
+      closest.remove()
+      // if (id === 'settings') {
+      //   let localStorageKey = closest.querySelector('[data-key]').value
+      //   localStorage.removeItem(localStorageKey)
+      //   window.location = window.location.href
+      // }
+    })
+  }
+
   return element
 }
 
