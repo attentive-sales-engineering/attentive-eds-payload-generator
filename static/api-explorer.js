@@ -82,7 +82,7 @@ function updateJsonPayloadBody(id, edsPayload) {
 
 // This function renders the apiParam key/value pairs onscreen
 function createKeyValuePair(id, key, value, placeholder, readOnly) {
-  console.log('createKeyValuePair:', id, key, value, placeholder)
+  // console.log('createKeyValuePair:', id, key, value, placeholder)
   const element = document.querySelector(`#${id} [data-key-value-template]`).content.cloneNode(true)
   let thisKey = element.querySelector('[data-key]')
   if (readOnly === true) thisKey.readOnly = true
@@ -287,8 +287,8 @@ function parseImportFile(edsFile) {
   }
 
   // customParams
-  if (target.payload_mapping.user?.externalIdentifiers?.custom && target.payload_mapping.user?.externalIdentifiers?.custom[0]) {
-    createParams('customParams', apiParams.customParams, target.payload_mapping.user.externalIdentifiers.custom[0])
+  if (target.payload_mapping.user?.externalIdentifiers?.customIdentifiers && target.payload_mapping.user?.externalIdentifiers?.customIdentifiers[0]) {
+    createParams('customParams', apiParams.customParams, target.payload_mapping.user.externalIdentifiers.customIdentifiers[0])
   }
 
   // queryParams
@@ -430,8 +430,12 @@ function updatePayload(e, paramsId) {
 
   // console.log("CUSTOM IDENTIFIER:", custom)
   if (custom && Object.entries(custom).length > 0) {
-    payload_mapping.user.externalIdentifiers.custom = []
-    payload_mapping.user.externalIdentifiers.custom[0] = custom
+    // if clientUserId was deleted, need to recreate the externalIdentifiers object
+    if (payload_mapping.user.externalIdentifiers === undefined) {
+      payload_mapping.user.externalIdentifiers = {}
+    }
+    payload_mapping.user.externalIdentifiers.customIdentifiers = []
+    payload_mapping.user.externalIdentifiers.customIdentifiers[0] = custom
   } else {
     document.querySelector(`#${paramsId} ` + '[data-user-custom-section]').classList.add('d-none')
   }
