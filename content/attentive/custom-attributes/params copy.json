@@ -28,6 +28,13 @@
       "placeholder": "comma, tab, pipe, ndjson (optional, default comma)"
     },
     {
+      "key": "ticketId",
+      "value": "",
+      "placeholder": "Jira ticket link"
+    }
+  ],
+  "scheduleParams": [
+    {
       "key": "frequency",
       "value": "",
       "placeholder": "Hourly, Daily, Weekly, Monthly, On-Demand (required)"
@@ -41,11 +48,6 @@
       "key": "timeZone",
       "value": "",
       "placeholder": "America/New_York, Europe/London (required, if scheduled)"
-    },
-    {
-      "key": "ticketId",
-      "value": "",
-      "placeholder": "Jira ticket link"
     }
   ],
   "propParams": [
