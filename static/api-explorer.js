@@ -261,7 +261,6 @@ function parseImportFile (edsFile) {
     window.location.href = '../../attentive/custom-attributes'
 
   console.log('IMPORT FILE:', importFile)
-  console.log('IMPORT FILE OBJECT:', { importFile })
 
   let target = {}
   target = importFile.targetPayload
@@ -272,6 +271,9 @@ function parseImportFile (edsFile) {
   let client = {}
   client = importFile.clientPayload
   console.log('CLIENT:', client)
+  let schedule = {}
+  schedule = importFile.schedulePayload
+  console.log('SCHEDULE:', schedule)
 
   // Build the apiParams from the EDS Payload
   function createParams (paramName, paramObject, myParams) {
@@ -424,12 +426,16 @@ function parseImportFile (edsFile) {
   apiParams.sourceParams[2].value = fileName
   apiParams.sourceParams[3].value = client?.fileType ? client.fileType : ''
   apiParams.sourceParams[4].value = client?.delimiter ? client.delimiter : ''
-  apiParams.sourceParams[5].value = client?.frequency ? client.frequency : ''
-  apiParams.sourceParams[6].value = client?.triggerTime
-    ? client.triggerTime
+  apiParams.sourceParams[5].value = client?.ticketId ? client.ticketId : ''
+
+  // scheduleParams
+  apiParams.scheduleParams[0].value = schedule?.frequency
+    ? schedule.frequency
     : ''
-  apiParams.sourceParams[7].value = timeZone
-  apiParams.sourceParams[8].value = client?.ticketId ? client.ticketId : ''
+  apiParams.scheduleParams[1].value = schedule?.triggerTime
+    ? schedule.triggerTime
+    : ''
+  apiParams.scheduleParams[2].value = timeZone
 
   // Change h1 title from Imported Payload to the name of the API
   const api = getApiFromUrl(apiParams.url)
@@ -458,10 +464,12 @@ function updatePayload (e, paramsId) {
   let payload_mapping = {}
   let targetPayload = {}
   let source = {}
+  let schedule = {}
   let key_name = ''
   let extension = ''
   let sourcePayload = {}
   let clientPayload = {}
+  let schedulePayload = {}
 
   // Set variable values from query selectors
   // Pass the id, the selector, and whether or not the value result should be enclosed in curly braces (true|false)
@@ -523,6 +531,11 @@ function updatePayload (e, paramsId) {
   source = keyValuePairsToObjects(
     paramsId,
     document.querySelector(`#${paramsId} ` + '[data-source]'),
+    false
+  ).tempObject
+  schedule = keyValuePairsToObjects(
+    paramsId,
+    document.querySelector(`#${paramsId} ` + '[data-schedule]'),
     false
   ).tempObject
   jsonBody = document.querySelector(
@@ -634,9 +647,6 @@ function updatePayload (e, paramsId) {
     if (source['fileName']) clientPayload.fileName = source['fileName']
     if (source['fileType']) clientPayload.fileType = source['fileType']
     if (source['delimiter']) clientPayload.delimiter = source['delimiter']
-    if (source['frequency']) clientPayload.frequency = source['frequency']
-    if (source['triggerTime']) clientPayload.triggerTime = source['triggerTime']
-    if (source['timeZone']) clientPayload.timeZone = source['timeZone']
     if (source['ticketId']) clientPayload.ticketId = source['ticketId']
     if (source['fileName'])
       key_name = `${source['fileName'].replace(/(\.\w*)/, '')}`
@@ -655,18 +665,30 @@ function updatePayload (e, paramsId) {
     }
   }
 
+  // Concatenate schedule params
+  if (schedule && Object.entries(schedule).length > 0) {
+    if (schedule['frequency']) schedulePayload.frequency = schedule['frequency']
+    if (schedule['triggerTime'])
+      schedulePayload.triggerTime = schedule['triggerTime']
+    if (schedule['timeZone']) schedulePayload.timeZone = schedule['timeZone']
+  }
+
   // console.log("CLIENT PAYLOAD:", clientPayload)
   edsPayload.clientPayload = clientPayload
   // console.log("TARGET PAYLOAD:", clientPayload)
   edsPayload.targetPayload = targetPayload
   // console.log("SOURCE PAYLOAD:", sourcePayload)
   edsPayload.sourcePayload = sourcePayload
+  // console.log("SCHEDULE PAYLOAD:", schedulePayload)
+  edsPayload.schedulePayload = schedulePayload
+
   console.log('EDS PAYLOAD:', edsPayload)
   if (e.type === 'change') {
     console.log('CHANGE EVENT: EDS-RECENT -> LOCAL STORAGE')
     localStorage.setItem('eds-recent', JSON.stringify(edsPayload, null, 2))
     // console.log("LOCAL STORAGE:", localStorage.getItem("eds-recent"))
   } else {
+    // Click or Keyup event will trigger updates to these payloads
     updateTargetPayloadBody(paramsId, targetPayload)
     updateSourcePayloadBody(paramsId, sourcePayload)
   }

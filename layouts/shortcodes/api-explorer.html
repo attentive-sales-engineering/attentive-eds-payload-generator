@@ -66,6 +66,13 @@
           Source
         </button>
       </li>
+      <li class="nav-item d-none" role="presentation" data-schedule-section>
+        <button class="nav-link" id="{{ .Params.id }}-request-schedule-tab" data-bs-toggle="tab"
+          data-bs-target="#{{ .Params.id }}-request-schedule" type="button" role="tab" aria-controls="request-schedule"
+          aria-selected="false">
+          Schedule
+        </button>
+      </li>
     </ul>
     <div class="tab-content p-3 border-top-0 border">
       <div class="tab-pane fade show active" id="{{ .Params.id }}-query-params" role="tabpanel"
@@ -170,6 +177,17 @@
         </div>
         <div data-source></div>
         <!-- <button data-add-request-source-btn class="mt-2 btn btn-outline-success" type="button">
+          &plus;
+        </button> -->
+      </div>
+      <div class="tab-pane fade" id="{{ .Params.id }}-request-schedule" role="tabpanel"
+        aria-labelledby="request-schedule-tab">
+        <div class="input-group">
+          <div class="section-title pl-75" style="flex: 1">Schedule Params</div>
+          <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
+        </div>
+        <div data-schedule></div>
+        <!-- <button data-add-request-schedule-btn class="mt-2 btn btn-outline-success" type="button">
           &plus;
         </button> -->
       </div>
@@ -350,6 +368,13 @@
       //   )
       // })
 
+      // // Add Schedule params Add button click listener
+      // document.querySelector("#{{ .Params.id }} [data-add-request-schedule-btn]").addEventListener("click", () => {
+      //   document.querySelector("#{{ .Params.id }} [data-schedule]").append(
+      //     createKeyValuePair("{{ .Params.id }}")
+      //   )
+      // })
+
       // Set url param
       document.querySelector("#{{ .Params.id }} [data-url]").value = apiParams.url
 
@@ -514,6 +539,20 @@
               sourceParam.key,
               sourceParam.value,
               sourceParam.placeholder
+            )
+          )
+        })
+      }
+      // If Schedule Params, unhide & append key value pairs
+      if (apiParams.scheduleParams?.length > 0) {
+        document.querySelector("#{{ .Params.id }} [data-schedule-section]").classList.remove("d-none")
+        apiParams.scheduleParams?.forEach((scheduleParam) => {
+          document.querySelector("#{{ .Params.id }} [data-schedule]").append(
+            createKeyValuePair(
+              "{{ .Params.id }}",
+              scheduleParam.key,
+              scheduleParam.value,
+              scheduleParam.placeholder
             )
           )
         })
