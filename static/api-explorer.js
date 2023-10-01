@@ -174,15 +174,12 @@ function createKeyValuePair (id, key, value, placeholder, readOnly) {
   //     }
   //   }
   // })
-  // Remove button
-  if (
-    readOnly === true ||
-    thisKey.value.match(/signUpSourceId|subscriptionType/)
-  ) {
-    // Hide the delete button
+  // Delete button
+  if (readOnly === true) {
+    // Hide the Delete button
     element.querySelector('[data-remove-btn]').style.opacity = 0
   } else {
-    // Add a listener to the delete button
+    // Add a listener to the Delete button
     element.querySelector('[data-remove-btn]').addEventListener('click', e => {
       closest = e.target.closest('[data-key-value-pair]')
       closest.remove()
