@@ -52,7 +52,7 @@
           User
         </button>
       </li>
-      <li class="nav-item" role="presentation">
+      <li class="nav-item" role="presentation" data-headers-section>
         <button class="nav-link" id="{{ .Params.id }}-request-headers-tab" data-bs-toggle="tab"
           data-bs-target="#{{ .Params.id }}-request-headers" type="button" role="tab" aria-controls="request-headers"
           aria-selected="false">
@@ -136,12 +136,12 @@
       </div>
       <div class="tab-pane fade" id="{{ .Params.id }}-request-headers" role="tabpanel"
         aria-labelledby="request-headers-tab">
-        <div class="" data-request-headers-section>
+        <div class="" data-headers-params-section>
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Authorization Header</div>
             <div class="section-title pl-75 mr-38" style="flex: 2">Bearer Token</div>
           </div>
-          <div data-request-headers></div>
+          <div data-headers></div>
           <!-- <button data-add-request-header-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
           </button> -->
@@ -320,7 +320,7 @@
       // addRow("{{ .Params.id }}", "[data-add-request-price-btn]", "[data-price]")
       // addRow("{{ .Params.id }}", "[data-add-request-subscriptions-btn]", "[data-subscriptions]")
       // addRow("{{ .Params.id }}", "[data-add-query-param-btn]", "[data-query-params]")
-      // addRow("{{ .Params.id }}", "[data-add-request-header-btn]", "[data-request-headers]")
+      // addRow("{{ .Params.id }}", "[data-add-request-header-btn]", "[data-headers]")
       addRow("{{ .Params.id }}", "[data-add-request-user-btn]", "[data-user]")
       // addRow("{{ .Params.id }}", "[data-add-request-custom-btn]", "[data-user-custom]")
       // addRow("{{ .Params.id }}", "[data-add-request-source-btn]", "[data-source]")
@@ -438,18 +438,21 @@
         }
       }
 
-      // Append header params key value pairs
-      apiParams.headerParams?.forEach((headerParam) => {
-        document.querySelector("#{{ .Params.id }} [data-request-headers]").append(
-          createKeyValuePair(
-            "{{ .Params.id }}",
-            headerParam.key,
-            headerParam.value,
-            headerParam.placeholder,
-            true // readonly
+      // If header Params, unhide & append key value pairs
+      if (apiParams.headerParams?.length > 0) {
+        document.querySelector("#{{ .Params.id }} [data-headers-section]").classList.remove("d-none")
+        document.querySelector("#{{ .Params.id }} [data-headers-params-section]").classList.remove("d-none")
+        apiParams.headerParams?.forEach((headerParam) => {
+          document.querySelector("#{{ .Params.id }} [data-headers]").append(
+            createKeyValuePair(
+              "{{ .Params.id }}",
+              headerParam.key,
+              headerParam.value,
+              headerParam.placeholder
+            )
           )
-        )
-      })
+        })
+      }
 
       // If User Params, unhide & append key value pairs
       if (apiParams.userParams?.length > 0) {

@@ -481,7 +481,7 @@ function updatePayload (e, paramsId) {
   ).value
   header_mapping = keyValuePairsToObjects(
     paramsId,
-    document.querySelector(`#${paramsId} ` + '[data-request-headers]'),
+    document.querySelector(`#${paramsId} ` + '[data-headers]'),
     false
   ).tempObject
   if (url.match('subscriptions')) {
