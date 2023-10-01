@@ -390,54 +390,42 @@ function updatePayload(e, paramsId) {
   if (params && Object.entries(params).length > 0) {
     payload_mapping = params
   } else {
-    document
-      .querySelector(`#${paramsId} ` + '[data-query-params-section]')
-      .classList.add('d-none')
+    document.querySelector(`#${paramsId} ` + '[data-query-params-section]').classList.add('d-none')
   }
 
   // console.log("PROP:", prop)
   if (prop && Object.entries(prop).length > 0) {
     payload_mapping.properties = prop
   } else {
-    document
-      .querySelector(`#${paramsId} ` + '[data-props-section]')
-      .classList.add('d-none')
+    document.querySelector(`#${paramsId} ` + '[data-props-section]').classList.add('d-none')
   }
 
   // console.log("ITEMS:", items)
   if (items && Object.entries(items).length > 0) {
     payload_mapping.items = [items]
   } else {
-    document
-      .querySelector(`#${paramsId} ` + '[data-items-section]')
-      .classList.add('d-none')
+    document.querySelector(`#${paramsId} ` + '[data-items-section]').classList.add('d-none')
   }
 
   // console.log("PRICE:", price)
   if (price && Object.entries(price).length > 0) {
     payload_mapping.items[0].price = [price]
   } else {
-    document
-      .querySelector(`#${paramsId} ` + '[data-price-section]')
-      .classList.add('d-none')
+    document.querySelector(`#${paramsId} ` + '[data-price-section]').classList.add('d-none')
   }
 
   // console.log("SUBSCRIPTIONS:", subscriptions)
   if (subscriptions && Object.entries(subscriptions).length > 0) {
     payload_mapping.subscriptions = [subscriptions]
   } else {
-    document
-      .querySelector(`#${paramsId} ` + '[data-subscriptions-section]')
-      .classList.add('d-none')
+    document.querySelector(`#${paramsId} ` + '[data-subscriptions-section]').classList.add('d-none')
   }
 
   // console.log("USER:", user)
   if (user && Object.entries(user).length > 0) {
     payload_mapping.user = user
   } else {
-    document
-      .querySelector(`#${paramsId} ` + '[data-user-params-section]')
-      .classList.add('d-none')
+    document.querySelector(`#${paramsId} ` + '[data-user-params-section]').classList.add('d-none')
   }
 
   // console.log("CUSTOM IDENTIFIER:", custom)
@@ -445,9 +433,7 @@ function updatePayload(e, paramsId) {
     payload_mapping.user.externalIdentifiers.custom = []
     payload_mapping.user.externalIdentifiers.custom[0] = custom
   } else {
-    document
-      .querySelector(`#${paramsId} ` + '[data-user-custom-section]')
-      .classList.add('d-none')
+    document.querySelector(`#${paramsId} ` + '[data-user-custom-section]').classList.add('d-none')
   }
 
   // console.log("PAYLOAD MAPPING", payload_mapping)
