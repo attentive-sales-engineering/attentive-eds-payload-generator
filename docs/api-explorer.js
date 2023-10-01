@@ -1,3 +1,41 @@
+function getApiFromUrl (url) {
+  switch (url) {
+    case 'https://api.attentivemobile.com/v1/attributes/custom':
+      api = 'Custom Attributes'
+      break
+    case 'https://api.attentivemobile.com/v1/events/custom':
+      api = 'Custom Events'
+      break
+    case 'https://api.attentivemobile.com/v1/events/ecommerce/add-to-cart':
+      api = 'eCommerce Add to Cart'
+      break
+    case 'https://api.attentivemobile.com/v1/events/ecommerce/product-view':
+      api = 'eCommerce Product View'
+      break
+    case 'https://api.attentivemobile.com/v1/events/ecommerce/purchase':
+      api = 'eCommerce Purchase'
+      break
+    case 'https://api.attentivemobile.com/v1/identity-resolution/user-identifiers':
+      api = 'Identity'
+      break
+    case 'https://api.attentivemobile.com/v1/text/send':
+      api = 'Messages'
+      break
+    case 'https://api.attentivemobile.com/v1/privacy/delete-request':
+      api = 'Privacy Request'
+      break
+    case 'https://api.attentivemobile.com/v1/subscriptions':
+      api = 'Subscribe'
+      break
+    case 'https://api.attentivemobile.com/v1/subscriptions/unsubscribe':
+      api = 'Unsubscribe'
+      break
+    default:
+      api = 'Custom Payload'
+  }
+  return api
+}
+
 function updateTargetPayloadBody (id, targetPayload) {
   // console.log('TARGET PAYLOAD:', targetPayload)
   const jsonReq = JSON.stringify(targetPayload, null, 2)
@@ -52,20 +90,22 @@ function updateSourcePayloadBody (id, sourcePayload) {
   })
 }
 
-function createKeyValuePair (id, key, value, placeholder) {
+function createKeyValuePair (id, key, value, placeholder, readOnly) {
+  console.log('createKeyValuePair:', id, key, value, placeholder)
   const element = document
     .querySelector(`#${id} [data-key-value-template]`)
     .content.cloneNode(true)
   let thisKey = element.querySelector('[data-key]')
+  if (readOnly === true) thisKey.readOnly = true
   thisKey.value = key || null
   let thisValue = element.querySelector('[data-value]')
   thisValue.value = value || null
   thisValue.placeholder = placeholder || 'Value'
 
-  // Show EnvVar values
-  if (thisValue.value === '') {
-    thisValue.value = localStorage.getItem(key)
-  }
+  // // Show EnvVar values
+  // if (thisValue.value === '') {
+  //   thisValue.value = localStorage.getItem(key)
+  // }
 
   // // Mask passwords and sensitive values
   // if (
@@ -81,70 +121,79 @@ function createKeyValuePair (id, key, value, placeholder) {
   //   thisValue.type = 'password'
   // }
 
-  // Update button
-  element.querySelector('[data-update-btn]').addEventListener('click', e => {
-    closest = e.target.closest('[data-key-value-pair]')
-    console.log('UPDATE CLOSEST', closest)
-    if (typeof newEnvVarDialog.showModal === 'function') {
-      console.log('NEW ENV VAR DIALOG', newEnvVarDialog)
-      updatedKey = closest.querySelector('[data-key]').value
-      console.log('UPDATEDKEY', updatedKey)
-      newEnvVarDialog.querySelector('[data-key]').value = updatedKey
-      newEnvVarDialog.querySelector('[data-value]').value =
-        localStorage.getItem(updatedKey)
-      newEnvVarDialog.querySelector('[data-value]').placeholder =
-        closest.querySelector('[data-value]').placeholder
-      newEnvVarDialog.showModal()
+  // // Update button
+  // element.querySelector('[data-update-btn]').addEventListener('click', e => {
+  //   closest = e.target.closest('[data-key-value-pair]')
+  //   console.log('UPDATE CLOSEST', closest)
+  //   if (typeof newEnvVarDialog.showModal === 'function') {
+  //     console.log('NEW ENV VAR DIALOG', newEnvVarDialog)
+  //     updatedKey = closest.querySelector('[data-key]').value
+  //     console.log('UPDATEDKEY', updatedKey)
+  //     newEnvVarDialog.querySelector('[data-key]').value = updatedKey
+  //     newEnvVarDialog.querySelector('[data-value]').value =
+  //       localStorage.getItem(updatedKey)
+  //     newEnvVarDialog.querySelector('[data-value]').placeholder =
+  //       closest.querySelector('[data-value]').placeholder
+  //     newEnvVarDialog.showModal()
 
-      // Enter key listener -> Listen for the "Enter" key in newEnvVar modal
-      newEnvVarDialog.addEventListener('keydown', e => {
-        if (e.code === 'Enter') {
-          setLocalStorage()
-          thisValue.value = localStorage.getItem(thisKey.value)
-        }
-      })
+  //     // Enter key listener -> Listen for the "Enter" key in newEnvVar modal
+  //     newEnvVarDialog.addEventListener('keydown', e => {
+  //       if (e.code === 'Enter') {
+  //         setLocalStorage()
+  //         thisValue.value = localStorage.getItem(thisKey.value)
+  //       }
+  //     })
 
-      // Save listener -> On newEnvVar dialog "close" because of [method="dialog"]
-      // Triggered via Cancel & Save buttons or Enter keypress
-      newEnvVarDialog.addEventListener('close', function onClose () {
-        if (newEnvVarDialog.returnValue !== 'cancel') {
-          setLocalStorage()
-          thisValue.value = localStorage.getItem(thisKey.value)
-        }
-      })
+  //     // Save listener -> On newEnvVar dialog "close" because of [method="dialog"]
+  //     // Triggered via Cancel & Save buttons or Enter keypress
+  //     newEnvVarDialog.addEventListener('close', function onClose () {
+  //       if (newEnvVarDialog.returnValue !== 'cancel') {
+  //         setLocalStorage()
+  //         thisValue.value = localStorage.getItem(thisKey.value)
+  //       }
+  //     })
 
-      // Store item in localStorage and refresh window
-      function setLocalStorage () {
-        if (
-          newEnvVarDialog.querySelector('[data-key]').value !== '' &&
-          newEnvVarDialog.querySelector('[data-value]').value !== ''
-        ) {
-          updatedValue = newEnvVarDialog.querySelector('[data-value]').value
-          // store the updatedValue for the updatedKey
-          localStorage.setItem(updatedKey, updatedValue)
-          // Update the value of all matching keys that are already loaded in browser
-          document.querySelectorAll('[data-key]').forEach(item => {
-            if (item.value === updatedKey) {
-              item.parentElement.querySelector('[data-value]').value =
-                updatedValue
-            }
-          })
-          // window.location = window.location.href
-        }
-      }
-    }
-  })
-
+  //     // Store item in localStorage and refresh window
+  //     function setLocalStorage () {
+  //       if (
+  //         newEnvVarDialog.querySelector('[data-key]').value !== '' &&
+  //         newEnvVarDialog.querySelector('[data-value]').value !== ''
+  //       ) {
+  //         updatedValue = newEnvVarDialog.querySelector('[data-value]').value
+  //         // store the updatedValue for the updatedKey
+  //         localStorage.setItem(updatedKey, updatedValue)
+  //         // Update the value of all matching keys that are already loaded in browser
+  //         document.querySelectorAll('[data-key]').forEach(item => {
+  //           if (item.value === updatedKey) {
+  //             item.parentElement.querySelector('[data-value]').value =
+  //               updatedValue
+  //           }
+  //         })
+  //         // window.location = window.location.href
+  //       }
+  //     }
+  //   }
+  // })
   // Remove button
-  element.querySelector('[data-remove-btn]').addEventListener('click', e => {
-    closest = e.target.closest('[data-key-value-pair]')
-    closest.remove()
-    if (id === 'settings') {
-      let localStorageKey = closest.querySelector('[data-key]').value
-      localStorage.removeItem(localStorageKey)
-      window.location = window.location.href
-    }
-  })
+  if (
+    readOnly === true ||
+    thisKey.value.match(/signUpSourceId|subscriptionType/)
+  ) {
+    // Hide the delete button
+    element.querySelector('[data-remove-btn]').style.opacity = 0
+  } else {
+    // Add a listener to the delete button
+    element.querySelector('[data-remove-btn]').addEventListener('click', e => {
+      closest = e.target.closest('[data-key-value-pair]')
+      closest.remove()
+      // if (id === 'settings') {
+      //   let localStorageKey = closest.querySelector('[data-key]').value
+      //   localStorage.removeItem(localStorageKey)
+      //   window.location = window.location.href
+      // }
+    })
+  }
+
   return element
 }
 
@@ -170,7 +219,7 @@ function createKeyValuePair (id, key, value, placeholder) {
 //   }, {})
 // }
 
-function keyValuePairsToObjects (id, container, crulyBraces) {
+function keyValuePairsToObjects (id, container, curlyBraces) {
   const pairs = container.querySelectorAll(`#${id} [data-key-value-pair]`)
   // console.log('PAIRS:', pairs)
   const tempObject = {}
@@ -180,7 +229,7 @@ function keyValuePairsToObjects (id, container, crulyBraces) {
     // console.log('KEY:', key)
     let value
     // let value = pair.querySelector('[data-value]').value
-    if (crulyBraces === true) {
+    if (curlyBraces === true) {
       value = `{{${pair.querySelector('[data-value]').value}}}`
     } else {
       value = pair.querySelector('[data-value]').value
@@ -207,7 +256,7 @@ function keyValuePairsToObjects (id, container, crulyBraces) {
   }, {})
 }
 
-// Parse the eds json files stored in local storage
+// Parse the json import file and build apiParams
 function parseImportFile (edsFile) {
   console.log('IMPORT or RECENT:', edsFile)
 
@@ -222,7 +271,6 @@ function parseImportFile (edsFile) {
     window.location.href = '../../attentive/custom-attributes'
 
   console.log('IMPORT FILE:', importFile)
-  console.log('IMPORT FILE OBJECT:', { importFile })
 
   let target = {}
   target = importFile.targetPayload
@@ -233,25 +281,46 @@ function parseImportFile (edsFile) {
   let client = {}
   client = importFile.clientPayload
   console.log('CLIENT:', client)
+  let schedule = {}
+  schedule = importFile.schedulePayload
+  console.log('SCHEDULE:', schedule)
 
-  function createParams (paramName, myObject, myParams) {
-    // console.log('paramName', paramName)
+  // Build the apiParams from the EDS Payload
+  function createParams (paramName, paramObject, myParams) {
+    // console.log('paramName:', paramName)
+    // console.log('paramObject:', paramObject)
+    // console.log('myParams:', myParams)
     Object.entries(myParams).forEach(entry => {
       const [key, value] = entry
       // console.log(`PROP ${key}: ${value}`)
+      // The queryParams object contains top level properties as well as
+      // child objects and arrays. Skip the child objects and arrays
+      // as those will be processed separately
       if (paramName === 'queryParams') {
         if (
           `${key}` === 'properties' ||
           `${key}` === 'items' ||
+          `${key}` === 'subscriptions' ||
           `${key}` === 'user'
         ) {
           return
         }
       }
 
+      // Don't remove curly braces from subscriptionsParams or headerParams
+      // Or keys with these names since they are fixed values for Subscriptions
       let val = value
-      if (key != 'Authorization') {
-        val = val.slice(2, -2)
+      if (
+        paramName === 'subscriptionsParams' ||
+        paramName === 'headerParams' ||
+        key.match(/signUpSourceId|subscriptionType|singleOptIn/)
+      ) {
+        // Do nothing
+      } else {
+        // Remove curly braces
+        if (val && val.length > 0) {
+          val = val.slice(2, -2)
+        }
       }
 
       const thisObj = {
@@ -259,10 +328,10 @@ function parseImportFile (edsFile) {
         value: val,
         placeholder: ''
       }
-      // console.log('MY OBJECT:', myObject)
+      // console.log('PARAM OBJECT:', paramObject)
       // console.log('THIS OBJECT:', thisObj)
 
-      myObject.push(thisObj)
+      paramObject.push(thisObj)
     })
   }
 
@@ -300,19 +369,28 @@ function parseImportFile (edsFile) {
     apiParams.itemsParams.splice(6, 1)
   }
 
+  // subscriptionsParams
+  if (target.payload_mapping.subscriptions) {
+    createParams(
+      'subscriptionsParams',
+      apiParams.subscriptionsParams,
+      target.payload_mapping.subscriptions[0]
+    )
+  }
+
   // headerParams
   if (target.header_mapping) {
     createParams('headerParams', apiParams.headerParams, target.header_mapping)
   }
 
   // userParams
-  if (target.payload_mapping.user.externalIdentifiers?.clientUserId) {
+  if (target.payload_mapping.user?.externalIdentifiers?.clientUserId) {
     apiParams.userParams[2].value =
       target.payload_mapping.user.externalIdentifiers.clientUserId.slice(2, -2)
   } else {
     apiParams.userParams.splice(2, 1)
   }
-  if (target.payload_mapping.user.email) {
+  if (target.payload_mapping.user?.email) {
     apiParams.userParams[1].value = target.payload_mapping.user.email.slice(
       2,
       -2
@@ -320,7 +398,7 @@ function parseImportFile (edsFile) {
   } else {
     apiParams.userParams.splice(1, 1)
   }
-  if (target.payload_mapping.user.phone) {
+  if (target.payload_mapping.user?.phone) {
     apiParams.userParams[0].value = target.payload_mapping.user.phone.slice(
       2,
       -2
@@ -331,9 +409,8 @@ function parseImportFile (edsFile) {
 
   // customParams
   if (
-    target.payload_mapping.user.externalIdentifiers &&
-    target.payload_mapping.user.externalIdentifiers.custom &&
-    target.payload_mapping.user.externalIdentifiers.custom[0]
+    target.payload_mapping.user?.externalIdentifiers?.custom &&
+    target.payload_mapping.user?.externalIdentifiers?.custom[0]
   ) {
     createParams(
       'customParams',
@@ -349,27 +426,30 @@ function parseImportFile (edsFile) {
 
   // sourceParams
   const key_name = source.key_name
-  let dateFormat = key_name.match(/\[\[\w+\]\]/)
-  if (dateFormat) {
-    dateFormat = dateFormat.toString().replace('[[', '').replace(']]', '')
-  }
   let timeZone = key_name.match(/<&\S+&>/)
   if (timeZone) {
     timeZone = timeZone.toString().replace('<&', '').replace('&>', '')
   }
-  let fileName = key_name.replace(/\[\[\w+\]\]/, '').replace(/<&\S+&>/, '')
+  let fileName = key_name.replace(/<&\S+&>/, '')
   apiParams.sourceParams[0].value = client?.clientName ? client.clientName : ''
   apiParams.sourceParams[1].value = client?.clientId ? client.clientId : ''
   apiParams.sourceParams[2].value = fileName
   apiParams.sourceParams[3].value = client?.fileType ? client.fileType : ''
   apiParams.sourceParams[4].value = client?.delimiter ? client.delimiter : ''
-  apiParams.sourceParams[5].value = dateFormat
-  apiParams.sourceParams[6].value = client?.frequency ? client.frequency : ''
-  apiParams.sourceParams[7].value = client?.triggerTime
-    ? client.triggerTime
+  apiParams.sourceParams[5].value = client?.ticketId ? client.ticketId : ''
+
+  // scheduleParams
+  apiParams.scheduleParams[0].value = schedule?.frequency
+    ? schedule.frequency
     : ''
-  apiParams.sourceParams[8].value = timeZone
-  apiParams.sourceParams[9].value = client?.ticketId ? client.ticketId : ''
+  apiParams.scheduleParams[1].value = schedule?.triggerTime
+    ? schedule.triggerTime
+    : ''
+  apiParams.scheduleParams[2].value = timeZone
+
+  // Change h1 title from Imported Payload to the name of the API
+  const api = getApiFromUrl(apiParams.url)
+  document.querySelector('h1').textContent = api
 
   console.log('apiParams AFTER:', apiParams)
 }
@@ -394,10 +474,12 @@ function updatePayload (e, paramsId) {
   let payload_mapping = {}
   let targetPayload = {}
   let source = {}
+  let schedule = {}
   let key_name = ''
   let extension = ''
   let sourcePayload = {}
   let clientPayload = {}
+  let schedulePayload = {}
 
   // Set variable values from query selectors
   // Pass the id, the selector, and whether or not the value result should be enclosed in curly braces (true|false)
@@ -412,7 +494,7 @@ function updatePayload (e, paramsId) {
     false
   ).tempObject
   if (url.match('subscriptions')) {
-    console.log('SUBSCRIPTIONS')
+    console.log('URL.MATCH: SUBSCRIPTIONS')
     console.log('curlyBraces OFF')
     params = keyValuePairsToObjects(
       paramsId,
@@ -459,6 +541,11 @@ function updatePayload (e, paramsId) {
   source = keyValuePairsToObjects(
     paramsId,
     document.querySelector(`#${paramsId} ` + '[data-source]'),
+    false
+  ).tempObject
+  schedule = keyValuePairsToObjects(
+    paramsId,
+    document.querySelector(`#${paramsId} ` + '[data-schedule]'),
     false
   ).tempObject
   jsonBody = document.querySelector(
@@ -570,15 +657,10 @@ function updatePayload (e, paramsId) {
     if (source['fileName']) clientPayload.fileName = source['fileName']
     if (source['fileType']) clientPayload.fileType = source['fileType']
     if (source['delimiter']) clientPayload.delimiter = source['delimiter']
-    if (source['dateFormat']) clientPayload.dateFormat = source['dateFormat']
-    if (source['frequency']) clientPayload.frequency = source['frequency']
-    if (source['triggerTime']) clientPayload.triggerTime = source['triggerTime']
-    if (source['timeZone']) clientPayload.timeZone = source['timeZone']
     if (source['ticketId']) clientPayload.ticketId = source['ticketId']
     if (source['fileName'])
       key_name = `${source['fileName'].replace(/(\.\w*)/, '')}`
     // console.log("KEY_NAME:", key_name)
-    if (source['dateFormat']) key_name += `[[${source['dateFormat']}]]`
     if (key_name && source['fileName'].match(/\.\w*/)) {
       extension = source['fileName'].match(/\.\w*/).toString()
       // console.log("EXTENSION", extension)
@@ -593,18 +675,30 @@ function updatePayload (e, paramsId) {
     }
   }
 
+  // Concatenate schedule params
+  if (schedule && Object.entries(schedule).length > 0) {
+    if (schedule['frequency']) schedulePayload.frequency = schedule['frequency']
+    if (schedule['triggerTime'])
+      schedulePayload.triggerTime = schedule['triggerTime']
+    if (schedule['timeZone']) schedulePayload.timeZone = schedule['timeZone']
+  }
+
   // console.log("CLIENT PAYLOAD:", clientPayload)
   edsPayload.clientPayload = clientPayload
   // console.log("TARGET PAYLOAD:", clientPayload)
   edsPayload.targetPayload = targetPayload
   // console.log("SOURCE PAYLOAD:", sourcePayload)
   edsPayload.sourcePayload = sourcePayload
+  // console.log("SCHEDULE PAYLOAD:", schedulePayload)
+  edsPayload.schedulePayload = schedulePayload
+
   console.log('EDS PAYLOAD:', edsPayload)
   if (e.type === 'change') {
     console.log('CHANGE EVENT: EDS-RECENT -> LOCAL STORAGE')
     localStorage.setItem('eds-recent', JSON.stringify(edsPayload, null, 2))
     // console.log("LOCAL STORAGE:", localStorage.getItem("eds-recent"))
   } else {
+    // Click or Keyup event will trigger updates to these payloads
     updateTargetPayloadBody(paramsId, targetPayload)
     updateSourcePayloadBody(paramsId, sourcePayload)
   }

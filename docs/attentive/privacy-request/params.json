@@ -23,10 +23,12 @@
       "placeholder": "(optional) comma (default), tab, pipe, or ndjson"
     },
     {
-      "key": "dateFormat",
+      "key": "ticketId",
       "value": "",
-      "placeholder": "yyyyMMdd, yyyyMMddHH00 (required, if scheduled)"
-    },
+      "placeholder": "Jira ticket link"
+    }
+  ],
+  "scheduleParams": [
     {
       "key": "frequency",
       "value": "",
@@ -41,11 +43,6 @@
       "key": "timeZone",
       "value": "",
       "placeholder": "America/New_York, Europe/London (required, if scheduled)"
-    },
-    {
-      "key": "ticketId",
-      "value": "",
-      "placeholder": "Jira ticket link"
     }
   ],
   "propParams": [],
@@ -66,6 +63,7 @@
       "placeholder": "requestMsg (optional)"
     }
   ],
+  "subscriptionsParams": [],
   "jsonParams": {},
   "headerParams": [
     {
@@ -74,5 +72,6 @@
       "placeholder": "Bearer <API Key> (required)"
     }
   ],
-  "userParams": []
+  "userParams": [],
+  "customParams": []
 }

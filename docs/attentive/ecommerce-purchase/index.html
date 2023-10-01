@@ -9,7 +9,7 @@
 <meta name="generator" content="Hugo 0.105.0">
 
 
-  <meta name="description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Params Column Header Properties Column Header &plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &plus; User Properties Column Header &plus; Custom User Identifer Properties Column Header Source Params Value Source Payload Target Payload Response Status: &#9998; &#10005; " />
+  <meta name="description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &plus; User Properties Column Header &plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: &#9998; &#10005; " />
 
   <title>eCommerce Purchase | Attentive EDS</title>
 
@@ -35,7 +35,7 @@
     content="eCommerce Purchase"
   />
   <meta property="og:site_name" content="Attentive EDS" />
-  <meta property="og:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &#43; User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Source Payload Target Payload Response Status: ✎ ✕ " />
+  <meta property="og:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &#43; User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: ✎ ✕ " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/ecommerce-purchase/" />
 
@@ -44,7 +44,7 @@
 
   <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="eCommerce Purchase" />
-  <meta name="twitter:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &#43; User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Source Payload Target Payload Response Status: ✎ ✕ " />
+  <meta name="twitter:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &#43; User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: ✎ ✕ " />
 
 
   <script type="application/ld+json">
@@ -55,8 +55,8 @@
       "name": "eCommerce Purchase",
       "url" : "https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/ecommerce-purchase/",
       "headline": "eCommerce Purchase",
-      "description": " SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Params Column Header Properties Column Header \u002b Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token \u002b User Properties Column Header \u002b Custom User Identifer Properties Column Header Source Params Value Source Payload Target Payload Response Status: ✎ ✕ ",
-      "wordCount" : "58",
+      "description": " SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header \u002b Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token \u002b User Properties Column Header \u002b Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: ✎ ✕ ",
+      "wordCount" : "62",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
@@ -1095,6 +1095,13 @@
           Source
         </button>
       </li>
+      <li class="nav-item d-none" role="presentation" data-schedule-section>
+        <button class="nav-link" id="purchase-request-schedule-tab" data-bs-toggle="tab"
+          data-bs-target="#purchase-request-schedule" type="button" role="tab" aria-controls="request-schedule"
+          aria-selected="false">
+          Schedule
+        </button>
+      </li>
     </ul>
     <div class="tab-content p-3 border-top-0 border">
       <div class="tab-pane fade show active" id="purchase-query-params" role="tabpanel"
@@ -1190,6 +1197,15 @@
         <div data-source></div>
         
       </div>
+      <div class="tab-pane fade" id="purchase-request-schedule" role="tabpanel"
+        aria-labelledby="request-schedule-tab">
+        <div class="input-group">
+          <div class="section-title pl-75" style="flex: 1">Schedule Params</div>
+          <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
+        </div>
+        <div data-schedule></div>
+        
+      </div>
     </div>
   </div>
   <div class="" data-response-section>
@@ -1275,15 +1291,16 @@
           filename += ` ${edsPayload.clientPayload["clientName"]}`
         }
         filename += " eCommerce Purchase"
-        if (edsPayload.sourcePayload["key_name"].length > 0) {
-          filename += ` ${edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
-        }
+        
+        
+        
         if (filename === null || filename === '') filename = 'data'
         downloadBtn.download = `${filename}.json`
       })
 
       
       const importElement = document.querySelector("#json_upload")
+      importElement.style.display = "contents"
       importElement.style.opacity = 0
       importElement.addEventListener("change", importJson)
 
@@ -1351,6 +1368,13 @@
           createKeyValuePair("purchase")
         )
       })
+
+      
+      
+      
+      
+      
+      
 
       
       
@@ -1445,7 +1469,8 @@
               "purchase",
               subscriptionsParam.key,
               subscriptionsParam.value,
-              subscriptionsParam.placeholder
+              subscriptionsParam.placeholder,
+              true 
             )
           )
         })
@@ -1484,7 +1509,8 @@
             "purchase",
             headerParam.key,
             headerParam.value,
-            headerParam.placeholder
+            headerParam.placeholder,
+            true 
           )
         )
       })
@@ -1529,7 +1555,23 @@
               "purchase",
               sourceParam.key,
               sourceParam.value,
-              sourceParam.placeholder
+              sourceParam.placeholder,
+              true 
+            )
+          )
+        })
+      }
+      
+      if (apiParams.scheduleParams?.length > 0) {
+        document.querySelector("#purchase [data-schedule-section]").classList.remove("d-none")
+        apiParams.scheduleParams?.forEach((scheduleParam) => {
+          document.querySelector("#purchase [data-schedule]").append(
+            createKeyValuePair(
+              "purchase",
+              scheduleParam.key,
+              scheduleParam.value,
+              scheduleParam.placeholder,
+              true 
             )
           )
         })

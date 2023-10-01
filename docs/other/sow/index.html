@@ -11,7 +11,7 @@
 
   <meta name="description" content="{Client Name}&nbsp;&ndash;&nbsp;EDS&nbsp;{API} &nbsp;API {Date}
 Background This Statement of Work defines the client&#39;s request to submit {API} API requests for users via CSV upload. Purpose This Statement of Work covers the allowable scope of the project. Any term not defined herein shall have the meaning set forth in the Attentive Master Subscription Agreement or the relevant Order Form.
-Specification Client will upload files to: {fileNameAndDate} {filename} represents the path and filename." />
+Specification Client will upload files to SFTP with the following path and filename:" />
 
   <title>Scope of Work | Attentive EDS</title>
 
@@ -39,7 +39,7 @@ Specification Client will upload files to: {fileNameAndDate} {filename} represen
   <meta property="og:site_name" content="Attentive EDS" />
   <meta property="og:description" content="{Client Name} – EDS {API}  API {Date}
 Background This Statement of Work defines the client&#39;s request to submit {API} API requests for users via CSV upload. Purpose This Statement of Work covers the allowable scope of the project. Any term not defined herein shall have the meaning set forth in the Attentive Master Subscription Agreement or the relevant Order Form.
-Specification Client will upload files to: {fileNameAndDate} {filename} represents the path and filename." />
+Specification Client will upload files to SFTP with the following path and filename:" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://johnchaffee.github.io/attentive-eds-payload-generator/other/sow/" />
 
@@ -50,7 +50,7 @@ Specification Client will upload files to: {fileNameAndDate} {filename} represen
 <meta name="twitter:title" content="Scope of Work" />
   <meta name="twitter:description" content="{Client Name} – EDS {API}  API {Date}
 Background This Statement of Work defines the client&#39;s request to submit {API} API requests for users via CSV upload. Purpose This Statement of Work covers the allowable scope of the project. Any term not defined herein shall have the meaning set forth in the Attentive Master Subscription Agreement or the relevant Order Form.
-Specification Client will upload files to: {fileNameAndDate} {filename} represents the path and filename." />
+Specification Client will upload files to SFTP with the following path and filename:" />
 
 
   <script type="application/ld+json">
@@ -61,7 +61,7 @@ Specification Client will upload files to: {fileNameAndDate} {filename} represen
       "name": "Scope of Work",
       "url" : "https://johnchaffee.github.io/attentive-eds-payload-generator/other/sow/",
       "headline": "Scope of Work",
-      "description": "{Client Name} – EDS {API}  API {Date}\nBackground This Statement of Work defines the client\u0027s request to submit {API} API requests for users via CSV upload. Purpose This Statement of Work covers the allowable scope of the project. Any term not defined herein shall have the meaning set forth in the Attentive Master Subscription Agreement or the relevant Order Form.\nSpecification Client will upload files to: {fileNameAndDate} {filename} represents the path and filename.",
+      "description": "{Client Name} – EDS {API}  API {Date}\nBackground This Statement of Work defines the client\u0027s request to submit {API} API requests for users via CSV upload. Purpose This Statement of Work covers the allowable scope of the project. Any term not defined herein shall have the meaning set forth in the Attentive Master Subscription Agreement or the relevant Order Form.\nSpecification Client will upload files to SFTP with the following path and filename:",
       "wordCount" : "155",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
@@ -290,7 +290,6 @@ Specification Client will upload files to: {fileNameAndDate} {filename} represen
 
   
 
-
   <h2><span class="" data-client-name>{Client Name}</span>&nbsp;&ndash;&nbsp;EDS&nbsp;<span class="param" data-api>{API}
     </span>&nbsp;API
   </h2>
@@ -307,20 +306,20 @@ Specification Client will upload files to: {fileNameAndDate} {filename} represen
 
   <h2>Specification</h2>
   <ol>
-    <li>Client will upload files to: <span class="param" data-file-name-and-date>{fileNameAndDate}</span></li>
-    <ul>
-      <li><span class="param" data-filename>{filename}</span> represents the path and filename.</li>
-      <li><span class="param" data-date-format>{[[dateFormat]]}</span> represents the date the file will be processed.
-      </li>
-    </ul>
-    <li>The file will be in <span class="param" data-filetype>{fileType}</span> format</li>
+    <li>Client will upload files to SFTP with the following path and filename:<br><span class="param"
+        data-file-name-and-date>{fileNameAndDate}</span></li>
+    <li id="date-format" class=""><span class="param" data-date-format>{[[dateFormat]]}</span> represents the date the
+      file will be processed.</li>
+    <li id="frequency" class="">Files will be processed <span class="param" data-frequency>{frequency}</span>
+      at <span class="param" data-trigger-time>{triggerTime}</span> (<span class="param" data-timezone>{timezone}</span>
+      time).
+    </li>
+    <li>The file will be in <span class="param" data-filetype>{fileType}</span> format.</li>
     <li>The file will contain a header row that lists the field names.</li>
     <li>Each data row will include the field values.</li>
-    <li>The file will be processed <span class="param" data-frequency>{frequency}</span> at <span class="param"
-        data-trigger-time>{triggerTime}</span> (<span class="param" data-timezone>{timezone}</span> time)</li>
   </ol>
 
-  <h2>API Payload</h2>
+  <h2 class="pagebreak">API Payload</h2>
   <p>The fields in the file will be mapped to the API as shown in the payload below, where API property names are
     listed on the left, and field names are displayed in curly braces on the right.</p>
   <div id="payload-container">
@@ -332,8 +331,6 @@ Specification Client will upload files to: {fileNameAndDate} {filename} represen
 <style>
   .param {
     font-weight: bold;
-     
-     
   }
 
   header {
@@ -343,6 +340,12 @@ Specification Client will upload files to: {fileNameAndDate} {filename} represen
   #payload-container {
     padding: 20px;
     border: 0.5px solid gray;
+  }
+
+  @media print {
+    .pagebreak {
+      page-break-before: always;
+    }
   }
 </style>
 <script>
@@ -364,86 +367,68 @@ Specification Client will upload files to: {fileNameAndDate} {filename} represen
   }
 
   let api
-  let clientName = {}
   let date
-  date = date = new Date().toLocaleDateString()
+  date = new Date().toLocaleDateString()
 
   
   replaceText("date", date)
 
   
-  replaceText("client-name", edsPayload.clientPayload.clientName)
+  if (edsPayload.clientPayload.clientName) {
+    replaceText("client-name", edsPayload.clientPayload.clientName)
+  }
 
   
   const url = edsPayload.targetPayload.url
-  console.log("url:", url)
-  switch (url) {
-    case 'https://api.attentivemobile.com/v1/attributes/custom':
-      api = "Custom Attributes"
-      break
-    case "https://api.attentivemobile.com/v1/events/custom":
-      api = "Custom Events"
-      break
-    case "https://api.attentivemobile.com/v1/events/ecommerce/add-to-cart":
-      api = "eCommerce Add to Cart"
-      break
-    case "https://api.attentivemobile.com/v1/events/ecommerce/product-view":
-      api = "eCommerce Product View"
-      break
-    case "https://api.attentivemobile.com/v1/events/ecommerce/purchase":
-      api = "eCommerce Purchase"
-      break
-    case "https://api.attentivemobile.com/v1/identity-resolution/user-identifiers":
-      api = "Identity"
-      break
-    case "https://api.attentivemobile.com/v1/text/send":
-      api = "Messages"
-      break
-    case "https://api.attentivemobile.com/v1/privacy/delete-request":
-      api = "Privacy Request"
-      break
-    case "https://api.attentivemobile.com/v1/subscriptions":
-      api = "Subscribe"
-      break
-    case "https://api.attentivemobile.com/v1/subscriptions/unsubscribe":
-      api = "Unsubscribe"
-      break
-    default:
-      api = ""
-  }
+  api = getApiFromUrl(url)
   replaceText("api", api)
 
   
   const key_name = edsPayload.sourcePayload.key_name
-  
+  console.log("KEY NAME:", key_name)
+
+  if (key_name != null && key_name != '') {
+    
+    const fileName = edsPayload.clientPayload.fileName.replace(/\.\w*/, '').toString()
+    replaceText("filename", fileName)
+
+    
+    const fileNameAndDate = key_name.replace(/<&\S+&>/, '')
+    replaceText("file-name-and-date", fileNameAndDate)
+
+    
+    const dateFormat = key_name.match(/\[\[\w+\]\]/)
+    console.log("DATE FORMAT:", dateFormat)
+    replaceText("date-format", dateFormat)
+    if (dateFormat === null) document.querySelector("#date-format").classList.add('d-none')
+  }
 
   
-  const fileNameAndDate = key_name.replace(/<&\S+&>/, '')
-  replaceText("file-name-and-date", fileNameAndDate)
-
-  
-  const fileName = edsPayload.clientPayload.fileName
-  replaceText("filename", fileName)
-
-  
-  const fileType = edsPayload.clientPayload.fileType
+  let fileType = "CSV"
+  if (edsPayload.clientPayload.fileType) {
+    fileType = edsPayload.clientPayload.fileType
+  }
   replaceText("filetype", fileType)
 
   
-  const dateFormat = key_name.match(/\[\[\w+\]\]/)
-  replaceText("date-format", dateFormat)
+  let frequency = null
+  if (edsPayload.schedulePayload.frequency) {
+    frequency = edsPayload.schedulePayload.frequency
+    replaceText("frequency", frequency)
+  }
+  if (frequency === null) document.querySelector("#frequency").classList.add('d-none')
 
   
-  const frequency = "Daily"
-  replaceText("frequency", frequency)
+  if (edsPayload.schedulePayload.triggerTime) {
+    const triggerTime = edsPayload.schedulePayload.triggerTime
+    replaceText("trigger-time", triggerTime)
+  }
 
   
-  const triggerTime = edsPayload.clientPayload.triggerTime
-  replaceText("trigger-time", triggerTime)
-
-  
-  const timeZone = edsPayload.clientPayload.timeZone
-  replaceText("timezone", timeZone)
+  if (edsPayload.schedulePayload.timeZone) {
+    const timeZone = edsPayload.schedulePayload.timeZone
+    replaceText("timezone", timeZone)
+  }
 
   
   maskedPayload = edsPayload.targetPayload.header_mapping.Authorization.toString().replace(/Bearer (.*)/, 'Bearer ********')
@@ -466,6 +451,17 @@ Specification Client will upload files to: {fileNameAndDate} {filename} represen
     showPrintMargin: false,
     fontSize: 14
   })
+
+  
+  let pageTitle = "EDS"
+  if (edsPayload.clientPayload["ticketId"] && edsPayload.clientPayload["ticketId"].length > 0 && edsPayload.clientPayload["ticketId"].match(/\d+$/)) {
+    pageTitle += `-${edsPayload.clientPayload["ticketId"].match(/\d+$/).toString()}`
+  }
+  if (edsPayload.clientPayload["clientName"] && edsPayload.clientPayload["clientName"].length > 0) {
+    pageTitle += ` - ${edsPayload.clientPayload["clientName"]}`
+  }
+  pageTitle += ` - ${api}`
+  document.title = pageTitle
 
 </script>
 

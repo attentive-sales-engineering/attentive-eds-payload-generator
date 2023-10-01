@@ -11,7 +11,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/custom-attributes/</guid>
-      <description> SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Params Column Header Properties Column Header &amp;plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &amp;plus; User Properties Column Header &amp;plus; Custom User Identifer Properties Column Header Source Params Value Source Payload Target Payload Response Status: &amp;#9998; &amp;#10005; </description>
+      <description> SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &amp;plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &amp;plus; User Properties Column Header &amp;plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: &amp;#9998; &amp;#10005; </description>
     </item>
     
     <item>
@@ -20,7 +20,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/custom-events/</guid>
-      <description> SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Params Column Header Properties Column Header &amp;plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &amp;plus; User Properties Column Header &amp;plus; Custom User Identifer Properties Column Header Source Params Value Source Payload Target Payload Response Status: &amp;#9998; &amp;#10005; </description>
+      <description> SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &amp;plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &amp;plus; User Properties Column Header &amp;plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: &amp;#9998; &amp;#10005; </description>
     </item>
     
     <item>
@@ -29,7 +29,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/other/import/</guid>
-      <description> SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Params Column Header Properties Column Header &amp;plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &amp;plus; User Properties Column Header &amp;plus; Custom User Identifer Properties Column Header Source Params Value Source Payload Target Payload Response Status: &amp;#9998; &amp;#10005; </description>
+      <description> SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &amp;plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &amp;plus; User Properties Column Header &amp;plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: &amp;#9998; &amp;#10005; </description>
     </item>
     
     <item>
@@ -38,7 +38,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/other/recent/</guid>
-      <description> SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Params Column Header Properties Column Header &amp;plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &amp;plus; User Properties Column Header &amp;plus; Custom User Identifer Properties Column Header Source Params Value Source Payload Target Payload Response Status: &amp;#9998; &amp;#10005; </description>
+      <description> SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &amp;plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &amp;plus; User Properties Column Header &amp;plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: &amp;#9998; &amp;#10005; </description>
     </item>
     
     <item>
@@ -49,7 +49,7 @@
       <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/other/sow/</guid>
       <description>{Client Name}&amp;nbsp;&amp;ndash;&amp;nbsp;EDS&amp;nbsp;{API} &amp;nbsp;API {Date}
 Background This Statement of Work defines the client&#39;s request to submit {API} API requests for users via CSV upload. Purpose This Statement of Work covers the allowable scope of the project. Any term not defined herein shall have the meaning set forth in the Attentive Master Subscription Agreement or the relevant Order Form.
-Specification Client will upload files to: {fileNameAndDate} {filename} represents the path and filename.</description>
+Specification Client will upload files to SFTP with the following path and filename:</description>
     </item>
     
   </channel>
