@@ -84,6 +84,7 @@ function updateJsonPayloadBody (id, edsPayload) {
   })
 }
 
+// This function renders the apiParam key/value pairs onscreen
 function createKeyValuePair (id, key, value, placeholder, readOnly) {
   console.log('createKeyValuePair:', id, key, value, placeholder)
   const element = document
@@ -96,78 +97,6 @@ function createKeyValuePair (id, key, value, placeholder, readOnly) {
   thisValue.value = value || null
   thisValue.placeholder = placeholder || 'Value'
 
-  // // Show EnvVar values
-  // if (thisValue.value === '') {
-  //   thisValue.value = localStorage.getItem(key)
-  // }
-
-  // // Mask passwords and sensitive values
-  // if (
-  //   thisKey.value === 'password' ||
-  //   thisKey.value === 'AuthToken' ||
-  //   thisKey.value === 'StatusCallback' ||
-  //   thisKey.value === 'StatusCallbackUrl' ||
-  //   thisKey.value === 'Authorization' ||
-  //   thisKey.value === 'apiKey' ||
-  //   thisKey.value === 'BasicAuth' ||
-  //   thisKey.value === 'X-Shopify-Access-Token'
-  // ) {
-  //   thisValue.type = 'password'
-  // }
-
-  // // Update button
-  // element.querySelector('[data-update-btn]').addEventListener('click', e => {
-  //   closest = e.target.closest('[data-key-value-pair]')
-  //   console.log('UPDATE CLOSEST', closest)
-  //   if (typeof newEnvVarDialog.showModal === 'function') {
-  //     console.log('NEW ENV VAR DIALOG', newEnvVarDialog)
-  //     updatedKey = closest.querySelector('[data-key]').value
-  //     console.log('UPDATEDKEY', updatedKey)
-  //     newEnvVarDialog.querySelector('[data-key]').value = updatedKey
-  //     newEnvVarDialog.querySelector('[data-value]').value =
-  //       localStorage.getItem(updatedKey)
-  //     newEnvVarDialog.querySelector('[data-value]').placeholder =
-  //       closest.querySelector('[data-value]').placeholder
-  //     newEnvVarDialog.showModal()
-
-  //     // Enter key listener -> Listen for the "Enter" key in newEnvVar modal
-  //     newEnvVarDialog.addEventListener('keydown', e => {
-  //       if (e.code === 'Enter') {
-  //         setLocalStorage()
-  //         thisValue.value = localStorage.getItem(thisKey.value)
-  //       }
-  //     })
-
-  //     // Save listener -> On newEnvVar dialog "close" because of [method="dialog"]
-  //     // Triggered via Cancel & Save buttons or Enter keypress
-  //     newEnvVarDialog.addEventListener('close', function onClose () {
-  //       if (newEnvVarDialog.returnValue !== 'cancel') {
-  //         setLocalStorage()
-  //         thisValue.value = localStorage.getItem(thisKey.value)
-  //       }
-  //     })
-
-  //     // Store item in localStorage and refresh window
-  //     function setLocalStorage () {
-  //       if (
-  //         newEnvVarDialog.querySelector('[data-key]').value !== '' &&
-  //         newEnvVarDialog.querySelector('[data-value]').value !== ''
-  //       ) {
-  //         updatedValue = newEnvVarDialog.querySelector('[data-value]').value
-  //         // store the updatedValue for the updatedKey
-  //         localStorage.setItem(updatedKey, updatedValue)
-  //         // Update the value of all matching keys that are already loaded in browser
-  //         document.querySelectorAll('[data-key]').forEach(item => {
-  //           if (item.value === updatedKey) {
-  //             item.parentElement.querySelector('[data-value]').value =
-  //               updatedValue
-  //           }
-  //         })
-  //         // window.location = window.location.href
-  //       }
-  //     }
-  //   }
-  // })
   // Delete button
   if (readOnly === true) {
     // Hide the Delete button
@@ -177,11 +106,6 @@ function createKeyValuePair (id, key, value, placeholder, readOnly) {
     element.querySelector('[data-remove-btn]').addEventListener('click', e => {
       closest = e.target.closest('[data-key-value-pair]')
       closest.remove()
-      // if (id === 'settings') {
-      //   let localStorageKey = closest.querySelector('[data-key]').value
-      //   localStorage.removeItem(localStorageKey)
-      //   window.location = window.location.href
-      // }
     })
   }
 
@@ -445,7 +369,7 @@ function parseImportFile (edsFile) {
   console.log('apiParams AFTER:', apiParams)
 }
 
-// Update the json payload when various change events fire
+// Update the edsPayload when various change events fire
 function updatePayload (e, paramsId) {
   // console.log("LISTENER:", e)
   // console.log("LISTENER TYPE:", e.type)

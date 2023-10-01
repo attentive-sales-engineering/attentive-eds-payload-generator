@@ -171,25 +171,29 @@
       </div>
       <div class="tab-pane fade" id="{{ .Params.id }}-request-source" role="tabpanel"
         aria-labelledby="request-source-tab">
-        <div class="input-group">
-          <div class="section-title pl-75" style="flex: 1">Source Params</div>
-          <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
+        <div class="d-none" data-source-params-section>
+          <div class="input-group">
+            <div class="section-title pl-75" style="flex: 1">Source Params</div>
+            <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
+          </div>
+          <div data-source></div>
+          <!-- <button data-add-request-source-btn class="mt-2 btn btn-outline-success" type="button">
+            &plus;
+          </button> -->
         </div>
-        <div data-source></div>
-        <!-- <button data-add-request-source-btn class="mt-2 btn btn-outline-success" type="button">
-          &plus;
-        </button> -->
       </div>
       <div class="tab-pane fade" id="{{ .Params.id }}-request-schedule" role="tabpanel"
         aria-labelledby="request-schedule-tab">
-        <div class="input-group">
-          <div class="section-title pl-75" style="flex: 1">Schedule Params</div>
-          <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
+        <div class="d-none" data-schedule-params-section>
+          <div class="input-group">
+            <div class="section-title pl-75" style="flex: 1">Schedule Params</div>
+            <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
+          </div>
+          <div data-schedule></div>
+          <!-- <button data-add-request-schedule-btn class="mt-2 btn btn-outline-success" type="button">
+            &plus;
+          </button> -->
         </div>
-        <div data-schedule></div>
-        <!-- <button data-add-request-schedule-btn class="mt-2 btn btn-outline-success" type="button">
-          &plus;
-        </button> -->
       </div>
     </div>
   </div>
@@ -305,7 +309,7 @@
         reader.readAsText(jsonFile)
       }
 
-      // This function adds a key/value row onscreen when the Plus button is clicked
+      // This function adds a new key/value row onscreen when the Plus button is clicked
       function addRow(paramId, btnElement, dataElement) {
         console.log("ADD ROW:", paramId)
         document.querySelector(`#${paramId} ${btnElement}`).addEventListener("click", () => {
@@ -332,85 +336,34 @@
       // Set method param
       document.querySelector("#{{ .Params.id }} [data-method]").value = apiParams?.method || "GET"
 
-      // If Query Params, unhide & append key value pairs
-      if (apiParams.queryParams?.length > 0) {
-        document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-        document.querySelector("#{{ .Params.id }} [data-query-params-section]").classList.remove("d-none")
-        apiParams.queryParams?.forEach((queryParam) => {
-          document.querySelector("#{{ .Params.id }} [data-query-params]").append(
-            createKeyValuePair(
-              "{{ .Params.id }}",
-              queryParam.key,
-              queryParam.value,
-              queryParam.placeholder)
-          )
-        })
+      // This function renders the apiParams onscreen in rows below the appropriate sections
+      function renderParams(params, paramId, tabElement, sectionElement, paramElement) {
+        if (params?.length > 0) {
+          document.querySelector(`#${paramId} ${tabElement}`).classList.remove("d-none")
+          document.querySelector(`#${paramId} ${sectionElement}`).classList.remove("d-none")
+          params?.forEach((param) => {
+            document.querySelector(`#${paramId} ${paramElement}`).append(
+              createKeyValuePair(
+                "{{ .Params.id }}",
+                param.key,
+                param.value,
+                param.placeholder)
+            )
+          })
+        }
       }
 
-      // If Property Params, unhide & append key value pairs
-      if (apiParams.propParams?.length > 0) {
-        document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-        document.querySelector("#{{ .Params.id }} [data-props-section]").classList.remove("d-none")
-        apiParams.propParams?.forEach((propParam) => {
-          document.querySelector("#{{ .Params.id }} [data-props]").append(
-            createKeyValuePair(
-              "{{ .Params.id }}",
-              propParam.key,
-              propParam.value,
-              propParam.placeholder
-            )
-          )
-        })
-      }
+      renderParams(apiParams.queryParams, "{{ .Params.id }}", "[data-params-section]", "[data-query-params-section]", "[data-query-params]")
+      renderParams(apiParams.propParams, "{{ .Params.id }}", "[data-params-section]", "[data-props-section]", "[data-props]")
+      renderParams(apiParams.itemsParams, "{{ .Params.id }}", "[data-params-section]", "[data-items-section]", "[data-items]")
+      renderParams(apiParams.priceParams, "{{ .Params.id }}", "[data-params-section]", "[data-price-section]", "[data-price]")
+      renderParams(apiParams.subscriptionsParams, "{{ .Params.id }}", "[data-params-section]", "[data-subscriptions-section]", "[data-subscriptions]")
+      renderParams(apiParams.headerParams, "{{ .Params.id }}", "[data-headers-section]", "[data-headers-params-section]", "[data-headers]")
+      renderParams(apiParams.userParams, "{{ .Params.id }}", "[data-user-section]", "[data-user-params-section]", "[data-user]")
+      renderParams(apiParams.customParams, "{{ .Params.id }}", "[data-user-section]", "[data-user-custom-section]", "[data-user-custom]")
+      renderParams(apiParams.sourceParams, "{{ .Params.id }}", "[data-source-section]", "[data-source-params-section]", "[data-source]")
+      renderParams(apiParams.sourceParams, "{{ .Params.id }}", "[data-schedule-section]", "[data-schedule-params-section]", "[data-schedule]")
 
-      // If Items Params, unhide & append key value pairs
-      if (apiParams.itemsParams?.length > 0) {
-        document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-        document.querySelector("#{{ .Params.id }} [data-items-section]").classList.remove("d-none")
-        apiParams.itemsParams?.forEach((itemsParam) => {
-          document.querySelector("#{{ .Params.id }} [data-items]").append(
-            createKeyValuePair(
-              "{{ .Params.id }}",
-              itemsParam.key,
-              itemsParam.value,
-              itemsParam.placeholder
-            )
-          )
-        })
-      }
-
-      // If Price Params, unhide & append key value pairs
-      if (apiParams.priceParams?.length > 0) {
-        document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-        document.querySelector("#{{ .Params.id }} [data-price-section]").classList.remove("d-none")
-        apiParams.priceParams?.forEach((priceParam) => {
-          document.querySelector("#{{ .Params.id }} [data-price]").append(
-            createKeyValuePair(
-              "{{ .Params.id }}",
-              priceParam.key,
-              priceParam.value,
-              priceParam.placeholder
-            )
-          )
-        })
-      }
-
-      // If Subscriptions Params, unhide & append key value pairs
-      if (apiParams.subscriptionsParams?.length > 0) {
-        document.querySelector("#{{ .Params.id }} [data-params-section]").classList.remove("d-none")
-        document.querySelector("#{{ .Params.id }} [data-subscriptions-section]").classList.remove("d-none")
-        apiParams.subscriptionsParams?.forEach((subscriptionsParam) => {
-          document.querySelector("#{{ .Params.id }} [data-subscriptions]").append(
-            createKeyValuePair(
-              "{{ .Params.id }}",
-              subscriptionsParam.key,
-              subscriptionsParam.value,
-              subscriptionsParam.placeholder,
-              true // readonly
-            )
-          )
-        })
-      }
 
       // If JSON Params, unhide & set textContent
       if (typeof apiParams.jsonParams != "undefined") {
@@ -438,83 +391,6 @@
         }
       }
 
-      // If header Params, unhide & append key value pairs
-      if (apiParams.headerParams?.length > 0) {
-        document.querySelector("#{{ .Params.id }} [data-headers-section]").classList.remove("d-none")
-        document.querySelector("#{{ .Params.id }} [data-headers-params-section]").classList.remove("d-none")
-        apiParams.headerParams?.forEach((headerParam) => {
-          document.querySelector("#{{ .Params.id }} [data-headers]").append(
-            createKeyValuePair(
-              "{{ .Params.id }}",
-              headerParam.key,
-              headerParam.value,
-              headerParam.placeholder
-            )
-          )
-        })
-      }
-
-      // If User Params, unhide & append key value pairs
-      if (apiParams.userParams?.length > 0) {
-        document.querySelector("#{{ .Params.id }} [data-user-section]").classList.remove("d-none")
-        document.querySelector("#{{ .Params.id }} [data-user-params-section]").classList.remove("d-none")
-        apiParams.userParams?.forEach((userParam) => {
-          document.querySelector("#{{ .Params.id }} [data-user]").append(
-            createKeyValuePair(
-              "{{ .Params.id }}",
-              userParam.key,
-              userParam.value,
-              userParam.placeholder
-            )
-          )
-        })
-      }
-
-      // If Custom Identifier Params, unhide & append key value pairs
-      if (apiParams.customParams?.length > 0) {
-        document.querySelector("#{{ .Params.id }} [data-user-section]").classList.remove("d-none")
-        document.querySelector("#{{ .Params.id }} [data-user-custom-section]").classList.remove("d-none")
-        apiParams.customParams?.forEach((customParam) => {
-          document.querySelector("#{{ .Params.id }} [data-user-custom]").append(
-            createKeyValuePair(
-              "{{ .Params.id }}",
-              customParam.key,
-              customParam.value,
-              customParam.placeholder
-            )
-          )
-        })
-      }
-      // If Source Params, unhide & append key value pairs
-      if (apiParams.sourceParams?.length > 0) {
-        document.querySelector("#{{ .Params.id }} [data-source-section]").classList.remove("d-none")
-        apiParams.sourceParams?.forEach((sourceParam) => {
-          document.querySelector("#{{ .Params.id }} [data-source]").append(
-            createKeyValuePair(
-              "{{ .Params.id }}",
-              sourceParam.key,
-              sourceParam.value,
-              sourceParam.placeholder,
-              true // readonly
-            )
-          )
-        })
-      }
-      // If Schedule Params, unhide & append key value pairs
-      if (apiParams.scheduleParams?.length > 0) {
-        document.querySelector("#{{ .Params.id }} [data-schedule-section]").classList.remove("d-none")
-        apiParams.scheduleParams?.forEach((scheduleParam) => {
-          document.querySelector("#{{ .Params.id }} [data-schedule]").append(
-            createKeyValuePair(
-              "{{ .Params.id }}",
-              scheduleParam.key,
-              scheduleParam.value,
-              scheduleParam.placeholder,
-              true // readonly
-            )
-          )
-        })
-      }
     })
 
 
