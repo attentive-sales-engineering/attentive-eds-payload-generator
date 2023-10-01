@@ -14,10 +14,8 @@
 
   <div class="mt-x">
     <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" sow-btn>SOW</button></a>
-    <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4"
-        create-btn>Create</button></a>
-    <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary right ml-2 mb-4"
-        export-btn>Export</button></a>
+    <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" create-btn>Create</button></a>
+    <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary right ml-2 mb-4" export-btn>Export</button></a>
     <form method="post" enctype="multipart/form-data">
       <div>
         <label class="btn btn-primary right" for="json_upload">Import</label>
@@ -39,44 +37,33 @@
     </div>
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item d-none" role="presentation" data-params-section>
-        <button class="nav-link active" id="{{ .Params.id }}-query-params-tab" data-bs-toggle="tab"
-          data-bs-target="#{{ .Params.id }}-query-params" type="button" role="tab" aria-controls="query-params"
-          aria-selected="true">
+        <button class="nav-link active" id="{{ .Params.id }}-query-params-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-query-params" type="button" role="tab" aria-controls="query-params" aria-selected="true">
           Payload
         </button>
       </li>
       <li class="nav-item d-none" role="presentation" data-user-section>
-        <button class="nav-link" id="{{ .Params.id }}-request-user-tab" data-bs-toggle="tab"
-          data-bs-target="#{{ .Params.id }}-request-user" type="button" role="tab" aria-controls="request-user"
-          aria-selected="false">
+        <button class="nav-link" id="{{ .Params.id }}-request-user-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-request-user" type="button" role="tab" aria-controls="request-user" aria-selected="false">
           User
         </button>
       </li>
       <li class="nav-item" role="presentation" data-headers-section>
-        <button class="nav-link" id="{{ .Params.id }}-request-headers-tab" data-bs-toggle="tab"
-          data-bs-target="#{{ .Params.id }}-request-headers" type="button" role="tab" aria-controls="request-headers"
-          aria-selected="false">
+        <button class="nav-link" id="{{ .Params.id }}-request-headers-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-request-headers" type="button" role="tab" aria-controls="request-headers" aria-selected="false">
           Headers
         </button>
       </li>
       <li class="nav-item d-none" role="presentation" data-source-section>
-        <button class="nav-link" id="{{ .Params.id }}-request-source-tab" data-bs-toggle="tab"
-          data-bs-target="#{{ .Params.id }}-request-source" type="button" role="tab" aria-controls="request-source"
-          aria-selected="false">
+        <button class="nav-link" id="{{ .Params.id }}-request-source-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-request-source" type="button" role="tab" aria-controls="request-source" aria-selected="false">
           Source
         </button>
       </li>
       <li class="nav-item d-none" role="presentation" data-schedule-section>
-        <button class="nav-link" id="{{ .Params.id }}-request-schedule-tab" data-bs-toggle="tab"
-          data-bs-target="#{{ .Params.id }}-request-schedule" type="button" role="tab" aria-controls="request-schedule"
-          aria-selected="false">
+        <button class="nav-link" id="{{ .Params.id }}-request-schedule-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-request-schedule" type="button" role="tab" aria-controls="request-schedule" aria-selected="false">
           Schedule
         </button>
       </li>
     </ul>
     <div class="tab-content p-3 border-top-0 border">
-      <div class="tab-pane fade show active" id="{{ .Params.id }}-query-params" role="tabpanel"
-        aria-labelledby="query-params-tab">
+      <div class="tab-pane fade show active" id="{{ .Params.id }}-query-params" role="tabpanel" aria-labelledby="query-params-tab">
         <div class="d-none" data-query-params-section>
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Params</div>
@@ -134,8 +121,7 @@
           </div>
         </div>
       </div>
-      <div class="tab-pane fade" id="{{ .Params.id }}-request-headers" role="tabpanel"
-        aria-labelledby="request-headers-tab">
+      <div class="tab-pane fade" id="{{ .Params.id }}-request-headers" role="tabpanel" aria-labelledby="request-headers-tab">
         <div class="" data-headers-params-section>
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Authorization Header</div>
@@ -169,8 +155,7 @@
           </button> -->
         </div>
       </div>
-      <div class="tab-pane fade" id="{{ .Params.id }}-request-source" role="tabpanel"
-        aria-labelledby="request-source-tab">
+      <div class="tab-pane fade" id="{{ .Params.id }}-request-source" role="tabpanel" aria-labelledby="request-source-tab">
         <div class="d-none" data-source-params-section>
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Source Params</div>
@@ -182,8 +167,7 @@
           </button> -->
         </div>
       </div>
-      <div class="tab-pane fade" id="{{ .Params.id }}-request-schedule" role="tabpanel"
-        aria-labelledby="request-schedule-tab">
+      <div class="tab-pane fade" id="{{ .Params.id }}-request-schedule" role="tabpanel" aria-labelledby="request-schedule-tab">
         <div class="d-none" data-schedule-params-section>
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Schedule Params</div>
@@ -366,6 +350,7 @@
 
 
       // If JSON Params, unhide & set textContent
+      // Not currently used, but may use it for the Product Catalog payloads
       if (typeof apiParams.jsonParams != "undefined") {
         // console.log("JSON PARAMS:", apiParams.jsonParams)
         jsonString = JSON.stringify(apiParams.jsonParams, null, 2)
