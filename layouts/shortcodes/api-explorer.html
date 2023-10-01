@@ -142,9 +142,9 @@
             <div class="section-title pl-75 mr-38" style="flex: 2">Bearer Token</div>
           </div>
           <div data-request-headers></div>
-          <button data-add-request-header-btn class="mt-2 btn btn-outline-success" type="button">
+          <!-- <button data-add-request-header-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
-          </button>
+          </button> -->
         </div>
       </div>
       <div class="tab-pane fade" id="{{ .Params.id }}-request-user" role="tabpanel" aria-labelledby="request-user-tab">
@@ -305,75 +305,26 @@
         reader.readAsText(jsonFile)
       }
 
-      // Add query params Add button click listener
-      document.querySelector("#{{ .Params.id }} [data-add-request-prop-btn]").addEventListener("click", () => {
-        document.querySelector("#{{ .Params.id }} [data-props]").append(
-          createKeyValuePair("{{ .Params.id }}")
-        )
-      })
+      // This function adds a key/value row onscreen when the Plus button is clicked
+      function addRow(paramId, btnElement, dataElement) {
+        console.log("ADD ROW:", paramId)
+        document.querySelector(`#${paramId} ${btnElement}`).addEventListener("click", () => {
+          document.querySelector(`#${paramId} ${dataElement}`).append(
+            createKeyValuePair(`${paramId}`)
+          )
+        })
+      }
 
-      // // Add Items params Add button click listener
-      // document.querySelector("#{{ .Params.id }} [data-add-request-items-btn]").addEventListener("click", () => {
-      //   document.querySelector("#{{ .Params.id }} [data-items]").append(
-      //     createKeyValuePair("{{ .Params.id }}")
-      //   )
-      // })
-
-      // // Add Price params Add button click listener
-      // document.querySelector("#{{ .Params.id }} [data-add-request-price-btn]").addEventListener("click", () => {
-      //   document.querySelector("#{{ .Params.id }} [data-price]").append(
-      //     createKeyValuePair("{{ .Params.id }}")
-      //   )
-      // })
-
-      // // Add Subscriptions params Add button click listener
-      // document.querySelector("#{{ .Params.id }} [data-add-request-subscriptions-btn]").addEventListener("click", () => {
-      //   document.querySelector("#{{ .Params.id }} [data-subscriptions]").append(
-      //     createKeyValuePair("{{ .Params.id }}")
-      //   )
-      // })
-
-      // // Add query params Add button click listener
-      // document.querySelector("#{{ .Params.id }} [data-add-query-param-btn]").addEventListener("click", () => {
-      //   document.querySelector("#{{ .Params.id }} [data-query-params]").append(
-      //     createKeyValuePair("{{ .Params.id }}")
-      //   )
-      // })
-
-      // Add header params Add button click listener
-      document.querySelector("#{{ .Params.id }} [data-add-request-header-btn]").addEventListener("click", () => {
-        document.querySelector("#{{ .Params.id }} [data-request-headers]").append(
-          createKeyValuePair("{{ .Params.id }}")
-        )
-      })
-
-      // Add User params Add button click listener
-      document.querySelector("#{{ .Params.id }} [data-add-request-user-btn]").addEventListener("click", () => {
-        document.querySelector("#{{ .Params.id }} [data-user]").append(
-          createKeyValuePair("{{ .Params.id }}")
-        )
-      })
-
-      // // Add Custom Identifier params Add button click listener
-      // document.querySelector("#{{ .Params.id }} [data-add-request-custom-btn]").addEventListener("click", () => {
-      //   document.querySelector("#{{ .Params.id }} [data-user-custom]").append(
-      //     createKeyValuePair("{{ .Params.id }}")
-      //   )
-      // })
-
-      // // Add Source params Add button click listener
-      // document.querySelector("#{{ .Params.id }} [data-add-request-source-btn]").addEventListener("click", () => {
-      //   document.querySelector("#{{ .Params.id }} [data-source]").append(
-      //     createKeyValuePair("{{ .Params.id }}")
-      //   )
-      // })
-
-      // // Add Schedule params Add button click listener
-      // document.querySelector("#{{ .Params.id }} [data-add-request-schedule-btn]").addEventListener("click", () => {
-      //   document.querySelector("#{{ .Params.id }} [data-schedule]").append(
-      //     createKeyValuePair("{{ .Params.id }}")
-      //   )
-      // })
+      addRow("{{ .Params.id }}", "[data-add-request-prop-btn]", "[data-props]")
+      // addRow("{{ .Params.id }}", "[data-add-request-items-btn]", "[data-items]")
+      // addRow("{{ .Params.id }}", "[data-add-request-price-btn]", "[data-price]")
+      // addRow("{{ .Params.id }}", "[data-add-request-subscriptions-btn]", "[data-subscriptions]")
+      // addRow("{{ .Params.id }}", "[data-add-query-param-btn]", "[data-query-params]")
+      // addRow("{{ .Params.id }}", "[data-add-request-header-btn]", "[data-request-headers]")
+      addRow("{{ .Params.id }}", "[data-add-request-user-btn]", "[data-user]")
+      // addRow("{{ .Params.id }}", "[data-add-request-custom-btn]", "[data-user-custom]")
+      // addRow("{{ .Params.id }}", "[data-add-request-source-btn]", "[data-source]")
+      // addRow("{{ .Params.id }}", "[data-add-request-schedule-btn]", "[data-schedule]")
 
       // Set url param
       document.querySelector("#{{ .Params.id }} [data-url]").value = apiParams.url
