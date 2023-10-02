@@ -134,10 +134,11 @@
 
   // frequency
   const frequency = edsPayload.schedulePayload.frequency
-  if (frequency.toLowerCase() == "hourly") {
+  console.log("FREQUENCY:", frequency)
+  if (frequency && frequency.toLowerCase() == "hourly") {
     document.querySelector("#hourly").classList.remove('d-none')
     document.querySelector("#frequency").classList.add('d-none')
-  } else if (frequency != null && frequency != '') {
+  } else if (frequency && frequency != null && frequency != '') {
     replaceText("frequency", frequency)
   } else {
     document.querySelector("#frequency").classList.add('d-none')
