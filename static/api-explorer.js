@@ -106,28 +106,6 @@ function createKeyValuePair(id, key, value, placeholder, readOnly) {
   return element
 }
 
-// function keyValuePairsToObjects (id, container) {
-//   const pairs = container.querySelectorAll(`#${id} [data-key-value-pair]`)
-//   console.log('PAIRS:', pairs)
-//   return [...pairs].reduce((data, pair) => {
-//     const key = pair.querySelector('[data-key]').value
-//     console.log('KEY:', key)
-//     let value = pair.querySelector('[data-value]').value
-//     console.log('VALUE:', value)
-//     if (value.match(/{{\w+}}/)) {
-//       console.log(`value is {{envVar}} -> fetch variable from localStorage`)
-//       let valueEnvVar = value.replaceAll(/[{}]/g, '')
-//       console.log('VALUE ENV VAR:', valueEnvVar)
-//       value = localStorage.getItem(valueEnvVar)
-//       console.log('VALUE:', value)
-//       console.log(`localStorage.getItem(${valueEnvVar})`)
-//     }
-//     console.log('DATA:', data)
-//     // if (key === '' || value === null || value === '') return data
-//     return { ...data, [key]: value }
-//   }, {})
-// }
-
 function keyValuePairsToObjects(id, container, curlyBraces) {
   const pairs = container.querySelectorAll(`#${id} [data-key-value-pair]`)
   // console.log('PAIRS:', pairs)
@@ -137,9 +115,7 @@ function keyValuePairsToObjects(id, container, curlyBraces) {
     const key = pair.querySelector('[data-key]').value
     // console.log('KEY:', key)
     let value
-    // let value = pair.querySelector('[data-value]').value
-    // Wrap curly braces if true, but not customIdentiefers.name or price.currency
-    if (curlyBraces === true && key != 'name' && key != 'currency') {
+    if (curlyBraces === true) {
       value = `{{${pair.querySelector('[data-value]').value}}}`
     } else {
       value = pair.querySelector('[data-value]').value
