@@ -155,13 +155,11 @@ function keyValuePairsToObjects(id, paramName, container, curlyBraces) {
 
 // Parse the json import file and build apiParams
 function parseImportFile(edsFile) {
-  console.log('IMPORT or RECENT:', edsFile)
+  console.log('IMPORT:', edsFile)
 
   let importFile
   if (edsFile == 'import') {
     importFile = JSON.parse(localStorage.getItem('eds-import'))
-  } else if (edsFile == 'recent') {
-    importFile = JSON.parse(localStorage.getItem('eds-recent'))
   }
   console.log('IMPORT OBJECT:', importFile)
   if (importFile === null)
@@ -307,7 +305,7 @@ function parseImportFile(edsFile) {
   console.log('apiParams AFTER:', apiParams)
 }
 
-// Update the edsPayload when various change events fire
+// Update the edsPayload when various events fire (load, click, keyup)
 function updatePayload(e, paramsId) {
   // console.log("LISTENER:", e)
   // console.log("LISTENER TYPE:", e.type)
@@ -480,13 +478,5 @@ function updatePayload(e, paramsId) {
   // console.log("SCHEDULE PAYLOAD:", schedulePayload)
   edsPayload.schedulePayload = schedulePayload
 
-  console.log('EDS PAYLOAD:', edsPayload)
-  if (e.type === 'change') {
-    console.log('CHANGE EVENT: EDS-RECENT -> LOCAL STORAGE')
-    localStorage.setItem('eds-recent', JSON.stringify(edsPayload, null, 2))
-    // console.log("LOCAL STORAGE:", localStorage.getItem("eds-recent"))
-  } else {
-    // Click or Keyup event will trigger updates to these payloads
-    updateJsonPayloadBody(paramsId, edsPayload)
-  }
+  updateJsonPayloadBody(paramsId, edsPayload)
 }

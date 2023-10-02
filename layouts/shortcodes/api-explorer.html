@@ -235,7 +235,7 @@
       apiParams = response
       console.log("apiParams:", apiParams)
 
-      if ("{{ .Params.id }}" == 'import' || "{{ .Params.id }}" == 'recent') {
+      if ("{{ .Params.id }}" == 'import') {
         parseImportFile("{{ .Params.id }}")
       }
 
@@ -389,9 +389,9 @@
   window.addEventListener('DOMContentLoaded', function (e) {
     updatePayload(e, "{{ .Params.id }}")
   })
-  window.addEventListener('change', function (e) {
-    updatePayload(e, "{{ .Params.id }}")
-  })
+  // window.addEventListener('change', function (e) {
+  //   updatePayload(e, "{{ .Params.id }}")
+  // })
   document.querySelector("[data-form]").addEventListener('keyup', function (e) {
     updatePayload(e, "{{ .Params.id }}")
   })
