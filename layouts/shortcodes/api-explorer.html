@@ -263,7 +263,9 @@
         if (edsPayload.clientPayload["clientName"] && edsPayload.clientPayload["clientName"].length > 0) {
           filename += ` ${edsPayload.clientPayload["clientName"]}`
         }
-        filename += " {{ .Page.Title }}"
+        let apiFileName = getApiFromUrl(edsPayload.targetPayload.url)
+        filename += ` ${apiFileName}`
+
         // if (edsPayload.sourcePayload["key_name"].length > 0) {
         //   filename += ` ${edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
         // }
