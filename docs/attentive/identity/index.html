@@ -9,7 +9,7 @@
 <meta name="generator" content="Hugo 0.105.0">
 
 
-  <meta name="description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: &#9998; &#10005; " />
+  <meta name="description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: &#9998; &#10005; " />
 
   <title>Identity | Attentive EDS</title>
 
@@ -35,7 +35,7 @@
     content="Identity"
   />
   <meta property="og:site_name" content="Attentive EDS" />
-  <meta property="og:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: ✎ ✕ " />
+  <meta property="og:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: ✎ ✕ " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/identity/" />
 
@@ -44,7 +44,7 @@
 
   <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Identity" />
-  <meta name="twitter:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: ✎ ✕ " />
+  <meta name="twitter:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: ✎ ✕ " />
 
 
   <script type="application/ld+json">
@@ -55,7 +55,7 @@
       "name": "Identity",
       "url" : "https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/identity/",
       "headline": "Identity",
-      "description": " SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header \u002b Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header \u002b Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: ✎ ✕ ",
+      "description": " SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header \u002b Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header \u002b Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: ✎ ✕ ",
       "wordCount" : "61",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
@@ -813,50 +813,6 @@
               
                 <span class="flex">
                   <a
-                    href="/attentive-eds-payload-generator/other/recent/"
-                    class="gdoc-nav__entry"
-                  >
-                    Recent Payload
-                  </a>
-                </span>
-              
-              
-            </label>
-
-            
-          </li>
-        
-      
-    
-      
-
-      
-        
-      
-
-      
-        
-          
-          
-          
-          
-          
-          
-
-
-          <li>
-            <input
-              type="checkbox"
-              
-                class="hidden"
-              
-            />
-            <label
-              
-            >
-              
-                <span class="flex">
-                  <a
                     href="/attentive-eds-payload-generator/other/sow/"
                     class="gdoc-nav__entry"
                   >
@@ -1196,15 +1152,15 @@
   </div>
   <div class="" data-response-section>
     <div class="border-top-0 border p-3">
-      <div class="section-title">Source Payload</div>
-      <div class="ace-border">
-        <div id="add" class="ace-editor" data-source-payload></div>
-      </div>
-    </div>
-    <div class="border-top-0 border p-3">
       <div class="section-title">Target Payload</div>
       <div class="ace-border">
         <div id="add" class="ace-editor" data-target-payload></div>
+      </div>
+    </div>
+    <div class="border-top-0 border p-3">
+      <div class="section-title">Source Payload</div>
+      <div class="ace-border">
+        <div id="add" class="ace-editor" data-source-payload></div>
       </div>
     </div>
     <div class="d-none border-top-0 border p-3">
@@ -1248,7 +1204,7 @@
       apiParams = response
       console.log("apiParams:", apiParams)
 
-      if ("add" == 'import' || "add" == 'recent') {
+      if ("add" == 'import') {
         parseImportFile("add")
       }
 
@@ -1400,9 +1356,6 @@
   
   console.log("EVENT LISTENERS PARAMS.ID:", "add")
   window.addEventListener('DOMContentLoaded', function (e) {
-    updatePayload(e, "add")
-  })
-  window.addEventListener('change', function (e) {
     updatePayload(e, "add")
   })
   document.querySelector("[data-form]").addEventListener('keyup', function (e) {

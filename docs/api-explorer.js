@@ -155,13 +155,11 @@ function keyValuePairsToObjects(id, paramName, container, curlyBraces) {
 
 // Parse the json import file and build apiParams
 function parseImportFile(edsFile) {
-  console.log('IMPORT or RECENT:', edsFile)
+  console.log('IMPORT:', edsFile)
 
   let importFile
   if (edsFile == 'import') {
     importFile = JSON.parse(localStorage.getItem('eds-import'))
-  } else if (edsFile == 'recent') {
-    importFile = JSON.parse(localStorage.getItem('eds-recent'))
   }
   console.log('IMPORT OBJECT:', importFile)
   if (importFile === null)
@@ -288,12 +286,9 @@ function parseImportFile(edsFile) {
 
   // sourceParams
   const key_name = source.key_name
-  let timeZone = key_name.match(/<&\S+&>/)
-  if (timeZone) timeZone = timeZone.toString().replace('<&', '').replace('&>', '')
-  let fileName = key_name.replace(/<&\S+&>/, '')
   apiParams.sourceParams[0].value = client?.clientName ? client.clientName : ''
   apiParams.sourceParams[1].value = client?.clientId ? client.clientId : ''
-  apiParams.sourceParams[2].value = fileName
+  apiParams.sourceParams[2].value = client?.fileName ? client.fileName : ''
   apiParams.sourceParams[3].value = client?.fileType ? client.fileType : ''
   apiParams.sourceParams[4].value = client?.delimiter ? client.delimiter : ''
   apiParams.sourceParams[5].value = client?.ticketId ? client.ticketId : ''
@@ -301,7 +296,7 @@ function parseImportFile(edsFile) {
   // scheduleParams
   apiParams.scheduleParams[0].value = schedule?.frequency ? schedule.frequency : ''
   apiParams.scheduleParams[1].value = schedule?.triggerTime ? schedule.triggerTime : ''
-  apiParams.scheduleParams[2].value = timeZone
+  apiParams.scheduleParams[2].value = schedule?.timeZone ? schedule.timeZone : ''
 
   // Change h1 title from Imported Payload to the name of the API
   const api = getApiFromUrl(apiParams.url)
@@ -310,12 +305,12 @@ function parseImportFile(edsFile) {
   console.log('apiParams AFTER:', apiParams)
 }
 
-// Update the edsPayload when various change events fire
+// Update the edsPayload when various events fire (load, click, keyup)
 function updatePayload(e, paramsId) {
   // console.log("LISTENER:", e)
   // console.log("LISTENER TYPE:", e.type)
   console.log('EVENT:', e.type)
-  console.log('PARAMS ID:', paramsId)
+  // console.log('PARAMS ID:', paramsId)
 
   let url = ''
   let method = ''
@@ -332,7 +327,6 @@ function updatePayload(e, paramsId) {
   let source = {}
   let schedule = {}
   let key_name = ''
-  let extension = ''
   let sourcePayload = {}
   let clientPayload = {}
   let schedulePayload = {}
@@ -455,19 +449,17 @@ function updatePayload(e, paramsId) {
     if (source['fileType']) clientPayload.fileType = source['fileType']
     if (source['delimiter']) clientPayload.delimiter = source['delimiter']
     if (source['ticketId']) clientPayload.ticketId = source['ticketId']
-    if (source['fileName'])
-      key_name = `${source['fileName'].replace(/(\.\w*)/, '')}`
-    // console.log("KEY_NAME:", key_name)
-    if (key_name && source['fileName'].match(/\.\w*/)) {
-      extension = source['fileName'].match(/\.\w*/).toString()
-      // console.log("EXTENSION", extension)
-      key_name += extension
+
+    // Concatenate key_name & delimiter and add to sourcePayload
+    if (source['fileName']) {
+      key_name = `${source['fileName']}`
     }
-    if (source['timeZone']) key_name += `<&${source['timeZone']}&>`
+    if (schedule['timeZone']) {
+      key_name += `<&${schedule['timeZone']}&>`
+    }
     sourcePayload.key_name = key_name
     if (source['delimiter']) {
       delimiter = source['delimiter']
-      // console.log("DELIMITER:", delimiter)
       sourcePayload.delimiter = delimiter
     }
   }
@@ -475,8 +467,7 @@ function updatePayload(e, paramsId) {
   // Concatenate schedule params
   if (schedule && Object.entries(schedule).length > 0) {
     if (schedule['frequency']) schedulePayload.frequency = schedule['frequency']
-    if (schedule['triggerTime'])
-      schedulePayload.triggerTime = schedule['triggerTime']
+    if (schedule['triggerTime']) schedulePayload.triggerTime = schedule['triggerTime']
     if (schedule['timeZone']) schedulePayload.timeZone = schedule['timeZone']
   }
 
@@ -488,14 +479,7 @@ function updatePayload(e, paramsId) {
   edsPayload.sourcePayload = sourcePayload
   // console.log("SCHEDULE PAYLOAD:", schedulePayload)
   edsPayload.schedulePayload = schedulePayload
+  console.log("EDS PAYLOAD:", edsPayload)
 
-  console.log('EDS PAYLOAD:', edsPayload)
-  if (e.type === 'change') {
-    console.log('CHANGE EVENT: EDS-RECENT -> LOCAL STORAGE')
-    localStorage.setItem('eds-recent', JSON.stringify(edsPayload, null, 2))
-    // console.log("LOCAL STORAGE:", localStorage.getItem("eds-recent"))
-  } else {
-    // Click or Keyup event will trigger updates to these payloads
-    updateJsonPayloadBody(paramsId, edsPayload)
-  }
+  updateJsonPayloadBody(paramsId, edsPayload)
 }
