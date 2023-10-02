@@ -9,7 +9,7 @@
 <meta name="generator" content="Hugo 0.105.0">
 
 
-  <meta name="description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &plus; User Properties Column Header &plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: &#9998; &#10005; " />
+  <meta name="description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: &#9998; &#10005; " />
 
   <title>Identity | Attentive EDS</title>
 
@@ -35,7 +35,7 @@
     content="Identity"
   />
   <meta property="og:site_name" content="Attentive EDS" />
-  <meta property="og:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &#43; User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: ✎ ✕ " />
+  <meta property="og:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: ✎ ✕ " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/identity/" />
 
@@ -44,7 +44,7 @@
 
   <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Identity" />
-  <meta name="twitter:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token &#43; User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: ✎ ✕ " />
+  <meta name="twitter:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: ✎ ✕ " />
 
 
   <script type="application/ld+json">
@@ -55,8 +55,8 @@
       "name": "Identity",
       "url" : "https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/identity/",
       "headline": "Identity",
-      "description": " SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header \u002b Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token \u002b User Properties Column Header \u002b Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: ✎ ✕ ",
-      "wordCount" : "62",
+      "description": " SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header \u002b Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header \u002b Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Source Payload Target Payload Response Status: ✎ ✕ ",
+      "wordCount" : "61",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
@@ -1043,10 +1043,8 @@
 
   <div class="mt-x">
     <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" sow-btn>SOW</button></a>
-    <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4"
-        create-btn>Create</button></a>
-    <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary right ml-2 mb-4"
-        export-btn>Export</button></a>
+    <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" create-btn>Create</button></a>
+    <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary right ml-2 mb-4" export-btn>Export</button></a>
     <form method="post" enctype="multipart/form-data">
       <div>
         <label class="btn btn-primary right" for="json_upload">Import</label>
@@ -1068,44 +1066,33 @@
     </div>
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item d-none" role="presentation" data-params-section>
-        <button class="nav-link active" id="add-query-params-tab" data-bs-toggle="tab"
-          data-bs-target="#add-query-params" type="button" role="tab" aria-controls="query-params"
-          aria-selected="true">
+        <button class="nav-link active" id="add-query-params-tab" data-bs-toggle="tab" data-bs-target="#add-query-params" type="button" role="tab" aria-controls="query-params" aria-selected="true">
           Payload
         </button>
       </li>
       <li class="nav-item d-none" role="presentation" data-user-section>
-        <button class="nav-link" id="add-request-user-tab" data-bs-toggle="tab"
-          data-bs-target="#add-request-user" type="button" role="tab" aria-controls="request-user"
-          aria-selected="false">
+        <button class="nav-link" id="add-request-user-tab" data-bs-toggle="tab" data-bs-target="#add-request-user" type="button" role="tab" aria-controls="request-user" aria-selected="false">
           User
         </button>
       </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="add-request-headers-tab" data-bs-toggle="tab"
-          data-bs-target="#add-request-headers" type="button" role="tab" aria-controls="request-headers"
-          aria-selected="false">
+      <li class="nav-item" role="presentation" data-headers-section>
+        <button class="nav-link" id="add-request-headers-tab" data-bs-toggle="tab" data-bs-target="#add-request-headers" type="button" role="tab" aria-controls="request-headers" aria-selected="false">
           Headers
         </button>
       </li>
       <li class="nav-item d-none" role="presentation" data-source-section>
-        <button class="nav-link" id="add-request-source-tab" data-bs-toggle="tab"
-          data-bs-target="#add-request-source" type="button" role="tab" aria-controls="request-source"
-          aria-selected="false">
+        <button class="nav-link" id="add-request-source-tab" data-bs-toggle="tab" data-bs-target="#add-request-source" type="button" role="tab" aria-controls="request-source" aria-selected="false">
           Source
         </button>
       </li>
       <li class="nav-item d-none" role="presentation" data-schedule-section>
-        <button class="nav-link" id="add-request-schedule-tab" data-bs-toggle="tab"
-          data-bs-target="#add-request-schedule" type="button" role="tab" aria-controls="request-schedule"
-          aria-selected="false">
+        <button class="nav-link" id="add-request-schedule-tab" data-bs-toggle="tab" data-bs-target="#add-request-schedule" type="button" role="tab" aria-controls="request-schedule" aria-selected="false">
           Schedule
         </button>
       </li>
     </ul>
     <div class="tab-content p-3 border-top-0 border">
-      <div class="tab-pane fade show active" id="add-query-params" role="tabpanel"
-        aria-labelledby="query-params-tab">
+      <div class="tab-pane fade show active" id="add-query-params" role="tabpanel" aria-labelledby="query-params-tab">
         <div class="d-none" data-query-params-section>
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Params</div>
@@ -1155,17 +1142,14 @@
           </div>
         </div>
       </div>
-      <div class="tab-pane fade" id="add-request-headers" role="tabpanel"
-        aria-labelledby="request-headers-tab">
-        <div class="" data-request-headers-section>
+      <div class="tab-pane fade" id="add-request-headers" role="tabpanel" aria-labelledby="request-headers-tab">
+        <div class="" data-headers-params-section>
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Authorization Header</div>
             <div class="section-title pl-75 mr-38" style="flex: 2">Bearer Token</div>
           </div>
-          <div data-request-headers></div>
-          <button data-add-request-header-btn class="mt-2 btn btn-outline-success" type="button">
-            &plus;
-          </button>
+          <div data-headers></div>
+          
         </div>
       </div>
       <div class="tab-pane fade" id="add-request-user" role="tabpanel" aria-labelledby="request-user-tab">
@@ -1188,23 +1172,25 @@
           
         </div>
       </div>
-      <div class="tab-pane fade" id="add-request-source" role="tabpanel"
-        aria-labelledby="request-source-tab">
-        <div class="input-group">
-          <div class="section-title pl-75" style="flex: 1">Source Params</div>
-          <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
+      <div class="tab-pane fade" id="add-request-source" role="tabpanel" aria-labelledby="request-source-tab">
+        <div class="d-none" data-source-params-section>
+          <div class="input-group">
+            <div class="section-title pl-75" style="flex: 1">Source Params</div>
+            <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
+          </div>
+          <div data-source></div>
+          
         </div>
-        <div data-source></div>
-        
       </div>
-      <div class="tab-pane fade" id="add-request-schedule" role="tabpanel"
-        aria-labelledby="request-schedule-tab">
-        <div class="input-group">
-          <div class="section-title pl-75" style="flex: 1">Schedule Params</div>
-          <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
+      <div class="tab-pane fade" id="add-request-schedule" role="tabpanel" aria-labelledby="request-schedule-tab">
+        <div class="d-none" data-schedule-params-section>
+          <div class="input-group">
+            <div class="section-title pl-75" style="flex: 1">Schedule Params</div>
+            <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
+          </div>
+          <div data-schedule></div>
+          
         </div>
-        <div data-schedule></div>
-        
       </div>
     </div>
   </div>
@@ -1321,71 +1307,22 @@
       }
 
       
-      document.querySelector("#add [data-add-request-prop-btn]").addEventListener("click", () => {
-        document.querySelector("#add [data-props]").append(
-          createKeyValuePair("add")
-        )
-      })
+      function addRow(paramId, btnElement, dataElement) {
+        console.log("ADD ROW:", paramId)
+        document.querySelector(`#${paramId} ${btnElement}`).addEventListener("click", () => {
+          document.querySelector(`#${paramId} ${dataElement}`).append(
+            createKeyValuePair(`${paramId}`)
+          )
+        })
+      }
 
+      addRow("add", "[data-add-request-prop-btn]", "[data-props]")
       
       
       
       
       
-      
-
-      
-      
-      
-      
-      
-      
-
-      
-      
-      
-      
-      
-      
-
-      
-      
-      
-      
-      
-      
-
-      
-      document.querySelector("#add [data-add-request-header-btn]").addEventListener("click", () => {
-        document.querySelector("#add [data-request-headers]").append(
-          createKeyValuePair("add")
-        )
-      })
-
-      
-      document.querySelector("#add [data-add-request-user-btn]").addEventListener("click", () => {
-        document.querySelector("#add [data-user]").append(
-          createKeyValuePair("add")
-        )
-      })
-
-      
-      
-      
-      
-      
-      
-
-      
-      
-      
-      
-      
-      
-
-      
-      
-      
+      addRow("add", "[data-add-request-user-btn]", "[data-user]")
       
       
       
@@ -1397,85 +1334,35 @@
       document.querySelector("#add [data-method]").value = apiParams?.method || "GET"
 
       
-      if (apiParams.queryParams?.length > 0) {
-        document.querySelector("#add [data-params-section]").classList.remove("d-none")
-        document.querySelector("#add [data-query-params-section]").classList.remove("d-none")
-        apiParams.queryParams?.forEach((queryParam) => {
-          document.querySelector("#add [data-query-params]").append(
-            createKeyValuePair(
-              "add",
-              queryParam.key,
-              queryParam.value,
-              queryParam.placeholder)
-          )
-        })
+      function renderParams(params, paramId, tabElement, sectionElement, paramElement) {
+        if (params?.length > 0) {
+          document.querySelector(`#${paramId} ${tabElement}`).classList.remove("d-none")
+          document.querySelector(`#${paramId} ${sectionElement}`).classList.remove("d-none")
+          params?.forEach((param) => {
+            document.querySelector(`#${paramId} ${paramElement}`).append(
+              createKeyValuePair(
+                "add",
+                param.key,
+                param.value,
+                param.placeholder)
+            )
+          })
+        }
       }
+
+      renderParams(apiParams.queryParams, "add", "[data-params-section]", "[data-query-params-section]", "[data-query-params]")
+      renderParams(apiParams.propParams, "add", "[data-params-section]", "[data-props-section]", "[data-props]")
+      renderParams(apiParams.itemsParams, "add", "[data-params-section]", "[data-items-section]", "[data-items]")
+      renderParams(apiParams.priceParams, "add", "[data-params-section]", "[data-price-section]", "[data-price]")
+      renderParams(apiParams.subscriptionsParams, "add", "[data-params-section]", "[data-subscriptions-section]", "[data-subscriptions]")
+      renderParams(apiParams.headerParams, "add", "[data-headers-section]", "[data-headers-params-section]", "[data-headers]")
+      renderParams(apiParams.userParams, "add", "[data-user-section]", "[data-user-params-section]", "[data-user]")
+      renderParams(apiParams.customParams, "add", "[data-user-section]", "[data-user-custom-section]", "[data-user-custom]")
+      renderParams(apiParams.sourceParams, "add", "[data-source-section]", "[data-source-params-section]", "[data-source]")
+      renderParams(apiParams.sourceParams, "add", "[data-schedule-section]", "[data-schedule-params-section]", "[data-schedule]")
+
 
       
-      if (apiParams.propParams?.length > 0) {
-        document.querySelector("#add [data-params-section]").classList.remove("d-none")
-        document.querySelector("#add [data-props-section]").classList.remove("d-none")
-        apiParams.propParams?.forEach((propParam) => {
-          document.querySelector("#add [data-props]").append(
-            createKeyValuePair(
-              "add",
-              propParam.key,
-              propParam.value,
-              propParam.placeholder
-            )
-          )
-        })
-      }
-
-      
-      if (apiParams.itemsParams?.length > 0) {
-        document.querySelector("#add [data-params-section]").classList.remove("d-none")
-        document.querySelector("#add [data-items-section]").classList.remove("d-none")
-        apiParams.itemsParams?.forEach((itemsParam) => {
-          document.querySelector("#add [data-items]").append(
-            createKeyValuePair(
-              "add",
-              itemsParam.key,
-              itemsParam.value,
-              itemsParam.placeholder
-            )
-          )
-        })
-      }
-
-      
-      if (apiParams.priceParams?.length > 0) {
-        document.querySelector("#add [data-params-section]").classList.remove("d-none")
-        document.querySelector("#add [data-price-section]").classList.remove("d-none")
-        apiParams.priceParams?.forEach((priceParam) => {
-          document.querySelector("#add [data-price]").append(
-            createKeyValuePair(
-              "add",
-              priceParam.key,
-              priceParam.value,
-              priceParam.placeholder
-            )
-          )
-        })
-      }
-
-      
-      if (apiParams.subscriptionsParams?.length > 0) {
-        document.querySelector("#add [data-params-section]").classList.remove("d-none")
-        document.querySelector("#add [data-subscriptions-section]").classList.remove("d-none")
-        apiParams.subscriptionsParams?.forEach((subscriptionsParam) => {
-          document.querySelector("#add [data-subscriptions]").append(
-            createKeyValuePair(
-              "add",
-              subscriptionsParam.key,
-              subscriptionsParam.value,
-              subscriptionsParam.placeholder,
-              true 
-            )
-          )
-        })
-      }
-
       
       if (typeof apiParams.jsonParams != "undefined") {
         
@@ -1502,80 +1389,6 @@
         }
       }
 
-      
-      apiParams.headerParams?.forEach((headerParam) => {
-        document.querySelector("#add [data-request-headers]").append(
-          createKeyValuePair(
-            "add",
-            headerParam.key,
-            headerParam.value,
-            headerParam.placeholder,
-            true 
-          )
-        )
-      })
-
-      
-      if (apiParams.userParams?.length > 0) {
-        document.querySelector("#add [data-user-section]").classList.remove("d-none")
-        document.querySelector("#add [data-user-params-section]").classList.remove("d-none")
-        apiParams.userParams?.forEach((userParam) => {
-          document.querySelector("#add [data-user]").append(
-            createKeyValuePair(
-              "add",
-              userParam.key,
-              userParam.value,
-              userParam.placeholder
-            )
-          )
-        })
-      }
-
-      
-      if (apiParams.customParams?.length > 0) {
-        document.querySelector("#add [data-user-section]").classList.remove("d-none")
-        document.querySelector("#add [data-user-custom-section]").classList.remove("d-none")
-        apiParams.customParams?.forEach((customParam) => {
-          document.querySelector("#add [data-user-custom]").append(
-            createKeyValuePair(
-              "add",
-              customParam.key,
-              customParam.value,
-              customParam.placeholder
-            )
-          )
-        })
-      }
-      
-      if (apiParams.sourceParams?.length > 0) {
-        document.querySelector("#add [data-source-section]").classList.remove("d-none")
-        apiParams.sourceParams?.forEach((sourceParam) => {
-          document.querySelector("#add [data-source]").append(
-            createKeyValuePair(
-              "add",
-              sourceParam.key,
-              sourceParam.value,
-              sourceParam.placeholder,
-              true 
-            )
-          )
-        })
-      }
-      
-      if (apiParams.scheduleParams?.length > 0) {
-        document.querySelector("#add [data-schedule-section]").classList.remove("d-none")
-        apiParams.scheduleParams?.forEach((scheduleParam) => {
-          document.querySelector("#add [data-schedule]").append(
-            createKeyValuePair(
-              "add",
-              scheduleParam.key,
-              scheduleParam.value,
-              scheduleParam.placeholder,
-              true 
-            )
-          )
-        })
-      }
     })
 
 

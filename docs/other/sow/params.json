@@ -72,5 +72,16 @@
       "placeholder": "clientUserId (optional)"
     }
   ],
-  "customParams": []
+  "customParams": [
+    {
+      "key": "name",
+      "value": "",
+      "placeholder": "customIdentifierName (optional)"
+    },
+    {
+      "key": "value",
+      "value": "",
+      "placeholder": "customIdentifierValue (optional)"
+    }
+  ]
 }

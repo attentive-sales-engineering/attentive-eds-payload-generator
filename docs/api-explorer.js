@@ -1,4 +1,6 @@
-function getApiFromUrl (url) {
+// This function determines the API from the URL for the
+// SOW and onscreen page title when importing a job
+function getApiFromUrl(url) {
   switch (url) {
     case 'https://api.attentivemobile.com/v1/attributes/custom':
       api = 'Custom Attributes'
@@ -36,18 +38,15 @@ function getApiFromUrl (url) {
   return api
 }
 
-function updateTargetPayloadBody (id, targetPayload) {
+// This function updates the json payload displayed on screen on each click or keyup
+function updateJsonPayloadBody(id, edsPayload) {
   // console.log('TARGET PAYLOAD:', targetPayload)
-  const jsonReq = JSON.stringify(targetPayload, null, 2)
-  // console.log('JSON BODY:', jsonBody)
-  // console.log(
-  //   `updateTargetPayloadBody: .querySelector(#${id} [data-target-payload])`
-  // )
+  let jsonReq
 
   // Render Target Payload
-  aceJsonRequest = ace.edit(
-    document.querySelector(`#${id} [data-target-payload]`)
-  )
+  jsonReq = JSON.stringify(edsPayload.targetPayload, null, 2)
+  // console.log('JSON BODY:', jsonBody)
+  aceJsonRequest = ace.edit(document.querySelector(`#${id} [data-target-payload]`))
   aceJsonRequest.setTheme('ace/theme/monokai')
   aceJsonRequest.session.setMode('ace/mode/json')
   aceJsonRequest.setValue(null)
@@ -61,20 +60,11 @@ function updateTargetPayloadBody (id, targetPayload) {
     showPrintMargin: false,
     fontSize: 14
   })
-}
-
-function updateSourcePayloadBody (id, sourcePayload) {
-  // console.log('SOURCE PAYLOAD:', sourcePayload)
-  const jsonReq = JSON.stringify(sourcePayload, null, 2)
-  // console.log('JSON BODY:', jsonBody)
-  // console.log(
-  //   `updateSourcePayloadBody: .querySelector(#${id} [data-source-payload])`
-  // )
 
   // Render Source Payload
-  aceJsonRequest = ace.edit(
-    document.querySelector(`#${id} [data-source-payload]`)
-  )
+  jsonReq = JSON.stringify(edsPayload.sourcePayload, null, 2)
+  // console.log('JSON BODY:', jsonBody)
+  aceJsonRequest = ace.edit(document.querySelector(`#${id} [data-source-payload]`))
   aceJsonRequest.setTheme('ace/theme/monokai')
   aceJsonRequest.session.setMode('ace/mode/json')
   aceJsonRequest.setValue(null)
@@ -90,11 +80,10 @@ function updateSourcePayloadBody (id, sourcePayload) {
   })
 }
 
-function createKeyValuePair (id, key, value, placeholder, readOnly) {
-  console.log('createKeyValuePair:', id, key, value, placeholder)
-  const element = document
-    .querySelector(`#${id} [data-key-value-template]`)
-    .content.cloneNode(true)
+// This function renders the apiParam key/value pairs onscreen
+function createKeyValuePair(id, key, value, placeholder, readOnly) {
+  // console.log('createKeyValuePair:', id, key, value, placeholder)
+  const element = document.querySelector(`#${id} [data-key-value-template]`).content.cloneNode(true)
   let thisKey = element.querySelector('[data-key]')
   if (readOnly === true) thisKey.readOnly = true
   thisKey.value = key || null
@@ -102,78 +91,6 @@ function createKeyValuePair (id, key, value, placeholder, readOnly) {
   thisValue.value = value || null
   thisValue.placeholder = placeholder || 'Value'
 
-  // // Show EnvVar values
-  // if (thisValue.value === '') {
-  //   thisValue.value = localStorage.getItem(key)
-  // }
-
-  // // Mask passwords and sensitive values
-  // if (
-  //   thisKey.value === 'password' ||
-  //   thisKey.value === 'AuthToken' ||
-  //   thisKey.value === 'StatusCallback' ||
-  //   thisKey.value === 'StatusCallbackUrl' ||
-  //   thisKey.value === 'Authorization' ||
-  //   thisKey.value === 'apiKey' ||
-  //   thisKey.value === 'BasicAuth' ||
-  //   thisKey.value === 'X-Shopify-Access-Token'
-  // ) {
-  //   thisValue.type = 'password'
-  // }
-
-  // // Update button
-  // element.querySelector('[data-update-btn]').addEventListener('click', e => {
-  //   closest = e.target.closest('[data-key-value-pair]')
-  //   console.log('UPDATE CLOSEST', closest)
-  //   if (typeof newEnvVarDialog.showModal === 'function') {
-  //     console.log('NEW ENV VAR DIALOG', newEnvVarDialog)
-  //     updatedKey = closest.querySelector('[data-key]').value
-  //     console.log('UPDATEDKEY', updatedKey)
-  //     newEnvVarDialog.querySelector('[data-key]').value = updatedKey
-  //     newEnvVarDialog.querySelector('[data-value]').value =
-  //       localStorage.getItem(updatedKey)
-  //     newEnvVarDialog.querySelector('[data-value]').placeholder =
-  //       closest.querySelector('[data-value]').placeholder
-  //     newEnvVarDialog.showModal()
-
-  //     // Enter key listener -> Listen for the "Enter" key in newEnvVar modal
-  //     newEnvVarDialog.addEventListener('keydown', e => {
-  //       if (e.code === 'Enter') {
-  //         setLocalStorage()
-  //         thisValue.value = localStorage.getItem(thisKey.value)
-  //       }
-  //     })
-
-  //     // Save listener -> On newEnvVar dialog "close" because of [method="dialog"]
-  //     // Triggered via Cancel & Save buttons or Enter keypress
-  //     newEnvVarDialog.addEventListener('close', function onClose () {
-  //       if (newEnvVarDialog.returnValue !== 'cancel') {
-  //         setLocalStorage()
-  //         thisValue.value = localStorage.getItem(thisKey.value)
-  //       }
-  //     })
-
-  //     // Store item in localStorage and refresh window
-  //     function setLocalStorage () {
-  //       if (
-  //         newEnvVarDialog.querySelector('[data-key]').value !== '' &&
-  //         newEnvVarDialog.querySelector('[data-value]').value !== ''
-  //       ) {
-  //         updatedValue = newEnvVarDialog.querySelector('[data-value]').value
-  //         // store the updatedValue for the updatedKey
-  //         localStorage.setItem(updatedKey, updatedValue)
-  //         // Update the value of all matching keys that are already loaded in browser
-  //         document.querySelectorAll('[data-key]').forEach(item => {
-  //           if (item.value === updatedKey) {
-  //             item.parentElement.querySelector('[data-value]').value =
-  //               updatedValue
-  //           }
-  //         })
-  //         // window.location = window.location.href
-  //       }
-  //     }
-  //   }
-  // })
   // Delete button
   if (readOnly === true) {
     // Hide the Delete button
@@ -183,40 +100,13 @@ function createKeyValuePair (id, key, value, placeholder, readOnly) {
     element.querySelector('[data-remove-btn]').addEventListener('click', e => {
       closest = e.target.closest('[data-key-value-pair]')
       closest.remove()
-      // if (id === 'settings') {
-      //   let localStorageKey = closest.querySelector('[data-key]').value
-      //   localStorage.removeItem(localStorageKey)
-      //   window.location = window.location.href
-      // }
     })
   }
 
   return element
 }
 
-// function keyValuePairsToObjects (id, container) {
-//   const pairs = container.querySelectorAll(`#${id} [data-key-value-pair]`)
-//   console.log('PAIRS:', pairs)
-//   return [...pairs].reduce((data, pair) => {
-//     const key = pair.querySelector('[data-key]').value
-//     console.log('KEY:', key)
-//     let value = pair.querySelector('[data-value]').value
-//     console.log('VALUE:', value)
-//     if (value.match(/{{\w+}}/)) {
-//       console.log(`value is {{envVar}} -> fetch variable from localStorage`)
-//       let valueEnvVar = value.replaceAll(/[{}]/g, '')
-//       console.log('VALUE ENV VAR:', valueEnvVar)
-//       value = localStorage.getItem(valueEnvVar)
-//       console.log('VALUE:', value)
-//       console.log(`localStorage.getItem(${valueEnvVar})`)
-//     }
-//     console.log('DATA:', data)
-//     // if (key === '' || value === null || value === '') return data
-//     return { ...data, [key]: value }
-//   }, {})
-// }
-
-function keyValuePairsToObjects (id, container, curlyBraces) {
+function keyValuePairsToObjects(id, container, curlyBraces) {
   const pairs = container.querySelectorAll(`#${id} [data-key-value-pair]`)
   // console.log('PAIRS:', pairs)
   const tempObject = {}
@@ -225,7 +115,6 @@ function keyValuePairsToObjects (id, container, curlyBraces) {
     const key = pair.querySelector('[data-key]').value
     // console.log('KEY:', key)
     let value
-    // let value = pair.querySelector('[data-value]').value
     if (curlyBraces === true) {
       value = `{{${pair.querySelector('[data-value]').value}}}`
     } else {
@@ -254,7 +143,7 @@ function keyValuePairsToObjects (id, container, curlyBraces) {
 }
 
 // Parse the json import file and build apiParams
-function parseImportFile (edsFile) {
+function parseImportFile(edsFile) {
   console.log('IMPORT or RECENT:', edsFile)
 
   let importFile
@@ -283,7 +172,7 @@ function parseImportFile (edsFile) {
   console.log('SCHEDULE:', schedule)
 
   // Build the apiParams from the EDS Payload
-  function createParams (paramName, paramObject, myParams) {
+  function createParams(paramName, paramObject, myParams) {
     // console.log('paramName:', paramName)
     // console.log('paramObject:', paramObject)
     // console.log('myParams:', myParams)
@@ -294,11 +183,7 @@ function parseImportFile (edsFile) {
       // child objects and arrays. Skip the child objects and arrays
       // as those will be processed separately
       if (paramName === 'queryParams') {
-        if (
-          `${key}` === 'properties' ||
-          `${key}` === 'items' ||
-          `${key}` === 'subscriptions' ||
-          `${key}` === 'user'
+        if (`${key}` === 'properties' || `${key}` === 'items' || `${key}` === 'subscriptions' || `${key}` === 'user'
         ) {
           return
         }
@@ -307,8 +192,7 @@ function parseImportFile (edsFile) {
       // Don't remove curly braces from subscriptionsParams or headerParams
       // Or keys with these names since they are fixed values for Subscriptions
       let val = value
-      if (
-        paramName === 'subscriptionsParams' ||
+      if (paramName === 'subscriptionsParams' ||
         paramName === 'headerParams' ||
         key.match(/signUpSourceId|subscriptionType|singleOptIn/)
       ) {
@@ -337,42 +221,24 @@ function parseImportFile (edsFile) {
 
   // propParams
   if (target.payload_mapping.properties) {
-    createParams(
-      'propParams',
-      apiParams.propParams,
-      target.payload_mapping.properties
-    )
+    createParams('propParams', apiParams.propParams, target.payload_mapping.properties)
   }
 
   // priceParams
-  if (
-    target.payload_mapping.items &&
-    target.payload_mapping.items[0].price[0]
-  ) {
-    createParams(
-      'priceParams',
-      apiParams.priceParams,
-      target.payload_mapping.items[0].price[0]
-    )
+  if (target.payload_mapping.items &&
+    target.payload_mapping.items[0].price[0]) {
+    createParams('priceParams', apiParams.priceParams, target.payload_mapping.items[0].price[0])
   }
 
   // itemsParams
   if (target.payload_mapping.items) {
-    createParams(
-      'itemsParams',
-      apiParams.itemsParams,
-      target.payload_mapping.items[0]
-    )
+    createParams('itemsParams', apiParams.itemsParams, target.payload_mapping.items[0])
     apiParams.itemsParams.splice(6, 1)
   }
 
   // subscriptionsParams
   if (target.payload_mapping.subscriptions) {
-    createParams(
-      'subscriptionsParams',
-      apiParams.subscriptionsParams,
-      target.payload_mapping.subscriptions[0]
-    )
+    createParams('subscriptionsParams', apiParams.subscriptionsParams, target.payload_mapping.subscriptions[0])
   }
 
   // headerParams
@@ -382,38 +248,24 @@ function parseImportFile (edsFile) {
 
   // userParams
   if (target.payload_mapping.user?.externalIdentifiers?.clientUserId) {
-    apiParams.userParams[2].value =
-      target.payload_mapping.user.externalIdentifiers.clientUserId.slice(2, -2)
+    apiParams.userParams[2].value = target.payload_mapping.user.externalIdentifiers.clientUserId.slice(2, -2)
   } else {
     apiParams.userParams.splice(2, 1)
   }
   if (target.payload_mapping.user?.email) {
-    apiParams.userParams[1].value = target.payload_mapping.user.email.slice(
-      2,
-      -2
-    )
+    apiParams.userParams[1].value = target.payload_mapping.user.email.slice(2, -2)
   } else {
     apiParams.userParams.splice(1, 1)
   }
   if (target.payload_mapping.user?.phone) {
-    apiParams.userParams[0].value = target.payload_mapping.user.phone.slice(
-      2,
-      -2
-    )
+    apiParams.userParams[0].value = target.payload_mapping.user.phone.slice(2, -2)
   } else {
     apiParams.userParams.splice(0, 1)
   }
 
   // customParams
-  if (
-    target.payload_mapping.user?.externalIdentifiers?.custom &&
-    target.payload_mapping.user?.externalIdentifiers?.custom[0]
-  ) {
-    createParams(
-      'customParams',
-      apiParams.customParams,
-      target.payload_mapping.user.externalIdentifiers.custom[0]
-    )
+  if (target.payload_mapping.user?.externalIdentifiers?.customIdentifiers && target.payload_mapping.user?.externalIdentifiers?.customIdentifiers[0]) {
+    createParams('customParams', apiParams.customParams, target.payload_mapping.user.externalIdentifiers.customIdentifiers[0])
   }
 
   // queryParams
@@ -424,9 +276,7 @@ function parseImportFile (edsFile) {
   // sourceParams
   const key_name = source.key_name
   let timeZone = key_name.match(/<&\S+&>/)
-  if (timeZone) {
-    timeZone = timeZone.toString().replace('<&', '').replace('&>', '')
-  }
+  if (timeZone) timeZone = timeZone.toString().replace('<&', '').replace('&>', '')
   let fileName = key_name.replace(/<&\S+&>/, '')
   apiParams.sourceParams[0].value = client?.clientName ? client.clientName : ''
   apiParams.sourceParams[1].value = client?.clientId ? client.clientId : ''
@@ -436,12 +286,8 @@ function parseImportFile (edsFile) {
   apiParams.sourceParams[5].value = client?.ticketId ? client.ticketId : ''
 
   // scheduleParams
-  apiParams.scheduleParams[0].value = schedule?.frequency
-    ? schedule.frequency
-    : ''
-  apiParams.scheduleParams[1].value = schedule?.triggerTime
-    ? schedule.triggerTime
-    : ''
+  apiParams.scheduleParams[0].value = schedule?.frequency ? schedule.frequency : ''
+  apiParams.scheduleParams[1].value = schedule?.triggerTime ? schedule.triggerTime : ''
   apiParams.scheduleParams[2].value = timeZone
 
   // Change h1 title from Imported Payload to the name of the API
@@ -451,8 +297,8 @@ function parseImportFile (edsFile) {
   console.log('apiParams AFTER:', apiParams)
 }
 
-// Update the json payload when various change events fire
-function updatePayload (e, paramsId) {
+// Update the edsPayload when various change events fire
+function updatePayload(e, paramsId) {
   // console.log("LISTENER:", e)
   // console.log("LISTENER TYPE:", e.type)
   console.log('EVENT:', e.type)
@@ -481,73 +327,24 @@ function updatePayload (e, paramsId) {
   // Set variable values from query selectors
   // Pass the id, the selector, and whether or not the value result should be enclosed in curly braces (true|false)
   url = document.querySelector(`#${paramsId} ` + '[data-url]', false).value
-  method = document.querySelector(
-    `#${paramsId} ` + '[data-method]',
-    false
-  ).value
-  header_mapping = keyValuePairsToObjects(
-    paramsId,
-    document.querySelector(`#${paramsId} ` + '[data-request-headers]'),
-    false
-  ).tempObject
+  method = document.querySelector(`#${paramsId} ` + '[data-method]', false).value
+  header_mapping = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-headers]'), false).tempObject
   if (url.match('subscriptions')) {
     console.log('URL.MATCH: SUBSCRIPTIONS')
     console.log('curlyBraces OFF')
-    params = keyValuePairsToObjects(
-      paramsId,
-      document.querySelector(`#${paramsId} ` + '[data-query-params]'),
-      false
-    ).tempObject
+    params = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-query-params]'), false).tempObject
   } else {
-    params = keyValuePairsToObjects(
-      paramsId,
-      document.querySelector(`#${paramsId} ` + '[data-query-params]'),
-      true
-    ).tempObject
+    params = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-query-params]'), true).tempObject
   }
-  prop = keyValuePairsToObjects(
-    paramsId,
-    document.querySelector(`#${paramsId} ` + '[data-props]'),
-    true
-  ).tempObject
-  items = keyValuePairsToObjects(
-    paramsId,
-    document.querySelector(`#${paramsId} ` + '[data-items]'),
-    true
-  ).tempObject
-  price = keyValuePairsToObjects(
-    paramsId,
-    document.querySelector(`#${paramsId} ` + '[data-price]'),
-    true
-  ).tempObject
-  subscriptions = keyValuePairsToObjects(
-    paramsId,
-    document.querySelector(`#${paramsId} ` + '[data-subscriptions]'),
-    false
-  ).tempObject
-  user = keyValuePairsToObjects(
-    paramsId,
-    document.querySelector(`#${paramsId} ` + '[data-user]'),
-    true
-  ).tempObject
-  custom = keyValuePairsToObjects(
-    paramsId,
-    document.querySelector(`#${paramsId} ` + '[data-user-custom]'),
-    true
-  ).tempObject
-  source = keyValuePairsToObjects(
-    paramsId,
-    document.querySelector(`#${paramsId} ` + '[data-source]'),
-    false
-  ).tempObject
-  schedule = keyValuePairsToObjects(
-    paramsId,
-    document.querySelector(`#${paramsId} ` + '[data-schedule]'),
-    false
-  ).tempObject
-  jsonBody = document.querySelector(
-    `#${paramsId} ` + '.ace_content'
-  )?.textContent
+  prop = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-props]'), true).tempObject
+  items = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-items]'), true).tempObject
+  price = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-price]'), true).tempObject
+  subscriptions = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-subscriptions]'), false).tempObject
+  user = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-user]'), true).tempObject
+  custom = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-user-custom]'), true).tempObject
+  source = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-source]'), false).tempObject
+  schedule = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-schedule]'), false).tempObject
+  jsonBody = document.querySelector(`#${paramsId} ` + '.ace_content')?.textContent
 
   // console.log("JSON BODY:", jsonBody)
   // console.log("URL", url)
@@ -570,64 +367,54 @@ function updatePayload (e, paramsId) {
   if (params && Object.entries(params).length > 0) {
     payload_mapping = params
   } else {
-    document
-      .querySelector(`#${paramsId} ` + '[data-query-params-section]')
-      .classList.add('d-none')
+    document.querySelector(`#${paramsId} ` + '[data-query-params-section]').classList.add('d-none')
   }
 
   // console.log("PROP:", prop)
   if (prop && Object.entries(prop).length > 0) {
     payload_mapping.properties = prop
   } else {
-    document
-      .querySelector(`#${paramsId} ` + '[data-props-section]')
-      .classList.add('d-none')
+    document.querySelector(`#${paramsId} ` + '[data-props-section]').classList.add('d-none')
   }
 
   // console.log("ITEMS:", items)
   if (items && Object.entries(items).length > 0) {
     payload_mapping.items = [items]
   } else {
-    document
-      .querySelector(`#${paramsId} ` + '[data-items-section]')
-      .classList.add('d-none')
+    document.querySelector(`#${paramsId} ` + '[data-items-section]').classList.add('d-none')
   }
 
   // console.log("PRICE:", price)
   if (price && Object.entries(price).length > 0) {
     payload_mapping.items[0].price = [price]
   } else {
-    document
-      .querySelector(`#${paramsId} ` + '[data-price-section]')
-      .classList.add('d-none')
+    document.querySelector(`#${paramsId} ` + '[data-price-section]').classList.add('d-none')
   }
 
   // console.log("SUBSCRIPTIONS:", subscriptions)
   if (subscriptions && Object.entries(subscriptions).length > 0) {
     payload_mapping.subscriptions = [subscriptions]
   } else {
-    document
-      .querySelector(`#${paramsId} ` + '[data-subscriptions-section]')
-      .classList.add('d-none')
+    document.querySelector(`#${paramsId} ` + '[data-subscriptions-section]').classList.add('d-none')
   }
 
   // console.log("USER:", user)
   if (user && Object.entries(user).length > 0) {
     payload_mapping.user = user
   } else {
-    document
-      .querySelector(`#${paramsId} ` + '[data-user-params-section]')
-      .classList.add('d-none')
+    document.querySelector(`#${paramsId} ` + '[data-user-params-section]').classList.add('d-none')
   }
 
   // console.log("CUSTOM IDENTIFIER:", custom)
   if (custom && Object.entries(custom).length > 0) {
-    payload_mapping.user.externalIdentifiers.custom = []
-    payload_mapping.user.externalIdentifiers.custom[0] = custom
+    // if clientUserId was deleted, need to recreate the externalIdentifiers object
+    if (payload_mapping.user.externalIdentifiers === undefined) {
+      payload_mapping.user.externalIdentifiers = {}
+    }
+    payload_mapping.user.externalIdentifiers.customIdentifiers = []
+    payload_mapping.user.externalIdentifiers.customIdentifiers[0] = custom
   } else {
-    document
-      .querySelector(`#${paramsId} ` + '[data-user-custom-section]')
-      .classList.add('d-none')
+    document.querySelector(`#${paramsId} ` + '[data-user-custom-section]').classList.add('d-none')
   }
 
   // console.log("PAYLOAD MAPPING", payload_mapping)
@@ -696,7 +483,6 @@ function updatePayload (e, paramsId) {
     // console.log("LOCAL STORAGE:", localStorage.getItem("eds-recent"))
   } else {
     // Click or Keyup event will trigger updates to these payloads
-    updateTargetPayloadBody(paramsId, targetPayload)
-    updateSourcePayloadBody(paramsId, sourcePayload)
+    updateJsonPayloadBody(paramsId, edsPayload)
   }
 }

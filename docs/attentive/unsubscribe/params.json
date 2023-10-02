@@ -84,5 +84,16 @@
       "placeholder": "email (phone or email required)"
     }
   ],
-  "customParams": []
+  "customParams": [
+    {
+      "key": "name",
+      "value": "",
+      "placeholder": "customIdentifierName (optional)"
+    },
+    {
+      "key": "value",
+      "value": "",
+      "placeholder": "customIdentifierValue (optional)"
+    }
+  ]
 }
