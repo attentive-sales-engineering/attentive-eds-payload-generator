@@ -106,7 +106,9 @@ function createKeyValuePair(id, key, value, placeholder, readOnly) {
   return element
 }
 
-function keyValuePairsToObjects(id, container, curlyBraces) {
+// Create EDS Payload json objects from the input elements
+function keyValuePairsToObjects(id, paramName, container, curlyBraces) {
+  // console.log("keyValuePairsToObjects PARAM NAME:", paramName)
   const pairs = container.querySelectorAll(`#${id} [data-key-value-pair]`)
   // console.log('PAIRS:', pairs)
   const tempObject = {}
@@ -116,7 +118,16 @@ function keyValuePairsToObjects(id, container, curlyBraces) {
     // console.log('KEY:', key)
     let value
     if (curlyBraces === true) {
-      value = `{{${pair.querySelector('[data-value]').value}}}`
+      if (
+        (paramName === 'custom' && key === 'name') ||
+        (paramName === 'params' && key === 'type') ||
+        (paramName === 'price' && key === 'currency')
+      ) {
+        // Don't wrap those ^ keys in curly braces
+        value = pair.querySelector('[data-value]').value
+      } else {
+        value = `{{${pair.querySelector('[data-value]').value}}}`
+      }
     } else {
       value = pair.querySelector('[data-value]').value
     }
@@ -173,7 +184,7 @@ function parseImportFile(edsFile) {
 
   // Build the apiParams from the EDS Payload
   function createParams(paramName, paramObject, myParams) {
-    // console.log('paramName:', paramName)
+    console.log('paramName:', paramName)
     // console.log('paramObject:', paramObject)
     // console.log('myParams:', myParams)
     Object.entries(myParams).forEach(entry => {
@@ -189,12 +200,14 @@ function parseImportFile(edsFile) {
         }
       }
 
-      // Don't remove curly braces from subscriptionsParams or headerParams
-      // Or keys with these names since they are fixed values for Subscriptions
+      // Don't remove curly braces from these params and keys since they are fixed values
       let val = value
-      if (paramName === 'subscriptionsParams' ||
+      if (
+        paramName === 'subscriptionsParams' ||
         paramName === 'headerParams' ||
-        key.match(/signUpSourceId|subscriptionType|singleOptIn/)
+        (paramName === 'customParams' && key === 'name') ||
+        (paramName === 'priceParams' && key === 'currency') ||
+        (paramName === 'queryParams' && key.match(/signUpSourceId|subscriptionType|singleOptIn|type/))
       ) {
         // Do nothing
       } else {
@@ -328,22 +341,22 @@ function updatePayload(e, paramsId) {
   // Pass the id, the selector, and whether or not the value result should be enclosed in curly braces (true|false)
   url = document.querySelector(`#${paramsId} ` + '[data-url]', false).value
   method = document.querySelector(`#${paramsId} ` + '[data-method]', false).value
-  header_mapping = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-headers]'), false).tempObject
+  header_mapping = keyValuePairsToObjects(paramsId, "header_mapping", document.querySelector(`#${paramsId} ` + '[data-headers]'), false).tempObject
   if (url.match('subscriptions')) {
     console.log('URL.MATCH: SUBSCRIPTIONS')
     console.log('curlyBraces OFF')
-    params = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-query-params]'), false).tempObject
+    params = keyValuePairsToObjects(paramsId, "params", document.querySelector(`#${paramsId} ` + '[data-query-params]'), false).tempObject
   } else {
-    params = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-query-params]'), true).tempObject
+    params = keyValuePairsToObjects(paramsId, "params", document.querySelector(`#${paramsId} ` + '[data-query-params]'), true).tempObject
   }
-  prop = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-props]'), true).tempObject
-  items = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-items]'), true).tempObject
-  price = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-price]'), true).tempObject
-  subscriptions = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-subscriptions]'), false).tempObject
-  user = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-user]'), true).tempObject
-  custom = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-user-custom]'), true).tempObject
-  source = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-source]'), false).tempObject
-  schedule = keyValuePairsToObjects(paramsId, document.querySelector(`#${paramsId} ` + '[data-schedule]'), false).tempObject
+  prop = keyValuePairsToObjects(paramsId, "prop", document.querySelector(`#${paramsId} ` + '[data-props]'), true).tempObject
+  items = keyValuePairsToObjects(paramsId, "items", document.querySelector(`#${paramsId} ` + '[data-items]'), true).tempObject
+  price = keyValuePairsToObjects(paramsId, "price", document.querySelector(`#${paramsId} ` + '[data-price]'), true).tempObject
+  subscriptions = keyValuePairsToObjects(paramsId, "subscriptions", document.querySelector(`#${paramsId} ` + '[data-subscriptions]'), false).tempObject
+  user = keyValuePairsToObjects(paramsId, "user", document.querySelector(`#${paramsId} ` + '[data-user]'), true).tempObject
+  custom = keyValuePairsToObjects(paramsId, "custom", document.querySelector(`#${paramsId} ` + '[data-user-custom]'), true).tempObject
+  source = keyValuePairsToObjects(paramsId, "source", document.querySelector(`#${paramsId} ` + '[data-source]'), false).tempObject
+  schedule = keyValuePairsToObjects(paramsId, "schedule", document.querySelector(`#${paramsId} ` + '[data-schedule]'), false).tempObject
   jsonBody = document.querySelector(`#${paramsId} ` + '.ace_content')?.textContent
 
   // console.log("JSON BODY:", jsonBody)
