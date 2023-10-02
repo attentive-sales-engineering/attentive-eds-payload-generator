@@ -138,7 +138,8 @@ function keyValuePairsToObjects(id, container, curlyBraces) {
     // console.log('KEY:', key)
     let value
     // let value = pair.querySelector('[data-value]').value
-    if (curlyBraces === true) {
+    // Wrap curly braces if true, but not customIdentiefers.name or price.currency
+    if (curlyBraces === true && key != 'name' && key != 'currency') {
       value = `{{${pair.querySelector('[data-value]').value}}}`
     } else {
       value = pair.querySelector('[data-value]').value
