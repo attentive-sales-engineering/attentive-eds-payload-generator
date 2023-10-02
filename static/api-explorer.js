@@ -288,12 +288,9 @@ function parseImportFile(edsFile) {
 
   // sourceParams
   const key_name = source.key_name
-  let timeZone = key_name.match(/<&\S+&>/)
-  if (timeZone) timeZone = timeZone.toString().replace('<&', '').replace('&>', '')
-  let fileName = key_name.replace(/<&\S+&>/, '')
   apiParams.sourceParams[0].value = client?.clientName ? client.clientName : ''
   apiParams.sourceParams[1].value = client?.clientId ? client.clientId : ''
-  apiParams.sourceParams[2].value = fileName
+  apiParams.sourceParams[2].value = client?.fileName ? client.fileName : ''
   apiParams.sourceParams[3].value = client?.fileType ? client.fileType : ''
   apiParams.sourceParams[4].value = client?.delimiter ? client.delimiter : ''
   apiParams.sourceParams[5].value = client?.ticketId ? client.ticketId : ''
@@ -301,7 +298,7 @@ function parseImportFile(edsFile) {
   // scheduleParams
   apiParams.scheduleParams[0].value = schedule?.frequency ? schedule.frequency : ''
   apiParams.scheduleParams[1].value = schedule?.triggerTime ? schedule.triggerTime : ''
-  apiParams.scheduleParams[2].value = timeZone
+  apiParams.scheduleParams[2].value = schedule?.timeZone ? schedule.timeZone : ''
 
   // Change h1 title from Imported Payload to the name of the API
   const api = getApiFromUrl(apiParams.url)
@@ -332,7 +329,6 @@ function updatePayload(e, paramsId) {
   let source = {}
   let schedule = {}
   let key_name = ''
-  let extension = ''
   let sourcePayload = {}
   let clientPayload = {}
   let schedulePayload = {}
@@ -455,19 +451,15 @@ function updatePayload(e, paramsId) {
     if (source['fileType']) clientPayload.fileType = source['fileType']
     if (source['delimiter']) clientPayload.delimiter = source['delimiter']
     if (source['ticketId']) clientPayload.ticketId = source['ticketId']
-    if (source['fileName'])
-      key_name = `${source['fileName'].replace(/(\.\w*)/, '')}`
-    // console.log("KEY_NAME:", key_name)
-    if (key_name && source['fileName'].match(/\.\w*/)) {
-      extension = source['fileName'].match(/\.\w*/).toString()
-      // console.log("EXTENSION", extension)
-      key_name += extension
+
+    // Concatenate key_name & delimiter and add to sourcePayload
+    if (source['fileName']) key_name = `${source['fileName']}`
+    if (schedule['timeZone']) {
+      key_name += `<&${schedule['timeZone']}&>`
+      sourcePayload.key_name = key_name
     }
-    if (source['timeZone']) key_name += `<&${source['timeZone']}&>`
-    sourcePayload.key_name = key_name
     if (source['delimiter']) {
       delimiter = source['delimiter']
-      // console.log("DELIMITER:", delimiter)
       sourcePayload.delimiter = delimiter
     }
   }
@@ -475,8 +467,7 @@ function updatePayload(e, paramsId) {
   // Concatenate schedule params
   if (schedule && Object.entries(schedule).length > 0) {
     if (schedule['frequency']) schedulePayload.frequency = schedule['frequency']
-    if (schedule['triggerTime'])
-      schedulePayload.triggerTime = schedule['triggerTime']
+    if (schedule['triggerTime']) schedulePayload.triggerTime = schedule['triggerTime']
     if (schedule['timeZone']) schedulePayload.timeZone = schedule['timeZone']
   }
 
