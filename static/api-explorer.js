@@ -310,7 +310,7 @@ function updatePayload(e, paramsId) {
   // console.log("LISTENER:", e)
   // console.log("LISTENER TYPE:", e.type)
   console.log('EVENT:', e.type)
-  console.log('PARAMS ID:', paramsId)
+  // console.log('PARAMS ID:', paramsId)
 
   let url = ''
   let method = ''
@@ -451,11 +451,13 @@ function updatePayload(e, paramsId) {
     if (source['ticketId']) clientPayload.ticketId = source['ticketId']
 
     // Concatenate key_name & delimiter and add to sourcePayload
-    if (source['fileName']) key_name = `${source['fileName']}`
+    if (source['fileName']) {
+      key_name = `${source['fileName']}`
+    }
     if (schedule['timeZone']) {
       key_name += `<&${schedule['timeZone']}&>`
-      sourcePayload.key_name = key_name
     }
+    sourcePayload.key_name = key_name
     if (source['delimiter']) {
       delimiter = source['delimiter']
       sourcePayload.delimiter = delimiter
@@ -477,6 +479,7 @@ function updatePayload(e, paramsId) {
   edsPayload.sourcePayload = sourcePayload
   // console.log("SCHEDULE PAYLOAD:", schedulePayload)
   edsPayload.schedulePayload = schedulePayload
+  console.log("EDS PAYLOAD:", edsPayload)
 
   updateJsonPayloadBody(paramsId, edsPayload)
 }
