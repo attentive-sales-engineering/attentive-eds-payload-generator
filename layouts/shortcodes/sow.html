@@ -28,14 +28,14 @@
 
   <h2>Specification</h2>
   <ol>
-    <li>Client will upload files to SFTP with the following path and filename:<br><span class="param"
-        data-file-name-and-date>{fileNameAndDate}</span></li>
+    <li>Client will upload files to SFTP with the following path and filename:<br><span class="param" data-file-name-and-date>{fileNameAndDate}</span></li>
     <li id="date-format" class=""><span class="param" data-date-format>{[[dateFormat]]}</span> represents the date the
       file will be processed.</li>
     <li id="frequency" class="">Files will be processed <span class="param" data-frequency>{frequency}</span>
       at <span class="param" data-trigger-time>{triggerTime}</span> (<span class="param" data-timezone>{timezone}</span>
       time).
     </li>
+    <li id="hourly" class="d-none">Files will be processed hourly</li>
     <li>The file will be in <span class="param" data-filetype>{fileType}</span> format.</li>
     <li>The file will contain a header row that lists the field names.</li>
     <li>Each data row will include the field values.</li>
@@ -133,12 +133,15 @@
   replaceText("filetype", fileType)
 
   // frequency
-  let frequency = null
-  if (edsPayload.schedulePayload.frequency) {
-    frequency = edsPayload.schedulePayload.frequency
+  const frequency = edsPayload.schedulePayload.frequency
+  if (frequency.toLowerCase() == "hourly") {
+    document.querySelector("#hourly").classList.remove('d-none')
+    document.querySelector("#frequency").classList.add('d-none')
+  } else if (frequency != null && frequency != '') {
     replaceText("frequency", frequency)
+  } else {
+    document.querySelector("#frequency").classList.add('d-none')
   }
-  if (frequency === null) document.querySelector("#frequency").classList.add('d-none')
 
   // time
   if (edsPayload.schedulePayload.triggerTime) {
@@ -151,6 +154,8 @@
     const timeZone = edsPayload.schedulePayload.timeZone
     replaceText("timezone", timeZone)
   }
+
+  // if (frequency === null) document.querySelector("#frequency").classList.add('d-none')
 
   // Mask API Key
   maskedPayload = edsPayload.targetPayload.header_mapping.Authorization.toString().replace(/Bearer (.*)/, 'Bearer ********')
