@@ -37,12 +37,12 @@
     {
       "key": "frequency",
       "value": "",
-      "placeholder": "Hourly, Daily, Weekly, Monthly, On-Demand (required)"
+      "placeholder": "Hourly, Daily, Weekly, Monthly (blank for on-demand)"
     },
     {
       "key": "triggerTime",
       "value": "",
-      "placeholder": "9:00 AM, 15:00, On-Demand (required)"
+      "placeholder": "9:00 AM, 15:00 (blank for on-demand)"
     },
     {
       "key": "timeZone",
