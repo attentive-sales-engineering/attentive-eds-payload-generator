@@ -204,21 +204,10 @@ function parseImportFile(edsFile) {
         }
       }
 
-      // Don't remove curly braces from these params and keys since they are fixed values
+      // Remove curly braces from imported EDS job if they exist
       let val = value
-      if (
-        paramName === 'subscriptionsParams' ||
-        paramName === 'headerParams' ||
-        (paramName === 'customParams' && key === 'name') ||
-        (paramName === 'priceParams' && key === 'currency') ||
-        (paramName === 'queryParams' && key.match(
-          /signUpSourceId|subscriptionType|singleOptIn|type|body|mediaUrl|messageName|useShortLinks|skipFatigue/
-        ))
-      ) {
-        // Do nothing
-      } else {
-        // Remove curly braces
-        if (val && val.length > 0) {
+      if (val && val.length > 0) {
+        if (val.startsWith('{{')) {
           val = val.slice(2, -2)
         }
       }
