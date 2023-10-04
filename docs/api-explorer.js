@@ -129,7 +129,13 @@ function keyValuePairsToObjects(id, paramName, container, curlyBraces) {
         value = `{{${pair.querySelector('[data-value]').value}}}`
       }
     } else {
-      value = pair.querySelector('[data-value]').value
+      // curly braces are off for all fields but we need to make an exception  
+      // for the messages api `to` field which should be in curly braces
+      if (key.match(/to|subscriberExternalId/)) {
+        value = `{{${pair.querySelector('[data-value]').value}}}`
+      } else {
+        value = pair.querySelector('[data-value]').value
+      }
     }
     // console.log('VALUE:', value)
     // console.log('DATA:', data)
@@ -205,7 +211,9 @@ function parseImportFile(edsFile) {
         paramName === 'headerParams' ||
         (paramName === 'customParams' && key === 'name') ||
         (paramName === 'priceParams' && key === 'currency') ||
-        (paramName === 'queryParams' && key.match(/signUpSourceId|subscriptionType|singleOptIn|type/))
+        (paramName === 'queryParams' && key.match(
+          /signUpSourceId|subscriptionType|singleOptIn|type|body|mediaUrl|messageName|useShortLinks|skipFatigue/
+        ))
       ) {
         // Do nothing
       } else {
@@ -336,8 +344,8 @@ function updatePayload(e, paramsId) {
   url = document.querySelector(`#${paramsId} ` + '[data-url]', false).value
   method = document.querySelector(`#${paramsId} ` + '[data-method]', false).value
   header_mapping = keyValuePairsToObjects(paramsId, "header_mapping", document.querySelector(`#${paramsId} ` + '[data-headers]'), false).tempObject
-  if (url.match('subscriptions')) {
-    console.log('URL.MATCH: SUBSCRIPTIONS')
+  if (url.match(/subscriptions|send/)) {
+    console.log('URL.MATCH: SUBSCRIPTIONS OR SEND')
     console.log('curlyBraces OFF')
     params = keyValuePairsToObjects(paramsId, "params", document.querySelector(`#${paramsId} ` + '[data-query-params]'), false).tempObject
   } else {
