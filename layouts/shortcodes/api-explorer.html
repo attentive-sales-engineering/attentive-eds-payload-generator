@@ -12,6 +12,15 @@
   .Params.id => {{ .Params.id }}
   </pre> -->
 
+  <dialog>
+    <form method="dialog">
+      <input name="taskId" id="taskId" ctype="text" placeholder="Enter EDS task_id"><br>
+      <textarea name="token" id="token" cols="50" rows="4" placeholder="Paste 'attentive-auth-token' from Attentive UI Session storage"></textarea><br>
+      <button id="dialogCancelBtn" type="">Cancel</button>
+      <button id="dialogSubmitBtn" type="">Submit</button>
+    </form>
+  </dialog>
+
   <div class="mt-x">
     <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" sow-btn>SOW</button></a>
     <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" create-btn>Create</button></a>
@@ -297,12 +306,16 @@
         reader.readAsText(jsonFile)
       }
 
-      // GET button click listener
-      document.querySelector("[get-btn]").addEventListener("click", () => {
-        console.log("CLICKED GET BUTTON")
+      const dialog = document.querySelector("dialog")
+      let token = ''
+      let task_id = ''
 
-        const task_id = ''
-        const token = ''
+      // Dialog submit button event listener
+      // Capture token and trigger axios request
+      dialog.querySelector("#dialogSubmitBtn").addEventListener("click", () => {
+        console.log("DIALOG dialogSubmitBtn click:")
+        token = document.querySelector("dialog textarea").value
+
         const headers = { 'Authorization': `Bearer ${token}` }
         const method = "GET"
 
@@ -353,6 +366,17 @@
             // always executed
             console.log('FINALLY')
           })
+      })
+
+      // GET button click listener
+      document.querySelector("[get-btn]").addEventListener("click", () => {
+        console.log("CLICKED GET BUTTON")
+        if (edsPayload.task_id) {
+          task_id = edsPayload.task_id
+          console.log("TASK ID:", task_id)
+          dialog.querySelector("#taskId").value = task_id
+        }
+        dialog.showModal()
       })
 
       // This function adds a new key/value row onscreen when the Plus button is clicked
