@@ -215,7 +215,7 @@ function parseImportFile(edsFile) {
 
       // Remove curly braces from imported EDS job if they exist
       let val = value
-      if (val && val.length > 0) {
+      if (val && typeof val === "string" && val.length > 0) {
         if (val.startsWith('{{')) {
           val = val.slice(2, -2)
         }
@@ -301,12 +301,12 @@ function parseImportFile(edsFile) {
   }
   apiParams.sourceParams[3].value = client?.fileType ? client.fileType : ''
   apiParams.sourceParams[4].value = client?.delimiter ? client.delimiter : ''
-  apiParams.sourceParams[5].value = client?.ticketId ? client.ticketId : ''
+  apiParams.sourceParams[5].value = client?.ticketUrl ? client.ticketUrl : ''
   if (importFile.companyTaskUuid) {
     // apiParams.sourceParams[6].value = importFile.companyTaskUuid
     apiParams.sourceParams[6].value = "https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + importFile.companyTaskUuid
   } else {
-    apiParams.sourceParams[6].value = client?.taskId ? client.taskId : ''
+    apiParams.sourceParams[6].value = client?.taskUrl ? client.taskUrl : ''
   }
 
   // scheduleParams
@@ -468,8 +468,8 @@ function updatePayload(e, paramsId) {
     if (source['fileName']) clientPayload.fileName = source['fileName']
     if (source['fileType']) clientPayload.fileType = source['fileType']
     if (source['delimiter']) clientPayload.delimiter = source['delimiter']
-    if (source['ticketId']) clientPayload.ticketId = source['ticketId']
-    if (source['taskId']) clientPayload.taskId = source['taskId']
+    if (source['ticketUrl']) clientPayload.ticketUrl = source['ticketUrl']
+    if (source['taskUrl']) clientPayload.taskUrl = source['taskUrl']
 
     // Concatenate key_name & delimiter and add to source_details
     if (source['fileName']) {
@@ -502,8 +502,8 @@ function updatePayload(e, paramsId) {
   edsPayload.schedulePayload = schedulePayload
 
   // Additional required EDS Payload objects
-  // edsPayload.task_id = clientPayload.taskId
-  edsPayload.task_id = clientPayload.taskId?.substring(clientPayload.taskId.lastIndexOf('/') + 1).toString()
+  // edsPayload.task_id = clientPayload.taskUrl
+  edsPayload.task_id = clientPayload.taskUrl?.substring(clientPayload.taskUrl.lastIndexOf('/') + 1).toString()
   edsPayload.source_type = "s3"
   edsPayload.request_type = "http"
   edsPayload.response_details = {

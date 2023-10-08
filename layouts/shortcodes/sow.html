@@ -182,8 +182,8 @@
 
   // Change Page Title
   let pageTitle = "EDS"
-  if (edsPayload.clientPayload["ticketId"] && edsPayload.clientPayload["ticketId"].length > 0 && edsPayload.clientPayload["ticketId"].match(/\d+$/)) {
-    pageTitle += `-${edsPayload.clientPayload["ticketId"].match(/\d+$/).toString()}`
+  if (edsPayload.clientPayload["ticketUrl"] && edsPayload.clientPayload["ticketUrl"].length > 0 && edsPayload.clientPayload["ticketUrl"].match(/\d+$/)) {
+    pageTitle += `-${edsPayload.clientPayload["ticketUrl"].match(/\d+$/).toString()}`
   }
   if (edsPayload.clientPayload["clientName"] && edsPayload.clientPayload["clientName"].length > 0) {
     pageTitle += ` - ${edsPayload.clientPayload["clientName"]}`
