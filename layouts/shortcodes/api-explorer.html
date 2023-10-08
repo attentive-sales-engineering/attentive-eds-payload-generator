@@ -15,6 +15,7 @@
   <div class="mt-x">
     <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" sow-btn>SOW</button></a>
     <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" create-btn>Create</button></a>
+    <button class="btn btn-primary right ml-2 mb-4" get-btn>GET</button>
     <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary right ml-2 mb-4" export-btn>Export</button></a>
     <form method="post" enctype="multipart/form-data">
       <div>
@@ -295,6 +296,64 @@
         }
         reader.readAsText(jsonFile)
       }
+
+      // GET button click listener
+      document.querySelector("[get-btn]").addEventListener("click", () => {
+        console.log("CLICKED GET BUTTON")
+
+        const task_id = ''
+        const token = ''
+        const headers = { 'Authorization': `Bearer ${token}` }
+        const method = "GET"
+
+        // Set URL and Header Auth
+        const url = "https://johnchaffee.ngrok.io/v1/event-destination/get-mapping/" + task_id
+        console.log("=====")
+        console.log('URL:', url)
+        console.log('HEADERS:', headers)
+        console.log("=====")
+
+        axios({
+          url,
+          method,
+          headers
+          // data
+        })
+          .then(function (response) {
+            // handle success
+            console.log('SUCCESS')
+            console.log('RESPONSE.DATA:', response.data)
+            localStorage.setItem("eds-import", JSON.stringify(response.data))
+            window.location.href = "../../other/import"
+          })
+          .catch(function (error) {
+            console.log('CATCH')
+            if (error.response) {
+              console.log("ERROR.RESPONSE")
+              // The request was made and the server responded with a status code
+              // that falls out of the range of 2xx
+              console.log("ERROR.toJSON().STATUS:", error.toJSON().status)
+              console.log("ERROR.toJSON().CODE:", error.toJSON().code)
+              console.log("ERROR.toJSON().MESSAGE:", error.toJSON().message)
+              // console.log("ERROR.toJSON:", error.toJSON())
+              // console.log("ERROR.CONFIG", error.config)
+            } else if (error.request) {
+              console.log("ERROR.REQUEST")
+              // The request was made but no response was received
+              // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+              // http.ClientRequest in node.js
+              console.log(error.request)
+            } else {
+              console.log("ERROR.MESSAGE")
+              // Something happened in setting up the request that triggered an Error
+              console.log('Error', error.message)
+            }
+          })
+          .finally(function () {
+            // always executed
+            console.log('FINALLY')
+          })
+      })
 
       // This function adds a new key/value row onscreen when the Plus button is clicked
       function addRow(paramId, btnElement, dataElement) {
