@@ -101,12 +101,12 @@
   }
 
   // API
-  const url = edsPayload.targetPayload.url
+  const url = edsPayload.request_details.url
   api = getApiFromUrl(url)
   replaceText("api", api)
 
   // key_name
-  const key_name = edsPayload.sourcePayload.key_name
+  const key_name = edsPayload.source_details.key_name
   console.log("KEY NAME:", key_name)
 
   if (key_name != null && key_name != '') {
@@ -159,8 +159,8 @@
   // if (frequency === null) document.querySelector("#frequency").classList.add('d-none')
 
   // Mask API Key
-  maskedPayload = edsPayload.targetPayload.header_mapping.Authorization.toString().replace(/Bearer (.*)/, 'Bearer ********')
-  edsPayload.targetPayload.header_mapping.Authorization = maskedPayload
+  maskedPayload = edsPayload.request_details.header_mapping.Authorization.toString().replace(/Bearer (.*)/, 'Bearer ********')
+  edsPayload.request_details.header_mapping.Authorization = maskedPayload
 
   // Render Target Payload
   aceJsonRequest = ace.edit(
@@ -169,7 +169,7 @@
   aceJsonRequest.setTheme('ace/theme/xcode')
   aceJsonRequest.session.setMode('ace/mode/json')
   aceJsonRequest.setValue(null)
-  aceJsonRequest.insert(JSON.stringify(edsPayload.targetPayload, null, 2))
+  aceJsonRequest.insert(JSON.stringify(edsPayload.request_details, null, 2))
   aceJsonRequest.setReadOnly(true)
   aceJsonRequest.setOptions({
     maxLines: 60,

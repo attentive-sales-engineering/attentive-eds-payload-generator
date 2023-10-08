@@ -26,6 +26,11 @@
       "key": "ticketId",
       "value": "",
       "placeholder": "Jira ticket link"
+    },
+    {
+      "key": "taskId",
+      "value": "",
+      "placeholder": "Existing EDS task_id (leave blank for new)"
     }
   ],
   "scheduleParams": [

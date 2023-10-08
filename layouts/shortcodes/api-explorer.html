@@ -263,11 +263,11 @@
         if (edsPayload.clientPayload["clientName"] && edsPayload.clientPayload["clientName"].length > 0) {
           filename += ` ${edsPayload.clientPayload["clientName"]}`
         }
-        let apiFileName = getApiFromUrl(edsPayload.targetPayload.url)
+        let apiFileName = getApiFromUrl(edsPayload.request_details.url)
         filename += ` ${apiFileName}`
 
-        // if (edsPayload.sourcePayload["key_name"].length > 0) {
-        //   filename += ` ${edsPayload.sourcePayload["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
+        // if (edsPayload.source_details["key_name"].length > 0) {
+        //   filename += ` ${edsPayload.source_details["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
         // }
         if (filename === null || filename === '') filename = 'data'
         downloadBtn.download = `${filename}.json`
@@ -279,6 +279,7 @@
       importElement.style.opacity = 0
       importElement.addEventListener("change", importJson)
 
+      // Import file and save to local storage
       function importJson() {
         console.log("IMPORT JSON")
         const files = importElement.files
