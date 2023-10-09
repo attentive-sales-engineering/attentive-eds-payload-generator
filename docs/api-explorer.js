@@ -40,11 +40,11 @@ function getApiFromUrl(url) {
 
 // This function updates the json payload displayed on screen on each click or keyup
 function updateJsonPayloadBody(id, edsPayload) {
-  // console.log('TARGET PAYLOAD:', targetPayload)
+  // console.log('TARGET PAYLOAD:', request_details)
   let jsonReq
 
   // Render Target Payload
-  jsonReq = JSON.stringify(edsPayload.targetPayload, null, 2)
+  jsonReq = JSON.stringify(edsPayload.request_details, null, 2)
   // console.log('JSON BODY:', jsonBody)
   aceJsonRequest = ace.edit(document.querySelector(`#${id} [data-target-payload]`))
   aceJsonRequest.setTheme('ace/theme/monokai')
@@ -62,7 +62,7 @@ function updateJsonPayloadBody(id, edsPayload) {
   })
 
   // Render Source Payload
-  jsonReq = JSON.stringify(edsPayload.sourcePayload, null, 2)
+  jsonReq = JSON.stringify(edsPayload.source_details, null, 2)
   // console.log('JSON BODY:', jsonBody)
   aceJsonRequest = ace.edit(document.querySelector(`#${id} [data-source-payload]`))
   aceJsonRequest.setTheme('ace/theme/monokai')
@@ -174,16 +174,25 @@ function parseImportFile(edsFile) {
   console.log('IMPORT FILE:', importFile)
 
   let target = {}
-  target = importFile.targetPayload
-  console.log('TARGET:', target)
   let source = {}
-  source = importFile.sourcePayload
-  console.log('SOURCE:', source)
   let client = {}
-  client = importFile.clientPayload
-  console.log('CLIENT:', client)
   let schedule = {}
-  schedule = importFile.schedulePayload
+
+  // Check if this came from EDS
+  if (importFile.mappingInfoOverride) {
+    console.log("MAPPING INFO OVERRIDE")
+    target = JSON.parse(importFile.mappingInfoOverride)
+    source = JSON.parse(importFile.sourceInfo)
+  } else {
+    target = importFile.request_details
+    source = importFile.source_details
+    client = importFile.clientPayload
+    schedule = importFile.schedulePayload
+  }
+
+  console.log('TARGET:', target)
+  console.log('SOURCE:', source)
+  console.log('CLIENT:', client)
   console.log('SCHEDULE:', schedule)
 
   // Build the apiParams from the EDS Payload
@@ -206,7 +215,7 @@ function parseImportFile(edsFile) {
 
       // Remove curly braces from imported EDS job if they exist
       let val = value
-      if (val && val.length > 0) {
+      if (val && typeof val === "string" && val.length > 0) {
         if (val.startsWith('{{')) {
           val = val.slice(2, -2)
         }
@@ -282,18 +291,32 @@ function parseImportFile(edsFile) {
   }
 
   // sourceParams
-  const key_name = source.key_name
   apiParams.sourceParams[0].value = client?.clientName ? client.clientName : ''
-  apiParams.sourceParams[1].value = client?.clientId ? client.clientId : ''
-  apiParams.sourceParams[2].value = client?.fileName ? client.fileName : ''
+  if (importFile.mappingInfoOverride) {
+    apiParams.sourceParams[1].value = importFile.companyId
+    apiParams.sourceParams[2].value = source.key_name.replace(/\<.*/, '')
+  } else {
+    apiParams.sourceParams[1].value = client?.clientId ? client.clientId : ''
+    apiParams.sourceParams[2].value = client?.fileName ? client.fileName : ''
+  }
   apiParams.sourceParams[3].value = client?.fileType ? client.fileType : ''
   apiParams.sourceParams[4].value = client?.delimiter ? client.delimiter : ''
-  apiParams.sourceParams[5].value = client?.ticketId ? client.ticketId : ''
+  apiParams.sourceParams[5].value = client?.ticketUrl ? client.ticketUrl : ''
+  if (importFile.companyTaskUuid) {
+    // apiParams.sourceParams[6].value = importFile.companyTaskUuid
+    apiParams.sourceParams[6].value = "https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + importFile.companyTaskUuid
+  } else {
+    apiParams.sourceParams[6].value = client?.taskUrl ? client.taskUrl : ''
+  }
 
   // scheduleParams
   apiParams.scheduleParams[0].value = schedule?.frequency ? schedule.frequency : ''
   apiParams.scheduleParams[1].value = schedule?.triggerTime ? schedule.triggerTime : ''
-  apiParams.scheduleParams[2].value = schedule?.timeZone ? schedule.timeZone : ''
+  if (importFile.mappingInfoOverride && source.key_name.match(/\<.*/)) {
+    apiParams.scheduleParams[2].value = source.key_name.match(/\<.*/).toString().replace('<&', '').replace('&>', '')
+  } else {
+    apiParams.scheduleParams[2].value = schedule?.timeZone ? schedule.timeZone : ''
+  }
 
   // Change h1 title from Imported Payload to the name of the API
   const api = getApiFromUrl(apiParams.url)
@@ -320,11 +343,11 @@ function updatePayload(e, paramsId) {
   let user = {}
   let custom = {}
   let payload_mapping = {}
-  let targetPayload = {}
+  let request_details = {}
   let source = {}
   let schedule = {}
   let key_name = ''
-  let sourcePayload = {}
+  let source_details = {}
   let clientPayload = {}
   let schedulePayload = {}
 
@@ -423,14 +446,14 @@ function updatePayload(e, paramsId) {
 
   // console.log("PAYLOAD MAPPING", payload_mapping)
 
-  targetPayload = {
+  request_details = {
     url,
     method,
     header_mapping,
     payload_mapping
   }
 
-  sourcePayload = {
+  source_details = {
     bucket_name: 'solutions-sftp-bucket-prod',
     options: {
       match_prefix: true,
@@ -445,19 +468,20 @@ function updatePayload(e, paramsId) {
     if (source['fileName']) clientPayload.fileName = source['fileName']
     if (source['fileType']) clientPayload.fileType = source['fileType']
     if (source['delimiter']) clientPayload.delimiter = source['delimiter']
-    if (source['ticketId']) clientPayload.ticketId = source['ticketId']
+    if (source['ticketUrl']) clientPayload.ticketUrl = source['ticketUrl']
+    if (source['taskUrl']) clientPayload.taskUrl = source['taskUrl']
 
-    // Concatenate key_name & delimiter and add to sourcePayload
+    // Concatenate key_name & delimiter and add to source_details
     if (source['fileName']) {
       key_name = `${source['fileName']}`
     }
     if (schedule['timeZone']) {
       key_name += `<&${schedule['timeZone']}&>`
     }
-    sourcePayload.key_name = key_name
+    source_details.key_name = key_name
     if (source['delimiter']) {
       delimiter = source['delimiter']
-      sourcePayload.delimiter = delimiter
+      source_details.delimiter = delimiter
     }
   }
 
@@ -471,12 +495,26 @@ function updatePayload(e, paramsId) {
   // console.log("CLIENT PAYLOAD:", clientPayload)
   edsPayload.clientPayload = clientPayload
   // console.log("TARGET PAYLOAD:", clientPayload)
-  edsPayload.targetPayload = targetPayload
-  // console.log("SOURCE PAYLOAD:", sourcePayload)
-  edsPayload.sourcePayload = sourcePayload
+  edsPayload.request_details = request_details
+  // console.log("SOURCE PAYLOAD:", source_details)
+  edsPayload.source_details = source_details
   // console.log("SCHEDULE PAYLOAD:", schedulePayload)
   edsPayload.schedulePayload = schedulePayload
+
+  // Additional required EDS Payload objects
+  // edsPayload.task_id = clientPayload.taskUrl
+  edsPayload.task_id = clientPayload.taskUrl?.substring(clientPayload.taskUrl.lastIndexOf('/') + 1).toString()
+  edsPayload.source_type = "s3"
+  edsPayload.request_type = "http"
+  edsPayload.response_details = {
+    "response_predicates": {
+      "successStatusCode": "[200]"
+    }
+  }
+  edsPayload.auth_details = {}
+
   console.log("EDS PAYLOAD:", edsPayload)
+
 
   updateJsonPayloadBody(paramsId, edsPayload)
 }

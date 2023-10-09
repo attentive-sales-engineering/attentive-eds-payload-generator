@@ -155,8 +155,8 @@ Specification Client will upload files to SFTP with the following path and filen
 <!-- Made with Geekdoc theme https://github.com/thegeeklab/hugo-geekdoc -->
 
   
-<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 
 <script await src="https://johnchaffee.github.io/attentive-eds-payload-generator/ace.js" type="text/javascript" charset="utf-8"></script>
 <script await src="https://johnchaffee.github.io/attentive-eds-payload-generator/api-explorer.js"></script>
@@ -238,20 +238,6 @@ Specification Client will upload files to SFTP with the following path and filen
     </div>
   </div>
 </header>
-
-    <dialog id="newEnvVarDialog">
-      <h3>Update Environment Variable</h3>
-      <form method="dialog">
-        <div class="input-group my-1" data-key-value-pair>
-          <input modal-data-key type="text" data-key class="form-control" style="min-width:100px" placeholder="Key"
-            value="" />
-          <input modal-data-value type="text" data-value class="form-control" style="min-width:330px"
-            placeholder="Value" value="" />
-        </div>
-        <button class="btn btn-outline-danger" value="cancel">Cancel</button>
-        <button id="saveBtn" class="btn btn-primary" value="save">Save</button>
-      </form>
-    </dialog>
 
     <main class="container flex flex-even">
       
@@ -379,12 +365,12 @@ Specification Client will upload files to SFTP with the following path and filen
   }
 
   
-  const url = edsPayload.targetPayload.url
+  const url = edsPayload.request_details.url
   api = getApiFromUrl(url)
   replaceText("api", api)
 
   
-  const key_name = edsPayload.sourcePayload.key_name
+  const key_name = edsPayload.source_details.key_name
   console.log("KEY NAME:", key_name)
 
   if (key_name != null && key_name != '') {
@@ -437,8 +423,8 @@ Specification Client will upload files to SFTP with the following path and filen
   
 
   
-  maskedPayload = edsPayload.targetPayload.header_mapping.Authorization.toString().replace(/Bearer (.*)/, 'Bearer ********')
-  edsPayload.targetPayload.header_mapping.Authorization = maskedPayload
+  maskedPayload = edsPayload.request_details.header_mapping.Authorization.toString().replace(/Bearer (.*)/, 'Bearer ********')
+  edsPayload.request_details.header_mapping.Authorization = maskedPayload
 
   
   aceJsonRequest = ace.edit(
@@ -447,7 +433,7 @@ Specification Client will upload files to SFTP with the following path and filen
   aceJsonRequest.setTheme('ace/theme/xcode')
   aceJsonRequest.session.setMode('ace/mode/json')
   aceJsonRequest.setValue(null)
-  aceJsonRequest.insert(JSON.stringify(edsPayload.targetPayload, null, 2))
+  aceJsonRequest.insert(JSON.stringify(edsPayload.request_details, null, 2))
   aceJsonRequest.setReadOnly(true)
   aceJsonRequest.setOptions({
     maxLines: 60,
@@ -460,8 +446,8 @@ Specification Client will upload files to SFTP with the following path and filen
 
   
   let pageTitle = "EDS"
-  if (edsPayload.clientPayload["ticketId"] && edsPayload.clientPayload["ticketId"].length > 0 && edsPayload.clientPayload["ticketId"].match(/\d+$/)) {
-    pageTitle += `-${edsPayload.clientPayload["ticketId"].match(/\d+$/).toString()}`
+  if (edsPayload.clientPayload["ticketUrl"] && edsPayload.clientPayload["ticketUrl"].length > 0 && edsPayload.clientPayload["ticketUrl"].match(/\d+$/)) {
+    pageTitle += `-${edsPayload.clientPayload["ticketUrl"].match(/\d+$/).toString()}`
   }
   if (edsPayload.clientPayload["clientName"] && edsPayload.clientPayload["clientName"].length > 0) {
     pageTitle += ` - ${edsPayload.clientPayload["clientName"]}`

@@ -39,6 +39,7 @@
   --footer-link-color: #ffcc5c;
   --footer-link-color-visited: #ffcc5c;
 }
+
 @media (prefers-color-scheme: light) {
   :root {
     --header-background: #fff382;
@@ -109,6 +110,7 @@
   --footer-link-color: #ffcc5c;
   --footer-link-color-visited: #ffcc5c;
 }
+
 @media (prefers-color-scheme: dark) {
   :root {
     --header-background: #fff382;
@@ -146,7 +148,7 @@
 }
 
 /* Override inline code background color */
-:not(.gdoc-markdown pre) > code {
+:not(.gdoc-markdown pre)>code {
   background-color: #f5f6f8;
   color: rgb(95, 95, 95);
 }
@@ -161,4 +163,15 @@
 .section-title {
   font-weight: 600;
   padding: 0.5rem 0;
+}
+
+dialog {
+  z-index: 10;
+  margin-top: 100px;
+  padding: 20px;
+  border: 2px solid gray;
+}
+
+#taskId {
+  width: 100%;
 }

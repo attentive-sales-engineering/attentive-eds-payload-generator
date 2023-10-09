@@ -28,9 +28,14 @@
       "placeholder": "comma, tab, pipe, ndjson (optional, default comma)"
     },
     {
-      "key": "ticketId",
+      "key": "ticketUrl",
       "value": "",
       "placeholder": "Jira ticket link"
+    },
+    {
+      "key": "taskUrl",
+      "value": "",
+      "placeholder": "Existing EDS url (leave blank for new)"
     }
   ],
   "scheduleParams": [

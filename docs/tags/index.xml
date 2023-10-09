@@ -24,15 +24,6 @@
     </item>
     
     <item>
-      <title>environment</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/environment/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/environment/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>events</title>
       <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/events/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -47,15 +38,6 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/messages/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>preferences</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/preferences/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/preferences/</guid>
       <description></description>
     </item>
     
@@ -83,15 +65,6 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/text/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>variables</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/variables/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/variables/</guid>
       <description></description>
     </item>
     

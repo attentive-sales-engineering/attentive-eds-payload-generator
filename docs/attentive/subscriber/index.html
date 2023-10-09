@@ -9,7 +9,7 @@
 <meta name="generator" content="Hugo 0.105.0">
 
 
-  <meta name="description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: &#9998; &#10005; " />
+  <meta name="description" content=" Cancel Submit SOW Create POST GET Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: &#9998; &#10005; " />
 
   <title>Subscribe | Attentive EDS</title>
 
@@ -35,7 +35,7 @@
     content="Subscribe"
   />
   <meta property="og:site_name" content="Attentive EDS" />
-  <meta property="og:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: ✎ ✕ " />
+  <meta property="og:description" content=" Cancel Submit SOW Create POST GET Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: ✎ ✕ " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/subscriber/" />
 
@@ -44,7 +44,7 @@
 
   <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Subscribe" />
-  <meta name="twitter:description" content=" SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: ✎ ✕ " />
+  <meta name="twitter:description" content=" Cancel Submit SOW Create POST GET Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: ✎ ✕ " />
 
 
   <script type="application/ld+json">
@@ -55,8 +55,8 @@
       "name": "Subscribe",
       "url" : "https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/subscriber/",
       "headline": "Subscribe",
-      "description": " SOW Create Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header \u002b Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header \u002b Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: ✎ ✕ ",
-      "wordCount" : "61",
+      "description": " Cancel Submit SOW Create POST GET Export Import GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header \u002b Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header \u002b Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: ✎ ✕ ",
+      "wordCount" : "65",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
@@ -149,8 +149,8 @@
 <!-- Made with Geekdoc theme https://github.com/thegeeklab/hugo-geekdoc -->
 
   
-<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 
 <script await src="https://johnchaffee.github.io/attentive-eds-payload-generator/ace.js" type="text/javascript" charset="utf-8"></script>
 <script await src="https://johnchaffee.github.io/attentive-eds-payload-generator/api-explorer.js"></script>
@@ -243,20 +243,6 @@
     </div>
   </div>
 </header>
-
-    <dialog id="newEnvVarDialog">
-      <h3>Update Environment Variable</h3>
-      <form method="dialog">
-        <div class="input-group my-1" data-key-value-pair>
-          <input modal-data-key type="text" data-key class="form-control" style="min-width:100px" placeholder="Key"
-            value="" />
-          <input modal-data-value type="text" data-value class="form-control" style="min-width:330px"
-            placeholder="Value" value="" />
-        </div>
-        <button class="btn btn-outline-danger" value="cancel">Cancel</button>
-        <button id="saveBtn" class="btn btn-primary" value="save">Save</button>
-      </form>
-    </dialog>
 
     <main class="container flex flex-even">
       
@@ -997,9 +983,21 @@
 
   
 
+  <dialog>
+    <form method="dialog">
+      <input name="taskId" id="taskId" ctype="text" placeholder="Enter EDS task_id"><br>
+      <textarea name="token" id="token" cols="50" rows="4" placeholder="Paste 'attentive-auth-token' from Attentive UI Session storage"></textarea><br>
+      <input id="method" type="hidden">
+      <button id="dialogCancelBtn" type="">Cancel</button>
+      <button id="dialogSubmitBtn" type="">Submit</button>
+    </form>
+  </dialog>
+
   <div class="mt-x">
     <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" sow-btn>SOW</button></a>
     <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" create-btn>Create</button></a>
+    <button class="btn btn-primary right ml-2 mb-4" post-btn>POST</button>
+    <button class="btn btn-primary right ml-2 mb-4" get-btn>GET</button>
     <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary right ml-2 mb-4" export-btn>Export</button></a>
     <form method="post" enctype="multipart/form-data">
       <div>
@@ -1226,13 +1224,13 @@
         const downloadBtn = document.getElementById("downloadBtn")
         downloadBtn.href = 'data:' + data
         let filename = "EDS"
-        if (edsPayload.clientPayload["ticketId"] && edsPayload.clientPayload["ticketId"].length > 0 && edsPayload.clientPayload["ticketId"].match(/\d+$/)) {
-          filename += `-${edsPayload.clientPayload["ticketId"].match(/\d+$/).toString()}`
+        if (edsPayload.clientPayload["ticketUrl"] && edsPayload.clientPayload["ticketUrl"].length > 0 && edsPayload.clientPayload["ticketUrl"].match(/\d+$/)) {
+          filename += `-${edsPayload.clientPayload["ticketUrl"].match(/\d+$/).toString()}`
         }
         if (edsPayload.clientPayload["clientName"] && edsPayload.clientPayload["clientName"].length > 0) {
           filename += ` ${edsPayload.clientPayload["clientName"]}`
         }
-        let apiFileName = getApiFromUrl(edsPayload.targetPayload.url)
+        let apiFileName = getApiFromUrl(edsPayload.request_details.url)
         filename += ` ${apiFileName}`
 
         
@@ -1248,6 +1246,7 @@
       importElement.style.opacity = 0
       importElement.addEventListener("change", importJson)
 
+      
       function importJson() {
         console.log("IMPORT JSON")
         const files = importElement.files
@@ -1263,6 +1262,108 @@
         }
         reader.readAsText(jsonFile)
       }
+
+      const dialog = document.querySelector("dialog")
+      let token = ''
+      let task_id = ''
+
+      
+      
+      dialog.querySelector("#dialogSubmitBtn").addEventListener("click", () => {
+        console.log("DIALOG dialogSubmitBtn click:")
+        token = document.querySelector("dialog #token").value
+        task_id = document.querySelector("dialog #taskId").value
+        const method = document.querySelector("dialog #method").value
+        const headers = { 'Authorization': `Bearer ${token}` }
+        let url
+        let data
+
+        if (method === "POST") {
+          url = "https://johnchaffee.ngrok.io/v1/event-destination/post-mapping"
+          data = edsPayload
+          headers['content-type'] = 'application/json'
+        } else {
+          url = "https://johnchaffee.ngrok.io/v1/event-destination/get-mapping/" + task_id
+        }
+
+        console.log("=====")
+        console.log('URL:', url)
+        console.log('METHOD:', method)
+        console.log('HEADERS:', headers)
+        console.log('DATA:', data)
+        console.log("=====")
+
+        axios({
+          url,
+          method,
+          headers,
+          data
+        })
+          .then(function (response) {
+            
+            console.log('SUCCESS')
+            console.log('RESPONSE.DATA:', response.data)
+            console.log("METHOD:", method)
+            if (method === "POST") {
+              
+            } else {
+              
+              localStorage.setItem("eds-import", JSON.stringify(response.data))
+              window.location.href = "../../other/import"
+            }
+          })
+          .catch(function (error) {
+            console.log('CATCH')
+            if (error.response) {
+              console.log("ERROR.RESPONSE")
+              
+              
+              console.log("ERROR.toJSON().STATUS:", error.toJSON().status)
+              console.log("ERROR.toJSON().CODE:", error.toJSON().code)
+              console.log("ERROR.toJSON().MESSAGE:", error.toJSON().message)
+              
+              
+            } else if (error.request) {
+              console.log("ERROR.REQUEST")
+              
+              
+              
+              console.log(error.request)
+            } else {
+              console.log("ERROR.MESSAGE")
+              
+              console.log('Error', error.message)
+            }
+          })
+          .finally(function () {
+            
+            console.log('FINALLY')
+          })
+      })
+
+      
+      document.querySelector("[get-btn]").addEventListener("click", () => {
+        console.log("CLICKED GET BUTTON")
+        if (edsPayload.task_id) {
+          task_id = edsPayload.task_id
+          console.log("TASK ID:", task_id)
+          dialog.querySelector("#taskId").value = task_id
+          dialog.querySelector("#method").value = "GET"
+        }
+        dialog.showModal()
+      })
+
+      
+      document.querySelector("[post-btn]").addEventListener("click", () => {
+        console.log("CLICKED POST BUTTON")
+        if (edsPayload.task_id) {
+          task_id = edsPayload.task_id
+          console.log("TASK ID:", task_id)
+          dialog.querySelector("#taskId").value = task_id
+          dialog.querySelector("#method").value = "POST"
+        }
+        dialog.showModal()
+      })
 
       
       function addRow(paramId, btnElement, dataElement) {
