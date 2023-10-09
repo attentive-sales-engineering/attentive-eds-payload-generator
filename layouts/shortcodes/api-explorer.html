@@ -14,7 +14,9 @@
 
   <dialog>
     <form method="dialog">
-      <input name="taskId" id="taskId" ctype="text" placeholder="Enter EDS task_id"><br>
+      <label for="taskId">task_id:</label>
+      <input name="taskId" id="taskId" ctype="text" placeholder="Enter task_id to update or blank to create new"><br>
+      <label for="token">token:</label><br>
       <textarea name="token" id="token" cols="50" rows="4" placeholder="Paste 'attentive-auth-token' from Attentive UI Session storage"></textarea><br>
       <input id="method" type="hidden">
       <button id="dialogCancelBtn" type="">Cancel</button>
@@ -234,6 +236,12 @@
 <script>
 
   let apiParams
+  let token = ''
+  let task_id = ''
+  let url = ''
+  let method = ''
+  let headers = {}
+  let data
 
   async function fetchApiParams() {
     const response = await fetch('./params.json')
@@ -309,25 +317,23 @@
       }
 
       const dialog = document.querySelector("dialog")
-      let token = ''
-      let task_id = ''
 
       // Dialog submit button event listener
-      // Capture token and trigger axios request
+      // Capture task_id and token and trigger axios request
       dialog.querySelector("#dialogSubmitBtn").addEventListener("click", () => {
         console.log("DIALOG dialogSubmitBtn click:")
         token = document.querySelector("dialog #token").value
         task_id = document.querySelector("dialog #taskId").value
-        const method = document.querySelector("dialog #method").value
-        const headers = { 'Authorization': `Bearer ${token}` }
-        let url
-        let data
+        method = document.querySelector("dialog #method").value
+        // headers = { 'Authorization': `Bearer ${token}` }
+        headers['Authorization'] = `Bearer ${token}`
 
         if (method === "POST") {
           url = "https://johnchaffee.ngrok.io/v1/event-destination/post-mapping"
           data = edsPayload
           headers['content-type'] = 'application/json'
         } else {
+          console.log("GET")
           url = "https://johnchaffee.ngrok.io/v1/event-destination/get-mapping/" + task_id
         }
 
@@ -338,6 +344,12 @@
         console.log('DATA:', data)
         console.log("=====")
 
+        edsMapping()
+      })
+
+      // GET or POST mapping for existing task_id
+      async function edsMapping() {
+        console.log("edsMapping")
         axios({
           url,
           method,
@@ -350,7 +362,8 @@
             console.log('RESPONSE.DATA:', response.data)
             console.log("METHOD:", method)
             if (method === "POST") {
-              // Do nothing, stay on this page
+              // Open EDS Job in new window
+              window.open("https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + task_id, '_blank')
             } else {
               // Must be a GET, store response in local storage and redirect to import page
               localStorage.setItem("eds-import", JSON.stringify(response.data))
@@ -384,7 +397,7 @@
             // always executed
             console.log('FINALLY')
           })
-      })
+      }
 
       // GET button click listener
       document.querySelector("[get-btn]").addEventListener("click", () => {
@@ -395,6 +408,7 @@
           dialog.querySelector("#taskId").value = task_id
           dialog.querySelector("#method").value = "GET"
         }
+        dialog.querySelector("#taskId").placeholder = "Enter task_id of job to fetch"
         dialog.showModal()
       })
 
@@ -407,6 +421,7 @@
           dialog.querySelector("#taskId").value = task_id
           dialog.querySelector("#method").value = "POST"
         }
+        dialog.querySelector("#taskId").placeholder = "Enter task_id to update or blank to create new"
         dialog.showModal()
       })
 
