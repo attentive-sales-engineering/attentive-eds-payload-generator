@@ -16,6 +16,7 @@
     <form method="dialog">
       <input name="taskId" id="taskId" ctype="text" placeholder="Enter EDS task_id"><br>
       <textarea name="token" id="token" cols="50" rows="4" placeholder="Paste 'attentive-auth-token' from Attentive UI Session storage"></textarea><br>
+      <input id="method" type="hidden">
       <button id="dialogCancelBtn" type="">Cancel</button>
       <button id="dialogSubmitBtn" type="">Submit</button>
     </form>
@@ -24,6 +25,7 @@
   <div class="mt-x">
     <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" sow-btn>SOW</button></a>
     <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" create-btn>Create</button></a>
+    <button class="btn btn-primary right ml-2 mb-4" post-btn>POST</button>
     <button class="btn btn-primary right ml-2 mb-4" get-btn>GET</button>
     <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary right ml-2 mb-4" export-btn>Export</button></a>
     <form method="post" enctype="multipart/form-data">
@@ -314,30 +316,46 @@
       // Capture token and trigger axios request
       dialog.querySelector("#dialogSubmitBtn").addEventListener("click", () => {
         console.log("DIALOG dialogSubmitBtn click:")
-        token = document.querySelector("dialog textarea").value
-
+        token = document.querySelector("dialog #token").value
+        task_id = document.querySelector("dialog #taskId").value
+        const method = document.querySelector("dialog #method").value
         const headers = { 'Authorization': `Bearer ${token}` }
-        const method = "GET"
+        let url
+        let data
 
-        // Set URL and Header Auth
-        const url = "https://johnchaffee.ngrok.io/v1/event-destination/get-mapping/" + task_id
+        if (method === "POST") {
+          url = "https://johnchaffee.ngrok.io/v1/event-destination/post-mapping"
+          data = edsPayload
+          headers['content-type'] = 'application/json'
+        } else {
+          url = "https://johnchaffee.ngrok.io/v1/event-destination/get-mapping/" + task_id
+        }
+
         console.log("=====")
         console.log('URL:', url)
+        console.log('METHOD:', method)
         console.log('HEADERS:', headers)
+        console.log('DATA:', data)
         console.log("=====")
 
         axios({
           url,
           method,
-          headers
-          // data
+          headers,
+          data
         })
           .then(function (response) {
             // handle success
             console.log('SUCCESS')
             console.log('RESPONSE.DATA:', response.data)
-            localStorage.setItem("eds-import", JSON.stringify(response.data))
-            window.location.href = "../../other/import"
+            console.log("METHOD:", method)
+            if (method === "POST") {
+              // Do nothing, stay on this page
+            } else {
+              // Must be a GET, store response in local storage and redirect to import page
+              localStorage.setItem("eds-import", JSON.stringify(response.data))
+              window.location.href = "../../other/import"
+            }
           })
           .catch(function (error) {
             console.log('CATCH')
@@ -375,6 +393,19 @@
           task_id = edsPayload.task_id
           console.log("TASK ID:", task_id)
           dialog.querySelector("#taskId").value = task_id
+          dialog.querySelector("#method").value = "GET"
+        }
+        dialog.showModal()
+      })
+
+      // POST button click listener
+      document.querySelector("[post-btn]").addEventListener("click", () => {
+        console.log("CLICKED POST BUTTON")
+        if (edsPayload.task_id) {
+          task_id = edsPayload.task_id
+          console.log("TASK ID:", task_id)
+          dialog.querySelector("#taskId").value = task_id
+          dialog.querySelector("#method").value = "POST"
         }
         dialog.showModal()
       })
