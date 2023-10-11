@@ -159,8 +159,10 @@
   // if (frequency === null) document.querySelector("#frequency").classList.add('d-none')
 
   // Mask API Key
-  maskedPayload = edsPayload.request_details.header_mapping.Authorization.toString().replace(/Bearer (.*)/, 'Bearer ********')
-  edsPayload.request_details.header_mapping.Authorization = maskedPayload
+  if (edsPayload.request_details?.header_mapping?.Authorization) {
+    maskedPayload = edsPayload.request_details?.header_mapping.Authorization.toString().replace(/Bearer (.*)/, 'Bearer ********')
+    edsPayload.request_details.header_mapping.Authorization = maskedPayload
+  }
 
   // Render Target Payload
   aceJsonRequest = ace.edit(
