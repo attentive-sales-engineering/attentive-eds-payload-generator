@@ -263,7 +263,7 @@
       // document.querySelector("[sow-btn]").addEventListener("click", () => {
       //   console.log("CLICKED SOW BUTTON")
       //   localStorage.setItem("eds-sow", JSON.stringify(edsPayload))
-      //   window.open("../../other/sow", '_blank')
+      //   window.open("../../tools/sow", '_blank')
       // })
 
       // Nav links click listener
@@ -279,7 +279,7 @@
           if (path.match("/sow")) {
             console.log("CLICKED SOW BUTTON")
             localStorage.setItem("eds-sow", JSON.stringify(edsPayload))
-            window.open("../../other/sow", '_blank')
+            window.open("../../tools/sow", '_blank')
           }
           e.preventDefault()
         })
@@ -330,7 +330,7 @@
         reader.onload = function (e) {
           const text = e.target.result
           localStorage.setItem("eds-import", text)
-          window.location.href = "../../other/import"
+          window.location.href = "../../tools/import"
         }
         reader.readAsText(jsonFile)
       }
@@ -402,7 +402,7 @@
             } else {
               // Must be a GET, store response in local storage and redirect to import page
               localStorage.setItem("eds-import", JSON.stringify(response.data))
-              window.location.href = "../../other/import"
+              window.location.href = "../../tools/import"
             }
           })
           .catch(function (error) {
