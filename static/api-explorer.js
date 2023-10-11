@@ -329,7 +329,7 @@ function parseImportFile(edsFile) {
 function updatePayload(e, paramsId) {
   // console.log("LISTENER:", e)
   // console.log("LISTENER TYPE:", e.type)
-  console.log('EVENT:', e.type)
+  // console.log('EVENT:', e.type)
   // console.log('PARAMS ID:', paramsId)
 
   let url = ''

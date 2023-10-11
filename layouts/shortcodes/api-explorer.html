@@ -24,15 +24,15 @@
     </form>
   </dialog>
 
-  <div class="mt-x">
-    <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" sow-btn>SOW</button></a>
-    <a href="" target="_blank"><button type="submit" class="btn btn-primary right ml-2 mb-4" create-btn>Create</button></a>
-    <button class="btn btn-primary right ml-2 mb-4" post-btn>POST</button>
-    <button class="btn btn-primary right ml-2 mb-4" get-btn>GET</button>
-    <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary right ml-2 mb-4" export-btn>Export</button></a>
+  <div>
+    <a href="" target="_blank"><button type="submit" class="btn btn-primary left mb-4" sow-btn>SOW</button></a>
+    <a href="" target="_blank"><button type="submit" class="btn btn-primary left ml-2 mb-4" create-btn>Create</button></a>
+    <button class="btn btn-primary left ml-2 mb-4" post-btn>POST</button>
+    <button class="btn btn-primary left ml-2 mb-4" get-btn>GET</button>
+    <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary left ml-2 mb-4" export-btn>Export</button></a>
     <form method="post" enctype="multipart/form-data">
       <div>
-        <label class="btn btn-primary right" for="json_upload">Import</label>
+        <label class="btn btn-primary left ml-2" for="json_upload">Import</label>
         <input type="file" id="json_upload" name="json_upload" accept=".json" />
       </div>
     </form>
@@ -330,6 +330,7 @@
 
         if (method === "POST") {
           url = "https://johnchaffee.ngrok.io/v1/event-destination/post-mapping"
+          edsPayload.task_id = task_id
           data = edsPayload
           headers['content-type'] = 'application/json'
         } else {
@@ -344,12 +345,27 @@
         console.log('DATA:', data)
         console.log("=====")
 
-        edsMapping()
+        if (task_id != '') {
+          // Have task_id, go ahead and do a POST or GET
+          console.log("if DIALOG dialogSubmitBtn task_id != '' task_id:", task_id)
+          edsMapping()
+        } else {
+          if (method === "POST") {
+            // POST but no task_id, create the task, then call edsMapping
+            console.log("else DIALOG dialogSubmitBtn POST task_id:", task_id)
+            createTask()
+          } else {
+            // Can't do a GET with no task_id
+            alert("Must enter task_id")
+          }
+        }
+
       })
 
       // GET or POST mapping for existing task_id
       async function edsMapping() {
-        console.log("edsMapping")
+        console.log("axios edsMapping")
+        console.log("axios edsMapping task_id:", task_id)
         axios({
           url,
           method,
@@ -399,15 +415,66 @@
           })
       }
 
+      async function createTask() {
+        console.log("axios createTask")
+        axios({
+          url: "https://johnchaffee.ngrok.io/v1/event-destination/create-task",
+          method,
+          headers,
+          data: {
+            "task_name": "Chafco Test",
+            "task_description": "Chafco Description"
+          }
+        })
+          .then(function (response) {
+            // handle success
+            console.log('SUCCESS')
+            console.log('RESPONSE.DATA:', response.data)
+            console.log("METHOD:", method)
+            task_id = response.data.task_id
+            edsPayload.task_id = task_id
+            // edsPayload.clientPayload.taskUrl = "https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + task_id
+            // apiParams.sourceParams.taskUrl = "https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + task_id
+            edsMapping()
+          })
+          .catch(function (error) {
+            console.log('CATCH')
+            if (error.response) {
+              console.log("ERROR.RESPONSE")
+              // The request was made and the server responded with a status code
+              // that falls out of the range of 2xx
+              console.log("ERROR.toJSON().STATUS:", error.toJSON().status)
+              console.log("ERROR.toJSON().CODE:", error.toJSON().code)
+              console.log("ERROR.toJSON().MESSAGE:", error.toJSON().message)
+              // console.log("ERROR.toJSON:", error.toJSON())
+              // console.log("ERROR.CONFIG", error.config)
+            } else if (error.request) {
+              console.log("ERROR.REQUEST")
+              // The request was made but no response was received
+              // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+              // http.ClientRequest in node.js
+              console.log(error.request)
+            } else {
+              console.log("ERROR.MESSAGE")
+              // Something happened in setting up the request that triggered an Error
+              console.log('Error', error.message)
+            }
+          })
+          .finally(function () {
+            // always executed
+            console.log('FINALLY')
+          })
+      }
+
       // GET button click listener
       document.querySelector("[get-btn]").addEventListener("click", () => {
         console.log("CLICKED GET BUTTON")
         if (edsPayload.task_id) {
           task_id = edsPayload.task_id
-          console.log("TASK ID:", task_id)
-          dialog.querySelector("#taskId").value = task_id
-          dialog.querySelector("#method").value = "GET"
         }
+        console.log("TASK ID:", task_id)
+        dialog.querySelector("#taskId").value = task_id
+        dialog.querySelector("#method").value = "GET"
         dialog.querySelector("#taskId").placeholder = "Enter task_id of job to fetch"
         dialog.showModal()
       })
@@ -417,10 +484,10 @@
         console.log("CLICKED POST BUTTON")
         if (edsPayload.task_id) {
           task_id = edsPayload.task_id
-          console.log("TASK ID:", task_id)
-          dialog.querySelector("#taskId").value = task_id
-          dialog.querySelector("#method").value = "POST"
         }
+        console.log("TASK ID:", task_id)
+        dialog.querySelector("#taskId").value = task_id
+        dialog.querySelector("#method").value = "POST"
         dialog.querySelector("#taskId").placeholder = "Enter task_id to update or blank to create new"
         dialog.showModal()
       })
