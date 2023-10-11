@@ -29,7 +29,7 @@
     <a href="" target="_blank"><button type="submit" class="btn btn-primary left ml-2 mb-4" create-btn>Create</button></a>
     <button class="btn btn-primary left ml-2 mb-4" post-btn>POST</button>
     <button class="btn btn-primary left ml-2 mb-4" get-btn>GET</button>
-    <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary left ml-2 mb-4" export-btn>Export</button></a>
+    <!-- <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary left ml-2 mb-4" export-btn>Export</button></a> -->
     <form method="post" enctype="multipart/form-data">
       <div>
         <label class="btn btn-primary left ml-2" for="json_upload">Import</label>
@@ -276,12 +276,15 @@
           console.log("e.srcElement.innerText:", e.srcElement.innerText)
           const path = new URL(e.srcElement.href).pathname
           // SOW Link
-          if (path.match("/sow")) {
-            console.log("CLICKED SOW BUTTON")
+          if (path.includes("/sow")) {
+            e.preventDefault()
+            console.log("CLICKED SOW LINK")
             localStorage.setItem("eds-sow", JSON.stringify(edsPayload))
             window.open("../../tools/sow", '_blank')
+          } else if (path.includes("/export")) {
+            console.log("CLICKED EXPORT LINK")
+            exportJson(e.srcElement)
           }
-          e.preventDefault()
         })
       })
 
@@ -291,10 +294,34 @@
       })
 
       // Export button click listener
-      document.querySelector("[export-btn]").addEventListener("click", () => {
+      // document.querySelector("[export-btn]").addEventListener("click", () => {
+      //   const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
+      //   const downloadBtn = document.getElementById("downloadBtn")
+      //   downloadBtn.href = 'data:' + data
+      //   console.log("downloadBtn:", downloadBtn)
+      //   let filename = "EDS"
+      //   if (edsPayload.clientPayload["ticketUrl"] && edsPayload.clientPayload["ticketUrl"].length > 0 && edsPayload.clientPayload["ticketUrl"].match(/\d+$/)) {
+      //     filename += `-${edsPayload.clientPayload["ticketUrl"].match(/\d+$/).toString()}`
+      //   }
+      //   if (edsPayload.clientPayload["clientName"] && edsPayload.clientPayload["clientName"].length > 0) {
+      //     filename += ` ${edsPayload.clientPayload["clientName"]}`
+      //   }
+      //   let apiFileName = getApiFromUrl(edsPayload.request_details.url)
+      //   filename += ` ${apiFileName}`
+
+      //   // if (edsPayload.source_details["key_name"].length > 0) {
+      //   //   filename += ` ${edsPayload.source_details["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
+      //   // }
+      //   if (filename === null || filename === '') filename = 'data'
+      //   downloadBtn.download = `${filename}.json`
+      // })
+
+      function exportJson(element) {
+        console.log("exportJson() function")
         const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
-        const downloadBtn = document.getElementById("downloadBtn")
+        const downloadBtn = element
         downloadBtn.href = 'data:' + data
+        console.log("downloadBtn:", downloadBtn)
         let filename = "EDS"
         if (edsPayload.clientPayload["ticketUrl"] && edsPayload.clientPayload["ticketUrl"].length > 0 && edsPayload.clientPayload["ticketUrl"].match(/\d+$/)) {
           filename += `-${edsPayload.clientPayload["ticketUrl"].match(/\d+$/).toString()}`
@@ -310,7 +337,7 @@
         // }
         if (filename === null || filename === '') filename = 'data'
         downloadBtn.download = `${filename}.json`
-      })
+      }
 
       // Import button click listener
       const importElement = document.querySelector("#json_upload")
