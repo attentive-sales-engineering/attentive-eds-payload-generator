@@ -1,7 +1,7 @@
 ---
 title: "Scope of Work"
 draft: false
-# weight: 4000
+weight: 7000
 tags:
   - events
 geekdocNav: false

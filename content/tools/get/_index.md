@@ -1,11 +1,11 @@
 ---
-title: "Link to Create"
+title: "GET Payload"
 draft: false
-weight: 6000
+weight: 3000
 tags:
   - events
 geekdocNav: false
 geekdocBreadcrumb: false
 ---
 
-Create
+Get
