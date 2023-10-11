@@ -25,7 +25,7 @@
   </dialog>
 
   <div>
-    <a href="" target="_blank"><button type="submit" class="btn btn-primary left mb-4" sow-btn>SOW</button></a>
+    <!-- <a href="" target="_blank"><button type="submit" class="btn btn-primary left mb-4" sow-btn>SOW</button></a> -->
     <a href="" target="_blank"><button type="submit" class="btn btn-primary left ml-2 mb-4" create-btn>Create</button></a>
     <button class="btn btn-primary left ml-2 mb-4" post-btn>POST</button>
     <button class="btn btn-primary left ml-2 mb-4" get-btn>GET</button>
@@ -259,11 +259,30 @@
         parseImportFile("{{ .Params.id }}")
       }
 
-      // SOW button click listener
-      document.querySelector("[sow-btn]").addEventListener("click", () => {
-        console.log("CLICKED SOW BUTTON")
-        localStorage.setItem("eds-sow", JSON.stringify(edsPayload))
-        window.open("../../other/sow", '_blank')
+      // // SOW button click listener
+      // document.querySelector("[sow-btn]").addEventListener("click", () => {
+      //   console.log("CLICKED SOW BUTTON")
+      //   localStorage.setItem("eds-sow", JSON.stringify(edsPayload))
+      //   window.open("../../other/sow", '_blank')
+      // })
+
+      // Nav links click listener
+      document.querySelectorAll('a.gdoc-nav__entry').forEach(element => {
+        console.log("ELEMENT:", element)
+        element.addEventListener("click", e => {
+          console.log("CLICK E:", e)
+          console.log("e.srcElement.baseURI:", e.srcElement.baseURI)
+          console.log("e.srcElement.href:", e.srcElement.href)
+          console.log("e.srcElement.innerText:", e.srcElement.innerText)
+          const path = new URL(e.srcElement.href).pathname
+          // SOW Link
+          if (path.match("/sow")) {
+            console.log("CLICKED SOW BUTTON")
+            localStorage.setItem("eds-sow", JSON.stringify(edsPayload))
+            window.open("../../other/sow", '_blank')
+          }
+          e.preventDefault()
+        })
       })
 
       // Create button click listener
