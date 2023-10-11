@@ -92,6 +92,10 @@ function createKeyValuePair(id, key, value, placeholder, curlyBraces) {
   thisValue.dataset.curlyBraces = curlyBraces || 'true'
   console.log("curlyBraces:", thisValue.dataset.curlyBraces)
 
+  element.querySelector('[data-update-btn]').addEventListener('click', e => {
+    e.target.classList.toggle("curly")
+  })
+
   element.querySelector('[data-remove-btn]').addEventListener('click', e => {
     closest = e.target.closest('[data-key-value-pair]')
     closest.remove()

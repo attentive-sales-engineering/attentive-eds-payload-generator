@@ -347,3 +347,8 @@ dialog::backdrop {
 .left {
   float: left;
 }
+
+.curly {
+  color: white;
+  background-color: #0d6efd;
+}
