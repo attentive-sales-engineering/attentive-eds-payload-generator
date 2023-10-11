@@ -5,54 +5,64 @@
     {
       "key": "clientName",
       "value": "",
-      "placeholder": "Chafco (required)"
+      "placeholder": "Chafco (required)",
+      "data-curly-braces": "false"
     },
     {
       "key": "clientId",
       "value": "",
-      "placeholder": "83006 (required)"
+      "placeholder": "83006 (required)",
+      "data-curly-braces": "false"
     },
     {
       "key": "fileName",
       "value": "",
-      "placeholder": "chafco/uploads/custom_attributes.csv (required)"
+      "placeholder": "chafco/uploads/custom_attributes.csv (required)",
+      "data-curly-braces": "false"
     },
     {
       "key": "fileType",
       "value": "",
-      "placeholder": "CSV, TXT, NDJSON (required)"
+      "placeholder": "CSV, TXT, NDJSON (required)",
+      "data-curly-braces": "false"
     },
     {
       "key": "delimiter",
       "value": "",
-      "placeholder": "comma, tab, pipe, ndjson (optional, default comma)"
+      "placeholder": "comma, tab, pipe, ndjson (optional, default comma)",
+      "data-curly-braces": "false"
     },
     {
       "key": "ticketUrl",
       "value": "",
-      "placeholder": "Jira ticket link"
+      "placeholder": "Jira ticket link",
+      "data-curly-braces": "false"
     },
     {
       "key": "taskUrl",
       "value": "",
-      "placeholder": "Existing EDS url (leave blank for new)"
+      "placeholder": "Existing EDS url (leave blank for new)",
+      "data-curly-braces": "false"
     }
   ],
   "scheduleParams": [
     {
       "key": "frequency",
       "value": "",
-      "placeholder": "Hourly, Daily, Weekly, Monthly (blank for on-demand)"
+      "placeholder": "Hourly, Daily, Weekly, Monthly (blank for on-demand)",
+      "data-curly-braces": "false"
     },
     {
       "key": "triggerTime",
       "value": "",
-      "placeholder": "9:00 AM, 15:00 (blank for on-demand)"
+      "placeholder": "9:00 AM, 15:00 (blank for on-demand)",
+      "data-curly-braces": "false"
     },
     {
       "key": "timeZone",
       "value": "",
-      "placeholder": "America/New_York, Europe/London (required, if scheduled)"
+      "placeholder": "America/New_York, Europe/London (required, if scheduled)",
+      "data-curly-braces": "false"
     }
   ],
   "propParams": [],
@@ -66,17 +76,20 @@
     {
       "key": "phone",
       "value": "",
-      "placeholder": "phone (required, E.164 format)"
+      "placeholder": "phone (required, E.164 format)",
+      "data-curly-braces": "true"
     },
     {
       "key": "email",
       "value": "",
-      "placeholder": "email (phone or email required)"
+      "placeholder": "email (phone or email required)",
+      "data-curly-braces": "true"
     },
     {
       "key": "externalIdentifiers.clientUserId",
       "value": "",
-      "placeholder": "clientUserId (optional)"
+      "placeholder": "clientUserId (optional)",
+      "data-curly-braces": "true"
     }
   ],
   "customParams": []
