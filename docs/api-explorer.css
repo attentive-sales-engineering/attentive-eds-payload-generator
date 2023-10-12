@@ -130,10 +130,6 @@
   margin-top: 3rem;
 }
 
-.mt-x {
-  margin-top: -60px;
-}
-
 .my-1 {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
@@ -346,4 +342,13 @@ dialog::backdrop {
 
 .right {
   float: right;
+}
+
+.left {
+  float: left;
+}
+
+.curly {
+  color: white;
+  background-color: #0d6efd;
 }

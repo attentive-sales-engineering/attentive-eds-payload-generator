@@ -1,6 +1,6 @@
 {
-  "url": "https://api.attentivemobile.com/v1/attributes/custom",
-  "method": "POST",
+  "url": "",
+  "method": "",
   "sourceParams": [
     {
       "key": "clientName",
@@ -65,25 +65,11 @@
       "data-curly-braces": "false"
     }
   ],
-  "propParams": [
-    {
-      "key": "prop1",
-      "value": "",
-      "placeholder": "prop1 (required)",
-      "data-curly-braces": "true"
-    }
-  ],
+  "propParams": [],
   "queryParams": [],
   "subscriptionsParams": [],
   "jsonParams": {},
-  "headerParams": [
-    {
-      "key": "Authorization",
-      "value": "Bearer <API Key>",
-      "placeholder": "Bearer <API Key> (required)",
-      "data-curly-braces": "false"
-    }
-  ],
+  "headerParams": [],
   "userParams": [
     {
       "key": "phone",
@@ -104,18 +90,5 @@
       "data-curly-braces": "true"
     }
   ],
-  "customParams": [
-    {
-      "key": "name",
-      "value": "",
-      "placeholder": "customIdentifierName (optional)",
-      "data-curly-braces": "false"
-    },
-    {
-      "key": "value",
-      "value": "",
-      "placeholder": "customIdentifierValue (optional)",
-      "data-curly-braces": "true"
-    }
-  ]
+  "customParams": []
 }
