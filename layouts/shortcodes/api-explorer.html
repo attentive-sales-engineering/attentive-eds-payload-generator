@@ -33,19 +33,6 @@
     </form>
   </dialog>
 
-  <div>
-    <!-- <a href="" target="_blank"><button type="submit" class="btn btn-primary left mb-4" sow-btn>SOW</button></a> -->
-    <!-- <a href="" target="_blank"><button type="submit" class="btn btn-primary left ml-2 mb-4" create-btn>Create</button></a> -->
-    <!-- <button class="btn btn-primary left ml-2 mb-4" post-btn>POST</button> -->
-    <!-- <button class="btn btn-primary left ml-2 mb-4" get-btn>GET</button> -->
-    <!-- <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary left ml-2 mb-4" export-btn>Export</button></a> -->
-    <!-- <form method="post" enctype="multipart/form-data">
-      <div>
-        <label class="btn btn-primary left ml-2" for="json_upload">Import</label>
-        <input type="file" id="json_upload" name="json_upload" accept=".json" />
-      </div>
-    </form> -->
-  </div>
   <div data-form>
     <div class="input-group mb-3">
       <select class="form-select flex-grow-0 w-auto d-none" data-method>
@@ -268,13 +255,6 @@
         parseImportFile("{{ .Params.id }}")
       }
 
-      // // SOW button click listener
-      // document.querySelector("[sow-btn]").addEventListener("click", () => {
-      //   console.log("CLICKED SOW BUTTON")
-      //   localStorage.setItem("eds-sow", JSON.stringify(edsPayload))
-      //   window.open("../../tools/sow", '_blank')
-      // })
-
       // Nav links click listener
       document.querySelectorAll('a.gdoc-nav__entry').forEach(element => {
         console.log("ELEMENT:", element)
@@ -332,34 +312,6 @@
         })
       })
 
-      // // Create button click listener
-      // document.querySelector("[create-btn]").addEventListener("click", () => {
-      //   window.open("https://ui.attentivemobile.com/tactical/event-destinations/create?companyId=" + edsPayload.clientPayload.clientId, '_blank')
-      // })
-
-      // Export button click listener
-      // document.querySelector("[export-btn]").addEventListener("click", () => {
-      //   const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
-      //   const downloadBtn = document.getElementById("downloadBtn")
-      //   downloadBtn.href = 'data:' + data
-      //   console.log("downloadBtn:", downloadBtn)
-      //   let filename = "EDS"
-      //   if (edsPayload.clientPayload["ticketUrl"] && edsPayload.clientPayload["ticketUrl"].length > 0 && edsPayload.clientPayload["ticketUrl"].match(/\d+$/)) {
-      //     filename += `-${edsPayload.clientPayload["ticketUrl"].match(/\d+$/).toString()}`
-      //   }
-      //   if (edsPayload.clientPayload["clientName"] && edsPayload.clientPayload["clientName"].length > 0) {
-      //     filename += ` ${edsPayload.clientPayload["clientName"]}`
-      //   }
-      //   let apiFileName = getApiFromUrl(edsPayload.request_details.url)
-      //   filename += ` ${apiFileName}`
-
-      //   // if (edsPayload.source_details["key_name"].length > 0) {
-      //   //   filename += ` ${edsPayload.source_details["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
-      //   // }
-      //   if (filename === null || filename === '') filename = 'data'
-      //   downloadBtn.download = `${filename}.json`
-      // })
-
       function exportJson(element) {
         console.log("exportJson() function")
         const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
@@ -413,7 +365,7 @@
       const importDialog = document.querySelector("#importDialog")
       closeDialog(importDialog)
 
-      // Function for closing the dialog when clicked outside its dimensions
+      // Listener function for closing the dialog when clicked outside its dimensions
       function closeDialog(dialog) {
         dialog.addEventListener("click", e => {
           const dialogDimensions = dialog.getBoundingClientRect()
@@ -576,32 +528,6 @@
           })
       }
 
-      // // GET button click listener
-      // document.querySelector("[get-btn]").addEventListener("click", () => {
-      //   console.log("CLICKED GET BUTTON")
-      //   if (edsPayload.task_id) {
-      //     task_id = edsPayload.task_id
-      //   }
-      //   console.log("TASK ID:", task_id)
-      //   dialog.querySelector("#taskId").value = task_id
-      //   dialog.querySelector("#method").value = "GET"
-      //   dialog.querySelector("#taskId").placeholder = "Enter task_id of job to fetch"
-      //   dialog.showModal()
-      // })
-
-      // // POST button click listener
-      // document.querySelector("[post-btn]").addEventListener("click", () => {
-      //   console.log("CLICKED POST BUTTON")
-      //   if (edsPayload.task_id) {
-      //     task_id = edsPayload.task_id
-      //   }
-      //   console.log("TASK ID:", task_id)
-      //   dialog.querySelector("#taskId").value = task_id
-      //   dialog.querySelector("#method").value = "POST"
-      //   dialog.querySelector("#taskId").placeholder = "Enter task_id to update or blank to create new"
-      //   dialog.showModal()
-      // })
-
       // This function adds a new key/value row onscreen when the Plus button is clicked
       function addRow(paramId, btnElement, dataElement) {
         console.log("ADD ROW:", paramId)
@@ -687,7 +613,6 @@
       }
 
     })
-
 
   // Initialize edsPayload object, then trigger updatePayload function on change events
   let edsPayload = {}
