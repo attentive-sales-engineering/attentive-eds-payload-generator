@@ -12,15 +12,24 @@
   .Params.id => {{ .Params.id }}
   </pre> -->
 
-  <dialog>
+  <dialog id="apiDialog">
     <form method="dialog">
       <label for="taskId">task_id:</label>
       <input name="taskId" id="taskId" ctype="text" placeholder="Enter task_id to update or blank to create new"><br>
       <label for="token">token:</label><br>
       <textarea name="token" id="token" cols="50" rows="4" placeholder="Paste 'attentive-auth-token' from Attentive UI Session storage"></textarea><br>
       <input id="method" type="hidden">
-      <button id="dialogCancelBtn" type="">Cancel</button>
-      <button id="dialogSubmitBtn" type="">Submit</button>
+      <button id="apiDialogCancelBtn" type="">Cancel</button>
+      <button id="apiDialogSubmitBtn" type="">Submit</button>
+    </form>
+  </dialog>
+
+  <dialog id="importDialog">
+    <form method="post" enctype="multipart/form-data">
+      <div>
+        <!-- <label class="btn btn-primary left ml-2" for="json_upload">Import File</label> -->
+        <input type="file" id="json_upload" name="json_upload" accept=".json" />
+      </div>
     </form>
   </dialog>
 
@@ -30,12 +39,12 @@
     <!-- <button class="btn btn-primary left ml-2 mb-4" post-btn>POST</button> -->
     <!-- <button class="btn btn-primary left ml-2 mb-4" get-btn>GET</button> -->
     <!-- <a id="downloadBtn" href=""><button type="submit" class="btn btn-primary left ml-2 mb-4" export-btn>Export</button></a> -->
-    <form method="post" enctype="multipart/form-data">
+    <!-- <form method="post" enctype="multipart/form-data">
       <div>
         <label class="btn btn-primary left ml-2" for="json_upload">Import</label>
         <input type="file" id="json_upload" name="json_upload" accept=".json" />
       </div>
-    </form>
+    </form> -->
   </div>
   <div data-form>
     <div class="input-group mb-3">
@@ -285,8 +294,9 @@
             console.log("CLICKED EXPORT LINK")
             exportJson(e.srcElement)
           } else if (path.includes("/import")) {
+            console.log("CLICKED IMPORT LINK")
             e.preventDefault()
-            // console.log("CLICKED IMPORT LINK")
+            importDialog.showModal()
             // importJson()
           } else if (path.includes("/create")) {
             e.preventDefault()
@@ -303,10 +313,10 @@
               task_id = edsPayload.task_id
             }
             console.log("TASK ID:", task_id)
-            dialog.querySelector("#taskId").value = task_id
-            dialog.querySelector("#method").value = "GET"
-            dialog.querySelector("#taskId").placeholder = "Enter task_id of job to fetch"
-            dialog.showModal()
+            apiDialog.querySelector("#taskId").value = task_id
+            apiDialog.querySelector("#method").value = "GET"
+            apiDialog.querySelector("#taskId").placeholder = "Enter task_id of job to fetch"
+            apiDialog.showModal()
           } else if (path.includes("/post")) {
             e.preventDefault()
             console.log("CLICKED POST PAYLOAD")
@@ -314,10 +324,10 @@
               task_id = edsPayload.task_id
             }
             console.log("TASK ID:", task_id)
-            dialog.querySelector("#taskId").value = task_id
-            dialog.querySelector("#method").value = "POST"
-            dialog.querySelector("#taskId").placeholder = "Enter task_id to update or blank to create new"
-            dialog.showModal()
+            apiDialog.querySelector("#taskId").value = task_id
+            apiDialog.querySelector("#method").value = "POST"
+            apiDialog.querySelector("#taskId").placeholder = "Enter task_id to update or blank to create new"
+            apiDialog.showModal()
           }
         })
       })
@@ -375,8 +385,8 @@
 
       // Import button click listener
       const importElement = document.querySelector("#json_upload")
-      importElement.style.display = "contents"
-      importElement.style.opacity = 0
+      // importElement.style.display = "contents"
+      // importElement.style.opacity = 0
       importElement.addEventListener("change", importJson)
 
       // Import file and save to local storage
@@ -397,15 +407,34 @@
         reader.readAsText(jsonFile)
       }
 
-      const dialog = document.querySelector("dialog")
+      const apiDialog = document.querySelector("#apiDialog")
+      closeDialog(apiDialog)
+
+      const importDialog = document.querySelector("#importDialog")
+      closeDialog(importDialog)
+
+      // Function for closing the dialog when clicked outside its dimensions
+      function closeDialog(dialog) {
+        dialog.addEventListener("click", e => {
+          const dialogDimensions = dialog.getBoundingClientRect()
+          if (
+            e.clientX < dialogDimensions.left ||
+            e.clientX > dialogDimensions.right ||
+            e.clientY < dialogDimensions.top ||
+            e.clientY > dialogDimensions.bottom
+          ) {
+            dialog.close()
+          }
+        })
+      }
 
       // Dialog submit button event listener
       // Capture task_id and token and trigger axios request
-      dialog.querySelector("#dialogSubmitBtn").addEventListener("click", () => {
-        console.log("DIALOG dialogSubmitBtn click:")
-        token = document.querySelector("dialog #token").value
-        task_id = document.querySelector("dialog #taskId").value
-        method = document.querySelector("dialog #method").value
+      apiDialog.querySelector("#apiDialogSubmitBtn").addEventListener("click", () => {
+        console.log("#apiDialogSubmitBtn click:")
+        token = document.querySelector("#token").value
+        task_id = document.querySelector("#taskId").value
+        method = document.querySelector("#method").value
         // headers = { 'Authorization': `Bearer ${token}` }
         headers['Authorization'] = `Bearer ${token}`
 
@@ -428,12 +457,12 @@
 
         if (task_id != '') {
           // Have task_id, go ahead and do a POST or GET
-          console.log("if DIALOG dialogSubmitBtn task_id != '' task_id:", task_id)
+          console.log("if apiDialogSubmitBtn task_id != '' task_id:", task_id)
           edsMapping()
         } else {
           if (method === "POST") {
             // POST but no task_id, create the task, then call edsMapping
-            console.log("else DIALOG dialogSubmitBtn POST task_id:", task_id)
+            console.log("else apiDialogSubmitBtn POST task_id:", task_id)
             createTask()
           } else {
             // Can't do a GET with no task_id
