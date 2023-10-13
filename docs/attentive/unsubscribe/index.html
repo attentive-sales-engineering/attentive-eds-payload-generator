@@ -1435,12 +1435,9 @@ Cancel Submit GET POST PUT PATCH DELETE Payload User Headers Source Schedule Par
 
       
       document.querySelectorAll('a.gdoc-nav__entry').forEach(element => {
-        console.log("ELEMENT:", element)
+        
         element.addEventListener("click", e => {
           console.log("CLICK E:", e)
-          console.log("e.srcElement.baseURI:", e.srcElement.baseURI)
-          console.log("e.srcElement.href:", e.srcElement.href)
-          console.log("e.srcElement.innerText:", e.srcElement.innerText)
           const path = new URL(e.srcElement.href).pathname
           
           if (path.includes("/sow")) {
@@ -1745,8 +1742,8 @@ Cancel Submit GET POST PUT PATCH DELETE Payload User Headers Source Schedule Par
                 param.key,
                 param.value,
                 param.placeholder,
-                param["data-curly-braces"])
-            )
+                param["data-curly-braces"],
+                paramElement))
           })
         }
       }
