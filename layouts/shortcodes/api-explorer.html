@@ -257,12 +257,9 @@
 
       // Nav links click listener
       document.querySelectorAll('a.gdoc-nav__entry').forEach(element => {
-        console.log("ELEMENT:", element)
+        // console.log("ELEMENT:", element)
         element.addEventListener("click", e => {
           console.log("CLICK E:", e)
-          console.log("e.srcElement.baseURI:", e.srcElement.baseURI)
-          console.log("e.srcElement.href:", e.srcElement.href)
-          console.log("e.srcElement.innerText:", e.srcElement.innerText)
           const path = new URL(e.srcElement.href).pathname
           // SOW Link
           if (path.includes("/sow")) {
@@ -567,8 +564,8 @@
                 param.key,
                 param.value,
                 param.placeholder,
-                param["data-curly-braces"])
-            )
+                param["data-curly-braces"],
+                paramElement))
           })
         }
       }

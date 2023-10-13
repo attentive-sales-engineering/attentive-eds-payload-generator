@@ -81,8 +81,8 @@ function updateJsonPayloadBody(id, edsPayload) {
 }
 
 // This function renders the apiParam key/value pairs onscreen
-function createKeyValuePair(id, key, value, placeholder, curlyBraces) {
-  console.log('createKeyValuePair:', id, key, value, placeholder)
+function createKeyValuePair(id, key, value, placeholder, curlyBraces, paramElement) {
+  // console.log('createKeyValuePair:', id, key, value, placeholder, paramElement)
   const element = document.querySelector(`#${id} [data-key-value-template]`).content.cloneNode(true)
   let thisKey = element.querySelector('[data-key]')
   thisKey.value = key || null
@@ -90,10 +90,22 @@ function createKeyValuePair(id, key, value, placeholder, curlyBraces) {
   thisValue.value = value || null
   thisValue.placeholder = placeholder || 'Value'
   thisValue.dataset.curlyBraces = curlyBraces || 'true'
-  console.log("curlyBraces:", thisValue.dataset.curlyBraces)
-
+  // console.log("CURLY BRACES:", thisValue.dataset.curlyBraces)
+  if (curlyBraces === 'false') {
+    element.querySelector('[data-update-btn]').classList.remove("curly")
+  }
+  // Hide the curlyBraces toggle button in headers, source and schedule tabs
+  if (paramElement === "[data-headers]" || paramElement === "[data-source]" || paramElement === "[data-schedule]") {
+    element.querySelector('[data-update-btn]').classList.add("d-none")
+  }
   element.querySelector('[data-update-btn]').addEventListener('click', e => {
     e.target.classList.toggle("curly")
+    // console.log("CLICK TOGGLE")
+    if (thisValue.dataset.curlyBraces === 'true') {
+      thisValue.dataset.curlyBraces = 'false'
+    } else {
+      thisValue.dataset.curlyBraces = 'true'
+    }
   })
 
   element.querySelector('[data-remove-btn]').addEventListener('click', e => {
@@ -201,16 +213,19 @@ function parseImportFile(edsFile) {
 
       // Remove curly braces from imported EDS job if they exist
       let val = value
+      let curly = "false"
       if (val && typeof val === "string" && val.length > 0) {
         if (val.startsWith('{{')) {
           val = val.slice(2, -2)
+          curly = "true"
         }
       }
 
       const thisObj = {
         key: key,
         value: val,
-        placeholder: ''
+        placeholder: '',
+        ["data-curly-braces"]: curly,
       }
       // console.log('PARAM OBJECT:', paramObject)
       // console.log('THIS OBJECT:', thisObj)
