@@ -243,8 +243,8 @@
   let token = ''
   let task_id = ''
   let clientId = ''
-  let task_name = 'Chafco Test'
-  let task_description = 'Chafco Description'
+  let task_name = ''
+  let task_description = ''
 
   async function fetchApiParams() {
     // console.log("FETCH API PARAMS")
@@ -409,8 +409,11 @@
         console.log("CLICKED POST PAYLOAD")
         if (edsPayload.task_id) task_id = edsPayload.task_id
         if (edsPayload.clientPayload.clientId) clientId = edsPayload.clientPayload.clientId
+        createFileName()
+        if (filename != 'data') task_name = filename
         console.log("TASK ID:", task_id)
         console.log("CLIENT ID:", clientId)
+        console.log("TASK NAME:", task_name)
         apiDialog.querySelector("#task_id").value = task_id
         apiDialog.querySelector("#clientId").value = clientId
         apiDialog.querySelector("#method").value = "POST"
@@ -420,6 +423,26 @@
     })
   })
 
+  let filename = ''
+  function createFileName() {
+    console.log("filename BEFORE:", filename)
+    filename = ''
+    console.log("filename RESET:", filename)
+    if (edsPayload.clientPayload["ticketUrl"] && edsPayload.clientPayload["ticketUrl"].length > 0 && edsPayload.clientPayload["ticketUrl"].match(/\d+$/)) {
+      filename += `EDS-${edsPayload.clientPayload["ticketUrl"].match(/\d+$/).toString()}: `
+    }
+    if (edsPayload.clientPayload["clientName"] && edsPayload.clientPayload["clientName"].length > 0) {
+      filename += `${edsPayload.clientPayload["clientName"]} `
+    }
+    console.log("edsPayload.request_details.url:", edsPayload.request_details.url)
+    let apiFileName = getApiFromUrl(edsPayload.request_details.url)
+    console.log("apiFileName:", apiFileName)
+
+    filename += `${apiFileName.name}`
+    if (filename === null || filename === '') filename = 'data'
+    console.log("filename:", filename)
+  }
+
   // EXPORT
   // Export edsPayload json
   function exportJson(element) {
@@ -428,19 +451,7 @@
     const downloadBtn = element
     downloadBtn.href = 'data:' + data
     // console.log("downloadBtn:", downloadBtn)
-    let filename = "EDS"
-    if (edsPayload.clientPayload["ticketUrl"] && edsPayload.clientPayload["ticketUrl"].length > 0 && edsPayload.clientPayload["ticketUrl"].match(/\d+$/)) {
-      filename += `-${edsPayload.clientPayload["ticketUrl"].match(/\d+$/).toString()}`
-    }
-    if (edsPayload.clientPayload["clientName"] && edsPayload.clientPayload["clientName"].length > 0) {
-      filename += ` ${edsPayload.clientPayload["clientName"]}`
-    }
-    let apiFileName = getApiFromUrl(edsPayload.request_details.url)
-    filename += ` ${apiFileName.name}`
-    // if (edsPayload.source_details["key_name"].length > 0) {
-    //   filename += ` ${edsPayload.source_details["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
-    // }
-    if (filename === null || filename === '') filename = 'data'
+    createFileName()
     downloadBtn.download = `${filename}.json`
   }
 
@@ -558,7 +569,11 @@
       console.log("No task_id:", task_id)
       if (method === "POST") {
         // Create new task, then call edsMapping
-        createTask()
+        if (task_name === '' || !edsPayload.clientPayload["clientName"] || edsPayload.clientPayload["clientName"].length == 0) {
+          alert("You must enter a clientName in the Source tab")
+        } else {
+          createTask()
+        }
       } else {
         // Can't do a GET with no task_id
         alert("You must enter a task ID")
@@ -631,8 +646,8 @@
       method,
       headers,
       data: {
-        "task_name": "Chafco Test",
-        "task_description": "Chafco Description"
+        "task_name": task_name,
+        "task_description": task_description
       }
     })
       .then(function (response) {
@@ -679,9 +694,11 @@
   }
 
   // UPDATE PAYLAOD LISTENERS
-  // console.log("EVENT LISTENERS PARAMS.ID:", "{{ .Params.id }}")
-  window.addEventListener('DOMContentLoaded', function (e) {
-    updatePayload(e, "{{ .Params.id }}")
+  document.addEventListener("readystatechange", function (e) {
+    if (e.target.readyState === "complete") {
+      console.log("readystatechange === complete")
+      updatePayload(e, "{{ .Params.id }}")
+    }
   })
   document.querySelector("[data-form]").addEventListener('keyup', function (e) {
     updatePayload(e, "{{ .Params.id }}")
