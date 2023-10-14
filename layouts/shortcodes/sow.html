@@ -75,7 +75,7 @@
   // Import file from local storage and assign to edsPayload
   const edsPayload = JSON.parse(localStorage.getItem('eds-sow'))
   if (edsPayload === null)
-    window.location.href = '../../attentive/custom-attributes'
+    window.location.href = '../../api/custom-attributes'
   console.log("EDS PAYLOAD:", edsPayload)
 
   // Function for replacing html text variables

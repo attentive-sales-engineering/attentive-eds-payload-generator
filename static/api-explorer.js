@@ -167,7 +167,7 @@ function parseImportFile(edsFile) {
   }
   console.log('IMPORT OBJECT:', importFile)
   if (importFile === null)
-    window.location.href = '../../attentive/custom-attributes'
+    window.location.href = '../../api/custom-attributes'
 
   console.log('IMPORT FILE:', importFile)
 
