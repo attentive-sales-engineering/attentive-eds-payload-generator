@@ -15,8 +15,10 @@
   <dialog id="apiDialog">
     <form method="dialog">
       <label for="task_id">task_id:</label>
-      <input name="task_id" id="task_id" ctype="text" placeholder="Enter task_id to update or blank to create new" autocomplete="off"><br>
-      <label for="token">token:</label><br>
+      <input name="task_id" id="task_id" ctype="text" placeholder="Enter task ID to update or blank to create new" autocomplete="off"><br>
+      <label for="clientId">clientId:</label>
+      <input name="clientId" id="clientId" ctype="text" placeholder="Enter client ID" autocomplete="off"><br>
+      <label for="token">token:</label> <a id="clientIdUrl" href="https://ui.attentivemobile.com/home" target="_blank">Open Attentive UI Company account in new tab</a><br>
       <textarea name="token" id="token" cols="50" rows="4" placeholder="Paste 'attentive-auth-token' from Attentive UI Session storage"></textarea><br>
       <input id="method" type="hidden">
       <button id="apiDialogCancelBtn" type="">Cancel</button>
@@ -240,6 +242,7 @@
   let edsPayload = {}
   let token = ''
   let task_id = ''
+  let clientId = ''
   let task_name = 'Chafco Test'
   let task_description = 'Chafco Description'
 
@@ -392,22 +395,24 @@
       } else if (path.includes("/get")) {
         e.preventDefault()
         console.log("CLICKED GET PAYLOAD")
-        if (edsPayload.task_id) {
-          task_id = edsPayload.task_id
-        }
+        if (edsPayload.task_id) task_id = edsPayload.task_id
+        if (edsPayload.clientPayload.clientId) clientId = edsPayload.clientPayload.clientId
         console.log("TASK ID:", task_id)
+        console.log("CLIENT ID:", clientId)
         apiDialog.querySelector("#task_id").value = task_id
+        apiDialog.querySelector("#clientId").value = clientId
         apiDialog.querySelector("#method").value = "GET"
         apiDialog.querySelector("#task_id").placeholder = "Enter task_id of job to fetch"
         apiDialog.showModal()
       } else if (path.includes("/post")) {
         e.preventDefault()
         console.log("CLICKED POST PAYLOAD")
-        if (edsPayload.task_id) {
-          task_id = edsPayload.task_id
-        }
+        if (edsPayload.task_id) task_id = edsPayload.task_id
+        if (edsPayload.clientPayload.clientId) clientId = edsPayload.clientPayload.clientId
         console.log("TASK ID:", task_id)
+        console.log("CLIENT ID:", clientId)
         apiDialog.querySelector("#task_id").value = task_id
+        apiDialog.querySelector("#clientId").value = clientId
         apiDialog.querySelector("#method").value = "POST"
         apiDialog.querySelector("#task_id").placeholder = "Enter task_id to update or blank to create new"
         apiDialog.showModal()
@@ -488,6 +493,14 @@
     })
   }
 
+  apiDialog.querySelector("#clientIdUrl").addEventListener("click", (e) => {
+    e.preventDefault()
+    console.log("CLICKED CID URL", e)
+    // console.log("CLICKED CID URL srcElement.href", e.srcElement.href)
+    console.log("edsPayload.clientId", clientId.value)
+    window.open("https://ui.attentivemobile.com/home" + "?companyId=" + clientId.value, "_blank")
+  })
+
   // Dialog submit button event listener
   // Capture task_id and token and trigger axios request
   apiDialog.querySelector("#apiDialogSubmitBtn").addEventListener("click", () => {
@@ -499,7 +512,7 @@
     headers['Authorization'] = `Bearer ${token}`
 
     if (!token) {
-      alert("You must enter a token")
+      alert("You must enter an attentive-auth-token")
     } else {
       if (method === "POST") {
         url = "https://johnchaffee.ngrok.io/v1/event-destination/post-mapping"
@@ -529,7 +542,7 @@
           createTask()
         } else {
           // Can't do a GET with no task_id
-          alert("You must enter a task_id")
+          alert("You must enter a task ID")
         }
       }
     }

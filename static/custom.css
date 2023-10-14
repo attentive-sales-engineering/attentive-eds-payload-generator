@@ -172,7 +172,8 @@ dialog {
   border: 2px solid gray;
 }
 
-#task_id {
+#task_id,
+#clientId {
   width: 100%;
 }
 
