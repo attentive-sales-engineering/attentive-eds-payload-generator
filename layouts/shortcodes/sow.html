@@ -103,7 +103,7 @@
   // API
   const url = edsPayload.request_details.url
   api = getApiFromUrl(url)
-  replaceText("api", api)
+  replaceText("api", api.name)
 
   // key_name
   const key_name = edsPayload.source_details.key_name

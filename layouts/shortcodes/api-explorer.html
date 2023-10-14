@@ -231,6 +231,7 @@
 
 <script>
 
+  console.log("LET API PARAMS")
   let apiParams
   let url = ''
   let method = ''
@@ -243,9 +244,23 @@
   let task_description = 'Chafco Description'
 
   async function fetchApiParams() {
-    const response = await fetch('./params.json')
-    const jsonResponse = await response.json()
-    console.log("FETCH API PARAMS:", jsonResponse)
+    console.log("FETCH API PARAMS")
+    const searchParams = new URLSearchParams(window.location.search)
+    const importParam = searchParams.get("import")
+    console.log("importParam", importParam)
+    let jsonResponse
+    if (importParam === 'true') {
+      console.log("IMPORT TRUE")
+      // The parseImportFile function has already executed and the apiParams object has been built
+      // Fetch it from localStorate and pass it to the response
+      jsonResponse = JSON.parse(localStorage.getItem('apiParams'))
+      console.log("JSON RESPONSE = localStorage.getItem('apiParams')", jsonResponse)
+    } else {
+      console.log("IMPORT FALSE")
+      const response = await fetch('./params.json')
+      jsonResponse = await response.json()
+    }
+    console.log("FETCH API PARAMS JSON RESPONSE:", jsonResponse)
     return jsonResponse
   }
 
@@ -325,7 +340,7 @@
   // ADD ROWS
   // Add new key/value row onscreen when the Plus button is clicked
   function addRow(paramId, btnElement, dataElement) {
-    console.log("ADD ROW:", paramId)
+    // console.log("ADD ROW:", paramId)
     document.querySelector(`#${paramId} ${btnElement}`).addEventListener("click", () => {
       document.querySelector(`#${paramId} ${dataElement}`).append(
         createKeyValuePair(`${paramId}`)
@@ -403,11 +418,11 @@
   // EXPORT
   // Export edsPayload json
   function exportJson(element) {
-    console.log("exportJson() function")
+    // console.log("exportJson() function")
     const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
     const downloadBtn = element
     downloadBtn.href = 'data:' + data
-    console.log("downloadBtn:", downloadBtn)
+    // console.log("downloadBtn:", downloadBtn)
     let filename = "EDS"
     if (edsPayload.clientPayload["ticketUrl"] && edsPayload.clientPayload["ticketUrl"].length > 0 && edsPayload.clientPayload["ticketUrl"].match(/\d+$/)) {
       filename += `-${edsPayload.clientPayload["ticketUrl"].match(/\d+$/).toString()}`
@@ -416,7 +431,7 @@
       filename += ` ${edsPayload.clientPayload["clientName"]}`
     }
     let apiFileName = getApiFromUrl(edsPayload.request_details.url)
-    filename += ` ${apiFileName}`
+    filename += ` ${apiFileName.name}`
     // if (edsPayload.source_details["key_name"].length > 0) {
     //   filename += ` ${edsPayload.source_details["key_name"].replace(/(\.\w*)/, '').replace(/\[.*/, '').replace(/\<&.*/, '')}`
     // }
@@ -435,7 +450,7 @@
   function importJson() {
     console.log("IMPORT JSON")
     const files = importElement.files
-    console.log("FILES:", files)
+    // console.log("FILES:", files)
     let jsonFile
     if (files.length > 0) {
       jsonFile = importElement.files[0]
@@ -450,9 +465,11 @@
   }
 
   // MODAL DIALOGS
-  // Modal Dialog elements
+  // Display apiDialog then trigger axios request
   const apiDialog = document.querySelector("#apiDialog")
   closeDialog(apiDialog)
+
+  // Display Import Dialog then trigger importJson
   const importDialog = document.querySelector("#importDialog")
   closeDialog(importDialog)
 
