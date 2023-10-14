@@ -506,47 +506,64 @@
   apiDialog.querySelector("#apiDialogSubmitBtn").addEventListener("click", () => {
     console.log("#apiDialogSubmitBtn click:")
     token = document.querySelector("#token").value
+    console.log("TOKEN:", token)
     task_id = document.querySelector("#task_id").value
+    console.log("task_id:", task_id)
+    clientId = document.querySelector("#clientId").value
+    console.log("clientId:", clientId)
     console.log("TASK ID VALUE", task_id)
     method = document.querySelector("#method").value
     headers['Authorization'] = `Bearer ${token}`
-
     if (!token) {
       alert("You must enter an attentive-auth-token")
+      return
+    }
+    const grantsTokenString = token.split('.')[1]
+    if (!grantsTokenString) {
+      alert("Invalid token")
+      return
     } else {
-      if (method === "POST") {
-        url = "https://johnchaffee.ngrok.io/v1/event-destination/post-mapping"
-        edsPayload.task_id = task_id
-        data = edsPayload
-        headers['content-type'] = 'application/json'
-      } else {
-        console.log("GET")
-        url = "https://johnchaffee.ngrok.io/v1/event-destination/get-mapping/" + task_id
-      }
-      console.log("=====")
-      console.log('URL:', url)
-      console.log('METHOD:', method)
-      console.log('HEADERS:', headers)
-      console.log('DATA:', data)
-      console.log("=====")
-
-      if (task_id) {
-        // Have task_id, do a POST or GET to update or fecth existing task
-        console.log("if task_id:", task_id)
-        edsMapping()
-      } else {
-        // No task_id
-        console.log("No task_id:", task_id)
-        if (method === "POST") {
-          // Create new task, then call edsMapping
-          createTask()
-        } else {
-          // Can't do a GET with no task_id
-          alert("You must enter a task ID")
-        }
+      console.log("grantsTokenString:", grantsTokenString)
+      const grants = JSON.parse(atob(grantsTokenString))
+      console.log("grants:", grants)
+      const selectedCompanyId = grants.data.selectedCompanyId
+      console.log("selectedCompanyId:", selectedCompanyId)
+      if (clientId != selectedCompanyId) {
+        alert("Wrong token for this client ID!")
+        return
       }
     }
+    if (method === "POST") {
+      url = "https://johnchaffee.ngrok.io/v1/event-destination/post-mapping"
+      edsPayload.task_id = task_id
+      data = edsPayload
+      headers['content-type'] = 'application/json'
+    } else {
+      console.log("GET")
+      url = "https://johnchaffee.ngrok.io/v1/event-destination/get-mapping/" + task_id
+    }
+    console.log("=====")
+    console.log('URL:', url)
+    console.log('METHOD:', method)
+    console.log('HEADERS:', headers)
+    console.log('DATA:', data)
+    console.log("=====")
 
+    if (task_id) {
+      // Have task_id, do a POST or GET to update or fecth existing task
+      console.log("if task_id:", task_id)
+      edsMapping()
+    } else {
+      // No task_id
+      console.log("No task_id:", task_id)
+      if (method === "POST") {
+        // Create new task, then call edsMapping
+        createTask()
+      } else {
+        // Can't do a GET with no task_id
+        alert("You must enter a task ID")
+      }
+    }
   })
 
   // AXIOS REQUESTS
