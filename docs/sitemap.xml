@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/custom-attributes/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/api/custom-attributes/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/custom-events/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/api/custom-events/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/ecommerce-add-to-cart/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/api/ecommerce-add-to-cart/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/ecommerce-product-view/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/api/ecommerce-product-view/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/ecommerce-purchase/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/api/ecommerce-purchase/</loc>
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/export/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/identity/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/api/identity/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/messages/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/api/messages/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/privacy-request/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/api/privacy-request/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/subscriber/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/api/subscriber/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/unsubscribe/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/api/unsubscribe/</loc>
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/import/</loc>
   </url><url>
@@ -36,7 +36,7 @@
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/sow/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/api/</loc>
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/</loc>
   </url><url>

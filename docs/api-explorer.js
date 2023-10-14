@@ -118,24 +118,24 @@ function createKeyValuePair(id, key, value, placeholder, curlyBraces, paramEleme
 
 // Create EDS Payload json objects from the input elements
 function keyValuePairsToObjects(id, paramName, container) {
-  console.log("keyValuePairsToObjects: id, paramName, container:", id, paramName, container)
+  // console.log("keyValuePairsToObjects: id, paramName, container:", id, paramName, container)
   // console.log("keyValuePairsToObjects PARAM NAME:", paramName)
   const pairs = container.querySelectorAll(`#${id} [data-key-value-pair]`)
-  console.log('PAIRS:', pairs)
+  // console.log('PAIRS:', pairs)
   const tempObject = {}
   return [...pairs].reduce((data, pair) => {
     let container = tempObject
     const key = pair.querySelector('[data-key]').value
-    console.log('KEY:', key)
+    // console.log('KEY:', key)
     let value = pair.querySelector('[data-value]').value
     let curly = pair.querySelector('[data-value]').dataset.curlyBraces || "true"
-    console.log("CURLY:", curly)
+    // console.log("CURLY:", curly)
     if (curly === "true") {
       // Wrap properties in curly braces
       value = `{{${pair.querySelector('[data-value]').value}}}`
     }
 
-    console.log('VALUE:', value)
+    // console.log('VALUE:', value)
     // console.log('DATA:', data)
     key.split('.').map((k, i, arr) => {
       // console.log('k, i, arr:', k, i, arr)
@@ -167,7 +167,7 @@ function parseImportFile(edsFile) {
   }
   console.log('IMPORT OBJECT:', importFile)
   if (importFile === null)
-    window.location.href = '../../attentive/custom-attributes'
+    window.location.href = '../../api/custom-attributes'
 
   console.log('IMPORT FILE:', importFile)
 

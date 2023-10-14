@@ -175,3 +175,18 @@ dialog {
 #taskId {
   width: 100%;
 }
+
+/* Hide 'Navigation' header in sidebar */
+section.gdoc-nav--main>h2 {
+  display: none;
+}
+
+/* Hide search box */
+.gdoc-search {
+  display: none;
+}
+
+/* Remove margin where search box was */
+.gdoc-nav nav section {
+  margin-top: 0;
+}

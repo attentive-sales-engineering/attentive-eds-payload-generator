@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Attentive on Attentive EDS</title>
-    <link>https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/</link>
-    <description>Recent content in Attentive on Attentive EDS</description>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="https://johnchaffee.github.io/attentive-eds-payload-generator/attentive/index.xml" rel="self" type="application/rss+xml" />
-  </channel>
-</rss>
