@@ -14,8 +14,8 @@
 
   <dialog id="apiDialog">
     <form method="dialog">
-      <label for="taskId">task_id:</label>
-      <input name="taskId" id="taskId" ctype="text" placeholder="Enter task_id to update or blank to create new" autocomplete="off"><br>
+      <label for="task_id">task_id:</label>
+      <input name="task_id" id="task_id" ctype="text" placeholder="Enter task_id to update or blank to create new" autocomplete="off"><br>
       <label for="token">token:</label><br>
       <textarea name="token" id="token" cols="50" rows="4" placeholder="Paste 'attentive-auth-token' from Attentive UI Session storage"></textarea><br>
       <input id="method" type="hidden">
@@ -396,9 +396,9 @@
           task_id = edsPayload.task_id
         }
         console.log("TASK ID:", task_id)
-        apiDialog.querySelector("#taskId").value = task_id
+        apiDialog.querySelector("#task_id").value = task_id
         apiDialog.querySelector("#method").value = "GET"
-        apiDialog.querySelector("#taskId").placeholder = "Enter task_id of job to fetch"
+        apiDialog.querySelector("#task_id").placeholder = "Enter task_id of job to fetch"
         apiDialog.showModal()
       } else if (path.includes("/post")) {
         e.preventDefault()
@@ -407,9 +407,9 @@
           task_id = edsPayload.task_id
         }
         console.log("TASK ID:", task_id)
-        apiDialog.querySelector("#taskId").value = task_id
+        apiDialog.querySelector("#task_id").value = task_id
         apiDialog.querySelector("#method").value = "POST"
-        apiDialog.querySelector("#taskId").placeholder = "Enter task_id to update or blank to create new"
+        apiDialog.querySelector("#task_id").placeholder = "Enter task_id to update or blank to create new"
         apiDialog.showModal()
       }
     })
@@ -493,7 +493,7 @@
   apiDialog.querySelector("#apiDialogSubmitBtn").addEventListener("click", () => {
     console.log("#apiDialogSubmitBtn click:")
     token = document.querySelector("#token").value
-    task_id = document.querySelector("#taskId").value
+    task_id = document.querySelector("#task_id").value
     method = document.querySelector("#method").value
     headers['Authorization'] = `Bearer ${token}`
 
@@ -525,7 +525,7 @@
         createTask()
       } else {
         // Can't do a GET with no task_id
-        alert("Must enter task_id")
+        alert("You must enter a task_id")
       }
     }
   })
@@ -564,6 +564,7 @@
           console.log("ERROR.toJSON().STATUS:", error.toJSON().status)
           console.log("ERROR.toJSON().CODE:", error.toJSON().code)
           console.log("ERROR.toJSON().MESSAGE:", error.toJSON().message)
+          alert(error.toJSON().message)
           // console.log("ERROR.toJSON:", error.toJSON())
           // console.log("ERROR.CONFIG", error.config)
         } else if (error.request) {
@@ -572,10 +573,12 @@
           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
           // http.ClientRequest in node.js
           console.log(error.request)
+          alert(error.request)
         } else {
           console.log("ERROR.MESSAGE")
           // Something happened in setting up the request that triggered an Error
           console.log('Error', error.message)
+          alert(error.request)
         }
       })
       .finally(function () {
@@ -616,6 +619,7 @@
           console.log("ERROR.toJSON().STATUS:", error.toJSON().status)
           console.log("ERROR.toJSON().CODE:", error.toJSON().code)
           console.log("ERROR.toJSON().MESSAGE:", error.toJSON().message)
+          alert(error.toJSON().message)
           // console.log("ERROR.toJSON:", error.toJSON())
           // console.log("ERROR.CONFIG", error.config)
         } else if (error.request) {
@@ -624,10 +628,12 @@
           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
           // http.ClientRequest in node.js
           console.log(error.request)
+          alert(error.request)
         } else {
           console.log("ERROR.MESSAGE")
           // Something happened in setting up the request that triggered an Error
           console.log('Error', error.message)
+          alert(error.message)
         }
       })
       .finally(function () {
