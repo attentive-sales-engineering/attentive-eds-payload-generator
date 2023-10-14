@@ -3,7 +3,7 @@ title: "Subscribe"
 draft: false
 weight: 1000
 tags:
-  - subscribers
+  - subscribe
 # geekdocNav: false
 geekdocBreadcrumb: false
 ---

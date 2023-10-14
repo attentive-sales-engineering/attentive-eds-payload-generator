@@ -3,7 +3,7 @@ title: "Link to View"
 draft: false
 weight: 5000
 tags:
-  - events
+  - view
 geekdocNav: false
 geekdocBreadcrumb: false
 ---

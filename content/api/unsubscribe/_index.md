@@ -3,7 +3,7 @@ title: "Unsubscribe"
 draft: false
 weight: 1000
 tags:
-  - subscribers
+  - unsubscribe
 # geekdocNav: false
 geekdocBreadcrumb: false
 ---

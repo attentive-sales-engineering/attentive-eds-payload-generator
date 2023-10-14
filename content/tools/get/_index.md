@@ -3,7 +3,7 @@ title: "GET Payload"
 draft: false
 weight: 3000
 tags:
-  - events
+  - get
 geekdocNav: false
 geekdocBreadcrumb: false
 ---

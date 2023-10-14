@@ -3,7 +3,7 @@ title: "Import Payload"
 draft: false
 weight: 2000
 tags:
-  - events
+  - import
 # geekdocNav: false
 geekdocBreadcrumb: false
 ---

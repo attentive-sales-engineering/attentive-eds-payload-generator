@@ -3,7 +3,7 @@ title: "POST Payload"
 draft: false
 weight: 4000
 tags:
-  - events
+  - post
 geekdocNav: false
 geekdocBreadcrumb: false
 ---

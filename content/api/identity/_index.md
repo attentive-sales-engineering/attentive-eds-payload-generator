@@ -3,9 +3,9 @@ title: "Identity"
 draft: false
 weight: 1000
 tags:
-  - privacy
+  - identity
 # geekdocNav: false
 geekdocBreadcrumb: false
 ---
 
-{{< api-explorer id=`add` >}}
+{{< api-explorer id=`identity` >}}

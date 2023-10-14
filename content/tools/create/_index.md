@@ -3,7 +3,7 @@ title: "Link to Create"
 draft: false
 weight: 6000
 tags:
-  - events
+  - create
 geekdocNav: false
 geekdocBreadcrumb: false
 ---
