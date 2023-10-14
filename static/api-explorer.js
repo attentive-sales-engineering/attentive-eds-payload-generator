@@ -205,7 +205,7 @@ function parseImportFile(edsFile) {
 
   // Build the apiParams from the EDS Payload
   function createParams(paramName, paramObject, myParams) {
-    console.log('paramName:', paramName)
+    // console.log('paramName:', paramName)
     // console.log('paramObject:', paramObject)
     // console.log('myParams:', myParams)
     Object.entries(myParams).forEach(entry => {
@@ -336,8 +336,8 @@ function parseImportFile(edsFile) {
   if (api.name.toLowerCase().includes("error")) {
     alert(api.name)
   } else {
-    console.log("API NAME:", api.name)
-    console.log("API PATH:", api.path)
+    // console.log("API NAME:", api.name)
+    // console.log("API PATH:", api.path)
     localStorage.setItem("apiParams", JSON.stringify(apiParams))
     window.location.href = api.path + "?import=true"
   }

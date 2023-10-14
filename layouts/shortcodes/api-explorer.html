@@ -15,7 +15,7 @@
   <dialog id="apiDialog">
     <form method="dialog">
       <label for="taskId">task_id:</label>
-      <input name="taskId" id="taskId" ctype="text" placeholder="Enter task_id to update or blank to create new"><br>
+      <input name="taskId" id="taskId" ctype="text" placeholder="Enter task_id to update or blank to create new" autocomplete="off"><br>
       <label for="token">token:</label><br>
       <textarea name="token" id="token" cols="50" rows="4" placeholder="Paste 'attentive-auth-token' from Attentive UI Session storage"></textarea><br>
       <input id="method" type="hidden">
@@ -231,7 +231,7 @@
 
 <script>
 
-  console.log("LET API PARAMS")
+  // console.log("LET API PARAMS")
   let apiParams
   let url = ''
   let method = ''
@@ -244,23 +244,23 @@
   let task_description = 'Chafco Description'
 
   async function fetchApiParams() {
-    console.log("FETCH API PARAMS")
+    // console.log("FETCH API PARAMS")
     const searchParams = new URLSearchParams(window.location.search)
     const importParam = searchParams.get("import")
-    console.log("importParam", importParam)
+    // console.log("importParam", importParam)
     let jsonResponse
     if (importParam === 'true') {
-      console.log("IMPORT TRUE")
+      // console.log("IMPORT TRUE")
       // The parseImportFile function has already executed and the apiParams object has been built
       // Fetch it from localStorate and pass it to the response
       jsonResponse = JSON.parse(localStorage.getItem('apiParams'))
-      console.log("JSON RESPONSE = localStorage.getItem('apiParams')", jsonResponse)
+      // console.log("JSON RESPONSE = localStorage.getItem('apiParams')", jsonResponse)
     } else {
-      console.log("IMPORT FALSE")
+      // console.log("IMPORT FALSE")S
       const response = await fetch('./params.json')
       jsonResponse = await response.json()
     }
-    console.log("FETCH API PARAMS JSON RESPONSE:", jsonResponse)
+    // console.log("FETCH API PARAMS JSON RESPONSE:", jsonResponse)
     return jsonResponse
   }
 
@@ -365,7 +365,7 @@
   document.querySelectorAll('a.gdoc-nav__entry').forEach(element => {
     // console.log("ELEMENT:", element)
     element.addEventListener("click", e => {
-      console.log("CLICK E:", e)
+      // console.log("CLICK E:", e)
       const path = new URL(e.srcElement.href).pathname
       // SOW Link
       if (path.includes("/sow")) {
