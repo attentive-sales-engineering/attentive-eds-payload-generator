@@ -175,3 +175,8 @@ dialog {
 #taskId {
   width: 100%;
 }
+
+/* Hide 'Navigation' header in sidebar */
+section.gdoc-nav--main>h2 {
+  display: none;
+}
