@@ -14,6 +14,7 @@
 
   <dialog id="apiDialog">
     <form method="dialog">
+      <h2>EDS Job</h2>
       <div class="task-id">
         <label for="task_id">Task ID</label>
         <input name="task_id" id="task_id" ctype="text" placeholder="Enter task_id of job to fetch" autocomplete="off"><br>
@@ -23,16 +24,17 @@
         <input name="clientId" id="clientId" ctype="text" placeholder="Enter client ID" autocomplete="off"><br>
       </div>
       <div class="client-name">
-        <label for="clientName">Client Name</label>
-        <input name="clientName" id="clientName" ctype="text" placeholder="Enter client Name" autocomplete="off"><br>
-        <a id="clientIdUrl" class="" href="https://ui.attentivemobile.com/home" target="_blank">Open Company ID in new tab</a>
+        <label for="task_name">Task Name</label>
+        <input name="task_name" id="task_name" ctype="text" placeholder="Enter client Name" autocomplete="off"><br>
       </div>
       <div class="token">
+        <a id="clientIdUrl" class="" href="https://ui.attentivemobile.com/home" target="_blank">Open companyId in new tab</a>
         <label for="token">attentive-auth-token</label>
         <br>
         <textarea name="token" id="token" cols="50" rows="4" placeholder="Paste 'attentive-auth-token' from Attentive UI Session storage"></textarea><br>
       </div>
       <input id="method" type="hidden">
+      <input id="crud" type="hidden">
       <button id="apiDialogSubmitBtn" type="">Submit</button>
       <button id="apiDialogCancelBtn" type="">Cancel</button>
     </form>
@@ -248,6 +250,7 @@
   // console.log("LET API PARAMS")
   let apiParams
   let url = ''
+  let crud = ''
   let method = ''
   let headers = {}
   let data
@@ -415,27 +418,30 @@
         console.log("CLIENT NAME:", clientName)
         apiDialog.querySelector("#task_id").value = task_id
         apiDialog.querySelector("#clientId").value = clientId
-        apiDialog.querySelector("#clientName").value = clientName
         if (path.includes("/get")) {
           console.log("CLICKED GET")
+          apiDialog.querySelector("#crud").value = "READ"
           apiDialog.querySelector("#method").value = "GET"
+          apiDialog.querySelector("h2").textContent = 'Fetch Existing EDS Job'
           apiDialog.querySelector("#task_id").placeholder = "Enter task_id of job to fetch"
           apiDialog.querySelector(".client-name").classList.add("d-none")
           apiDialog.querySelector(".task-id").classList.remove("d-none")
         } else if (path.includes("/post")) {
           console.log("CLICKED POST")
           createFileName()
-          if (filename != 'data') task_name = filename
+          task_name = filename
           console.log("TASK NAME:", task_name)
+          apiDialog.querySelector("#crud").value = "CREATE"
           apiDialog.querySelector("#method").value = "POST"
+          apiDialog.querySelector("h2").textContent = 'Create New EDS Job'
+          apiDialog.querySelector("#task_name").value = task_name
           apiDialog.querySelector(".client-name").classList.remove("d-none")
           apiDialog.querySelector(".task-id").classList.add("d-none")
         } else if (path.includes("/put")) {
           console.log("CLICKED PUT")
-          createFileName()
-          if (filename != 'data') task_name = filename
-          console.log("TASK NAME:", task_name)
+          apiDialog.querySelector("#crud").value = "UPDATE"
           apiDialog.querySelector("#method").value = "POST"
+          apiDialog.querySelector("h2").textContent = 'Update Existing EDS Job'
           apiDialog.querySelector("#task_id").placeholder = "Enter task_id of job to update"
           apiDialog.querySelector(".client-name").classList.add("d-none")
           apiDialog.querySelector(".task-id").classList.remove("d-none")
@@ -546,9 +552,10 @@
     console.log("task_id:", task_id)
     clientId = document.querySelector("#clientId").value
     console.log("clientId:", clientId)
-    clientName = document.querySelector("#clientName").value
-    console.log("clientName:", clientName)
+    task_name = document.querySelector("#task_name").value
+    console.log("task_name:", task_name)
     console.log("TASK ID VALUE", task_id)
+    crud = document.querySelector("#crud").value
     method = document.querySelector("#method").value
     headers['Authorization'] = `Bearer ${token}`
     if (!token) {
@@ -581,28 +588,24 @@
     }
     console.log("=====")
     console.log('URL:', url)
+    console.log('CRUD:', crud)
     console.log('METHOD:', method)
     console.log('HEADERS:', headers)
     console.log('DATA:', data)
     console.log("=====")
 
-    if (task_id) {
-      // Have task_id, do a POST or GET to update or fecth existing task
-      console.log("if task_id:", task_id)
-      edsMapping()
-    } else {
-      // No task_id
-      console.log("No task_id:", task_id)
-      if (method === "POST") {
-        // Create new task, then call edsMapping
-        if (task_name === '' || !edsPayload.clientPayload["clientName"] || edsPayload.clientPayload["clientName"].length == 0) {
-          alert("You must enter a clientName in the Source tab")
-        } else {
-          createTask()
-        }
+    if (crud === "READ" || crud === "UPDATE") {
+      if (task_id) {
+        console.log("if task_id:", task_id)
+        edsMapping()
       } else {
-        // Can't do a GET with no task_id
         alert("You must enter a task ID")
+      }
+    } else if (crud === "CREATE") {
+      if (task_name === '') {
+        alert("You must enter a Task Name")
+      } else {
+        createTask()
       }
     }
   })
