@@ -69,7 +69,7 @@ Specification Client will upload files to SFTP with the following path and filen
           "@type": "WebPage",
           "@id": "https://johnchaffee.github.io/attentive-eds-payload-generator/tools/sow/"
       },
-      "keywords" : [ "events" ],
+      "keywords" : [ "sow" ],
       "copyrightHolder" : "Attentive EDS",
       "copyrightYear" : "0001",
       "dateCreated": "0001-01-01T00:00:00.00Z",
@@ -367,7 +367,7 @@ Specification Client will upload files to SFTP with the following path and filen
   
   const url = edsPayload.request_details.url
   api = getApiFromUrl(url)
-  replaceText("api", api)
+  replaceText("api", api.name)
 
   
   const key_name = edsPayload.source_details.key_name

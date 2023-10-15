@@ -6,89 +6,12 @@
     <description>Recent content in events on Attentive EDS</description>
     <generator>Hugo -- gohugo.io</generator><atom:link href="https://johnchaffee.github.io/attentive-eds-payload-generator/tags/events/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Custom Attributes</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/api/custom-attributes/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/api/custom-attributes/</guid>
-      <description> task_id: token:
-Cancel Submit GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &amp;plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &amp;plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: &amp;#123;&amp;nbsp;&amp;#125; &amp;#10005; </description>
-    </item>
-    
-    <item>
       <title>Custom Events</title>
       <link>https://johnchaffee.github.io/attentive-eds-payload-generator/api/custom-events/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/api/custom-events/</guid>
-      <description> task_id: token:
-Cancel Submit GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &amp;plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &amp;plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: &amp;#123;&amp;nbsp;&amp;#125; &amp;#10005; </description>
-    </item>
-    
-    <item>
-      <title>Export Payload</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/export/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/export/</guid>
-      <description>Export</description>
-    </item>
-    
-    <item>
-      <title>Import Payload</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/import/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/import/</guid>
-      <description> task_id: token:
-Cancel Submit GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &amp;plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &amp;plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: &amp;#123;&amp;nbsp;&amp;#125; &amp;#10005; </description>
-    </item>
-    
-    <item>
-      <title>GET Payload</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/get/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/get/</guid>
-      <description>Get</description>
-    </item>
-    
-    <item>
-      <title>POST Payload</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/post/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/post/</guid>
-      <description>Post</description>
-    </item>
-    
-    <item>
-      <title>Link to View</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/view/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/view/</guid>
-      <description>View</description>
-    </item>
-    
-    <item>
-      <title>Link to Create</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/create/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/create/</guid>
-      <description>Create</description>
-    </item>
-    
-    <item>
-      <title>Scope of Work</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/sow/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/sow/</guid>
-      <description>{Client Name}&amp;nbsp;&amp;ndash;&amp;nbsp;EDS&amp;nbsp;{API} &amp;nbsp;API {Date}
-Background This Statement of Work defines the client&#39;s request to submit {API} API requests for users via CSV upload. Purpose This Statement of Work covers the allowable scope of the project. Any term not defined herein shall have the meaning set forth in the Attentive Master Subscription Agreement or the relevant Order Form.
-Specification Client will upload files to SFTP with the following path and filename:</description>
+      <description> EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &amp;plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &amp;plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: &amp;#123;&amp;nbsp;&amp;#125; &amp;#10005; </description>
     </item>
     
   </channel>

@@ -1,39 +1,51 @@
 // This function determines the API from the URL for the
 // SOW and onscreen page title when importing a job
 function getApiFromUrl(url) {
+  api = {}
   switch (url) {
     case 'https://api.attentivemobile.com/v1/attributes/custom':
-      api = 'Custom Attributes'
+      api.name = 'Custom Attributes'
+      api.path = "../../api/custom-attributes"
       break
     case 'https://api.attentivemobile.com/v1/events/custom':
-      api = 'Custom Events'
+      api.name = 'Custom Events'
+      api.path = "../../api/custom-events"
       break
     case 'https://api.attentivemobile.com/v1/events/ecommerce/add-to-cart':
-      api = 'eCommerce Add to Cart'
+      api.name = 'eCommerce Add to Cart'
+      api.path = "../../api/ecommerce-add-to-cart"
       break
     case 'https://api.attentivemobile.com/v1/events/ecommerce/product-view':
-      api = 'eCommerce Product View'
+      api.name = 'eCommerce Product View'
+      api.path = "../../api/ecommerce-product-view"
       break
     case 'https://api.attentivemobile.com/v1/events/ecommerce/purchase':
-      api = 'eCommerce Purchase'
+      api.name = 'eCommerce Purchase'
+      api.path = "../../api/ecommerce-purchase"
       break
     case 'https://api.attentivemobile.com/v1/identity-resolution/user-identifiers':
-      api = 'Identity'
+      api.name = 'Identity'
+      api.path = "../../api/identity"
       break
     case 'https://api.attentivemobile.com/v1/text/send':
-      api = 'Messages'
+      api.name = 'Messages'
+      api.path = "../../api/messages"
       break
     case 'https://api.attentivemobile.com/v1/privacy/delete-request':
-      api = 'Privacy Request'
+      api.name = 'Privacy Request'
+      api.path = "../../api/privacy-request"
       break
     case 'https://api.attentivemobile.com/v1/subscriptions':
-      api = 'Subscribe'
+      api.name = 'Subscribe'
+      api.path = "../../api/subscribe"
       break
     case 'https://api.attentivemobile.com/v1/subscriptions/unsubscribe':
-      api = 'Unsubscribe'
+      api.name = 'Unsubscribe'
+      api.path = "../../api/unsubscribe"
       break
     default:
-      api = 'Custom Payload'
+      api.name = 'Error parsing json file'
+      api.path = "../../api/custom-attributes"
   }
   return api
 }
@@ -165,11 +177,9 @@ function parseImportFile(edsFile) {
   if (edsFile == 'import') {
     importFile = JSON.parse(localStorage.getItem('eds-import'))
   }
-  console.log('IMPORT OBJECT:', importFile)
+  console.log('IMPORT FILE:', importFile)
   if (importFile === null)
     window.location.href = '../../api/custom-attributes'
-
-  console.log('IMPORT FILE:', importFile)
 
   let target = {}
   let source = {}
@@ -195,7 +205,7 @@ function parseImportFile(edsFile) {
 
   // Build the apiParams from the EDS Payload
   function createParams(paramName, paramObject, myParams) {
-    console.log('paramName:', paramName)
+    // console.log('paramName:', paramName)
     // console.log('paramObject:', paramObject)
     // console.log('myParams:', myParams)
     Object.entries(myParams).forEach(entry => {
@@ -319,11 +329,19 @@ function parseImportFile(edsFile) {
     apiParams.scheduleParams[2].value = schedule?.timeZone ? schedule.timeZone : ''
   }
 
+  console.log('apiParams AFTER:', apiParams)
+
   // Change h1 title from Imported Payload to the name of the API
   const api = getApiFromUrl(apiParams.url)
-  document.querySelector('h1').textContent = api
+  if (api.name.toLowerCase().includes("error")) {
+    alert(api.name)
+  } else {
+    // console.log("API NAME:", api.name)
+    // console.log("API PATH:", api.path)
+    localStorage.setItem("apiParams", JSON.stringify(apiParams))
+    window.location.href = api.path + "?import=true"
+  }
 
-  console.log('apiParams AFTER:', apiParams)
 }
 
 // Update the edsPayload when various events fire (load, click, keyup)

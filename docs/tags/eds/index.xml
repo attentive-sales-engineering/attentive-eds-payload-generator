@@ -11,7 +11,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/</guid>
-      <description> Api Custom Attributes Custom Events eCommerce Add to Cart eCommerce Product View eCommerce Purchase Identity Messages Privacy Request Subscribe Unsubscribe Tools Export Payload Import Payload GET Payload POST Payload Link to View Link to Create Scope of Work </description>
+      <description> Api Custom Attributes Custom Events eCommerce Add to Cart eCommerce Product View eCommerce Purchase Identity Messages Privacy Request Subscribe Unsubscribe Tools GET - Read Job POST - Create Job PUT - Update Job Link to View Job Link to Create Job Export JSON Payload Import JSON Payload Scope of Work </description>
     </item>
     
   </channel>

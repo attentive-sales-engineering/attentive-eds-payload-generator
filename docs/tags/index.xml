@@ -6,6 +6,24 @@
     <description>Recent content in Tags on Attentive EDS</description>
     <generator>Hugo -- gohugo.io</generator><atom:link href="https://johnchaffee.github.io/attentive-eds-payload-generator/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>attributes</title>
+      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/attributes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/attributes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>create</title>
+      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/create/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/create/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>ecommerce</title>
       <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/ecommerce/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -33,11 +51,56 @@
     </item>
     
     <item>
+      <title>export</title>
+      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/export/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/export/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>get</title>
+      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/get/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/get/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>identity</title>
+      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/identity/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/identity/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>import</title>
+      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/import/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/import/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>messages</title>
       <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/messages/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/messages/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>post</title>
+      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/post/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/post/</guid>
       <description></description>
     </item>
     
@@ -51,20 +114,47 @@
     </item>
     
     <item>
-      <title>subscribers</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/subscribers/</link>
+      <title>put</title>
+      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/put/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/subscribers/</guid>
+      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/put/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>text</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/text/</link>
+      <title>sow</title>
+      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/sow/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/text/</guid>
+      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/sow/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>subscribe</title>
+      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/subscribe/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/subscribe/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>unsubscribe</title>
+      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/unsubscribe/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/unsubscribe/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>view</title>
+      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/view/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/view/</guid>
       <description></description>
     </item>
     
