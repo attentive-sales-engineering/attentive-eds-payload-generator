@@ -1,7 +1,7 @@
 ---
-title: "GET Payload"
+title: "GET - Read Job"
 draft: false
-weight: 3000
+weight: 1000
 tags:
   - get
 geekdocNav: false

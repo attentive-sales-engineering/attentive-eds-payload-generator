@@ -1,11 +1,11 @@
 ---
-title: "Link to Create Job"
+title: "PUT - Update Job"
 draft: false
-weight: 5000
+weight: 3000
 tags:
-  - create
+  - put
 geekdocNav: false
 geekdocBreadcrumb: false
 ---
 
-Create
+Put
