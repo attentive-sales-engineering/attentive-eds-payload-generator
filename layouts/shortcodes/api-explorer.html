@@ -18,6 +18,8 @@
       <input name="task_id" id="task_id" ctype="text" placeholder="Enter task ID to update or blank to create new" autocomplete="off"><br>
       <label for="clientId">clientId:</label>
       <input name="clientId" id="clientId" ctype="text" placeholder="Enter client ID" autocomplete="off"><br>
+      <label for="clientName">clientName:</label>
+      <input name="clientName" id="clientName" ctype="text" placeholder="Enter client Name" autocomplete="off"><br>
       <label for="token">token:</label> <a id="clientIdUrl" href="https://ui.attentivemobile.com/home" target="_blank">Open Attentive UI Company account in new tab</a><br>
       <textarea name="token" id="token" cols="50" rows="4" placeholder="Paste 'attentive-auth-token' from Attentive UI Session storage"></textarea><br>
       <input id="method" type="hidden">
@@ -243,6 +245,7 @@
   let token = ''
   let task_id = ''
   let clientId = ''
+  let clientName = ''
   let task_name = ''
   let task_description = ''
 
@@ -392,32 +395,29 @@
         e.preventDefault()
         console.log("CLICKED VIEW LINK")
         window.open("https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + edsPayload.task_id, '_blank')
-      } else if (path.includes("/get")) {
+      } else if (path.match(/get|post/)) {
         e.preventDefault()
-        console.log("CLICKED GET PAYLOAD")
         if (edsPayload.task_id) task_id = edsPayload.task_id
         if (edsPayload.clientPayload.clientId) clientId = edsPayload.clientPayload.clientId
+        if (edsPayload.clientPayload.clientName) clientName = edsPayload.clientPayload.clientName
         console.log("TASK ID:", task_id)
         console.log("CLIENT ID:", clientId)
+        console.log("CLIENT NAME:", clientName)
         apiDialog.querySelector("#task_id").value = task_id
         apiDialog.querySelector("#clientId").value = clientId
-        apiDialog.querySelector("#method").value = "GET"
-        apiDialog.querySelector("#task_id").placeholder = "Enter task_id of job to fetch"
-        apiDialog.showModal()
-      } else if (path.includes("/post")) {
-        e.preventDefault()
-        console.log("CLICKED POST PAYLOAD")
-        if (edsPayload.task_id) task_id = edsPayload.task_id
-        if (edsPayload.clientPayload.clientId) clientId = edsPayload.clientPayload.clientId
-        createFileName()
-        if (filename != 'data') task_name = filename
-        console.log("TASK ID:", task_id)
-        console.log("CLIENT ID:", clientId)
-        console.log("TASK NAME:", task_name)
-        apiDialog.querySelector("#task_id").value = task_id
-        apiDialog.querySelector("#clientId").value = clientId
-        apiDialog.querySelector("#method").value = "POST"
-        apiDialog.querySelector("#task_id").placeholder = "Enter task_id to update or blank to create new"
+        apiDialog.querySelector("#clientName").value = clientName
+        if (path.includes("/get")) {
+          console.log("CLICKED GET PAYLOAD")
+          apiDialog.querySelector("#method").value = "GET"
+          apiDialog.querySelector("#task_id").placeholder = "Enter task_id of job to fetch"
+        } else if (path.includes("/post")) {
+          console.log("CLICKED POST PAYLOAD")
+          createFileName()
+          if (filename != 'data') task_name = filename
+          console.log("TASK NAME:", task_name)
+          apiDialog.querySelector("#method").value = "POST"
+          apiDialog.querySelector("#task_id").placeholder = "Enter task_id to update or blank to create new"
+        }
         apiDialog.showModal()
       }
     })
@@ -504,12 +504,14 @@
     })
   }
 
+  // Open Attentive UI with ?companyId=x in new window
   apiDialog.querySelector("#clientIdUrl").addEventListener("click", (e) => {
     e.preventDefault()
     console.log("CLICKED CID URL", e)
     // console.log("CLICKED CID URL srcElement.href", e.srcElement.href)
-    console.log("edsPayload.clientId", clientId.value)
-    window.open("https://ui.attentivemobile.com/home" + "?companyId=" + clientId.value, "_blank")
+    const companyId = document.querySelector("#clientId").value
+    console.log("companyId", companyId)
+    window.open("https://ui.attentivemobile.com/home" + "?companyId=" + companyId, "_blank")
   })
 
   // Dialog submit button event listener
@@ -522,6 +524,8 @@
     console.log("task_id:", task_id)
     clientId = document.querySelector("#clientId").value
     console.log("clientId:", clientId)
+    clientName = document.querySelector("#clientName").value
+    console.log("clientName:", clientName)
     console.log("TASK ID VALUE", task_id)
     method = document.querySelector("#method").value
     headers['Authorization'] = `Bearer ${token}`

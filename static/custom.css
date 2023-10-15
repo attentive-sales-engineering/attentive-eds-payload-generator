@@ -173,7 +173,8 @@ dialog {
 }
 
 #task_id,
-#clientId {
+#clientId,
+#clientName {
   width: 100%;
 }
 
