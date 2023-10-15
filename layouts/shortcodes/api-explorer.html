@@ -40,6 +40,18 @@
     </form>
   </dialog>
 
+  <dialog id="exportDialog">
+    <form method="dialog">
+      <h2>Export JSON Payload</h2>
+      <div class="client-name">
+        <label for="filename">Export Filename</label>
+        <input name="filename" id="filename" ctype="text" placeholder="Enter filename for export file" autocomplete="off"><br>
+      </div>
+      <button id="exportDialogSubmitBtn" type=""><a id="exportDialogSubmitLink" class="btn" href="">Submit</a></button>
+      <button id="exportDialogCancelBtn" type="">Cancel</button>
+    </form>
+  </dialog>
+
   <dialog id="importDialog">
     <form method="post" enctype="multipart/form-data">
       <div>
@@ -261,6 +273,7 @@
   let clientName = ''
   let task_name = ''
   let task_description = ''
+  let filename = ''
 
   async function fetchApiParams() {
     // console.log("FETCH API PARAMS")
@@ -394,7 +407,13 @@
         window.open("../../tools/sow", '_blank')
       } else if (path.includes("/export")) {
         console.log("CLICKED EXPORT LINK")
-        exportJson(e.srcElement)
+        console.log("E:", e)
+        e.preventDefault()
+        exportDialog.showModal()
+        createFileName()
+        console.log("EXPORT FILE NAME:", filename)
+        exportDialog.querySelector("#filename").value = filename
+        console.log("filename:", filename)
       } else if (path.includes("/import")) {
         console.log("CLICKED IMPORT LINK")
         e.preventDefault()
@@ -451,7 +470,6 @@
     })
   })
 
-  let filename = ''
   function createFileName() {
     console.log("filename BEFORE:", filename)
     filename = ''
@@ -474,13 +492,14 @@
   // EXPORT
   // Export edsPayload json
   function exportJson(element) {
-    // console.log("exportJson() function")
+    console.log("exportJson(element):", element)
     const data = "text/json;charset=utf-8;filename=foo," + encodeURIComponent(JSON.stringify(edsPayload))
     const downloadBtn = element
+    console.log("downloadBtn:", downloadBtn)
     downloadBtn.href = 'data:' + data
-    // console.log("downloadBtn:", downloadBtn)
-    createFileName()
+    console.log("downloadBtn.href:", downloadBtn.href)
     downloadBtn.download = `${filename}.json`
+    console.log("downloadBtn.download:", downloadBtn.download)
   }
 
   // IMPORT
@@ -513,6 +532,10 @@
   const apiDialog = document.querySelector("#apiDialog")
   closeDialog(apiDialog)
 
+  // Display Export Dialog then trigger exportJson
+  const exportDialog = document.querySelector("#exportDialog")
+  closeDialog(exportDialog)
+
   // Display Import Dialog then trigger importJson
   const importDialog = document.querySelector("#importDialog")
   closeDialog(importDialog)
@@ -531,6 +554,14 @@
       }
     })
   }
+
+  exportDialog.querySelector("#exportDialogSubmitBtn").addEventListener("click", (e) => {
+    console.log("E:", e)
+    console.log("CLICKED EXPORT DIALOG SUBMIT BUTTON")
+    filename = document.querySelector("#filename").value
+    console.log("filename:", filename)
+    exportJson(e.srcElement)
+  })
 
   // Open Attentive UI with ?companyId=x in new window
   apiDialog.querySelector("#clientIdUrl").addEventListener("click", (e) => {

@@ -223,3 +223,13 @@ dialog>form button {
   margin-bottom: 0px;
   margin-left: 8px;
 }
+
+dialog>form #exportDialogSubmitBtn {
+  padding: 4px 10px;
+}
+
+dialog>form #exportDialogSubmitLink {
+  color: black;
+  padding: 0;
+  text-decoration: none;
+}
