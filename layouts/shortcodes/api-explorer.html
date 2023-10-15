@@ -14,16 +14,24 @@
 
   <dialog id="apiDialog">
     <form method="dialog">
-      <label for="task_id">Task ID</label>
-      <input name="task_id" id="task_id" ctype="text" placeholder="Enter task ID to update or blank to create new" autocomplete="off"><br>
-      <label for="clientId">Client ID</label>
-      <input name="clientId" id="clientId" ctype="text" placeholder="Enter client ID" autocomplete="off"><br>
-      <label for="clientName">Client Name</label>
-      <input name="clientName" id="clientName" ctype="text" placeholder="Enter client Name" autocomplete="off"><br>
-      <a id="clientIdUrl" class="" href="https://ui.attentivemobile.com/home" target="_blank">Open Company ID in new tab</a>
-      <label for="token">attentive-auth-token</label>
-      <br>
-      <textarea name="token" id="token" cols="50" rows="4" placeholder="Paste 'attentive-auth-token' from Attentive UI Session storage"></textarea><br>
+      <div class="task-id">
+        <label for="task_id">Task ID</label>
+        <input name="task_id" id="task_id" ctype="text" placeholder="Enter task_id of job to fetch" autocomplete="off"><br>
+      </div>
+      <div class="client-id">
+        <label for="clientId">Client ID</label>
+        <input name="clientId" id="clientId" ctype="text" placeholder="Enter client ID" autocomplete="off"><br>
+      </div>
+      <div class="client-name">
+        <label for="clientName">Client Name</label>
+        <input name="clientName" id="clientName" ctype="text" placeholder="Enter client Name" autocomplete="off"><br>
+        <a id="clientIdUrl" class="" href="https://ui.attentivemobile.com/home" target="_blank">Open Company ID in new tab</a>
+      </div>
+      <div class="token">
+        <label for="token">attentive-auth-token</label>
+        <br>
+        <textarea name="token" id="token" cols="50" rows="4" placeholder="Paste 'attentive-auth-token' from Attentive UI Session storage"></textarea><br>
+      </div>
       <input id="method" type="hidden">
       <button id="apiDialogSubmitBtn" type="">Submit</button>
       <button id="apiDialogCancelBtn" type="">Cancel</button>
@@ -397,7 +405,7 @@
         e.preventDefault()
         console.log("CLICKED VIEW LINK")
         window.open("https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + edsPayload.task_id, '_blank')
-      } else if (path.match(/get|post/)) {
+      } else if (path.match(/get|post|put/)) {
         e.preventDefault()
         if (edsPayload.task_id) task_id = edsPayload.task_id
         if (edsPayload.clientPayload.clientId) clientId = edsPayload.clientPayload.clientId
@@ -409,16 +417,28 @@
         apiDialog.querySelector("#clientId").value = clientId
         apiDialog.querySelector("#clientName").value = clientName
         if (path.includes("/get")) {
-          console.log("CLICKED GET PAYLOAD")
+          console.log("CLICKED GET")
           apiDialog.querySelector("#method").value = "GET"
           apiDialog.querySelector("#task_id").placeholder = "Enter task_id of job to fetch"
+          apiDialog.querySelector(".client-name").classList.add("d-none")
+          apiDialog.querySelector(".task-id").classList.remove("d-none")
         } else if (path.includes("/post")) {
-          console.log("CLICKED POST PAYLOAD")
+          console.log("CLICKED POST")
           createFileName()
           if (filename != 'data') task_name = filename
           console.log("TASK NAME:", task_name)
           apiDialog.querySelector("#method").value = "POST"
-          apiDialog.querySelector("#task_id").placeholder = "Enter task_id to update or blank to create new"
+          apiDialog.querySelector(".client-name").classList.remove("d-none")
+          apiDialog.querySelector(".task-id").classList.add("d-none")
+        } else if (path.includes("/put")) {
+          console.log("CLICKED PUT")
+          createFileName()
+          if (filename != 'data') task_name = filename
+          console.log("TASK NAME:", task_name)
+          apiDialog.querySelector("#method").value = "POST"
+          apiDialog.querySelector("#task_id").placeholder = "Enter task_id of job to update"
+          apiDialog.querySelector(".client-name").classList.add("d-none")
+          apiDialog.querySelector(".task-id").classList.remove("d-none")
         }
         apiDialog.showModal()
       }
