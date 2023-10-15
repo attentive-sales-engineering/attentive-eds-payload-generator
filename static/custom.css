@@ -172,11 +172,11 @@ dialog {
   border: 2px solid gray;
 }
 
-#task_id,
+/* #task_id,
 #clientId,
 #clientName {
   width: 100%;
-}
+} */
 
 /* Hide 'Navigation' header in sidebar */
 section.gdoc-nav--main>h2 {
@@ -191,4 +191,35 @@ section.gdoc-nav--main>h2 {
 /* Remove margin where search box was */
 .gdoc-nav nav section {
   margin-top: 0;
+}
+
+dialog>form {
+  padding: 10px;
+}
+
+dialog>form label {
+  font-weight: bold;
+}
+
+dialog>form input,
+dialog>form textarea {
+  padding: 10px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+#clientIdUrl {
+  position: relative;
+  bottom: -4px;
+  font-size: small;
+  color: #0d6efd;
+  float: right;
+}
+
+dialog>form button {
+  float: right;
+  padding: 5px 10px;
+  margin-top: -4px;
+  margin-bottom: 0px;
+  margin-left: 8px;
 }

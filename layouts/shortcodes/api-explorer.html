@@ -14,17 +14,19 @@
 
   <dialog id="apiDialog">
     <form method="dialog">
-      <label for="task_id">task_id:</label>
+      <label for="task_id">Task ID</label>
       <input name="task_id" id="task_id" ctype="text" placeholder="Enter task ID to update or blank to create new" autocomplete="off"><br>
-      <label for="clientId">clientId:</label>
+      <label for="clientId">Client ID</label>
       <input name="clientId" id="clientId" ctype="text" placeholder="Enter client ID" autocomplete="off"><br>
-      <label for="clientName">clientName:</label>
+      <label for="clientName">Client Name</label>
       <input name="clientName" id="clientName" ctype="text" placeholder="Enter client Name" autocomplete="off"><br>
-      <label for="token">token:</label> <a id="clientIdUrl" href="https://ui.attentivemobile.com/home" target="_blank">Open Attentive UI Company account in new tab</a><br>
+      <a id="clientIdUrl" class="" href="https://ui.attentivemobile.com/home" target="_blank">Open Company ID in new tab</a>
+      <label for="token">attentive-auth-token</label>
+      <br>
       <textarea name="token" id="token" cols="50" rows="4" placeholder="Paste 'attentive-auth-token' from Attentive UI Session storage"></textarea><br>
       <input id="method" type="hidden">
-      <button id="apiDialogCancelBtn" type="">Cancel</button>
       <button id="apiDialogSubmitBtn" type="">Submit</button>
+      <button id="apiDialogCancelBtn" type="">Cancel</button>
     </form>
   </dialog>
 
