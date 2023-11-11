@@ -96,8 +96,8 @@
   replaceText("date", date)
 
   // Client Name
-  if (edsPayload.clientPayload.clientName) {
-    replaceText("client-name", edsPayload.clientPayload.clientName)
+  if (edsPayload.metaPayload.clientName) {
+    replaceText("client-name", edsPayload.metaPayload.clientName)
   }
 
   // API
@@ -111,7 +111,7 @@
 
   if (key_name != null && key_name != '') {
     // filename
-    const fileName = edsPayload.clientPayload.fileName.replace(/\.\w*/, '').toString()
+    const fileName = edsPayload.metaPayload.fileName.replace(/\.\w*/, '').toString()
     replaceText("filename", fileName)
 
     // file-name-and-date
@@ -127,8 +127,8 @@
 
   // filetype
   let fileType = "CSV"
-  if (edsPayload.clientPayload.delimiter) {
-    switch (edsPayload.clientPayload.delimiter) {
+  if (edsPayload.metaPayload.delimiter) {
+    switch (edsPayload.metaPayload.delimiter) {
       case 'comma':
         fileType = "CSV"
         break
@@ -203,11 +203,11 @@
 
   // Change Page Title
   let pageTitle = "EDS"
-  if (edsPayload.clientPayload["ticketUrl"] && edsPayload.clientPayload["ticketUrl"].length > 0 && edsPayload.clientPayload["ticketUrl"].match(/\d+$/)) {
-    pageTitle += `-${edsPayload.clientPayload["ticketUrl"].match(/\d+$/).toString()}`
+  if (edsPayload.metaPayload["ticketUrl"] && edsPayload.metaPayload["ticketUrl"].length > 0 && edsPayload.metaPayload["ticketUrl"].match(/\d+$/)) {
+    pageTitle += `-${edsPayload.metaPayload["ticketUrl"].match(/\d+$/).toString()}`
   }
-  if (edsPayload.clientPayload["clientName"] && edsPayload.clientPayload["clientName"].length > 0) {
-    pageTitle += ` - ${edsPayload.clientPayload["clientName"]}`
+  if (edsPayload.metaPayload["clientName"] && edsPayload.metaPayload["clientName"].length > 0) {
+    pageTitle += ` - ${edsPayload.metaPayload["clientName"]}`
   }
   pageTitle += ` - ${api}`
   document.title = pageTitle

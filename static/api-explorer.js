@@ -195,7 +195,7 @@ function parseImportFile(edsFile) {
     console.log("LOCAL JSON IMPORT")
     target = importFile.request_details
     source = importFile.source_details
-    client = importFile.clientPayload
+    client = importFile.metaPayload
     schedule = importFile.schedulePayload
   }
 
@@ -369,7 +369,7 @@ function updatePayload(e, paramsId) {
   let schedule = {}
   let key_name = ''
   let source_details = {}
-  let clientPayload = {}
+  let metaPayload = {}
   let schedulePayload = {}
 
   // Set variable values from query selectors
@@ -527,10 +527,10 @@ function updatePayload(e, paramsId) {
 
   // Concatenate meta params
   if (meta && Object.entries(meta).length > 0) {
-    if (meta['clientName']) clientPayload.clientName = meta['clientName']
-    if (meta['clientId']) clientPayload.clientId = meta['clientId']
-    if (meta['ticketUrl']) clientPayload.ticketUrl = meta['ticketUrl']
-    if (meta['taskUrl']) clientPayload.taskUrl = meta['taskUrl']
+    if (meta['clientName']) metaPayload.clientName = meta['clientName']
+    if (meta['clientId']) metaPayload.clientId = meta['clientId']
+    if (meta['ticketUrl']) metaPayload.ticketUrl = meta['ticketUrl']
+    if (meta['taskUrl']) metaPayload.taskUrl = meta['taskUrl']
   }
 
   // Concatenate schedule params
@@ -540,9 +540,9 @@ function updatePayload(e, paramsId) {
     if (schedule['timeZone']) schedulePayload.timeZone = schedule['timeZone']
   }
 
-  // console.log("CLIENT PAYLOAD:", clientPayload)
-  edsPayload.clientPayload = clientPayload
-  // console.log("TARGET PAYLOAD:", clientPayload)
+  // console.log("CLIENT PAYLOAD:", metaPayload)
+  edsPayload.metaPayload = metaPayload
+  // console.log("TARGET PAYLOAD:", metaPayload)
   edsPayload.request_details = request_details
   // console.log("SOURCE PAYLOAD:", source_details)
   edsPayload.source_details = source_details
@@ -550,8 +550,8 @@ function updatePayload(e, paramsId) {
   edsPayload.schedulePayload = schedulePayload
 
   // Additional required EDS Payload objects
-  // edsPayload.task_id = clientPayload.taskUrl
-  edsPayload.task_id = clientPayload.taskUrl?.substring(clientPayload.taskUrl.lastIndexOf('/') + 1).toString()
+  // edsPayload.task_id = metaPayload.taskUrl
+  edsPayload.task_id = metaPayload.taskUrl?.substring(metaPayload.taskUrl.lastIndexOf('/') + 1).toString()
   edsPayload.source_type = "s3"
   edsPayload.request_type = "http"
   edsPayload.response_details = {

@@ -442,7 +442,7 @@
       } else if (path.includes("/create")) {
         e.preventDefault()
         console.log("CLICKED CREATE LINK")
-        window.open("https://ui.attentivemobile.com/tactical/event-destinations/create?companyId=" + edsPayload.clientPayload.clientId, '_blank')
+        window.open("https://ui.attentivemobile.com/tactical/event-destinations/create?companyId=" + edsPayload.metaPayload.clientId, '_blank')
       } else if (path.includes("/view")) {
         e.preventDefault()
         console.log("CLICKED VIEW LINK")
@@ -450,8 +450,8 @@
       } else if (path.match(/get|post|put/)) {
         e.preventDefault()
         if (edsPayload.task_id) task_id = edsPayload.task_id
-        if (edsPayload.clientPayload.clientId) clientId = edsPayload.clientPayload.clientId
-        if (edsPayload.clientPayload.clientName) clientName = edsPayload.clientPayload.clientName
+        if (edsPayload.metaPayload.clientId) clientId = edsPayload.metaPayload.clientId
+        if (edsPayload.metaPayload.clientName) clientName = edsPayload.metaPayload.clientName
         console.log("TASK ID:", task_id)
         console.log("CLIENT ID:", clientId)
         console.log("CLIENT NAME:", clientName)
@@ -494,11 +494,11 @@
     console.log("filename BEFORE:", filename)
     filename = ''
     console.log("filename RESET:", filename)
-    if (edsPayload.clientPayload["ticketUrl"] && edsPayload.clientPayload["ticketUrl"].length > 0 && edsPayload.clientPayload["ticketUrl"].match(/\d+$/)) {
-      filename += `EDS-${edsPayload.clientPayload["ticketUrl"].match(/\d+$/).toString()}: `
+    if (edsPayload.metaPayload["ticketUrl"] && edsPayload.metaPayload["ticketUrl"].length > 0 && edsPayload.metaPayload["ticketUrl"].match(/\d+$/)) {
+      filename += `EDS-${edsPayload.metaPayload["ticketUrl"].match(/\d+$/).toString()}: `
     }
-    if (edsPayload.clientPayload["clientName"] && edsPayload.clientPayload["clientName"].length > 0) {
-      filename += `${edsPayload.clientPayload["clientName"]} `
+    if (edsPayload.metaPayload["clientName"] && edsPayload.metaPayload["clientName"].length > 0) {
+      filename += `${edsPayload.metaPayload["clientName"]} `
     }
     console.log("edsPayload.request_details.url:", edsPayload.request_details.url)
     let apiFileName = getApiFromUrl(edsPayload.request_details.url)
@@ -738,7 +738,7 @@
         console.log("METHOD:", method)
         task_id = response.data.task_id
         edsPayload.task_id = task_id
-        // edsPayload.clientPayload.taskUrl = "https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + task_id
+        // edsPayload.metaPayload.taskUrl = "https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + task_id
         // apiParams.sourceParams.taskUrl = "https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + task_id
         edsMapping()
       })
