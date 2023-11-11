@@ -66,7 +66,18 @@
     }
   ],
   "propParams": [],
-  "queryParams": [
+  "queryParams": [],
+  "subscriptionsParams": [],
+  "jsonParams": {},
+  "headerParams": [
+    {
+      "key": "Authorization",
+      "value": "Bearer <API Key>",
+      "placeholder": "Bearer <API Key> (required)",
+      "data-curly-braces": "false"
+    }
+  ],
+  "userParams": [
     {
       "key": "phone",
       "value": "",
@@ -98,16 +109,18 @@
       "data-curly-braces": "true"
     }
   ],
-  "subscriptionsParams": [],
-  "jsonParams": {},
-  "headerParams": [
+  "customParams": [
     {
-      "key": "Authorization",
-      "value": "Bearer <API Key>",
-      "placeholder": "Bearer <API Key> (required)",
+      "key": "name",
+      "value": "",
+      "placeholder": "customIdentifierName (optional)",
       "data-curly-braces": "false"
+    },
+    {
+      "key": "value",
+      "value": "",
+      "placeholder": "customIdentifierValue (optional)",
+      "data-curly-braces": "true"
     }
-  ],
-  "userParams": [],
-  "customParams": []
+  ]
 }

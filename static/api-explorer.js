@@ -457,7 +457,14 @@ function updatePayload(e, paramsId) {
     document.querySelector(`#${paramsId} ` + '[data-user-custom-section]').classList.add('d-none')
   }
 
-  // console.log("PAYLOAD MAPPING", payload_mapping)
+  // If Identity API, map and transform User props to root of payload
+  if (window.location.pathname.match("identity")) {
+    payload_mapping = payload_mapping.user
+    payload_mapping.customIdentifiers = payload_mapping.externalIdentifiers.customIdentifiers
+    delete payload_mapping.externalIdentifiers
+  }
+  // console.log("PAYLOAD MAPPING:", payload_mapping)
+
 
   request_details = {
     url,
