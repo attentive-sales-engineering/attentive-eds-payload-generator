@@ -68,7 +68,14 @@
     }
   ],
   "propParams": [],
-  "queryParams": [],
+  "queryParams": [
+    {
+      "key": "notification.language",
+      "value": "",
+      "placeholder": "en-US (optional notification props to override)",
+      "data-curly-braces": "false"
+    }
+  ],
   "subscriptionsParams": [
     {
       "key": "type",
@@ -106,18 +113,5 @@
       "data-curly-braces": "true"
     }
   ],
-  "customParams": [
-    {
-      "key": "name",
-      "value": "",
-      "placeholder": "customIdentifierName (optional)",
-      "data-curly-braces": "false"
-    },
-    {
-      "key": "value",
-      "value": "",
-      "placeholder": "customIdentifierValue (optional)",
-      "data-curly-braces": "true"
-    }
-  ]
+  "customParams": []
 }
