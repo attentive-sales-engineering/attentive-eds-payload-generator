@@ -183,7 +183,7 @@ function parseImportFile(edsFile) {
 
   let target = {}
   let source = {}
-  let client = {}
+  let meta = {}
   let schedule = {}
 
   // Check if this came from EDS
@@ -195,13 +195,13 @@ function parseImportFile(edsFile) {
     console.log("LOCAL JSON IMPORT")
     target = importFile.request_details
     source = importFile.source_details
-    client = importFile.metaPayload
+    meta = importFile.metaPayload
     schedule = importFile.schedulePayload
   }
 
   console.log('TARGET:', target)
   console.log('SOURCE:', source)
-  console.log('CLIENT:', client)
+  console.log('META:', meta)
   console.log('SCHEDULE:', schedule)
 
   // Build the apiParams from the EDS Payload
@@ -309,17 +309,17 @@ function parseImportFile(edsFile) {
 
 
   // metaParams
-  apiParams.metaParams[0].value = client?.clientName ? client.clientName : ''
+  apiParams.metaParams[0].value = meta?.clientName ? meta.clientName : ''
   if (importFile.mappingInfoOverride) {
     apiParams.metaParams[1].value = importFile.companyId
   } else {
-    apiParams.metaParams[1].value = client?.clientId ? client.clientId : ''
+    apiParams.metaParams[1].value = meta?.clientId ? meta.clientId : ''
   }
-  apiParams.metaParams[2].value = client?.ticketUrl ? client.ticketUrl : ''
+  apiParams.metaParams[2].value = meta?.ticketUrl ? meta.ticketUrl : ''
   if (importFile.companyTaskUuid) {
     apiParams.metaParams[3].value = "https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + importFile.companyTaskUuid
   } else {
-    apiParams.metaParams[3].value = client?.taskUrl ? client.taskUrl : ''
+    apiParams.metaParams[3].value = meta?.taskUrl ? meta.taskUrl : ''
   }
 
   // scheduleParams
@@ -540,7 +540,7 @@ function updatePayload(e, paramsId) {
     if (schedule['timeZone']) schedulePayload.timeZone = schedule['timeZone']
   }
 
-  // console.log("CLIENT PAYLOAD:", metaPayload)
+  // console.log("META PAYLOAD:", metaPayload)
   edsPayload.metaPayload = metaPayload
   // console.log("TARGET PAYLOAD:", metaPayload)
   edsPayload.request_details = request_details
