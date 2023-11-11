@@ -302,22 +302,27 @@ function parseImportFile(edsFile) {
   }
 
   // sourceParams
-  apiParams.sourceParams[0].value = client?.clientName ? client.clientName : ''
   if (importFile.mappingInfoOverride) {
-    apiParams.sourceParams[1].value = importFile.companyId
-    apiParams.sourceParams[2].value = source.key_name.replace(/\<.*/, '')
+    apiParams.sourceParams[0].value = source.key_name.replace(/\<.*/, '')
   } else {
-    apiParams.sourceParams[1].value = client?.clientId ? client.clientId : ''
-    apiParams.sourceParams[2].value = client?.fileName ? client.fileName : ''
+    apiParams.sourceParams[0].value = client?.fileName ? client.fileName : ''
   }
-  apiParams.sourceParams[3].value = client?.fileType ? client.fileType : ''
-  apiParams.sourceParams[4].value = client?.delimiter ? client.delimiter : ''
-  apiParams.sourceParams[5].value = client?.ticketUrl ? client.ticketUrl : ''
-  if (importFile.companyTaskUuid) {
-    // apiParams.sourceParams[6].value = importFile.companyTaskUuid
-    apiParams.sourceParams[6].value = "https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + importFile.companyTaskUuid
+  apiParams.sourceParams[1].value = client?.delimiter ? client.delimiter : ''
+
+
+  // metaParams
+  apiParams.metaParams[0].value = client?.clientName ? client.clientName : ''
+  if (importFile.mappingInfoOverride) {
+    apiParams.metaParams[1].value = importFile.companyId
   } else {
-    apiParams.sourceParams[6].value = client?.taskUrl ? client.taskUrl : ''
+    apiParams.metaParams[1].value = client?.clientId ? client.clientId : ''
+  }
+  apiParams.metaParams[2].value = client?.fileType ? client.fileType : ''
+  apiParams.metaParams[3].value = client?.ticketUrl ? client.ticketUrl : ''
+  if (importFile.companyTaskUuid) {
+    apiParams.metaParams[4].value = "https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + importFile.companyTaskUuid
+  } else {
+    apiParams.metaParams[4].value = client?.taskUrl ? client.taskUrl : ''
   }
 
   // scheduleParams
@@ -383,6 +388,7 @@ function updatePayload(e, paramsId) {
   user = keyValuePairsToObjects(paramsId, "user", document.querySelector(`#${paramsId} ` + '[data-user]')).tempObject
   custom = keyValuePairsToObjects(paramsId, "custom", document.querySelector(`#${paramsId} ` + '[data-user-custom]')).tempObject
   source = keyValuePairsToObjects(paramsId, "source", document.querySelector(`#${paramsId} ` + '[data-source]')).tempObject
+  meta = keyValuePairsToObjects(paramsId, "meta", document.querySelector(`#${paramsId} ` + '[data-meta]')).tempObject
   schedule = keyValuePairsToObjects(paramsId, "schedule", document.querySelector(`#${paramsId} ` + '[data-schedule]')).tempObject
   jsonBody = document.querySelector(`#${paramsId} ` + '.ace_content')?.textContent
 
@@ -501,13 +507,8 @@ function updatePayload(e, paramsId) {
 
   // Concatenate source params
   if (source && Object.entries(source).length > 0) {
-    if (source['clientName']) clientPayload.clientName = source['clientName']
-    if (source['clientId']) clientPayload.clientId = source['clientId']
     if (source['fileName']) clientPayload.fileName = source['fileName']
-    if (source['fileType']) clientPayload.fileType = source['fileType']
     if (source['delimiter']) clientPayload.delimiter = source['delimiter']
-    if (source['ticketUrl']) clientPayload.ticketUrl = source['ticketUrl']
-    if (source['taskUrl']) clientPayload.taskUrl = source['taskUrl']
 
     // Concatenate key_name & delimiter and add to source_details
     if (source['fileName']) {
@@ -521,6 +522,15 @@ function updatePayload(e, paramsId) {
       delimiter = source['delimiter']
       source_details.delimiter = delimiter
     }
+  }
+
+  // Concatenate meta params
+  if (meta && Object.entries(meta).length > 0) {
+    if (meta['clientName']) clientPayload.clientName = meta['clientName']
+    if (meta['clientId']) clientPayload.clientId = meta['clientId']
+    if (meta['fileType']) clientPayload.fileType = meta['fileType']
+    if (meta['ticketUrl']) clientPayload.ticketUrl = meta['ticketUrl']
+    if (meta['taskUrl']) clientPayload.taskUrl = meta['taskUrl']
   }
 
   // Concatenate schedule params
