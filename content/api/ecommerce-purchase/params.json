@@ -13,6 +13,12 @@
       "value": "",
       "placeholder": "comma, tab, pipe, ndjson (optional, default comma)",
       "data-curly-braces": "false"
+    },
+    {
+      "key": "maxFiles",
+      "value": "",
+      "placeholder": "(optional, default 1)",
+      "data-curly-braces": "false"
     }
   ],
   "metaParams": [

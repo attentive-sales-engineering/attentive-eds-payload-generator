@@ -188,10 +188,11 @@ function parseImportFile(edsFile) {
 
   // Check if this came from EDS
   if (importFile.mappingInfoOverride) {
-    console.log("MAPPING INFO OVERRIDE")
+    console.log("MAPPING INFO OVERRIDE = EDS GET")
     target = JSON.parse(importFile.mappingInfoOverride)
     source = JSON.parse(importFile.sourceInfo)
   } else {
+    console.log("LOCAL JSON IMPORT")
     target = importFile.request_details
     source = importFile.source_details
     client = importFile.clientPayload
@@ -302,12 +303,9 @@ function parseImportFile(edsFile) {
   }
 
   // sourceParams
-  if (importFile.mappingInfoOverride) {
-    apiParams.sourceParams[0].value = source.key_name.replace(/\<.*/, '')
-  } else {
-    apiParams.sourceParams[0].value = client?.fileName ? client.fileName : ''
-  }
-  apiParams.sourceParams[1].value = client?.delimiter ? client.delimiter : ''
+  apiParams.sourceParams[0].value = source.key_name.replace(/\<.*/, '')
+  apiParams.sourceParams[1].value = source.delimiter
+  apiParams.sourceParams[2].value = source.options.max_files
 
 
   // metaParams
@@ -317,12 +315,11 @@ function parseImportFile(edsFile) {
   } else {
     apiParams.metaParams[1].value = client?.clientId ? client.clientId : ''
   }
-  apiParams.metaParams[2].value = client?.fileType ? client.fileType : ''
-  apiParams.metaParams[3].value = client?.ticketUrl ? client.ticketUrl : ''
+  apiParams.metaParams[2].value = client?.ticketUrl ? client.ticketUrl : ''
   if (importFile.companyTaskUuid) {
-    apiParams.metaParams[4].value = "https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + importFile.companyTaskUuid
+    apiParams.metaParams[3].value = "https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + importFile.companyTaskUuid
   } else {
-    apiParams.metaParams[4].value = client?.taskUrl ? client.taskUrl : ''
+    apiParams.metaParams[3].value = client?.taskUrl ? client.taskUrl : ''
   }
 
   // scheduleParams
@@ -513,10 +510,6 @@ function updatePayload(e, paramsId) {
 
   // Concatenate source params
   if (source && Object.entries(source).length > 0) {
-    if (source['fileName']) clientPayload.fileName = source['fileName']
-    if (source['delimiter']) clientPayload.delimiter = source['delimiter']
-
-    // Concatenate key_name & delimiter and add to source_details
     if (source['fileName']) {
       key_name = `${source['fileName']}`
     }
@@ -525,8 +518,10 @@ function updatePayload(e, paramsId) {
     }
     source_details.key_name = key_name
     if (source['delimiter']) {
-      delimiter = source['delimiter']
-      source_details.delimiter = delimiter
+      source_details.delimiter = source['delimiter']
+    }
+    if (source['maxFiles']) {
+      source_details.options.max_files = source['maxFiles']
     }
   }
 
@@ -534,7 +529,6 @@ function updatePayload(e, paramsId) {
   if (meta && Object.entries(meta).length > 0) {
     if (meta['clientName']) clientPayload.clientName = meta['clientName']
     if (meta['clientId']) clientPayload.clientId = meta['clientId']
-    if (meta['fileType']) clientPayload.fileType = meta['fileType']
     if (meta['ticketUrl']) clientPayload.ticketUrl = meta['ticketUrl']
     if (meta['taskUrl']) clientPayload.taskUrl = meta['taskUrl']
   }
