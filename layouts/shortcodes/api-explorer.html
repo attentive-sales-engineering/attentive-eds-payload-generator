@@ -74,9 +74,9 @@
       <!-- <button type="submit" class="btn btn-primary">Generate</button> -->
     </div>
     <ul class="nav nav-tabs" role="tablist">
-      <li class="nav-item d-none" role="presentation" data-params-section>
-        <button class="nav-link active" id="{{ .Params.id }}-query-params-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-query-params" type="button" role="tab" aria-controls="query-params" aria-selected="true">
-          Payload
+      <li class="nav-item d-none" role="presentation" data-source-section>
+        <button class="nav-link active" id="{{ .Params.id }}-request-source-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-request-source" type="button" role="tab" aria-controls="request-source" aria-selected="true">
+          Source
         </button>
       </li>
       <li class="nav-item d-none" role="presentation" data-user-section>
@@ -84,14 +84,14 @@
           User
         </button>
       </li>
+      <li class="nav-item d-none" role="presentation" data-params-section>
+        <button class="nav-link" id="{{ .Params.id }}-query-params-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-query-params" type="button" role="tab" aria-controls="query-params" aria-selected="false">
+          Payload
+        </button>
+      </li>
       <li class="nav-item" role="presentation" data-headers-section>
         <button class="nav-link" id="{{ .Params.id }}-request-headers-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-request-headers" type="button" role="tab" aria-controls="request-headers" aria-selected="false">
           Headers
-        </button>
-      </li>
-      <li class="nav-item d-none" role="presentation" data-source-section>
-        <button class="nav-link" id="{{ .Params.id }}-request-source-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-request-source" type="button" role="tab" aria-controls="request-source" aria-selected="false">
-          Source
         </button>
       </li>
       <li class="nav-item d-none" role="presentation" data-schedule-section>
@@ -101,7 +101,7 @@
       </li>
     </ul>
     <div class="tab-content p-3 border-top-0 border">
-      <div class="tab-pane fade show active" id="{{ .Params.id }}-query-params" role="tabpanel" aria-labelledby="query-params-tab">
+      <div class="tab-pane fade" id="{{ .Params.id }}-query-params" role="tabpanel" aria-labelledby="query-params-tab">
         <div class="d-none" data-query-params-section>
           <div class="input-group">
             <div class="section-title pl-75" style="flex: 1">Params</div>
@@ -159,6 +159,18 @@
           </div>
         </div>
       </div>
+      <div class="tab-pane fade show active" id="{{ .Params.id }}-request-source" role="tabpanel" aria-labelledby="request-source-tab">
+        <div class="d-none" data-source-params-section>
+          <div class="input-group">
+            <div class="section-title pl-75" style="flex: 1">Source Params</div>
+            <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
+          </div>
+          <div data-source></div>
+          <!-- <button data-add-request-source-btn class="mt-2 btn btn-outline-success" type="button">
+            &plus;
+          </button> -->
+        </div>
+      </div>
       <div class="tab-pane fade" id="{{ .Params.id }}-request-headers" role="tabpanel" aria-labelledby="request-headers-tab">
         <div class="" data-headers-params-section>
           <div class="input-group">
@@ -184,23 +196,11 @@
         </div>
         <div class="d-none" data-user-custom-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Custom User Identifer Properties</div>
+            <div class="section-title pl-75" style="flex: 1">Custom Identifiers</div>
             <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
           </div>
           <div data-user-custom></div>
           <!-- <button data-add-request-custom-btn class="mt-2 btn btn-outline-success" type="button">
-            &plus;
-          </button> -->
-        </div>
-      </div>
-      <div class="tab-pane fade" id="{{ .Params.id }}-request-source" role="tabpanel" aria-labelledby="request-source-tab">
-        <div class="d-none" data-source-params-section>
-          <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Source Params</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
-          </div>
-          <div data-source></div>
-          <!-- <button data-add-request-source-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
           </button> -->
         </div>
@@ -221,15 +221,15 @@
   </div>
   <div class="" data-response-section>
     <div class="border-top-0 border p-3">
-      <div class="section-title">Target Payload</div>
-      <div class="ace-border">
-        <div id="{{ .Params.id }}" class="ace-editor" data-target-payload></div>
-      </div>
-    </div>
-    <div class="border-top-0 border p-3">
       <div class="section-title">Source Payload</div>
       <div class="ace-border">
         <div id="{{ .Params.id }}" class="ace-editor" data-source-payload></div>
+      </div>
+    </div>
+    <div class="border-top-0 border p-3">
+      <div class="section-title">Target Payload</div>
+      <div class="ace-border">
+        <div id="{{ .Params.id }}" class="ace-editor" data-target-payload></div>
       </div>
     </div>
     <div class="d-none border-top-0 border p-3">
@@ -301,6 +301,7 @@
       apiParams = response
       console.log("apiParams:", apiParams)
 
+      // If importing json file do this, otherwise move on
       if ("{{ .Params.id }}" == 'import') {
         parseImportFile("{{ .Params.id }}")
       }
