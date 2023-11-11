@@ -453,6 +453,7 @@ function updatePayload(e, paramsId) {
 
   // console.log("CUSTOM IDENTIFIER:", custom)
   if (custom && Object.entries(custom).length > 0) {
+    console.log("CUSTOM")
     // if clientUserId was deleted, need to recreate the externalIdentifiers object
     if (payload_mapping.user.externalIdentifiers === undefined) {
       payload_mapping.user.externalIdentifiers = {}
@@ -465,19 +466,24 @@ function updatePayload(e, paramsId) {
 
   // If Identity API, map and transform User props to root of payload
   if (window.location.pathname.match("identity")) {
-    payload_mapping = payload_mapping.user
-    payload_mapping.customIdentifiers = payload_mapping.externalIdentifiers.customIdentifiers
-    delete payload_mapping.externalIdentifiers
+    if (payload_mapping.user) {
+      payload_mapping = payload_mapping.user
+      payload_mapping.customIdentifiers = payload_mapping.externalIdentifiers.customIdentifiers
+      delete payload_mapping.externalIdentifiers
+    }
   }
 
   // If Subscribe API, map and transform User props to root of payload
-  if (window.location.pathname.match("subscribe")) {
-    payload_mapping.externalIdentifiers = payload_mapping.user.externalIdentifiers
-    delete payload_mapping.user.externalIdentifiers
-    payload_mapping.externalIdentifiers.shopifyId = payload_mapping.user.shopifyId
-    delete payload_mapping.user.shopifyId
-    payload_mapping.externalIdentifiers.klaviyoId = payload_mapping.user.klaviyoId
-    delete payload_mapping.user.klaviyoId
+  if (window.location.pathname.match("api/subscribe")) {
+    console.log("SUBSCRIBE")
+    if (payload_mapping.user?.externalIdentifiers) {
+      payload_mapping.externalIdentifiers = payload_mapping.user.externalIdentifiers
+      delete payload_mapping.user.externalIdentifiers
+      payload_mapping.externalIdentifiers.shopifyId = payload_mapping.user.shopifyId
+      delete payload_mapping.user.shopifyId
+      payload_mapping.externalIdentifiers.klaviyoId = payload_mapping.user.klaviyoId
+      delete payload_mapping.user.klaviyoId
+    }
     if (payload_mapping.language != undefined || payload_mapping.country != undefined) {
       payload_mapping.locale = {}
       payload_mapping.locale.language = payload_mapping.language
