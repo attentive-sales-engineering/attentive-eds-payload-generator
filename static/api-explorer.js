@@ -463,6 +463,24 @@ function updatePayload(e, paramsId) {
     payload_mapping.customIdentifiers = payload_mapping.externalIdentifiers.customIdentifiers
     delete payload_mapping.externalIdentifiers
   }
+
+  // If Subscribe API, map and transform User props to root of payload
+  if (window.location.pathname.match("subscribe")) {
+    payload_mapping.externalIdentifiers = payload_mapping.user.externalIdentifiers
+    delete payload_mapping.user.externalIdentifiers
+    payload_mapping.externalIdentifiers.shopifyId = payload_mapping.user.shopifyId
+    delete payload_mapping.user.shopifyId
+    payload_mapping.externalIdentifiers.klaviyoId = payload_mapping.user.klaviyoId
+    delete payload_mapping.user.klaviyoId
+    if (payload_mapping.language != undefined || payload_mapping.country != undefined) {
+      payload_mapping.locale = {}
+      payload_mapping.locale.language = payload_mapping.language
+      delete payload_mapping.language
+      payload_mapping.locale.country = payload_mapping.country
+      delete payload_mapping.country
+    }
+  }
+
   // console.log("PAYLOAD MAPPING:", payload_mapping)
 
 

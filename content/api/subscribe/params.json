@@ -84,6 +84,18 @@
       "value": "",
       "placeholder": "true, false (disabled by default)",
       "data-curly-braces": "false"
+    },
+    {
+      "key": "language",
+      "value": "",
+      "placeholder": "en (optional)",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "country",
+      "value": "",
+      "placeholder": "US (optional)",
+      "data-curly-braces": "false"
     }
   ],
   "subscriptionsParams": [],
@@ -107,6 +119,24 @@
       "key": "email",
       "value": "",
       "placeholder": "email (phone or email required)",
+      "data-curly-braces": "true"
+    },
+    {
+      "key": "shopifyId",
+      "value": "",
+      "placeholder": "shopifyId (optional)",
+      "data-curly-braces": "true"
+    },
+    {
+      "key": "klaviyoId",
+      "value": "",
+      "placeholder": "klaviyoId (optional)",
+      "data-curly-braces": "true"
+    },
+    {
+      "key": "externalIdentifiers.clientUserId",
+      "value": "",
+      "placeholder": "clientUserId (optional)",
       "data-curly-braces": "true"
     }
   ],
