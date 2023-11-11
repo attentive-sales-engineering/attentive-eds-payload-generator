@@ -29,12 +29,6 @@
       "data-curly-braces": "false"
     },
     {
-      "key": "fileType",
-      "value": "",
-      "placeholder": "CSV, TXT, NDJSON (required)",
-      "data-curly-braces": "false"
-    },
-    {
       "key": "ticketUrl",
       "value": "",
       "placeholder": "Jira ticket link",

@@ -127,8 +127,27 @@
 
   // filetype
   let fileType = "CSV"
-  if (edsPayload.clientPayload.fileType) {
-    fileType = edsPayload.clientPayload.fileType
+  if (edsPayload.clientPayload.delimiter) {
+    switch (edsPayload.clientPayload.delimiter) {
+      case 'comma':
+        fileType = "CSV"
+        break
+      case 'tab':
+        fileType = "Tab Separated Text"
+        break
+      case 'pipe':
+        fileType = "Pipe Separated Text"
+        break
+      case 'ndjson':
+        fileType = "NDJON"
+        break
+      case 'xml':
+        fileType = "XML"
+        break
+      default:
+        fileType = "CSV"
+        break
+    }
   }
   replaceText("filetype", fileType)
 
