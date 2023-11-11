@@ -3,6 +3,20 @@
   "method": "POST",
   "sourceParams": [
     {
+      "key": "fileName",
+      "value": "",
+      "placeholder": "chafco/uploads/custom_attributes.csv (required)",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "delimiter",
+      "value": "",
+      "placeholder": "comma, tab, pipe, ndjson (optional, default comma)",
+      "data-curly-braces": "false"
+    }
+  ],
+  "metaParams": [
+    {
       "key": "clientName",
       "value": "",
       "placeholder": "Chafco (required)",
@@ -15,21 +29,9 @@
       "data-curly-braces": "false"
     },
     {
-      "key": "fileName",
-      "value": "",
-      "placeholder": "chafco/uploads/custom_attributes.csv (required)",
-      "data-curly-braces": "false"
-    },
-    {
       "key": "fileType",
       "value": "",
       "placeholder": "CSV, TXT, NDJSON (required)",
-      "data-curly-braces": "false"
-    },
-    {
-      "key": "delimiter",
-      "value": "",
-      "placeholder": "comma, tab, pipe, ndjson (optional, default comma)",
       "data-curly-braces": "false"
     },
     {
