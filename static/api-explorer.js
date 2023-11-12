@@ -306,7 +306,13 @@ function parseImportFile(edsFile) {
   apiParams.sourceParams[0].value = source.key_name.replace(/\<.*/, '')
   apiParams.sourceParams[1].value = source.delimiter
   apiParams.sourceParams[2].value = source.options.max_files
-
+  apiParams.sourceParams[3].value = source.encryption.type
+  apiParams.sourceParams[4].value = source.encryption.private_key.bucket_name
+  apiParams.sourceParams[5].value = source.encryption.private_key.key_name
+  apiParams.sourceParams[6].value = source.host
+  apiParams.sourceParams[7].value = source.username
+  apiParams.sourceParams[8].value = source.password
+  apiParams.sourceParams[9].value = source.port
 
   // metaParams
   apiParams.metaParams[0].value = meta?.clientName ? meta.clientName : ''
@@ -505,6 +511,18 @@ function updatePayload(e, paramsId) {
     options: {
       match_prefix: true,
       max_files: 1
+    },
+    host: "ftp.s10.exacttarget.com",
+    username: "100007433",
+    password: "******************",
+    filename: "/Export/Attentive/[[yyyyMMdd]]_PostPurchase_T2_SMS_Audience.csv.gz.pgp",
+    port: "22",
+    encryption: {
+      type: "pgp",
+      private_key: {
+        bucket_name: "event-destination-prod",
+        key_name: "decryption-keys/Michaels_triggered_message_Private_Key.asc"
+      }
     }
   }
 
@@ -523,7 +541,29 @@ function updatePayload(e, paramsId) {
     if (source['maxFiles']) {
       source_details.options.max_files = source['maxFiles']
     }
+    if (source['encryptionType']) {
+      source_details.encryption.type = source['encryptionType']
+    }
+    if (source['privateKeyBucket']) {
+      source_details.encryption.private_key.bucket_name = source['privateKeyBucket']
+    }
+    if (source['privateKeyName']) {
+      source_details.encryption.private_key.key_name = source['privateKeyName']
+    }
+    if (source['host']) {
+      source_details.host = source['host']
+    }
+    if (source['username']) {
+      source_details.username = source['username']
+    }
+    if (source['password']) {
+      source_details.password = source['password']
+    }
+    if (source['port']) {
+      source_details.port = source['port']
+    }
   }
+
 
   // Concatenate meta params
   if (meta && Object.entries(meta).length > 0) {

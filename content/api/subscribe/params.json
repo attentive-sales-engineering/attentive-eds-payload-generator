@@ -19,6 +19,48 @@
       "value": "",
       "placeholder": "(optional, default 1)",
       "data-curly-braces": "false"
+    },
+    {
+      "key": "encryptionType",
+      "value": "",
+      "placeholder": "pgp",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "privateKeyBucket",
+      "value": "",
+      "placeholder": "event-destination-prod",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "privateKeyName",
+      "value": "",
+      "placeholder": "decryption-keys/Michaels_triggered_message_Private_Key.asc",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "host",
+      "value": "",
+      "placeholder": "ftp.s10.exacttarget.com",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "username",
+      "value": "",
+      "placeholder": "100007433",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "password",
+      "value": "",
+      "placeholder": "******************",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "port",
+      "value": "",
+      "placeholder": "22",
+      "data-curly-braces": "false"
     }
   ],
   "metaParams": [
