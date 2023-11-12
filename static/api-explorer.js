@@ -585,10 +585,13 @@ function updatePayload(e, paramsId) {
     }
   }
 
-  // Delete unused objects in source_details
+  // Delete & update objects in source_details
   if (sftp && sftp['host']) {
     // Using client-hosted sftp, delete s3 bucket_name object
     delete source_details.bucket_name
+    edsPayload.source_type = "sftp"
+  } else {
+    edsPayload.source_type = "s3"
   }
   if (!encryption || !encryption['encryptionType']) {
     // File is not encrypted, delete encryption object
@@ -623,7 +626,6 @@ function updatePayload(e, paramsId) {
   // Additional required EDS Payload objects
   // edsPayload.task_id = metaPayload.taskUrl
   edsPayload.task_id = metaPayload.taskUrl?.substring(metaPayload.taskUrl.lastIndexOf('/') + 1).toString()
-  edsPayload.source_type = "s3"
   edsPayload.request_type = "http"
   edsPayload.response_details = {
     "response_predicates": {
