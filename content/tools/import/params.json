@@ -37,7 +37,9 @@
       "value": "",
       "placeholder": "decryption-keys/Michaels_triggered_message_Private_Key.asc",
       "data-curly-braces": "false"
-    },
+    }
+  ],
+  "sftpParams": [
     {
       "key": "host",
       "value": "",

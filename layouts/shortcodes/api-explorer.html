@@ -109,8 +109,8 @@
       <div class="tab-pane fade" id="{{ .Params.id }}-query-params" role="tabpanel" aria-labelledby="query-params-tab">
         <div class="d-none" data-query-params-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Params</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
+            <div class="section-title pl-2" style="flex: 1">Params</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Column Header</div>
           </div>
           <div data-query-params></div>
           <!-- <button data-add-query-param-btn class="mt-2 btn btn-outline-success" type="button">
@@ -119,8 +119,8 @@
         </div>
         <div class="d-none" data-props-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Properties</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
+            <div class="section-title pl-2" style="flex: 1">Properties</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Column Header</div>
           </div>
           <div data-props></div>
           <button data-add-request-prop-btn class="mt-2 btn btn-outline-success" type="button">
@@ -129,8 +129,8 @@
         </div>
         <div class="d-none" data-items-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Items</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
+            <div class="section-title pl-2" style="flex: 1">Items</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Column Header</div>
           </div>
           <div data-items></div>
           <!-- <button data-add-request-items-btn class="mt-2 btn btn-outline-success" type="button">
@@ -139,8 +139,8 @@
         </div>
         <div class="d-none" data-price-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Price</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
+            <div class="section-title pl-2" style="flex: 1">Price</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Column Header</div>
           </div>
           <div data-price></div>
           <!-- <button data-add-request-price-btn class="mt-2 btn btn-outline-success" type="button">
@@ -149,8 +149,8 @@
         </div>
         <div class="d-none" data-subscriptions-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Subscriptions</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
+            <div class="section-title pl-2" style="flex: 1">Subscriptions</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Column Header</div>
           </div>
           <div data-subscriptions></div>
           <!-- <button data-add-request-subscriptions-btn class="mt-2 btn btn-outline-success" type="button">
@@ -167,11 +167,22 @@
       <div class="tab-pane fade show active" id="{{ .Params.id }}-request-source" role="tabpanel" aria-labelledby="request-source-tab">
         <div class="d-none" data-source-params-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Source Params</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
+            <div class="section-title pl-2" style="flex: 1">File Params</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Value</div>
           </div>
           <div data-source></div>
           <!-- <button data-add-request-source-btn class="mt-2 btn btn-outline-success" type="button">
+            &plus;
+          </button> -->
+        </div>
+        <div class="d-none" data-source-sftp-section>
+          <div class="input-group">
+            <div class="section-title pl-2" style="flex: 1">Client SFTP</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Value</div>
+          </div>
+          <div class="pl-2">Leave blank if Attentive host. Complete only if client-hosted SFTP.</div>
+          <div data-source-sftp></div>
+          <!-- <button data-add-request-custom-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
           </button> -->
         </div>
@@ -179,8 +190,8 @@
       <div class="tab-pane fade" id="{{ .Params.id }}-request-meta" role="tabpanel" aria-labelledby="request-meta-tab">
         <div class="d-none" data-meta-params-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Meta Params</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
+            <div class="section-title pl-2" style="flex: 1">Meta Params</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Value</div>
           </div>
           <div data-meta></div>
           <!-- <button data-add-request-source-btn class="mt-2 btn btn-outline-success" type="button">
@@ -191,8 +202,8 @@
       <div class="tab-pane fade" id="{{ .Params.id }}-request-headers" role="tabpanel" aria-labelledby="request-headers-tab">
         <div class="" data-headers-params-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Authorization Header</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Bearer Token</div>
+            <div class="section-title pl-2" style="flex: 1">Authorization Header</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Bearer Token</div>
           </div>
           <div data-headers></div>
           <!-- <button data-add-request-header-btn class="mt-2 btn btn-outline-success" type="button">
@@ -203,8 +214,8 @@
       <div class="tab-pane fade" id="{{ .Params.id }}-request-user" role="tabpanel" aria-labelledby="request-user-tab">
         <div class="d-none" data-user-params-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">User Properties</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
+            <div class="section-title pl-2" style="flex: 1">User Properties</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Column Header</div>
           </div>
           <div data-user></div>
           <button data-add-request-user-btn class="mt-2 btn btn-outline-success" type="button">
@@ -213,8 +224,8 @@
         </div>
         <div class="d-none" data-user-custom-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Custom Identifiers</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
+            <div class="section-title pl-2" style="flex: 1">Custom Identifiers</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Column Header</div>
           </div>
           <div data-user-custom></div>
           <!-- <button data-add-request-custom-btn class="mt-2 btn btn-outline-success" type="button">
@@ -225,8 +236,8 @@
       <div class="tab-pane fade" id="{{ .Params.id }}-request-schedule" role="tabpanel" aria-labelledby="request-schedule-tab">
         <div class="d-none" data-schedule-params-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Schedule Params</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
+            <div class="section-title pl-2" style="flex: 1">Schedule Params</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Value</div>
           </div>
           <div data-schedule></div>
           <!-- <button data-add-request-schedule-btn class="mt-2 btn btn-outline-success" type="button">
@@ -356,6 +367,7 @@
       renderParams(apiParams.userParams, "{{ .Params.id }}", "[data-user-section]", "[data-user-params-section]", "[data-user]")
       renderParams(apiParams.customParams, "{{ .Params.id }}", "[data-user-section]", "[data-user-custom-section]", "[data-user-custom]")
       renderParams(apiParams.sourceParams, "{{ .Params.id }}", "[data-source-section]", "[data-source-params-section]", "[data-source]")
+      renderParams(apiParams.sftpParams, "{{ .Params.id }}", "[data-source-section]", "[data-source-sftp-section]", "[data-source-sftp]")
       renderParams(apiParams.metaParams, "{{ .Params.id }}", "[data-meta-section]", "[data-meta-params-section]", "[data-meta]")
       renderParams(apiParams.scheduleParams, "{{ .Params.id }}", "[data-schedule-section]", "[data-schedule-params-section]", "[data-schedule]")
 

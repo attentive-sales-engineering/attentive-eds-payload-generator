@@ -107,7 +107,7 @@ function createKeyValuePair(id, key, value, placeholder, curlyBraces, paramEleme
     element.querySelector('[data-update-btn]').classList.remove("curly")
   }
   // Hide the curlyBraces toggle button in headers, source and schedule tabs
-  if (paramElement === "[data-headers]" || paramElement === "[data-source]" || paramElement === "[data-schedule]") {
+  if (paramElement === "[data-headers]" || paramElement === "[data-source]" || paramElement === "[data-source-sftp]" || paramElement === "[data-schedule]") {
     element.querySelector('[data-update-btn]').classList.add("d-none")
   }
   element.querySelector('[data-update-btn]').addEventListener('click', e => {
@@ -309,10 +309,13 @@ function parseImportFile(edsFile) {
   apiParams.sourceParams[3].value = source.encryption.type
   apiParams.sourceParams[4].value = source.encryption.private_key.bucket_name
   apiParams.sourceParams[5].value = source.encryption.private_key.key_name
-  apiParams.sourceParams[6].value = source.host
-  apiParams.sourceParams[7].value = source.username
-  apiParams.sourceParams[8].value = source.password
-  apiParams.sourceParams[9].value = source.port
+
+  // sftpParams
+  apiParams.sftpParams[0].value = source.host
+  apiParams.sftpParams[1].value = source.username
+  apiParams.sftpParams[2].value = source.password
+  apiParams.sftpParams[3].value = source.port
+
 
   // metaParams
   apiParams.metaParams[0].value = meta?.clientName ? meta.clientName : ''
@@ -391,6 +394,7 @@ function updatePayload(e, paramsId) {
   user = keyValuePairsToObjects(paramsId, "user", document.querySelector(`#${paramsId} ` + '[data-user]')).tempObject
   custom = keyValuePairsToObjects(paramsId, "custom", document.querySelector(`#${paramsId} ` + '[data-user-custom]')).tempObject
   source = keyValuePairsToObjects(paramsId, "source", document.querySelector(`#${paramsId} ` + '[data-source]')).tempObject
+  sftp = keyValuePairsToObjects(paramsId, "sftp", document.querySelector(`#${paramsId} ` + '[data-source-sftp]')).tempObject
   meta = keyValuePairsToObjects(paramsId, "meta", document.querySelector(`#${paramsId} ` + '[data-meta]')).tempObject
   schedule = keyValuePairsToObjects(paramsId, "schedule", document.querySelector(`#${paramsId} ` + '[data-schedule]')).tempObject
   jsonBody = document.querySelector(`#${paramsId} ` + '.ace_content')?.textContent
@@ -411,6 +415,14 @@ function updatePayload(e, paramsId) {
   //     payload_mapping[key] = value
   //   })
   // }
+
+
+  // console.log("PARAMS:", params)
+  if (sftp && Object.entries(sftp).length > 0) {
+    payload_mapping = sftp
+  } else {
+    document.querySelector(`#${paramsId} ` + '[data-source-sftp-section]').classList.add('d-none')
+  }
 
   // console.log("PARAMS:", params)
   if (params && Object.entries(params).length > 0) {
@@ -550,17 +562,17 @@ function updatePayload(e, paramsId) {
     if (source['privateKeyName']) {
       source_details.encryption.private_key.key_name = source['privateKeyName']
     }
-    if (source['host']) {
-      source_details.host = source['host']
+    if (sftp['host']) {
+      source_details.host = sftp['host']
     }
-    if (source['username']) {
-      source_details.username = source['username']
+    if (sftp['username']) {
+      source_details.username = sftp['username']
     }
-    if (source['password']) {
-      source_details.password = source['password']
+    if (sftp['password']) {
+      source_details.password = sftp['password']
     }
-    if (source['port']) {
-      source_details.port = source['port']
+    if (sftp['port']) {
+      source_details.port = sftp['port']
     }
   }
 
