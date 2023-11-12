@@ -181,26 +181,26 @@ function parseImportFile(edsFile) {
   if (importFile === null)
     window.location.href = '../../api/custom-attributes'
 
-  let target = {}
-  let source = {}
+  let targetJson = {}
+  let sourceJson = {}
   let meta = {}
   let schedule = {}
 
   // Check if this came from EDS
   if (importFile.mappingInfoOverride) {
     console.log("MAPPING INFO OVERRIDE = EDS GET")
-    target = JSON.parse(importFile.mappingInfoOverride)
-    source = JSON.parse(importFile.sourceInfo)
+    targetJson = JSON.parse(importFile.mappingInfoOverride)
+    sourceJson = JSON.parse(importFile.sourceInfo)
   } else {
     console.log("LOCAL JSON IMPORT")
-    target = importFile.request_details
-    source = importFile.source_details
+    targetJson = importFile.request_details
+    sourceJson = importFile.source_details
     meta = importFile.metaPayload
     schedule = importFile.schedulePayload
   }
 
-  console.log('TARGET:', target)
-  console.log('SOURCE:', source)
+  console.log('TARGET JSON:', targetJson)
+  console.log('SOURCE JSON:', sourceJson)
   console.log('META:', meta)
   console.log('SCHEDULE:', schedule)
 
@@ -245,78 +245,78 @@ function parseImportFile(edsFile) {
     })
   }
 
-  apiParams.url = target.url
-  apiParams.method = target.method
+  apiParams.url = targetJson.url
+  apiParams.method = targetJson.method
 
   // propParams
-  if (target.payload_mapping.properties) {
-    createParams('propParams', apiParams.propParams, target.payload_mapping.properties)
+  if (targetJson.payload_mapping.properties) {
+    createParams('propParams', apiParams.propParams, targetJson.payload_mapping.properties)
   }
 
   // priceParams
-  if (target.payload_mapping.items &&
-    target.payload_mapping.items[0].price[0]) {
-    createParams('priceParams', apiParams.priceParams, target.payload_mapping.items[0].price[0])
+  if (targetJson.payload_mapping.items &&
+    targetJson.payload_mapping.items[0].price[0]) {
+    createParams('priceParams', apiParams.priceParams, targetJson.payload_mapping.items[0].price[0])
   }
 
   // itemsParams
-  if (target.payload_mapping.items) {
-    createParams('itemsParams', apiParams.itemsParams, target.payload_mapping.items[0])
+  if (targetJson.payload_mapping.items) {
+    createParams('itemsParams', apiParams.itemsParams, targetJson.payload_mapping.items[0])
     apiParams.itemsParams.splice(6, 1)
   }
 
   // subscriptionsParams
-  if (target.payload_mapping.subscriptions) {
-    createParams('subscriptionsParams', apiParams.subscriptionsParams, target.payload_mapping.subscriptions[0])
+  if (targetJson.payload_mapping.subscriptions) {
+    createParams('subscriptionsParams', apiParams.subscriptionsParams, targetJson.payload_mapping.subscriptions[0])
   }
 
   // headerParams
-  if (target.header_mapping) {
-    createParams('headerParams', apiParams.headerParams, target.header_mapping)
+  if (targetJson.header_mapping) {
+    createParams('headerParams', apiParams.headerParams, targetJson.header_mapping)
   }
 
   // userParams
-  if (target.payload_mapping.user?.externalIdentifiers?.clientUserId) {
-    apiParams.userParams[2].value = target.payload_mapping.user.externalIdentifiers.clientUserId.slice(2, -2)
+  if (targetJson.payload_mapping.user?.externalIdentifiers?.clientUserId) {
+    apiParams.userParams[2].value = targetJson.payload_mapping.user.externalIdentifiers.clientUserId.slice(2, -2)
   } else {
     apiParams.userParams.splice(2, 1)
   }
-  if (target.payload_mapping.user?.email) {
-    apiParams.userParams[1].value = target.payload_mapping.user.email.slice(2, -2)
+  if (targetJson.payload_mapping.user?.email) {
+    apiParams.userParams[1].value = targetJson.payload_mapping.user.email.slice(2, -2)
   } else {
     apiParams.userParams.splice(1, 1)
   }
-  if (target.payload_mapping.user?.phone) {
-    apiParams.userParams[0].value = target.payload_mapping.user.phone.slice(2, -2)
+  if (targetJson.payload_mapping.user?.phone) {
+    apiParams.userParams[0].value = targetJson.payload_mapping.user.phone.slice(2, -2)
   } else {
     apiParams.userParams.splice(0, 1)
   }
 
   // customParams
-  if (target.payload_mapping.user?.externalIdentifiers?.customIdentifiers && target.payload_mapping.user?.externalIdentifiers?.customIdentifiers[0]) {
-    createParams('customParams', apiParams.customParams, target.payload_mapping.user.externalIdentifiers.customIdentifiers[0])
+  if (targetJson.payload_mapping.user?.externalIdentifiers?.customIdentifiers && targetJson.payload_mapping.user?.externalIdentifiers?.customIdentifiers[0]) {
+    createParams('customParams', apiParams.customParams, targetJson.payload_mapping.user.externalIdentifiers.customIdentifiers[0])
   }
 
   // queryParams
-  if (target.payload_mapping) {
-    createParams('queryParams', apiParams.queryParams, target.payload_mapping)
+  if (targetJson.payload_mapping) {
+    createParams('queryParams', apiParams.queryParams, targetJson.payload_mapping)
   }
 
   // sourceParams
-  apiParams.sourceParams[0].value = source.key_name.replace(/\<.*/, '')
-  apiParams.sourceParams[1].value = source.delimiter
-  apiParams.sourceParams[2].value = source.options.max_files
+  apiParams.sourceParams[0].value = sourceJson.key_name.replace(/\<.*/, '')
+  apiParams.sourceParams[1].value = sourceJson.delimiter
+  apiParams.sourceParams[2].value = sourceJson.options.max_files
 
   // encryptionParams
-  apiParams.encryptionParams[0].value = source.encryption.type
-  apiParams.encryptionParams[1].value = source.encryption.private_key.bucket_name
-  apiParams.encryptionParams[2].value = source.encryption.private_key.key_name
+  apiParams.encryptionParams[0].value = sourceJson.encryption.type
+  apiParams.encryptionParams[1].value = sourceJson.encryption.private_key.bucket_name
+  apiParams.encryptionParams[2].value = sourceJson.encryption.private_key.key_name
 
   // sftpParams
-  apiParams.sftpParams[0].value = source.host
-  apiParams.sftpParams[1].value = source.username
-  apiParams.sftpParams[2].value = source.password
-  apiParams.sftpParams[3].value = source.port
+  apiParams.sftpParams[0].value = sourceJson.host
+  apiParams.sftpParams[1].value = sourceJson.username
+  apiParams.sftpParams[2].value = sourceJson.password
+  apiParams.sftpParams[3].value = sourceJson.port
 
 
   // metaParams
@@ -336,8 +336,8 @@ function parseImportFile(edsFile) {
   // scheduleParams
   apiParams.scheduleParams[0].value = schedule?.frequency ? schedule.frequency : ''
   apiParams.scheduleParams[1].value = schedule?.triggerTime ? schedule.triggerTime : ''
-  if (importFile.mappingInfoOverride && source.key_name.match(/\<.*/)) {
-    apiParams.scheduleParams[2].value = source.key_name.match(/\<.*/).toString().replace('<&', '').replace('&>', '')
+  if (importFile.mappingInfoOverride && sourceJson.key_name.match(/\<.*/)) {
+    apiParams.scheduleParams[2].value = sourceJson.key_name.match(/\<.*/).toString().replace('<&', '').replace('&>', '')
   } else {
     apiParams.scheduleParams[2].value = schedule?.timeZone ? schedule.timeZone : ''
   }
