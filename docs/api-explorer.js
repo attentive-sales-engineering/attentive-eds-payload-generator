@@ -590,6 +590,8 @@ function updatePayload(e, paramsId) {
     // Using client-hosted sftp, delete s3 bucket_name object
     delete source_details.bucket_name
     edsPayload.source_type = "sftp"
+    source_details.filename = source_details.key_name
+    delete source_details.key_name
   } else {
     edsPayload.source_type = "s3"
   }
