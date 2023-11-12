@@ -534,17 +534,8 @@ function updatePayload(e, paramsId) {
       match_prefix: true,
       max_files: 1
     },
-    host: "ftp.s10.exacttarget.com",
-    username: "100007433",
-    password: "******************",
-    filename: "/Export/Attentive/[[yyyyMMdd]]_PostPurchase_T2_SMS_Audience.csv.gz.pgp",
-    port: "22",
     encryption: {
-      type: "pgp",
-      private_key: {
-        bucket_name: "event-destination-prod",
-        key_name: "decryption-keys/Michaels_triggered_message_Private_Key.asc"
-      }
+      private_key: {}
     }
   }
 
@@ -563,6 +554,10 @@ function updatePayload(e, paramsId) {
     if (source['maxFiles']) {
       source_details.options.max_files = source['maxFiles']
     }
+  }
+
+  // Concatenate encryption params
+  if (encryption && Object.entries(encryption).length > 0) {
     if (encryption['encryptionType']) {
       source_details.encryption.type = encryption['encryptionType']
     }
@@ -572,6 +567,10 @@ function updatePayload(e, paramsId) {
     if (encryption['privateKeyName']) {
       source_details.encryption.private_key.key_name = encryption['privateKeyName']
     }
+  }
+
+  // Concatenate sftp params
+  if (sftp && Object.entries(sftp).length > 0) {
     if (sftp['host']) {
       source_details.host = sftp['host']
     }
@@ -584,6 +583,16 @@ function updatePayload(e, paramsId) {
     if (sftp['port']) {
       source_details.port = sftp['port']
     }
+  }
+
+  // Delete unused objects in source_details
+  if (sftp && sftp['host']) {
+    // Using client-hosted sftp, delete s3 bucket_name object
+    delete source_details.bucket_name
+  }
+  if (!encryption || !encryption['encryptionType']) {
+    // File is not encrypted, delete encryption object
+    delete source_details.encryption
   }
 
 
