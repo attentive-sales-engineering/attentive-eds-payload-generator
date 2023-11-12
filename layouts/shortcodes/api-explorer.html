@@ -175,6 +175,17 @@
             &plus;
           </button> -->
         </div>
+        <div class="d-none" data-source-encryption-section>
+          <div class="input-group">
+            <div class="section-title pl-2" style="flex: 1">File Encryption</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Value</div>
+          </div>
+          <div class="pl-2">Complete only if file is encrypted.</div>
+          <div data-source-encryption></div>
+          <!-- <button data-add-request-custom-btn class="mt-2 btn btn-outline-success" type="button">
+            &plus;
+          </button> -->
+        </div>
         <div class="d-none" data-source-sftp-section>
           <div class="input-group">
             <div class="section-title pl-2" style="flex: 1">Client SFTP</div>
@@ -367,6 +378,7 @@
       renderParams(apiParams.userParams, "{{ .Params.id }}", "[data-user-section]", "[data-user-params-section]", "[data-user]")
       renderParams(apiParams.customParams, "{{ .Params.id }}", "[data-user-section]", "[data-user-custom-section]", "[data-user-custom]")
       renderParams(apiParams.sourceParams, "{{ .Params.id }}", "[data-source-section]", "[data-source-params-section]", "[data-source]")
+      renderParams(apiParams.encryptionParams, "{{ .Params.id }}", "[data-source-section]", "[data-source-encryption-section]", "[data-source-encryption]")
       renderParams(apiParams.sftpParams, "{{ .Params.id }}", "[data-source-section]", "[data-source-sftp-section]", "[data-source-sftp]")
       renderParams(apiParams.metaParams, "{{ .Params.id }}", "[data-meta-section]", "[data-meta-params-section]", "[data-meta]")
       renderParams(apiParams.scheduleParams, "{{ .Params.id }}", "[data-schedule-section]", "[data-schedule-params-section]", "[data-schedule]")

@@ -19,7 +19,9 @@
       "value": "",
       "placeholder": "(optional, default 1)",
       "data-curly-braces": "false"
-    },
+    }
+  ],
+  "encryptionParams": [
     {
       "key": "encryptionType",
       "value": "",

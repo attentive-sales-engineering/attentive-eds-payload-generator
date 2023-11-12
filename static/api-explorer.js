@@ -107,7 +107,7 @@ function createKeyValuePair(id, key, value, placeholder, curlyBraces, paramEleme
     element.querySelector('[data-update-btn]').classList.remove("curly")
   }
   // Hide the curlyBraces toggle button in headers, source and schedule tabs
-  if (paramElement === "[data-headers]" || paramElement === "[data-source]" || paramElement === "[data-source-sftp]" || paramElement === "[data-schedule]") {
+  if (paramElement.match(/data-headers|data-source|data-schedule/)) {
     element.querySelector('[data-update-btn]').classList.add("d-none")
   }
   element.querySelector('[data-update-btn]').addEventListener('click', e => {
@@ -306,9 +306,11 @@ function parseImportFile(edsFile) {
   apiParams.sourceParams[0].value = source.key_name.replace(/\<.*/, '')
   apiParams.sourceParams[1].value = source.delimiter
   apiParams.sourceParams[2].value = source.options.max_files
-  apiParams.sourceParams[3].value = source.encryption.type
-  apiParams.sourceParams[4].value = source.encryption.private_key.bucket_name
-  apiParams.sourceParams[5].value = source.encryption.private_key.key_name
+
+  // encryptionParams
+  apiParams.encryptionParams[0].value = source.encryption.type
+  apiParams.encryptionParams[1].value = source.encryption.private_key.bucket_name
+  apiParams.encryptionParams[2].value = source.encryption.private_key.key_name
 
   // sftpParams
   apiParams.sftpParams[0].value = source.host
@@ -394,6 +396,7 @@ function updatePayload(e, paramsId) {
   user = keyValuePairsToObjects(paramsId, "user", document.querySelector(`#${paramsId} ` + '[data-user]')).tempObject
   custom = keyValuePairsToObjects(paramsId, "custom", document.querySelector(`#${paramsId} ` + '[data-user-custom]')).tempObject
   source = keyValuePairsToObjects(paramsId, "source", document.querySelector(`#${paramsId} ` + '[data-source]')).tempObject
+  encryption = keyValuePairsToObjects(paramsId, "encryption", document.querySelector(`#${paramsId} ` + '[data-source-encryption]')).tempObject
   sftp = keyValuePairsToObjects(paramsId, "sftp", document.querySelector(`#${paramsId} ` + '[data-source-sftp]')).tempObject
   meta = keyValuePairsToObjects(paramsId, "meta", document.querySelector(`#${paramsId} ` + '[data-meta]')).tempObject
   schedule = keyValuePairsToObjects(paramsId, "schedule", document.querySelector(`#${paramsId} ` + '[data-schedule]')).tempObject
@@ -417,7 +420,14 @@ function updatePayload(e, paramsId) {
   // }
 
 
-  // console.log("PARAMS:", params)
+  // console.log("ENCRYPTION:", encryption)
+  if (encryption && Object.entries(encryption).length > 0) {
+    payload_mapping = encryption
+  } else {
+    document.querySelector(`#${paramsId} ` + '[data-source-encryption-section]').classList.add('d-none')
+  }
+
+  // console.log("SFTP:", sftp)
   if (sftp && Object.entries(sftp).length > 0) {
     payload_mapping = sftp
   } else {
@@ -553,14 +563,14 @@ function updatePayload(e, paramsId) {
     if (source['maxFiles']) {
       source_details.options.max_files = source['maxFiles']
     }
-    if (source['encryptionType']) {
-      source_details.encryption.type = source['encryptionType']
+    if (encryption['encryptionType']) {
+      source_details.encryption.type = encryption['encryptionType']
     }
-    if (source['privateKeyBucket']) {
-      source_details.encryption.private_key.bucket_name = source['privateKeyBucket']
+    if (encryption['privateKeyBucket']) {
+      source_details.encryption.private_key.bucket_name = encryption['privateKeyBucket']
     }
-    if (source['privateKeyName']) {
-      source_details.encryption.private_key.key_name = source['privateKeyName']
+    if (encryption['privateKeyName']) {
+      source_details.encryption.private_key.key_name = encryption['privateKeyName']
     }
     if (sftp['host']) {
       source_details.host = sftp['host']
