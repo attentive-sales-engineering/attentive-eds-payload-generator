@@ -107,7 +107,7 @@ function createKeyValuePair(id, key, value, placeholder, curlyBraces, paramEleme
     element.querySelector('[data-update-btn]').classList.remove("curly")
   }
   // Hide the curlyBraces toggle button in headers, source and schedule tabs
-  if (paramElement === "[data-headers]" || paramElement === "[data-source]" || paramElement === "[data-schedule]") {
+  if (paramElement.match(/data-headers|data-source|data-schedule/)) {
     element.querySelector('[data-update-btn]').classList.add("d-none")
   }
   element.querySelector('[data-update-btn]').addEventListener('click', e => {
@@ -181,26 +181,27 @@ function parseImportFile(edsFile) {
   if (importFile === null)
     window.location.href = '../../api/custom-attributes'
 
-  let target = {}
-  let source = {}
-  let client = {}
+  let targetJson = {}
+  let sourceJson = {}
+  let meta = {}
   let schedule = {}
 
   // Check if this came from EDS
   if (importFile.mappingInfoOverride) {
-    console.log("MAPPING INFO OVERRIDE")
-    target = JSON.parse(importFile.mappingInfoOverride)
-    source = JSON.parse(importFile.sourceInfo)
+    console.log("MAPPING INFO OVERRIDE = EDS GET")
+    targetJson = JSON.parse(importFile.mappingInfoOverride)
+    sourceJson = JSON.parse(importFile.sourceInfo)
   } else {
-    target = importFile.request_details
-    source = importFile.source_details
-    client = importFile.clientPayload
+    console.log("LOCAL JSON IMPORT")
+    targetJson = importFile.request_details
+    sourceJson = importFile.source_details
+    meta = importFile.metaPayload
     schedule = importFile.schedulePayload
   }
 
-  console.log('TARGET:', target)
-  console.log('SOURCE:', source)
-  console.log('CLIENT:', client)
+  console.log('TARGET JSON:', targetJson)
+  console.log('SOURCE JSON:', sourceJson)
+  console.log('META:', meta)
   console.log('SCHEDULE:', schedule)
 
   // Build the apiParams from the EDS Payload
@@ -244,87 +245,99 @@ function parseImportFile(edsFile) {
     })
   }
 
-  apiParams.url = target.url
-  apiParams.method = target.method
+  apiParams.url = targetJson.url
+  apiParams.method = targetJson.method
 
   // propParams
-  if (target.payload_mapping.properties) {
-    createParams('propParams', apiParams.propParams, target.payload_mapping.properties)
+  if (targetJson.payload_mapping.properties) {
+    createParams('propParams', apiParams.propParams, targetJson.payload_mapping.properties)
   }
 
   // priceParams
-  if (target.payload_mapping.items &&
-    target.payload_mapping.items[0].price[0]) {
-    createParams('priceParams', apiParams.priceParams, target.payload_mapping.items[0].price[0])
+  if (targetJson.payload_mapping.items &&
+    targetJson.payload_mapping.items[0].price[0]) {
+    createParams('priceParams', apiParams.priceParams, targetJson.payload_mapping.items[0].price[0])
   }
 
   // itemsParams
-  if (target.payload_mapping.items) {
-    createParams('itemsParams', apiParams.itemsParams, target.payload_mapping.items[0])
+  if (targetJson.payload_mapping.items) {
+    createParams('itemsParams', apiParams.itemsParams, targetJson.payload_mapping.items[0])
     apiParams.itemsParams.splice(6, 1)
   }
 
   // subscriptionsParams
-  if (target.payload_mapping.subscriptions) {
-    createParams('subscriptionsParams', apiParams.subscriptionsParams, target.payload_mapping.subscriptions[0])
+  if (targetJson.payload_mapping.subscriptions) {
+    createParams('subscriptionsParams', apiParams.subscriptionsParams, targetJson.payload_mapping.subscriptions[0])
   }
 
   // headerParams
-  if (target.header_mapping) {
-    createParams('headerParams', apiParams.headerParams, target.header_mapping)
+  if (targetJson.header_mapping) {
+    createParams('headerParams', apiParams.headerParams, targetJson.header_mapping)
   }
 
   // userParams
-  if (target.payload_mapping.user?.externalIdentifiers?.clientUserId) {
-    apiParams.userParams[2].value = target.payload_mapping.user.externalIdentifiers.clientUserId.slice(2, -2)
+  if (targetJson.payload_mapping.user?.externalIdentifiers?.clientUserId) {
+    apiParams.userParams[2].value = targetJson.payload_mapping.user.externalIdentifiers.clientUserId.slice(2, -2)
   } else {
     apiParams.userParams.splice(2, 1)
   }
-  if (target.payload_mapping.user?.email) {
-    apiParams.userParams[1].value = target.payload_mapping.user.email.slice(2, -2)
+  if (targetJson.payload_mapping.user?.email) {
+    apiParams.userParams[1].value = targetJson.payload_mapping.user.email.slice(2, -2)
   } else {
     apiParams.userParams.splice(1, 1)
   }
-  if (target.payload_mapping.user?.phone) {
-    apiParams.userParams[0].value = target.payload_mapping.user.phone.slice(2, -2)
+  if (targetJson.payload_mapping.user?.phone) {
+    apiParams.userParams[0].value = targetJson.payload_mapping.user.phone.slice(2, -2)
   } else {
     apiParams.userParams.splice(0, 1)
   }
 
   // customParams
-  if (target.payload_mapping.user?.externalIdentifiers?.customIdentifiers && target.payload_mapping.user?.externalIdentifiers?.customIdentifiers[0]) {
-    createParams('customParams', apiParams.customParams, target.payload_mapping.user.externalIdentifiers.customIdentifiers[0])
+  if (targetJson.payload_mapping.user?.externalIdentifiers?.customIdentifiers && targetJson.payload_mapping.user?.externalIdentifiers?.customIdentifiers[0]) {
+    createParams('customParams', apiParams.customParams, targetJson.payload_mapping.user.externalIdentifiers.customIdentifiers[0])
   }
 
   // queryParams
-  if (target.payload_mapping) {
-    createParams('queryParams', apiParams.queryParams, target.payload_mapping)
+  if (targetJson.payload_mapping) {
+    createParams('queryParams', apiParams.queryParams, targetJson.payload_mapping)
   }
 
   // sourceParams
-  apiParams.sourceParams[0].value = client?.clientName ? client.clientName : ''
+  apiParams.sourceParams[0].value = sourceJson.key_name.replace(/\<.*/, '')
+  apiParams.sourceParams[1].value = sourceJson.delimiter
+  apiParams.sourceParams[2].value = sourceJson.options.max_files
+
+  // encryptionParams
+  apiParams.encryptionParams[0].value = sourceJson.encryption.type
+  apiParams.encryptionParams[1].value = sourceJson.encryption.private_key.bucket_name
+  apiParams.encryptionParams[2].value = sourceJson.encryption.private_key.key_name
+
+  // sftpParams
+  apiParams.sftpParams[0].value = sourceJson.host
+  apiParams.sftpParams[1].value = sourceJson.username
+  apiParams.sftpParams[2].value = sourceJson.password
+  apiParams.sftpParams[3].value = sourceJson.port
+
+
+  // metaParams
+  apiParams.metaParams[0].value = meta?.clientName ? meta.clientName : ''
   if (importFile.mappingInfoOverride) {
-    apiParams.sourceParams[1].value = importFile.companyId
-    apiParams.sourceParams[2].value = source.key_name.replace(/\<.*/, '')
+    apiParams.metaParams[1].value = importFile.companyId
   } else {
-    apiParams.sourceParams[1].value = client?.clientId ? client.clientId : ''
-    apiParams.sourceParams[2].value = client?.fileName ? client.fileName : ''
+    apiParams.metaParams[1].value = meta?.clientId ? meta.clientId : ''
   }
-  apiParams.sourceParams[3].value = client?.fileType ? client.fileType : ''
-  apiParams.sourceParams[4].value = client?.delimiter ? client.delimiter : ''
-  apiParams.sourceParams[5].value = client?.ticketUrl ? client.ticketUrl : ''
+  apiParams.metaParams[2].value = meta?.ticketUrl ? meta.ticketUrl : ''
   if (importFile.companyTaskUuid) {
-    // apiParams.sourceParams[6].value = importFile.companyTaskUuid
-    apiParams.sourceParams[6].value = "https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + importFile.companyTaskUuid
+    apiParams.metaParams[3].value = "https://ui.attentivemobile.com/tactical/event-destinations/jobs/" + importFile.companyTaskUuid
   } else {
-    apiParams.sourceParams[6].value = client?.taskUrl ? client.taskUrl : ''
+    apiParams.metaParams[3].value = meta?.taskUrl ? meta.taskUrl : ''
   }
 
   // scheduleParams
   apiParams.scheduleParams[0].value = schedule?.frequency ? schedule.frequency : ''
   apiParams.scheduleParams[1].value = schedule?.triggerTime ? schedule.triggerTime : ''
-  if (importFile.mappingInfoOverride && source.key_name.match(/\<.*/)) {
-    apiParams.scheduleParams[2].value = source.key_name.match(/\<.*/).toString().replace('<&', '').replace('&>', '')
+  if (importFile.mappingInfoOverride && sourceJson.key_name.match(/\<.*/)) {
+    apiParams.scheduleParams[2].value = sourceJson.key_name.match(/\<.*/).toString().replace('<&', '').replace('&>', '')
   } else {
     apiParams.scheduleParams[2].value = schedule?.timeZone ? schedule.timeZone : ''
   }
@@ -367,7 +380,7 @@ function updatePayload(e, paramsId) {
   let schedule = {}
   let key_name = ''
   let source_details = {}
-  let clientPayload = {}
+  let metaPayload = {}
   let schedulePayload = {}
 
   // Set variable values from query selectors
@@ -383,6 +396,9 @@ function updatePayload(e, paramsId) {
   user = keyValuePairsToObjects(paramsId, "user", document.querySelector(`#${paramsId} ` + '[data-user]')).tempObject
   custom = keyValuePairsToObjects(paramsId, "custom", document.querySelector(`#${paramsId} ` + '[data-user-custom]')).tempObject
   source = keyValuePairsToObjects(paramsId, "source", document.querySelector(`#${paramsId} ` + '[data-source]')).tempObject
+  encryption = keyValuePairsToObjects(paramsId, "encryption", document.querySelector(`#${paramsId} ` + '[data-source-encryption]')).tempObject
+  sftp = keyValuePairsToObjects(paramsId, "sftp", document.querySelector(`#${paramsId} ` + '[data-source-sftp]')).tempObject
+  meta = keyValuePairsToObjects(paramsId, "meta", document.querySelector(`#${paramsId} ` + '[data-meta]')).tempObject
   schedule = keyValuePairsToObjects(paramsId, "schedule", document.querySelector(`#${paramsId} ` + '[data-schedule]')).tempObject
   jsonBody = document.querySelector(`#${paramsId} ` + '.ace_content')?.textContent
 
@@ -402,6 +418,21 @@ function updatePayload(e, paramsId) {
   //     payload_mapping[key] = value
   //   })
   // }
+
+
+  // console.log("ENCRYPTION:", encryption)
+  if (encryption && Object.entries(encryption).length > 0) {
+    payload_mapping = encryption
+  } else {
+    document.querySelector(`#${paramsId} ` + '[data-source-encryption-section]').classList.add('d-none')
+  }
+
+  // console.log("SFTP:", sftp)
+  if (sftp && Object.entries(sftp).length > 0) {
+    payload_mapping = sftp
+  } else {
+    document.querySelector(`#${paramsId} ` + '[data-source-sftp-section]').classList.add('d-none')
+  }
 
   // console.log("PARAMS:", params)
   if (params && Object.entries(params).length > 0) {
@@ -447,6 +478,7 @@ function updatePayload(e, paramsId) {
 
   // console.log("CUSTOM IDENTIFIER:", custom)
   if (custom && Object.entries(custom).length > 0) {
+    console.log("CUSTOM")
     // if clientUserId was deleted, need to recreate the externalIdentifiers object
     if (payload_mapping.user.externalIdentifiers === undefined) {
       payload_mapping.user.externalIdentifiers = {}
@@ -457,7 +489,37 @@ function updatePayload(e, paramsId) {
     document.querySelector(`#${paramsId} ` + '[data-user-custom-section]').classList.add('d-none')
   }
 
-  // console.log("PAYLOAD MAPPING", payload_mapping)
+  // If Identity API, map and transform User props to root of payload
+  if (window.location.pathname.match("identity")) {
+    if (payload_mapping.user) {
+      payload_mapping = payload_mapping.user
+      payload_mapping.customIdentifiers = payload_mapping.externalIdentifiers.customIdentifiers
+      delete payload_mapping.externalIdentifiers
+    }
+  }
+
+  // If Subscribe API, map and transform User props to root of payload
+  if (window.location.pathname.match("api/subscribe")) {
+    console.log("SUBSCRIBE")
+    if (payload_mapping.user?.externalIdentifiers) {
+      payload_mapping.externalIdentifiers = payload_mapping.user.externalIdentifiers
+      delete payload_mapping.user.externalIdentifiers
+      payload_mapping.externalIdentifiers.shopifyId = payload_mapping.user.shopifyId
+      delete payload_mapping.user.shopifyId
+      payload_mapping.externalIdentifiers.klaviyoId = payload_mapping.user.klaviyoId
+      delete payload_mapping.user.klaviyoId
+    }
+    if (payload_mapping.language != undefined || payload_mapping.country != undefined) {
+      payload_mapping.locale = {}
+      payload_mapping.locale.language = payload_mapping.language
+      delete payload_mapping.language
+      payload_mapping.locale.country = payload_mapping.country
+      delete payload_mapping.country
+    }
+  }
+
+  // console.log("PAYLOAD MAPPING:", payload_mapping)
+
 
   request_details = {
     url,
@@ -471,20 +533,14 @@ function updatePayload(e, paramsId) {
     options: {
       match_prefix: true,
       max_files: 1
+    },
+    encryption: {
+      private_key: {}
     }
   }
 
   // Concatenate source params
   if (source && Object.entries(source).length > 0) {
-    if (source['clientName']) clientPayload.clientName = source['clientName']
-    if (source['clientId']) clientPayload.clientId = source['clientId']
-    if (source['fileName']) clientPayload.fileName = source['fileName']
-    if (source['fileType']) clientPayload.fileType = source['fileType']
-    if (source['delimiter']) clientPayload.delimiter = source['delimiter']
-    if (source['ticketUrl']) clientPayload.ticketUrl = source['ticketUrl']
-    if (source['taskUrl']) clientPayload.taskUrl = source['taskUrl']
-
-    // Concatenate key_name & delimiter and add to source_details
     if (source['fileName']) {
       key_name = `${source['fileName']}`
     }
@@ -493,9 +549,62 @@ function updatePayload(e, paramsId) {
     }
     source_details.key_name = key_name
     if (source['delimiter']) {
-      delimiter = source['delimiter']
-      source_details.delimiter = delimiter
+      source_details.delimiter = source['delimiter']
     }
+    if (source['maxFiles']) {
+      source_details.options.max_files = source['maxFiles']
+    }
+  }
+
+  // Concatenate encryption params
+  if (encryption && Object.entries(encryption).length > 0) {
+    if (encryption['encryptionType']) {
+      source_details.encryption.type = encryption['encryptionType']
+    }
+    if (encryption['privateKeyBucket']) {
+      source_details.encryption.private_key.bucket_name = encryption['privateKeyBucket']
+    }
+    if (encryption['privateKeyName']) {
+      source_details.encryption.private_key.key_name = encryption['privateKeyName']
+    }
+  }
+
+  // Concatenate sftp params
+  if (sftp && Object.entries(sftp).length > 0) {
+    if (sftp['host']) {
+      source_details.host = sftp['host']
+    }
+    if (sftp['username']) {
+      source_details.username = sftp['username']
+    }
+    if (sftp['password']) {
+      source_details.password = sftp['password']
+    }
+    if (sftp['port']) {
+      source_details.port = sftp['port']
+    }
+  }
+
+  // Delete & update objects in source_details
+  if (sftp && sftp['host']) {
+    // Using client-hosted sftp, delete s3 bucket_name object
+    delete source_details.bucket_name
+    edsPayload.source_type = "sftp"
+  } else {
+    edsPayload.source_type = "s3"
+  }
+  if (!encryption || !encryption['encryptionType']) {
+    // File is not encrypted, delete encryption object
+    delete source_details.encryption
+  }
+
+
+  // Concatenate meta params
+  if (meta && Object.entries(meta).length > 0) {
+    if (meta['clientName']) metaPayload.clientName = meta['clientName']
+    if (meta['clientId']) metaPayload.clientId = meta['clientId']
+    if (meta['ticketUrl']) metaPayload.ticketUrl = meta['ticketUrl']
+    if (meta['taskUrl']) metaPayload.taskUrl = meta['taskUrl']
   }
 
   // Concatenate schedule params
@@ -505,9 +614,9 @@ function updatePayload(e, paramsId) {
     if (schedule['timeZone']) schedulePayload.timeZone = schedule['timeZone']
   }
 
-  // console.log("CLIENT PAYLOAD:", clientPayload)
-  edsPayload.clientPayload = clientPayload
-  // console.log("TARGET PAYLOAD:", clientPayload)
+  // console.log("META PAYLOAD:", metaPayload)
+  edsPayload.metaPayload = metaPayload
+  // console.log("TARGET PAYLOAD:", metaPayload)
   edsPayload.request_details = request_details
   // console.log("SOURCE PAYLOAD:", source_details)
   edsPayload.source_details = source_details
@@ -515,9 +624,8 @@ function updatePayload(e, paramsId) {
   edsPayload.schedulePayload = schedulePayload
 
   // Additional required EDS Payload objects
-  // edsPayload.task_id = clientPayload.taskUrl
-  edsPayload.task_id = clientPayload.taskUrl?.substring(clientPayload.taskUrl.lastIndexOf('/') + 1).toString()
-  edsPayload.source_type = "s3"
+  // edsPayload.task_id = metaPayload.taskUrl
+  edsPayload.task_id = metaPayload.taskUrl?.substring(metaPayload.taskUrl.lastIndexOf('/') + 1).toString()
   edsPayload.request_type = "http"
   edsPayload.response_details = {
     "response_predicates": {

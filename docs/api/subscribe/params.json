@@ -3,6 +3,72 @@
   "method": "POST",
   "sourceParams": [
     {
+      "key": "fileName",
+      "value": "",
+      "placeholder": "chafco/uploads/custom_attributes.csv (required)",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "delimiter",
+      "value": "",
+      "placeholder": "comma, tab, pipe, ndjson (optional, default comma)",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "maxFiles",
+      "value": "",
+      "placeholder": "(optional, default 1)",
+      "data-curly-braces": "false"
+    }
+  ],
+  "encryptionParams": [
+    {
+      "key": "encryptionType",
+      "value": "",
+      "placeholder": "pgp",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "privateKeyBucket",
+      "value": "",
+      "placeholder": "event-destination-prod",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "privateKeyName",
+      "value": "",
+      "placeholder": "decryption-keys/Michaels_triggered_message_Private_Key.asc",
+      "data-curly-braces": "false"
+    }
+  ],
+  "sftpParams": [
+    {
+      "key": "host",
+      "value": "",
+      "placeholder": "ftp.s10.exacttarget.com",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "username",
+      "value": "",
+      "placeholder": "100007433",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "password",
+      "value": "",
+      "placeholder": "******************",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "port",
+      "value": "",
+      "placeholder": "22",
+      "data-curly-braces": "false"
+    }
+  ],
+  "metaParams": [
+    {
       "key": "clientName",
       "value": "",
       "placeholder": "Chafco (required)",
@@ -12,24 +78,6 @@
       "key": "clientId",
       "value": "",
       "placeholder": "83006 (required)",
-      "data-curly-braces": "false"
-    },
-    {
-      "key": "fileName",
-      "value": "",
-      "placeholder": "chafco/uploads/custom_attributes.csv (required)",
-      "data-curly-braces": "false"
-    },
-    {
-      "key": "fileType",
-      "value": "",
-      "placeholder": "CSV, TXT, NDJSON (required)",
-      "data-curly-braces": "false"
-    },
-    {
-      "key": "delimiter",
-      "value": "",
-      "placeholder": "comma, tab, pipe, ndjson (optional, default comma)",
       "data-curly-braces": "false"
     },
     {
@@ -84,6 +132,18 @@
       "value": "",
       "placeholder": "true, false (disabled by default)",
       "data-curly-braces": "false"
+    },
+    {
+      "key": "language",
+      "value": "",
+      "placeholder": "en (optional)",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "country",
+      "value": "",
+      "placeholder": "US (optional)",
+      "data-curly-braces": "false"
     }
   ],
   "subscriptionsParams": [],
@@ -107,6 +167,24 @@
       "key": "email",
       "value": "",
       "placeholder": "email (phone or email required)",
+      "data-curly-braces": "true"
+    },
+    {
+      "key": "shopifyId",
+      "value": "",
+      "placeholder": "shopifyId (optional)",
+      "data-curly-braces": "true"
+    },
+    {
+      "key": "klaviyoId",
+      "value": "",
+      "placeholder": "klaviyoId (optional)",
+      "data-curly-braces": "true"
+    },
+    {
+      "key": "externalIdentifiers.clientUserId",
+      "value": "",
+      "placeholder": "clientUserId (optional)",
       "data-curly-braces": "true"
     }
   ],

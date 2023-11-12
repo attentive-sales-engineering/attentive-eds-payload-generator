@@ -360,8 +360,8 @@ Specification Client will upload files to SFTP with the following path and filen
   replaceText("date", date)
 
   
-  if (edsPayload.clientPayload.clientName) {
-    replaceText("client-name", edsPayload.clientPayload.clientName)
+  if (edsPayload.metaPayload.clientName) {
+    replaceText("client-name", edsPayload.metaPayload.clientName)
   }
 
   
@@ -375,7 +375,7 @@ Specification Client will upload files to SFTP with the following path and filen
 
   if (key_name != null && key_name != '') {
     
-    const fileName = edsPayload.clientPayload.fileName.replace(/\.\w*/, '').toString()
+    const fileName = edsPayload.metaPayload.fileName.replace(/\.\w*/, '').toString()
     replaceText("filename", fileName)
 
     
@@ -391,8 +391,27 @@ Specification Client will upload files to SFTP with the following path and filen
 
   
   let fileType = "CSV"
-  if (edsPayload.clientPayload.fileType) {
-    fileType = edsPayload.clientPayload.fileType
+  if (edsPayload.metaPayload.delimiter) {
+    switch (edsPayload.metaPayload.delimiter) {
+      case 'comma':
+        fileType = "CSV"
+        break
+      case 'tab':
+        fileType = "Tab Separated Text"
+        break
+      case 'pipe':
+        fileType = "Pipe Separated Text"
+        break
+      case 'ndjson':
+        fileType = "NDJON"
+        break
+      case 'xml':
+        fileType = "XML"
+        break
+      default:
+        fileType = "CSV"
+        break
+    }
   }
   replaceText("filetype", fileType)
 
@@ -448,11 +467,11 @@ Specification Client will upload files to SFTP with the following path and filen
 
   
   let pageTitle = "EDS"
-  if (edsPayload.clientPayload["ticketUrl"] && edsPayload.clientPayload["ticketUrl"].length > 0 && edsPayload.clientPayload["ticketUrl"].match(/\d+$/)) {
-    pageTitle += `-${edsPayload.clientPayload["ticketUrl"].match(/\d+$/).toString()}`
+  if (edsPayload.metaPayload["ticketUrl"] && edsPayload.metaPayload["ticketUrl"].length > 0 && edsPayload.metaPayload["ticketUrl"].match(/\d+$/)) {
+    pageTitle += `-${edsPayload.metaPayload["ticketUrl"].match(/\d+$/).toString()}`
   }
-  if (edsPayload.clientPayload["clientName"] && edsPayload.clientPayload["clientName"].length > 0) {
-    pageTitle += ` - ${edsPayload.clientPayload["clientName"]}`
+  if (edsPayload.metaPayload["clientName"] && edsPayload.metaPayload["clientName"].length > 0) {
+    pageTitle += ` - ${edsPayload.metaPayload["clientName"]}`
   }
   pageTitle += ` - ${api}`
   document.title = pageTitle

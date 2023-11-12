@@ -9,7 +9,7 @@
 <meta name="generator" content="Hugo 0.105.0">
 
 
-  <meta name="description" content=" EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &plus; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: &#123;&nbsp;&#125; &#10005; " />
+  <meta name="description" content=" EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE Source Meta User Payload Headers Schedule Params Column Header Properties Column Header &plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body File Params Value File Encryption Value (Complete only if file is encrypted) Client SFTP Value (Complete only if client-hosted SFTP) Meta Params Value Authorization Header Bearer Token User Properties Column Header &plus; Custom Identifiers Column Header Schedule Params Value Source Payload Target Payload Response Status: &#123;&nbsp;&#125; &#10005; " />
 
   <title>Custom Attributes | Attentive EDS</title>
 
@@ -35,7 +35,7 @@
     content="Custom Attributes"
   />
   <meta property="og:site_name" content="Attentive EDS" />
-  <meta property="og:description" content=" EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: { } ✕ " />
+  <meta property="og:description" content=" EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE Source Meta User Payload Headers Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body File Params Value File Encryption Value (Complete only if file is encrypted) Client SFTP Value (Complete only if client-hosted SFTP) Meta Params Value Authorization Header Bearer Token User Properties Column Header &#43; Custom Identifiers Column Header Schedule Params Value Source Payload Target Payload Response Status: { } ✕ " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://johnchaffee.github.io/attentive-eds-payload-generator/api/custom-attributes/" />
 
@@ -44,7 +44,7 @@
 
   <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Custom Attributes" />
-  <meta name="twitter:description" content=" EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header &#43; Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: { } ✕ " />
+  <meta name="twitter:description" content=" EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE Source Meta User Payload Headers Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body File Params Value File Encryption Value (Complete only if file is encrypted) Client SFTP Value (Complete only if client-hosted SFTP) Meta Params Value Authorization Header Bearer Token User Properties Column Header &#43; Custom Identifiers Column Header Schedule Params Value Source Payload Target Payload Response Status: { } ✕ " />
 
 
   <script type="application/ld+json">
@@ -55,8 +55,8 @@
       "name": "Custom Attributes",
       "url" : "https://johnchaffee.github.io/attentive-eds-payload-generator/api/custom-attributes/",
       "headline": "Custom Attributes",
-      "description": " EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE Payload User Headers Source Schedule Params Column Header Properties Column Header \u002b Items Column Header Price Column Header Subscriptions Column Header JSON Body Authorization Header Bearer Token User Properties Column Header \u002b Custom User Identifer Properties Column Header Source Params Value Schedule Params Value Target Payload Source Payload Response Status: { } ✕ ",
-      "wordCount" : "80",
+      "description": " EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE Source Meta User Payload Headers Schedule Params Column Header Properties Column Header \u002b Items Column Header Price Column Header Subscriptions Column Header JSON Body File Params Value File Encryption Value (Complete only if file is encrypted) Client SFTP Value (Complete only if client-hosted SFTP) Meta Params Value Authorization Header Bearer Token User Properties Column Header \u002b Custom Identifiers Column Header Schedule Params Value Source Payload Target Payload Response Status: { } ✕ ",
+      "wordCount" : "99",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
@@ -1007,9 +1007,14 @@
       
     </div>
     <ul class="nav nav-tabs" role="tablist">
-      <li class="nav-item d-none" role="presentation" data-params-section>
-        <button class="nav-link active" id="attributes-query-params-tab" data-bs-toggle="tab" data-bs-target="#attributes-query-params" type="button" role="tab" aria-controls="query-params" aria-selected="true">
-          Payload
+      <li class="nav-item d-none" role="presentation" data-source-section>
+        <button class="nav-link active" id="attributes-request-source-tab" data-bs-toggle="tab" data-bs-target="#attributes-request-source" type="button" role="tab" aria-controls="request-source" aria-selected="true">
+          Source
+        </button>
+      </li>
+      <li class="nav-item d-none" role="presentation" data-meta-section>
+        <button class="nav-link" id="attributes-request-meta-tab" data-bs-toggle="tab" data-bs-target="#attributes-request-meta" type="button" role="tab" aria-controls="request-meta" aria-selected="true">
+          Meta
         </button>
       </li>
       <li class="nav-item d-none" role="presentation" data-user-section>
@@ -1017,14 +1022,14 @@
           User
         </button>
       </li>
+      <li class="nav-item d-none" role="presentation" data-params-section>
+        <button class="nav-link" id="attributes-query-params-tab" data-bs-toggle="tab" data-bs-target="#attributes-query-params" type="button" role="tab" aria-controls="query-params" aria-selected="false">
+          Payload
+        </button>
+      </li>
       <li class="nav-item" role="presentation" data-headers-section>
         <button class="nav-link" id="attributes-request-headers-tab" data-bs-toggle="tab" data-bs-target="#attributes-request-headers" type="button" role="tab" aria-controls="request-headers" aria-selected="false">
           Headers
-        </button>
-      </li>
-      <li class="nav-item d-none" role="presentation" data-source-section>
-        <button class="nav-link" id="attributes-request-source-tab" data-bs-toggle="tab" data-bs-target="#attributes-request-source" type="button" role="tab" aria-controls="request-source" aria-selected="false">
-          Source
         </button>
       </li>
       <li class="nav-item d-none" role="presentation" data-schedule-section>
@@ -1034,19 +1039,19 @@
       </li>
     </ul>
     <div class="tab-content p-3 border-top-0 border">
-      <div class="tab-pane fade show active" id="attributes-query-params" role="tabpanel" aria-labelledby="query-params-tab">
+      <div class="tab-pane fade" id="attributes-query-params" role="tabpanel" aria-labelledby="query-params-tab">
         <div class="d-none" data-query-params-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Params</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
+            <div class="section-title pl-2" style="flex: 1">Params</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Column Header</div>
           </div>
           <div data-query-params></div>
           
         </div>
         <div class="d-none" data-props-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Properties</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
+            <div class="section-title pl-2" style="flex: 1">Properties</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Column Header</div>
           </div>
           <div data-props></div>
           <button data-add-request-prop-btn class="mt-2 btn btn-outline-success" type="button">
@@ -1055,24 +1060,24 @@
         </div>
         <div class="d-none" data-items-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Items</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
+            <div class="section-title pl-2" style="flex: 1">Items</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Column Header</div>
           </div>
           <div data-items></div>
           
         </div>
         <div class="d-none" data-price-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Price</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
+            <div class="section-title pl-2" style="flex: 1">Price</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Column Header</div>
           </div>
           <div data-price></div>
           
         </div>
         <div class="d-none" data-subscriptions-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Subscriptions</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
+            <div class="section-title pl-2" style="flex: 1">Subscriptions</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Column Header</div>
           </div>
           <div data-subscriptions></div>
           
@@ -1084,11 +1089,47 @@
           </div>
         </div>
       </div>
+      <div class="tab-pane fade show active" id="attributes-request-source" role="tabpanel" aria-labelledby="request-source-tab">
+        <div class="d-none" data-source-params-section>
+          <div class="input-group">
+            <div class="section-title pl-2" style="flex: 1">File Params</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Value</div>
+          </div>
+          <div data-source></div>
+          
+        </div>
+        <div class="d-none" data-source-encryption-section>
+          <div class="input-group">
+            <div class="section-title pl-2" style="flex: 1">File Encryption</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Value <small><i>(Complete only if file is encrypted)</i></small></div>
+          </div>
+          <div data-source-encryption></div>
+          
+        </div>
+        <div class="d-none" data-source-sftp-section>
+          <div class="input-group">
+            <div class="section-title pl-2" style="flex: 1">Client SFTP</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Value <small><i>(Complete only if client-hosted SFTP)</i></small></div>
+          </div>
+          <div data-source-sftp></div>
+          
+        </div>
+      </div>
+      <div class="tab-pane fade" id="attributes-request-meta" role="tabpanel" aria-labelledby="request-meta-tab">
+        <div class="d-none" data-meta-params-section>
+          <div class="input-group">
+            <div class="section-title pl-2" style="flex: 1">Meta Params</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Value</div>
+          </div>
+          <div data-meta></div>
+          
+        </div>
+      </div>
       <div class="tab-pane fade" id="attributes-request-headers" role="tabpanel" aria-labelledby="request-headers-tab">
         <div class="" data-headers-params-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Authorization Header</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Bearer Token</div>
+            <div class="section-title pl-2" style="flex: 1">Authorization Header</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Bearer Token</div>
           </div>
           <div data-headers></div>
           
@@ -1097,8 +1138,8 @@
       <div class="tab-pane fade" id="attributes-request-user" role="tabpanel" aria-labelledby="request-user-tab">
         <div class="d-none" data-user-params-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">User Properties</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
+            <div class="section-title pl-2" style="flex: 1">User Properties</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Column Header</div>
           </div>
           <div data-user></div>
           <button data-add-request-user-btn class="mt-2 btn btn-outline-success" type="button">
@@ -1107,28 +1148,18 @@
         </div>
         <div class="d-none" data-user-custom-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Custom User Identifer Properties</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Column Header</div>
+            <div class="section-title pl-2" style="flex: 1">Custom Identifiers</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Column Header</div>
           </div>
           <div data-user-custom></div>
-          
-        </div>
-      </div>
-      <div class="tab-pane fade" id="attributes-request-source" role="tabpanel" aria-labelledby="request-source-tab">
-        <div class="d-none" data-source-params-section>
-          <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Source Params</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
-          </div>
-          <div data-source></div>
           
         </div>
       </div>
       <div class="tab-pane fade" id="attributes-request-schedule" role="tabpanel" aria-labelledby="request-schedule-tab">
         <div class="d-none" data-schedule-params-section>
           <div class="input-group">
-            <div class="section-title pl-75" style="flex: 1">Schedule Params</div>
-            <div class="section-title pl-75 mr-38" style="flex: 2">Value</div>
+            <div class="section-title pl-2" style="flex: 1">Schedule Params</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Value</div>
           </div>
           <div data-schedule></div>
           
@@ -1138,15 +1169,15 @@
   </div>
   <div class="" data-response-section>
     <div class="border-top-0 border p-3">
-      <div class="section-title">Target Payload</div>
-      <div class="ace-border">
-        <div id="attributes" class="ace-editor" data-target-payload></div>
-      </div>
-    </div>
-    <div class="border-top-0 border p-3">
       <div class="section-title">Source Payload</div>
       <div class="ace-border">
         <div id="attributes" class="ace-editor" data-source-payload></div>
+      </div>
+    </div>
+    <div class="border-top-0 border p-3">
+      <div class="section-title">Target Payload</div>
+      <div class="ace-border">
+        <div id="attributes" class="ace-editor" data-target-payload></div>
       </div>
     </div>
     <div class="d-none border-top-0 border p-3">
@@ -1218,6 +1249,7 @@
       apiParams = response
       console.log("apiParams:", apiParams)
 
+      
       if ("attributes" == 'import') {
         parseImportFile("attributes")
       }
@@ -1255,6 +1287,9 @@
       renderParams(apiParams.userParams, "attributes", "[data-user-section]", "[data-user-params-section]", "[data-user]")
       renderParams(apiParams.customParams, "attributes", "[data-user-section]", "[data-user-custom-section]", "[data-user-custom]")
       renderParams(apiParams.sourceParams, "attributes", "[data-source-section]", "[data-source-params-section]", "[data-source]")
+      renderParams(apiParams.encryptionParams, "attributes", "[data-source-section]", "[data-source-encryption-section]", "[data-source-encryption]")
+      renderParams(apiParams.sftpParams, "attributes", "[data-source-section]", "[data-source-sftp-section]", "[data-source-sftp]")
+      renderParams(apiParams.metaParams, "attributes", "[data-meta-section]", "[data-meta-params-section]", "[data-meta]")
       renderParams(apiParams.scheduleParams, "attributes", "[data-schedule-section]", "[data-schedule-params-section]", "[data-schedule]")
 
       
@@ -1307,6 +1342,7 @@
   
   
   
+  
 
 
   
@@ -1339,7 +1375,7 @@
       } else if (path.includes("/create")) {
         e.preventDefault()
         console.log("CLICKED CREATE LINK")
-        window.open("https://ui.attentivemobile.com/tactical/event-destinations/create?companyId=" + edsPayload.clientPayload.clientId, '_blank')
+        window.open("https://ui.attentivemobile.com/tactical/event-destinations/create?companyId=" + edsPayload.metaPayload.clientId, '_blank')
       } else if (path.includes("/view")) {
         e.preventDefault()
         console.log("CLICKED VIEW LINK")
@@ -1347,8 +1383,8 @@
       } else if (path.match(/get|post|put/)) {
         e.preventDefault()
         if (edsPayload.task_id) task_id = edsPayload.task_id
-        if (edsPayload.clientPayload.clientId) clientId = edsPayload.clientPayload.clientId
-        if (edsPayload.clientPayload.clientName) clientName = edsPayload.clientPayload.clientName
+        if (edsPayload.metaPayload.clientId) clientId = edsPayload.metaPayload.clientId
+        if (edsPayload.metaPayload.clientName) clientName = edsPayload.metaPayload.clientName
         console.log("TASK ID:", task_id)
         console.log("CLIENT ID:", clientId)
         console.log("CLIENT NAME:", clientName)
@@ -1391,11 +1427,11 @@
     console.log("filename BEFORE:", filename)
     filename = ''
     console.log("filename RESET:", filename)
-    if (edsPayload.clientPayload["ticketUrl"] && edsPayload.clientPayload["ticketUrl"].length > 0 && edsPayload.clientPayload["ticketUrl"].match(/\d+$/)) {
-      filename += `EDS-${edsPayload.clientPayload["ticketUrl"].match(/\d+$/).toString()}: `
+    if (edsPayload.metaPayload["ticketUrl"] && edsPayload.metaPayload["ticketUrl"].length > 0 && edsPayload.metaPayload["ticketUrl"].match(/\d+$/)) {
+      filename += `EDS-${edsPayload.metaPayload["ticketUrl"].match(/\d+$/).toString()}: `
     }
-    if (edsPayload.clientPayload["clientName"] && edsPayload.clientPayload["clientName"].length > 0) {
-      filename += `${edsPayload.clientPayload["clientName"]} `
+    if (edsPayload.metaPayload["clientName"] && edsPayload.metaPayload["clientName"].length > 0) {
+      filename += `${edsPayload.metaPayload["clientName"]} `
     }
     console.log("edsPayload.request_details.url:", edsPayload.request_details.url)
     let apiFileName = getApiFromUrl(edsPayload.request_details.url)
@@ -1478,6 +1514,7 @@
     filename = document.querySelector("#filename").value
     console.log("filename:", filename)
     exportJson(e.srcElement)
+    exportDialog.close()
   })
 
   
