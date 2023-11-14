@@ -111,7 +111,7 @@
 
   if (key_name != null && key_name != '') {
     // filename
-    const fileName = edsPayload.metaPayload.fileName.replace(/\.\w*/, '').toString()
+    const fileName = key_name.replace(/\.\w*/, '').toString()
     replaceText("filename", fileName)
 
     // file-name-and-date
