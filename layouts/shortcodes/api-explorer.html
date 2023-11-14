@@ -170,7 +170,7 @@
             <div class="section-title pl-2" style="flex: 1">File Params</div>
             <div class="section-title pl-2 mr-38" style="flex: 2">Value</div>
           </div>
-          <div data-source></div>
+          <div data-source-params></div>
           <!-- <button data-add-request-source-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
           </button> -->
@@ -375,7 +375,7 @@
       renderParams(apiParams.headerParams, "{{ .Params.id }}", "[data-headers-section]", "[data-headers-params-section]", "[data-headers]")
       renderParams(apiParams.userParams, "{{ .Params.id }}", "[data-user-section]", "[data-user-params-section]", "[data-user]")
       renderParams(apiParams.customParams, "{{ .Params.id }}", "[data-user-section]", "[data-user-custom-section]", "[data-user-custom]")
-      renderParams(apiParams.sourceParams, "{{ .Params.id }}", "[data-source-section]", "[data-source-params-section]", "[data-source]")
+      renderParams(apiParams.sourceParams, "{{ .Params.id }}", "[data-source-section]", "[data-source-params-section]", "[data-source-params]")
       renderParams(apiParams.encryptionParams, "{{ .Params.id }}", "[data-source-section]", "[data-source-encryption-section]", "[data-source-encryption]")
       renderParams(apiParams.sftpParams, "{{ .Params.id }}", "[data-source-section]", "[data-source-sftp-section]", "[data-source-sftp]")
       renderParams(apiParams.metaParams, "{{ .Params.id }}", "[data-meta-section]", "[data-meta-params-section]", "[data-meta]")
@@ -429,7 +429,7 @@
   // addRow("{{ .Params.id }}", "[data-add-request-header-btn]", "[data-headers]")
   addRow("{{ .Params.id }}", "[data-add-request-user-btn]", "[data-user]")
   // addRow("{{ .Params.id }}", "[data-add-request-custom-btn]", "[data-user-custom]")
-  // addRow("{{ .Params.id }}", "[data-add-request-source-btn]", "[data-source]")
+  // addRow("{{ .Params.id }}", "[data-add-request-source-btn]", "[data-source-params]")
   // addRow("{{ .Params.id }}", "[data-add-request-meta-btn]", "[data-meta]")
   // addRow("{{ .Params.id }}", "[data-add-request-schedule-btn]", "[data-schedule]")
 
@@ -799,7 +799,7 @@
   // UPDATE PAYLAOD LISTENERS
   document.addEventListener("readystatechange", function (e) {
     if (e.target.readyState === "complete") {
-      console.log("readystatechange === complete")
+      // console.log("readystatechange === complete")
       updatePayload(e, "{{ .Params.id }}")
     }
   })
