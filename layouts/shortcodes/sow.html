@@ -209,7 +209,9 @@
   if (edsPayload.metaPayload["clientName"] && edsPayload.metaPayload["clientName"].length > 0) {
     pageTitle += ` - ${edsPayload.metaPayload["clientName"]}`
   }
-  pageTitle += ` - ${api}`
+  if (api && api.length > 0) {
+    pageTitle += ` - ${api}`
+  }
   document.title = pageTitle
 
 </script>
