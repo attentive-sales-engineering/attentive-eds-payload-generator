@@ -12,13 +12,13 @@
   .Params.id => {{ .Params.id }}
   </pre> -->
 
-  <h2><span class="" data-client-name>{Client Name}</span>&nbsp;&ndash;&nbsp;EDS&nbsp;<span class="param" data-api>{API}
+  <h2><span class="" data-client-name>{Client Name}</span>&nbsp;&ndash;&nbsp;EDS&nbsp;<span class="bold" data-api>{API}
     </span>&nbsp;API
   </h2>
   <p><span class="" data-date>{Date}</span></p>
 
   <h2>Background</h2>
-  <p>This Statement of Work defines the client's request to submit <span class="param" data-api>{API}</span> API
+  <p>This Statement of Work defines the client's request to submit <span class="bold" data-api>{API}</span> API
     requests for users via CSV upload.
   </p>
 
@@ -28,17 +28,15 @@
 
   <h2>Specification</h2>
   <ol>
-    <li>Client will upload files to SFTP with the following path and filename:<br><span class="param" data-file-name-and-date>{fileNameAndDate}</span></li>
-    <li id="date-format" class=""><span class="param" data-date-format>{[[dateFormat]]}</span> represents the date the
-      file will be processed.</li>
-    <li id="frequency" class="">Files will be processed <span class="param" data-frequency>{frequency}</span>
-      at <span class="param" data-trigger-time>{triggerTime}</span> (<span class="param" data-timezone>{timezone}</span>
-      time).
-    </li>
-    <li id="hourly" class="d-none">Files will be processed <b>hourly</b></li>
-    <li>The file will be in <span class="param" data-filetype>{fileType}</span> format.</li>
+    <li>Client will upload files to SFTP with the following path and filename:<br><span class="bold" data-file-name-and-date>{fileNameAndDate}</span></li>
+    <li id="date-format" class="d-none">The <span class="bold" data-date-format>{[[dateFormat]]}</span> portion of the filename represents the date the file will be processed. The actual filename should look like this:<br><span id="example-date" class="bold d-none" data-example-date>{exampleDate}</span>.</li>
+    <li id="manual" class="d-none">Files will be processed <b>ad-hoc</b> when requested by the client.</li>
+    <li id="auto" class="d-none">Files will be processed <b>automatically</b> when files are uploaded.</li>
+    <li id="hourly" class="d-none">Files will be processed <b>hourly</b>.</li>
+    <li id="daily" class="d-none">Files will be processed <b>daily</b> at <span class="bold" data-trigger-time>{triggerTime}</span> (<span class="bold" data-timezone>{timezone}</span> time).</li>
+    <li>The file will be in <span class="bold" data-filetype>{fileType}</span> format.</li>
     <li>The file will contain a header row that lists the field names.</li>
-    <li>Each data row will include the field values.</li>
+    <li>Each row will include the field values.</li>
   </ol>
 
   <h2 class="pagebreak">API Payload</h2>
@@ -51,7 +49,7 @@
 </div>
 
 <style>
-  .param {
+  .bold {
     font-weight: bold;
   }
 
@@ -110,25 +108,53 @@
   console.log("KEY NAME:", key_name)
 
   if (key_name != null && key_name != '') {
-    // filename
+    // filename -> strip '.csv' extension
     const fileName = key_name.replace(/\.\w*/, '').toString()
     replaceText("filename", fileName)
 
-    // file-name-and-date
+    // file-name-and-date -> strip timezone
     const fileNameAndDate = key_name.replace(/<&\S+&>/, '')
     replaceText("file-name-and-date", fileNameAndDate)
 
-    // dateFormat
-    const dateFormat = key_name.match(/\[\[\w+\]\]/)
+    // dateFormat -> Display example date in filename
+    const dateFormat = key_name.match(/\[\[.+\]\]/)
     console.log("DATE FORMAT:", dateFormat)
-    replaceText("date-format", dateFormat)
-    if (dateFormat === null) document.querySelector("#date-format").classList.add('d-none')
+    console.log("DATE FORMAT TO STRING:", dateFormat?.toString())
+    console.log("FILENAME:", fileName)
+    console.log("FILENAME AND DATE:", fileNameAndDate)
+    if (dateFormat != null && dateFormat != '') {
+      document.querySelector("#date-format").classList.remove('d-none')
+      replaceText("date-format", dateFormat)
+      const today = new Date()
+      console.log("TODAY:", today)
+      const year = today.getFullYear().toString()
+      console.log("YEAR:", year)
+      let month = today.getMonth()
+      month += 1  // Add 1 to 0-index month
+      month = month.toString()
+      month = month.length === 2 ? month : "0" + month  // pefix 1 digit month with 0
+      console.log("MONTH:", month)
+      let date = today.getDate().toString()
+      date = date.length === 2 ? date : "0" + date  // pefix 1 digit date with 0
+      console.log("DATE:", date)
+      let hour = today.getHours().toString()
+      hour = hour.length === 2 ? hour : "0" + hour  // pefix 1 digit hour with 0
+      console.log("HOUR:", hour)
+      let minute = today.getMinutes().toString()
+      minute = minute.length === 2 ? minute : "0" + minute  // pefix 1 digit hour with 0
+      console.log("MINUTE:", minute)
+      const sampleDate = dateFormat.toString().replace('\[\[', '').replace('yyyy', year).replace('MM', month).replace('dd', date).replace('HH', hour).replace('mm', minute).replace(']]', '')
+      console.log("SAMPLE DATE:", sampleDate)
+      const exampleDate = `${fileNameAndDate.replace(/\[\[.+\]\]/, sampleDate)}`
+      document.querySelector("#example-date").classList.remove('d-none')
+      replaceText("example-date", exampleDate)
+    }
   }
 
   // filetype
   let fileType = "CSV"
-  if (edsPayload.metaPayload.delimiter) {
-    switch (edsPayload.metaPayload.delimiter) {
+  if (edsPayload.source_details.delimiter) {
+    switch (edsPayload.source_details.delimiter) {
       case 'comma':
         fileType = "CSV"
         break
@@ -154,28 +180,28 @@
   // frequency
   const frequency = edsPayload.schedulePayload.frequency
   console.log("FREQUENCY:", frequency)
+  // MANUAL
+  if (frequency && frequency.toLowerCase() == "manual") {
+    document.querySelector("#manual").classList.remove('d-none')
+  }
+  // AUTO
+  if (frequency && frequency.toLowerCase() == "auto") {
+    document.querySelector("#auto").classList.remove('d-none')
+  }
+  // HOURLY
   if (frequency && frequency.toLowerCase() == "hourly") {
     document.querySelector("#hourly").classList.remove('d-none')
-    document.querySelector("#frequency").classList.add('d-none')
-  } else if (frequency && frequency != null && frequency != '') {
-    replaceText("frequency", frequency)
-  } else {
-    document.querySelector("#frequency").classList.add('d-none')
   }
-
-  // time
-  if (edsPayload.schedulePayload.triggerTime) {
-    const triggerTime = edsPayload.schedulePayload.triggerTime
+  // DAILY 
+  if (frequency && frequency.toLowerCase() == "daily") {
+    document.querySelector("#daily").classList.remove('d-none')
+    // time
+    const triggerTime = edsPayload.schedulePayload.triggerTime || "8AM"
     replaceText("trigger-time", triggerTime)
-  }
-
-  // timezone
-  if (edsPayload.schedulePayload.timeZone) {
-    const timeZone = edsPayload.schedulePayload.timeZone
+    // timezone
+    const timeZone = edsPayload.schedulePayload.timeZone || "UTC"
     replaceText("timezone", timeZone)
   }
-
-  // if (frequency === null) document.querySelector("#frequency").classList.add('d-none')
 
   // Mask API Key
   if (edsPayload.request_details?.header_mapping?.Authorization) {
@@ -191,7 +217,7 @@
   aceJsonRequest.session.setMode('ace/mode/json')
   aceJsonRequest.setValue(null)
   aceJsonRequest.insert(JSON.stringify(edsPayload.request_details, null, 2))
-  aceJsonRequest.setReadOnly(true)
+  // aceJsonRequest.setReadOnly(true)
   aceJsonRequest.setOptions({
     maxLines: 60,
     highlightActiveLine: false,
