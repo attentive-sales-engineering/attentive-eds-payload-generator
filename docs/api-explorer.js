@@ -44,7 +44,7 @@ function getApiFromUrl(url) {
       api.path = "../../api/unsubscribe"
       break
     default:
-      api.name = 'Error parsing json file'
+      api.name = 'Custom Attributes'
       api.path = "../../api/custom-attributes"
   }
   return api
@@ -107,7 +107,7 @@ function createKeyValuePair(id, key, value, placeholder, curlyBraces, paramEleme
     element.querySelector('[data-update-btn]').classList.remove("curly")
   }
   // Hide the curlyBraces toggle button in headers, source and schedule tabs
-  if (paramElement.match(/data-headers|data-source|data-schedule/)) {
+  if (paramElement === "[data-headers]" || paramElement === "[data-source-params]" || paramElement === "[data-source-encryption]" || paramElement === "[data-source-sftp]" || paramElement === "[data-schedule]") {
     element.querySelector('[data-update-btn]').classList.add("d-none")
   }
   element.querySelector('[data-update-btn]').addEventListener('click', e => {
@@ -303,14 +303,14 @@ function parseImportFile(edsFile) {
   }
 
   // sourceParams
-  apiParams.sourceParams[0].value = sourceJson.key_name.replace(/\<.*/, '')
+  apiParams.sourceParams[0].value = sourceJson.key_name?.replace(/\<.*/, '')
   apiParams.sourceParams[1].value = sourceJson.delimiter
   apiParams.sourceParams[2].value = sourceJson.options.max_files
 
   // encryptionParams
-  apiParams.encryptionParams[0].value = sourceJson.encryption.type
-  apiParams.encryptionParams[1].value = sourceJson.encryption.private_key.bucket_name
-  apiParams.encryptionParams[2].value = sourceJson.encryption.private_key.key_name
+  apiParams.encryptionParams[0].value = sourceJson.encryption?.type
+  apiParams.encryptionParams[1].value = sourceJson.encryption?.private_key?.bucket_name
+  apiParams.encryptionParams[2].value = sourceJson.encryption?.private_key?.key_name
 
   // sftpParams
   apiParams.sftpParams[0].value = sourceJson.host
@@ -395,7 +395,7 @@ function updatePayload(e, paramsId) {
   subscriptions = keyValuePairsToObjects(paramsId, "subscriptions", document.querySelector(`#${paramsId} ` + '[data-subscriptions]')).tempObject
   user = keyValuePairsToObjects(paramsId, "user", document.querySelector(`#${paramsId} ` + '[data-user]')).tempObject
   custom = keyValuePairsToObjects(paramsId, "custom", document.querySelector(`#${paramsId} ` + '[data-user-custom]')).tempObject
-  source = keyValuePairsToObjects(paramsId, "source", document.querySelector(`#${paramsId} ` + '[data-source]')).tempObject
+  source = keyValuePairsToObjects(paramsId, "source", document.querySelector(`#${paramsId} ` + '[data-source-params]')).tempObject
   encryption = keyValuePairsToObjects(paramsId, "encryption", document.querySelector(`#${paramsId} ` + '[data-source-encryption]')).tempObject
   sftp = keyValuePairsToObjects(paramsId, "sftp", document.querySelector(`#${paramsId} ` + '[data-source-sftp]')).tempObject
   meta = keyValuePairsToObjects(paramsId, "meta", document.querySelector(`#${paramsId} ` + '[data-meta]')).tempObject
@@ -421,16 +421,13 @@ function updatePayload(e, paramsId) {
 
 
   // console.log("ENCRYPTION:", encryption)
-  if (encryption && Object.entries(encryption).length > 0) {
-    payload_mapping = encryption
-  } else {
+  if (!encryption || Object.entries(encryption).length == 0) {
+    // payload_mapping = encryption
     document.querySelector(`#${paramsId} ` + '[data-source-encryption-section]').classList.add('d-none')
   }
 
   // console.log("SFTP:", sftp)
-  if (sftp && Object.entries(sftp).length > 0) {
-    payload_mapping = sftp
-  } else {
+  if (!sftp || Object.entries(sftp).length == 0) {
     document.querySelector(`#${paramsId} ` + '[data-source-sftp-section]').classList.add('d-none')
   }
 
@@ -478,7 +475,7 @@ function updatePayload(e, paramsId) {
 
   // console.log("CUSTOM IDENTIFIER:", custom)
   if (custom && Object.entries(custom).length > 0) {
-    console.log("CUSTOM")
+    // console.log("CUSTOM")
     // if clientUserId was deleted, need to recreate the externalIdentifiers object
     if (payload_mapping.user.externalIdentifiers === undefined) {
       payload_mapping.user.externalIdentifiers = {}

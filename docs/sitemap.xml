@@ -12,7 +12,7 @@
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/api/ecommerce-purchase/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/get/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/eds/export/</loc>
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/api/identity/</loc>
   </url><url>
@@ -24,19 +24,13 @@
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/api/unsubscribe/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/post/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/eds/import/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/put/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/eds/create/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/view/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/eds/view/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/create/</loc>
-  </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/export/</loc>
-  </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/import/</loc>
-  </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/sow/</loc>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/eds/sow/</loc>
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/api/</loc>
   </url><url>
@@ -50,11 +44,11 @@
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/eds/</loc>
   </url><url>
+    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/eds/</loc>
+  </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/events/</loc>
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/export/</loc>
-  </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/get/</loc>
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/identity/</loc>
   </url><url>
@@ -62,19 +56,13 @@
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/messages/</loc>
   </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/post/</loc>
-  </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/privacy/</loc>
-  </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/put/</loc>
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/sow/</loc>
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/subscribe/</loc>
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/</loc>
-  </url><url>
-    <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tools/</loc>
   </url><url>
     <loc>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/unsubscribe/</loc>
   </url><url>

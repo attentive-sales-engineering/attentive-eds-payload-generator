@@ -97,7 +97,7 @@
     {
       "key": "frequency",
       "value": "",
-      "placeholder": "Hourly, Daily, Weekly, Monthly (blank for on-demand)",
+      "placeholder": "Auto, Manual, Daily, Hourly",
       "data-curly-braces": "false"
     },
     {
@@ -114,6 +114,8 @@
     }
   ],
   "propParams": [],
+  "itemsParams": [],
+  "priceParams": [],
   "queryParams": [],
   "subscriptionsParams": [],
   "jsonParams": {},

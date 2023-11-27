@@ -60,15 +60,6 @@
     </item>
     
     <item>
-      <title>get</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/get/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/get/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>identity</title>
       <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/identity/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -96,29 +87,11 @@
     </item>
     
     <item>
-      <title>post</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/post/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/post/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>privacy</title>
       <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/privacy/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/privacy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>put</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/put/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/put/</guid>
       <description></description>
     </item>
     
