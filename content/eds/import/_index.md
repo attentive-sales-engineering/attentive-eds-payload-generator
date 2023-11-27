@@ -1,7 +1,7 @@
 ---
 title: "Import JSON Payload"
 draft: false
-weight: 7000
+weight: 2000
 tags:
   - import
 # geekdocNav: false

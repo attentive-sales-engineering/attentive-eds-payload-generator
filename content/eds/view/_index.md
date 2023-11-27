@@ -1,5 +1,5 @@
 ---
-title: "Link to View Job"
+title: "View EDS Job"
 draft: false
 weight: 4000
 tags:

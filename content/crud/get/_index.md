@@ -1,6 +1,6 @@
 ---
-title: "GET - Read Job"
-draft: false
+title: "GET - Read EDS Job"
+draft: true
 weight: 1000
 tags:
   - get

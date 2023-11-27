@@ -1,11 +1,11 @@
 ---
-title: "Link to Create Job"
+title: "Scope of Work"
 draft: false
 weight: 5000
 tags:
-  - create
+  - sow
 geekdocNav: false
 geekdocBreadcrumb: false
 ---
 
-Create
+{{< sow id=`sow` >}}

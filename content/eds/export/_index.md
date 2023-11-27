@@ -1,7 +1,7 @@
 ---
 title: "Export JSON Payload"
 draft: false
-weight: 6000
+weight: 1000
 tags:
   - export
 geekdocNav: false

@@ -1,11 +1,11 @@
 ---
-title: "POST - Create Job"
+title: "Create EDS Job"
 draft: false
-weight: 2000
+weight: 3000
 tags:
-  - post
+  - create
 geekdocNav: false
 geekdocBreadcrumb: false
 ---
 
-Post
+Create

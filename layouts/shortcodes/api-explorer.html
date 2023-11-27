@@ -446,7 +446,7 @@
         e.preventDefault()
         console.log("CLICKED SOW LINK")
         localStorage.setItem("eds-sow", JSON.stringify(edsPayload))
-        window.open("../../tools/sow", '_blank')
+        window.open("../../eds/sow", '_blank')
       } else if (path.includes("/export")) {
         console.log("CLICKED EXPORT LINK")
         console.log("E:", e)
@@ -517,7 +517,7 @@
     filename = ''
     console.log("filename RESET:", filename)
     if (edsPayload.metaPayload["ticketUrl"] && edsPayload.metaPayload["ticketUrl"].length > 0 && edsPayload.metaPayload["ticketUrl"].match(/\d+$/)) {
-      filename += `EDS-${edsPayload.metaPayload["ticketUrl"].match(/\d+$/).toString()}: `
+      filename += `EDS-${edsPayload.metaPayload["ticketUrl"].match(/\d+$/).toString()} - `
     }
     if (edsPayload.metaPayload["clientName"] && edsPayload.metaPayload["clientName"].length > 0) {
       filename += `${edsPayload.metaPayload["clientName"]} `
@@ -526,7 +526,7 @@
     let apiFileName = getApiFromUrl(edsPayload.request_details.url)
     console.log("apiFileName:", apiFileName)
 
-    filename += `${apiFileName.name}`
+    filename += `- ${apiFileName.name}`
     if (filename === null || filename === '') filename = 'data'
     console.log("filename:", filename)
   }
@@ -564,7 +564,7 @@
     reader.onload = function (e) {
       const text = e.target.result
       localStorage.setItem("eds-import", text)
-      window.location.href = "../../tools/import"
+      window.location.href = "../../eds/import"
     }
     reader.readAsText(jsonFile)
   }
@@ -706,7 +706,7 @@
         } else {
           // Must be a GET, store response in local storage and redirect to import page
           localStorage.setItem("eds-import", JSON.stringify(response.data))
-          window.location.href = "../../tools/import"
+          window.location.href = "../../eds/import"
         }
       })
       .catch(function (error) {
