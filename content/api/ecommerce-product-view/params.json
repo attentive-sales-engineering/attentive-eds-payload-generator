@@ -11,7 +11,7 @@
     {
       "key": "delimiter",
       "value": "",
-      "placeholder": "comma, tab, pipe, ndjson (optional, default comma)",
+      "placeholder": "csv, psv, tsv (optional, default csv)",
       "data-curly-braces": "false"
     },
     {

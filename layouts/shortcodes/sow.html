@@ -152,28 +152,32 @@
   }
 
   // filetype
-  let fileType = "CSV"
+  let fileType
   if (edsPayload.source_details.delimiter) {
-    switch (edsPayload.source_details.delimiter) {
+    const delimiter = edsPayload.source_details.delimiter.toLowerCase()
+    console.log("DELIMITER:", delimiter)
+    switch (delimiter) {
+      case ',':
       case 'comma':
-        fileType = "CSV"
+      case 'csv':
+        fileType = "Comma Separated Text"
         break
       case 'tab':
+      case '\\t':
+      case 'tsv':
         fileType = "Tab Separated Text"
         break
       case 'pipe':
+      case '|':
+      case 'psv':
         fileType = "Pipe Separated Text"
         break
-      case 'ndjson':
-        fileType = "NDJON"
-        break
-      case 'xml':
-        fileType = "XML"
-        break
       default:
-        fileType = "CSV"
+        fileType = delimiter
         break
     }
+  } else {
+    fileType = "CSV"
   }
   replaceText("filetype", fileType)
 
