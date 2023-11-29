@@ -39,6 +39,10 @@
     <li>Each row will include the field values.</li>
   </ol>
 
+  <h2>Level of Effort</h2>
+  <p>This job is expected to take 8 hours of development time to configure and test, once the client has provided a data file in the required format.</p>
+
+
   <h2 class="pagebreak">API Payload</h2>
   <p>The fields in the file will be mapped to the API as shown in the payload below, where API property names are
     listed on the left, and field names are displayed in curly braces on the right.</p>
@@ -177,7 +181,7 @@
         break
     }
   } else {
-    fileType = "CSV"
+    fileType = "Comma Separated Text"
   }
   replaceText("filetype", fileType)
 
