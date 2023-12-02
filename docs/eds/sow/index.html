@@ -13,7 +13,7 @@
 Background This Statement of Work defines the client&#39;s request to submit {API} API requests for users via CSV upload. Purpose This Statement of Work covers the allowable scope of the project. Any term not defined herein shall have the meaning set forth in the Attentive Master Subscription Agreement or the relevant Order Form.
 Specification Client will upload files to SFTP with the following path and filename:" />
 
-  <title>Scope of Work | Attentive EDS</title>
+  <title>Exhibit A - Scope of Work | Attentive EDS</title>
 
   <link rel="icon" type="image/svg+xml" href="/attentive-eds-payload-generator/favicon/favicon.svg" />
 <link
@@ -34,7 +34,7 @@ Specification Client will upload files to SFTP with the following path and filen
   
   <meta
     property="og:title"
-    content="Scope of Work"
+    content="Exhibit A - Scope of Work"
   />
   <meta property="og:site_name" content="Attentive EDS" />
   <meta property="og:description" content="{Client Name} – EDS {API}  API {Date}
@@ -47,7 +47,7 @@ Specification Client will upload files to SFTP with the following path and filen
 
 
   <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Scope of Work" />
+<meta name="twitter:title" content="Exhibit A - Scope of Work" />
   <meta name="twitter:description" content="{Client Name} – EDS {API}  API {Date}
 Background This Statement of Work defines the client&#39;s request to submit {API} API requests for users via CSV upload. Purpose This Statement of Work covers the allowable scope of the project. Any term not defined herein shall have the meaning set forth in the Attentive Master Subscription Agreement or the relevant Order Form.
 Specification Client will upload files to SFTP with the following path and filename:" />
@@ -58,11 +58,11 @@ Specification Client will upload files to SFTP with the following path and filen
       "@context": "http://schema.org",
       "@type": "TechArticle",
       "articleSection": "Eds",
-      "name": "Scope of Work",
+      "name": "Exhibit A - Scope of Work",
       "url" : "https://johnchaffee.github.io/attentive-eds-payload-generator/eds/sow/",
-      "headline": "Scope of Work",
+      "headline": "Exhibit A - Scope of Work",
       "description": "{Client Name} – EDS {API}  API {Date}\nBackground This Statement of Work defines the client\u0027s request to submit {API} API requests for users via CSV upload. Purpose This Statement of Work covers the allowable scope of the project. Any term not defined herein shall have the meaning set forth in the Attentive Master Subscription Agreement or the relevant Order Form.\nSpecification Client will upload files to SFTP with the following path and filename:",
-      "wordCount" : "191",
+      "wordCount" : "221",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
@@ -271,7 +271,7 @@ Specification Client will upload files to SFTP with the following path and filen
   <article
     class="gdoc-markdown gdoc-markdown__align--left"
   >
-    <h1>Scope of Work</h1>
+    <h1>Exhibit A - Scope of Work</h1>
     <div class="p-2" id="sow">
 
   
@@ -302,6 +302,10 @@ Specification Client will upload files to SFTP with the following path and filen
     <li>The file will contain a header row that lists the field names.</li>
     <li>Each row will include the field values.</li>
   </ol>
+
+  <h2>Level of Effort</h2>
+  <p>This job is expected to take 8 hours of development time to configure and test, once the client has provided a data file in the required format.</p>
+
 
   <h2 class="pagebreak">API Payload</h2>
   <p>The fields in the file will be mapped to the API as shown in the payload below, where API property names are
@@ -416,28 +420,32 @@ Specification Client will upload files to SFTP with the following path and filen
   }
 
   
-  let fileType = "CSV"
+  let fileType
   if (edsPayload.source_details.delimiter) {
-    switch (edsPayload.source_details.delimiter) {
+    const delimiter = edsPayload.source_details.delimiter.toLowerCase()
+    console.log("DELIMITER:", delimiter)
+    switch (delimiter) {
+      case ',':
       case 'comma':
-        fileType = "CSV"
+      case 'csv':
+        fileType = "Comma Separated Text"
         break
       case 'tab':
+      case '\\t':
+      case 'tsv':
         fileType = "Tab Separated Text"
         break
       case 'pipe':
+      case '|':
+      case 'psv':
         fileType = "Pipe Separated Text"
         break
-      case 'ndjson':
-        fileType = "NDJON"
-        break
-      case 'xml':
-        fileType = "XML"
-        break
       default:
-        fileType = "CSV"
+        fileType = delimiter
         break
     }
+  } else {
+    fileType = "Comma Separated Text"
   }
   replaceText("filetype", fileType)
 

@@ -11,7 +11,7 @@
     {
       "key": "delimiter",
       "value": "",
-      "placeholder": "comma, tab, pipe, ndjson (optional, default comma)",
+      "placeholder": "csv, psv, tsv (optional, default csv)",
       "data-curly-braces": "false"
     },
     {
@@ -29,6 +29,12 @@
       "data-curly-braces": "false"
     },
     {
+      "key": "passphrase",
+      "value": "",
+      "placeholder": "(optional)",
+      "data-curly-braces": "false"
+    },
+    {
       "key": "privateKeyBucket",
       "value": "",
       "placeholder": "event-destination-prod",
@@ -37,7 +43,7 @@
     {
       "key": "privateKeyName",
       "value": "",
-      "placeholder": "decryption-keys/Michaels_triggered_message_Private_Key.asc",
+      "placeholder": "decryption-keys/ATTN_PGP_Private.asc",
       "data-curly-braces": "false"
     }
   ],
@@ -57,7 +63,19 @@
     {
       "key": "password",
       "value": "",
-      "placeholder": "******************",
+      "placeholder": "leave blank if using auth key",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "authKeyBucket",
+      "value": "",
+      "placeholder": "event-destination-prod (blank if using SecretsManager)",
+      "data-curly-braces": "false"
+    },
+    {
+      "key": "authKeyName",
+      "value": "",
+      "placeholder": "key/secret-key (s3 path, or SecretsManager name)",
       "data-curly-braces": "false"
     },
     {
