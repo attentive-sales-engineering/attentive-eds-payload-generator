@@ -303,7 +303,11 @@ function parseImportFile(edsFile) {
   }
 
   // sourceParams
-  apiParams.sourceParams[0].value = sourceJson.key_name?.replace(/\<.*/, '')
+  if (sourceJson.key_name) {
+    apiParams.sourceParams[0].value = sourceJson.key_name?.replace(/\<.*/, '')
+  } else if (sourceJson.filename) {
+    apiParams.sourceParams[0].value = sourceJson.filename?.replace(/\<.*/, '')
+  }
   apiParams.sourceParams[1].value = sourceJson.delimiter
   apiParams.sourceParams[2].value = sourceJson.options.max_files
 
@@ -339,8 +343,10 @@ function parseImportFile(edsFile) {
   // scheduleParams
   apiParams.scheduleParams[0].value = schedule?.frequency ? schedule.frequency : ''
   apiParams.scheduleParams[1].value = schedule?.triggerTime ? schedule.triggerTime : ''
-  if (importFile.mappingInfoOverride && sourceJson.key_name.match(/\<.*/)) {
+  if (importFile.mappingInfoOverride && sourceJson.key_name?.match(/\<.*/)) {
     apiParams.scheduleParams[2].value = sourceJson.key_name.match(/\<.*/).toString().replace('<&', '').replace('&>', '')
+  } else if (importFile.mappingInfoOverride && sourceJson.filename?.match(/\<.*/)) {
+    apiParams.scheduleParams[2].value = sourceJson.filename.match(/\<.*/).toString().replace('<&', '').replace('&>', '')
   } else {
     apiParams.scheduleParams[2].value = schedule?.timeZone ? schedule.timeZone : ''
   }
