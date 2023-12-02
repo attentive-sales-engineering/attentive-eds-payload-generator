@@ -317,7 +317,9 @@ function parseImportFile(edsFile) {
   apiParams.sftpParams[0].value = sourceJson.host
   apiParams.sftpParams[1].value = sourceJson.username
   apiParams.sftpParams[2].value = sourceJson.password
-  apiParams.sftpParams[3].value = sourceJson.port
+  apiParams.sftpParams[3].value = sourceJson.auth_key?.bucket_name
+  apiParams.sftpParams[4].value = sourceJson.auth_key?.key_name
+  apiParams.sftpParams[5].value = sourceJson.port
 
 
   // metaParams
@@ -532,6 +534,7 @@ function updatePayload(e, paramsId) {
       match_prefix: true,
       max_files: 1
     },
+    auth_key: {},
     encryption: {
       private_key: {}
     }
@@ -581,6 +584,12 @@ function updatePayload(e, paramsId) {
     if (sftp['password']) {
       source_details.password = sftp['password']
     }
+    if (sftp['authKeyBucket']) {
+      source_details.auth_key.bucket_name = sftp['authKeyBucket']
+    }
+    if (sftp['authKeyName']) {
+      source_details.auth_key.key_name = sftp['authKeyName']
+    }
     if (sftp['port']) {
       source_details.port = sftp['port']
     }
@@ -595,6 +604,10 @@ function updatePayload(e, paramsId) {
     delete source_details.key_name
   } else {
     edsPayload.source_type = "s3"
+  }
+  if (sftp && !sftp['authKeyName']) {
+    // Not using auth_key, delete auth_key object
+    delete source_details.auth_key
   }
   if (!encryption || !encryption['encryptionType']) {
     // File is not encrypted, delete encryption object
