@@ -309,8 +309,9 @@ function parseImportFile(edsFile) {
 
   // encryptionParams
   apiParams.encryptionParams[0].value = sourceJson.encryption?.type
-  apiParams.encryptionParams[1].value = sourceJson.encryption?.private_key?.bucket_name
-  apiParams.encryptionParams[2].value = sourceJson.encryption?.private_key?.key_name
+  apiParams.encryptionParams[1].value = sourceJson.encryption?.passphrase
+  apiParams.encryptionParams[2].value = sourceJson.encryption?.private_key?.bucket_name
+  apiParams.encryptionParams[3].value = sourceJson.encryption?.private_key?.key_name
 
   // sftpParams
   apiParams.sftpParams[0].value = sourceJson.host
@@ -557,6 +558,9 @@ function updatePayload(e, paramsId) {
   if (encryption && Object.entries(encryption).length > 0) {
     if (encryption['encryptionType']) {
       source_details.encryption.type = encryption['encryptionType']
+    }
+    if (encryption['passphrase']) {
+      source_details.encryption.passphrase = encryption['passphrase']
     }
     if (encryption['privateKeyBucket']) {
       source_details.encryption.private_key.bucket_name = encryption['privateKeyBucket']
