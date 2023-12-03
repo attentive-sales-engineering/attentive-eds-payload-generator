@@ -9,7 +9,7 @@
 <meta name="generator" content="Hugo 0.105.0">
 
 
-  <meta name="description" content=" EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE Source Meta User Payload Headers Schedule Params Column Header Properties Column Header &plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body File Params Value File Encryption Value (Complete only if file is encrypted) Client SFTP Value (Complete only if client-hosted SFTP) Meta Params Value Authorization Header Bearer Token User Properties Column Header &plus; Custom Identifiers Column Header Schedule Params Value Source Payload Target Payload Response Status: &#123;&nbsp;&#125; &#10005; " />
+  <meta name="description" content=" EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE File SFTP Encrypt Schedule Meta User Payload Headers Params Column Header Properties Column Header &plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body File Params Value Complete only if client-hosted SFTP (leave blank if Attentive is host) Client SFTP Value Complete only if file is encrypted (leave blank if file is not encrypted) File Encryption Value Meta Params Value Authorization Header Bearer Token User Properties Column Header &plus; Custom Identifiers Column Header Schedule Params Value Source Payload Target Payload Response Status: &#123;&nbsp;&#125; &#10005; " />
 
   <title>Messages | Attentive EDS</title>
 
@@ -35,7 +35,7 @@
     content="Messages"
   />
   <meta property="og:site_name" content="Attentive EDS" />
-  <meta property="og:description" content=" EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE Source Meta User Payload Headers Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body File Params Value File Encryption Value (Complete only if file is encrypted) Client SFTP Value (Complete only if client-hosted SFTP) Meta Params Value Authorization Header Bearer Token User Properties Column Header &#43; Custom Identifiers Column Header Schedule Params Value Source Payload Target Payload Response Status: { } ✕ " />
+  <meta property="og:description" content=" EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE File SFTP Encrypt Schedule Meta User Payload Headers Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body File Params Value Complete only if client-hosted SFTP (leave blank if Attentive is host) Client SFTP Value Complete only if file is encrypted (leave blank if file is not encrypted) File Encryption Value Meta Params Value Authorization Header Bearer Token User Properties Column Header &#43; Custom Identifiers Column Header Schedule Params Value Source Payload Target Payload Response Status: { } ✕ " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://johnchaffee.github.io/attentive-eds-payload-generator/api/messages/" />
 
@@ -44,7 +44,7 @@
 
   <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Messages" />
-  <meta name="twitter:description" content=" EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE Source Meta User Payload Headers Schedule Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body File Params Value File Encryption Value (Complete only if file is encrypted) Client SFTP Value (Complete only if client-hosted SFTP) Meta Params Value Authorization Header Bearer Token User Properties Column Header &#43; Custom Identifiers Column Header Schedule Params Value Source Payload Target Payload Response Status: { } ✕ " />
+  <meta name="twitter:description" content=" EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE File SFTP Encrypt Schedule Meta User Payload Headers Params Column Header Properties Column Header &#43; Items Column Header Price Column Header Subscriptions Column Header JSON Body File Params Value Complete only if client-hosted SFTP (leave blank if Attentive is host) Client SFTP Value Complete only if file is encrypted (leave blank if file is not encrypted) File Encryption Value Meta Params Value Authorization Header Bearer Token User Properties Column Header &#43; Custom Identifiers Column Header Schedule Params Value Source Payload Target Payload Response Status: { } ✕ " />
 
 
   <script type="application/ld+json">
@@ -55,8 +55,8 @@
       "name": "Messages",
       "url" : "https://johnchaffee.github.io/attentive-eds-payload-generator/api/messages/",
       "headline": "Messages",
-      "description": " EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE Source Meta User Payload Headers Schedule Params Column Header Properties Column Header \u002b Items Column Header Price Column Header Subscriptions Column Header JSON Body File Params Value File Encryption Value (Complete only if file is encrypted) Client SFTP Value (Complete only if client-hosted SFTP) Meta Params Value Authorization Header Bearer Token User Properties Column Header \u002b Custom Identifiers Column Header Schedule Params Value Source Payload Target Payload Response Status: { } ✕ ",
-      "wordCount" : "99",
+      "description": " EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE File SFTP Encrypt Schedule Meta User Payload Headers Params Column Header Properties Column Header \u002b Items Column Header Price Column Header Subscriptions Column Header JSON Body File Params Value Complete only if client-hosted SFTP (leave blank if Attentive is host) Client SFTP Value Complete only if file is encrypted (leave blank if file is not encrypted) File Encryption Value Meta Params Value Authorization Header Bearer Token User Properties Column Header \u002b Custom Identifiers Column Header Schedule Params Value Source Payload Target Payload Response Status: { } ✕ ",
+      "wordCount" : "114",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
@@ -907,7 +907,22 @@
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item d-none" role="presentation" data-source-section>
         <button class="nav-link active" id="send-request-source-tab" data-bs-toggle="tab" data-bs-target="#send-request-source" type="button" role="tab" aria-controls="request-source" aria-selected="true">
-          Source
+          File
+        </button>
+      </li>
+      <li class="nav-item d-none" role="presentation" data-sftp-section>
+        <button class="nav-link" id="send-request-sftp-tab" data-bs-toggle="tab" data-bs-target="#send-request-sftp" type="button" role="tab" aria-controls="request-sftp" aria-selected="true">
+          SFTP
+        </button>
+      </li>
+      <li class="nav-item d-none" role="presentation" data-encryption-section>
+        <button class="nav-link" id="send-request-encryption-tab" data-bs-toggle="tab" data-bs-target="#send-request-encryption" type="button" role="tab" aria-controls="request-encryption" aria-selected="true">
+          Encrypt
+        </button>
+      </li>
+      <li class="nav-item d-none" role="presentation" data-schedule-section>
+        <button class="nav-link" id="send-request-schedule-tab" data-bs-toggle="tab" data-bs-target="#send-request-schedule" type="button" role="tab" aria-controls="request-schedule" aria-selected="false">
+          Schedule
         </button>
       </li>
       <li class="nav-item d-none" role="presentation" data-meta-section>
@@ -928,11 +943,6 @@
       <li class="nav-item" role="presentation" data-headers-section>
         <button class="nav-link" id="send-request-headers-tab" data-bs-toggle="tab" data-bs-target="#send-request-headers" type="button" role="tab" aria-controls="request-headers" aria-selected="false">
           Headers
-        </button>
-      </li>
-      <li class="nav-item d-none" role="presentation" data-schedule-section>
-        <button class="nav-link" id="send-request-schedule-tab" data-bs-toggle="tab" data-bs-target="#send-request-schedule" type="button" role="tab" aria-controls="request-schedule" aria-selected="false">
-          Schedule
         </button>
       </li>
     </ul>
@@ -996,20 +1006,26 @@
           <div data-source-params></div>
           
         </div>
-        <div class="d-none" data-source-encryption-section>
-          <div class="input-group">
-            <div class="section-title pl-2" style="flex: 1">File Encryption</div>
-            <div class="section-title pl-2 mr-38" style="flex: 2">Value <small><i>(Complete only if file is encrypted)</i></small></div>
-          </div>
-          <div data-source-encryption></div>
-          
-        </div>
+      </div>
+      <div class="tab-pane fade show" id="send-request-sftp" role="tabpanel" aria-labelledby="request-sftp-tab">
         <div class="d-none" data-source-sftp-section>
+          <div><i>Complete only if client-hosted SFTP (leave blank if Attentive is host)</i></div>
           <div class="input-group">
             <div class="section-title pl-2" style="flex: 1">Client SFTP</div>
-            <div class="section-title pl-2 mr-38" style="flex: 2">Value <small><i>(Complete only if client-hosted SFTP)</i></small></div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Value</div>
           </div>
           <div data-source-sftp></div>
+          
+        </div>
+      </div>
+      <div class="tab-pane fade show" id="send-request-encryption" role="tabpanel" aria-labelledby="request-encryption-tab">
+        <div class="d-none" data-source-encryption-section>
+          <div><i>Complete only if file is encrypted (leave blank if file is not encrypted)</i></div>
+          <div class="input-group">
+            <div class="section-title pl-2" style="flex: 1">File Encryption</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Value</div>
+          </div>
+          <div data-source-encryption></div>
           
         </div>
       </div>
@@ -1185,8 +1201,8 @@
       renderParams(apiParams.userParams, "send", "[data-user-section]", "[data-user-params-section]", "[data-user]")
       renderParams(apiParams.customParams, "send", "[data-user-section]", "[data-user-custom-section]", "[data-user-custom]")
       renderParams(apiParams.sourceParams, "send", "[data-source-section]", "[data-source-params-section]", "[data-source-params]")
-      renderParams(apiParams.encryptionParams, "send", "[data-source-section]", "[data-source-encryption-section]", "[data-source-encryption]")
-      renderParams(apiParams.sftpParams, "send", "[data-source-section]", "[data-source-sftp-section]", "[data-source-sftp]")
+      renderParams(apiParams.sftpParams, "send", "[data-sftp-section]", "[data-source-sftp-section]", "[data-source-sftp]")
+      renderParams(apiParams.encryptionParams, "send", "[data-encryption-section]", "[data-source-encryption-section]", "[data-source-encryption]")
       renderParams(apiParams.metaParams, "send", "[data-meta-section]", "[data-meta-params-section]", "[data-meta]")
       renderParams(apiParams.scheduleParams, "send", "[data-schedule-section]", "[data-schedule-params-section]", "[data-schedule]")
 

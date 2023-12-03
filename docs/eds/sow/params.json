@@ -101,13 +101,13 @@
     {
       "key": "ticketUrl",
       "value": "",
-      "placeholder": "Jira ticket link",
+      "placeholder": "Jira ticket link (optional)",
       "data-curly-braces": "false"
     },
     {
       "key": "taskUrl",
       "value": "",
-      "placeholder": "Existing EDS url (leave blank for new)",
+      "placeholder": "EDS Job URL (optional, leave blank for new)",
       "data-curly-braces": "false"
     }
   ],
