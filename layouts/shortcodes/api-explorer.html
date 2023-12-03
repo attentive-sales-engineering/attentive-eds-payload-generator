@@ -76,7 +76,17 @@
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item d-none" role="presentation" data-source-section>
         <button class="nav-link active" id="{{ .Params.id }}-request-source-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-request-source" type="button" role="tab" aria-controls="request-source" aria-selected="true">
-          Source
+          File
+        </button>
+      </li>
+      <li class="nav-item d-none" role="presentation" data-sftp-section>
+        <button class="nav-link" id="{{ .Params.id }}-request-sftp-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-request-sftp" type="button" role="tab" aria-controls="request-sftp" aria-selected="true">
+          SFTP
+        </button>
+      </li>
+      <li class="nav-item d-none" role="presentation" data-encryption-section>
+        <button class="nav-link" id="{{ .Params.id }}-request-encryption-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-request-encryption" type="button" role="tab" aria-controls="request-encryption" aria-selected="true">
+          Encrypt
         </button>
       </li>
       <li class="nav-item d-none" role="presentation" data-meta-section>
@@ -175,22 +185,28 @@
             &plus;
           </button> -->
         </div>
-        <div class="d-none" data-source-encryption-section>
+      </div>
+      <div class="tab-pane fade show" id="{{ .Params.id }}-request-sftp" role="tabpanel" aria-labelledby="request-sftp-tab">
+        <div class="d-none" data-source-sftp-section>
+          <div><i>Complete only if client-hosted SFTP (leave blank if Attentive is host)</i></div>
           <div class="input-group">
-            <div class="section-title pl-2" style="flex: 1">File Encryption</div>
-            <div class="section-title pl-2 mr-38" style="flex: 2">Value <small><i>(Complete only if file is encrypted)</i></small></div>
+            <div class="section-title pl-2" style="flex: 1">Client SFTP</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Value</div>
           </div>
-          <div data-source-encryption></div>
+          <div data-source-sftp></div>
           <!-- <button data-add-request-custom-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
           </button> -->
         </div>
-        <div class="d-none" data-source-sftp-section>
+      </div>
+      <div class="tab-pane fade show" id="{{ .Params.id }}-request-encryption" role="tabpanel" aria-labelledby="request-encryption-tab">
+        <div class="d-none" data-source-encryption-section>
+          <div><i>Complete only if file is encrypted (leave blank if file is not encrypted)</i></div>
           <div class="input-group">
-            <div class="section-title pl-2" style="flex: 1">Client SFTP</div>
-            <div class="section-title pl-2 mr-38" style="flex: 2">Value <small><i>(Complete only if client-hosted SFTP)</i></small></div>
+            <div class="section-title pl-2" style="flex: 1">File Encryption</div>
+            <div class="section-title pl-2 mr-38" style="flex: 2">Value</div>
           </div>
-          <div data-source-sftp></div>
+          <div data-source-encryption></div>
           <!-- <button data-add-request-custom-btn class="mt-2 btn btn-outline-success" type="button">
             &plus;
           </button> -->
@@ -376,8 +392,8 @@
       renderParams(apiParams.userParams, "{{ .Params.id }}", "[data-user-section]", "[data-user-params-section]", "[data-user]")
       renderParams(apiParams.customParams, "{{ .Params.id }}", "[data-user-section]", "[data-user-custom-section]", "[data-user-custom]")
       renderParams(apiParams.sourceParams, "{{ .Params.id }}", "[data-source-section]", "[data-source-params-section]", "[data-source-params]")
-      renderParams(apiParams.encryptionParams, "{{ .Params.id }}", "[data-source-section]", "[data-source-encryption-section]", "[data-source-encryption]")
-      renderParams(apiParams.sftpParams, "{{ .Params.id }}", "[data-source-section]", "[data-source-sftp-section]", "[data-source-sftp]")
+      renderParams(apiParams.sftpParams, "{{ .Params.id }}", "[data-sftp-section]", "[data-source-sftp-section]", "[data-source-sftp]")
+      renderParams(apiParams.encryptionParams, "{{ .Params.id }}", "[data-encryption-section]", "[data-source-encryption-section]", "[data-source-encryption]")
       renderParams(apiParams.metaParams, "{{ .Params.id }}", "[data-meta-section]", "[data-meta-params-section]", "[data-meta]")
       renderParams(apiParams.scheduleParams, "{{ .Params.id }}", "[data-schedule-section]", "[data-schedule-params-section]", "[data-schedule]")
 
