@@ -89,6 +89,11 @@
           Encrypt
         </button>
       </li>
+      <li class="nav-item d-none" role="presentation" data-schedule-section>
+        <button class="nav-link" id="{{ .Params.id }}-request-schedule-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-request-schedule" type="button" role="tab" aria-controls="request-schedule" aria-selected="false">
+          Schedule
+        </button>
+      </li>
       <li class="nav-item d-none" role="presentation" data-meta-section>
         <button class="nav-link" id="{{ .Params.id }}-request-meta-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-request-meta" type="button" role="tab" aria-controls="request-meta" aria-selected="true">
           Meta
@@ -107,11 +112,6 @@
       <li class="nav-item" role="presentation" data-headers-section>
         <button class="nav-link" id="{{ .Params.id }}-request-headers-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-request-headers" type="button" role="tab" aria-controls="request-headers" aria-selected="false">
           Headers
-        </button>
-      </li>
-      <li class="nav-item d-none" role="presentation" data-schedule-section>
-        <button class="nav-link" id="{{ .Params.id }}-request-schedule-tab" data-bs-toggle="tab" data-bs-target="#{{ .Params.id }}-request-schedule" type="button" role="tab" aria-controls="request-schedule" aria-selected="false">
-          Schedule
         </button>
       </li>
     </ul>
