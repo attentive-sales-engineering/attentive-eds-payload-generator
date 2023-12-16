@@ -92,9 +92,15 @@ enableRobotsTXT = true
   # See https://developer.mozilla.org/de/docs/Web/HTML/Element/base.
   geekdocOverwriteHTMLBase = false
 
+  # (Optional, default true) Enable or disable the JavaScript based color theme toggle switch. The CSS based
+  # user preference mode still works.
+  geekdocDarkModeToggle = true
+
   # (Optional, default false) Auto-decrease brightness of images and add a slightly grayscale to avoid
   # bright spots while using the dark mode.
   geekdocDarkModeDim = false
+
+  # (Optional, default false) Enforce code blocks to always use the dark color theme.
   geekdocDarkModeCode = false
 
   # (Optional, default true) Display a "Back to top" link in the site footer.

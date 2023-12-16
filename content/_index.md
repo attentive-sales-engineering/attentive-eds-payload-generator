@@ -7,8 +7,6 @@ geekdocNav: false
 geekdocBreadcrumb: false
 ---
 
-## APIs
-
 - [Custom Attributes](./api/custom-attributes/)
 - [Custom Events](./api/custom-events/)
 - [eCommerce Add to Cart](./api/ecommerce-add-to-cart/)
