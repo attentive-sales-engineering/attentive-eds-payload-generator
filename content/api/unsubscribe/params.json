@@ -145,13 +145,13 @@
       "key": "type",
       "value": "",
       "placeholder": "MARKETING, TRANSACTIONAL (required)",
-      "data-curly-braces": "true"
+      "data-curly-braces": "false"
     },
     {
       "key": "channel",
       "value": "",
       "placeholder": "TEXT, EMAIL (required)",
-      "data-curly-braces": "true"
+      "data-curly-braces": "false"
     }
   ],
   "jsonParams": {},
