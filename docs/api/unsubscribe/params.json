@@ -115,7 +115,7 @@
     {
       "key": "frequency",
       "value": "",
-      "placeholder": "Auto, Manual, Daily, Hourly",
+      "placeholder": "Manual, Daily, Hourly",
       "data-curly-braces": "false"
     },
     {
