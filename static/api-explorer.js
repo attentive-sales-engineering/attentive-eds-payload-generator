@@ -499,7 +499,9 @@ function updatePayload(e, paramsId) {
   if (window.location.pathname.match("identity")) {
     if (payload_mapping.user) {
       payload_mapping = payload_mapping.user
-      payload_mapping.customIdentifiers = payload_mapping.externalIdentifiers.customIdentifiers
+      if (payload_mapping?.externalIdentifiers?.customIdentifiers) {
+        payload_mapping.customIdentifiers = payload_mapping.externalIdentifiers.customIdentifiers
+      }
       delete payload_mapping.externalIdentifiers
     }
   }
