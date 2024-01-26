@@ -147,7 +147,7 @@
       let minute = today.getMinutes().toString()
       minute = minute.length === 2 ? minute : "0" + minute  // pefix 1 digit hour with 0
       console.log("MINUTE:", minute)
-      const sampleDate = dateFormat.toString().replace('\[\[', '').replace('yyyy', year).replace('MM', month).replace('dd', date).replace('HH', hour).replace('mm', minute).replace(']]', '')
+      const sampleDate = dateFormat.toString().replace('\[\[', '').replace('yyyy', year).replace('MM', month).replace('dd', date).replace('HH', hour).replace('mm', minute).replace('ss', '00').replace(']]', '')
       console.log("SAMPLE DATE:", sampleDate)
       const exampleDate = `${fileNameAndDate.replace(/\[\[.+\]\]/, sampleDate)}`
       document.querySelector("#example-date").classList.remove('d-none')
