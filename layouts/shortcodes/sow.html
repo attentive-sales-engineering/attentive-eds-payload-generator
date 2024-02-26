@@ -108,7 +108,12 @@
   replaceText("api", api.name)
 
   // key_name
-  const key_name = edsPayload.source_details.key_name
+  let key_name
+  if (edsPayload.source_details.filename) {
+    key_name = edsPayload.source_details.filename
+  } else {
+    key_name = edsPayload.source_details.key_name
+  }
   console.log("KEY NAME:", key_name)
 
   if (key_name != null && key_name != '') {

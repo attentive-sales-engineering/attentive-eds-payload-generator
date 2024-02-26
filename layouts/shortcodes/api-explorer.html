@@ -328,6 +328,8 @@
   let task_description = ''
   let filename = ''
 
+  // This function returns the apiParams from local storage, if a file has been imported
+  // or from params.json, if it's new
   async function fetchApiParams() {
     // console.log("FETCH API PARAMS")
     const searchParams = new URLSearchParams(window.location.search)
