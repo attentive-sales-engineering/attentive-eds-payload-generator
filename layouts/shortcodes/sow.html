@@ -33,7 +33,7 @@
     <li id="manual" class="d-none">Files will be processed <b>ad-hoc</b> when requested by the client.</li>
     <li id="auto" class="d-none">Files will be processed <b>automatically</b> when files are uploaded.</li>
     <li id="hourly" class="d-none">Files will be processed <b>hourly</b>.</li>
-    <li id="daily" class="d-none">Files will be processed <b>daily</b> at <span class="bold" data-trigger-time>{triggerTime}</span> (<span class="bold" data-timezone>{timezone}</span> time).</li>
+    <li id="frequency" class="d-none">Files will be processed <span class="bold" data-frequency>{frequency}</span> at <span class="bold" data-trigger-time>{triggerTime}</span> (<span class="bold" data-timezone>{timezone}</span> time).</li>
     <li>The file will be in <span class="bold" data-filetype>{fileType}</span> format.</li>
     <li>The file will contain a header row that lists the field names.</li>
     <li>Each row will include the field values.</li>
@@ -205,9 +205,11 @@
   if (frequency && frequency.toLowerCase() == "hourly") {
     document.querySelector("#hourly").classList.remove('d-none')
   }
-  // DAILY 
-  if (frequency && frequency.toLowerCase() == "daily") {
-    document.querySelector("#daily").classList.remove('d-none')
+  // DAILY, WEEKLY or MONTHLY 
+  if (frequency && frequency.toLowerCase().match(/daily|weekly|monthly/)) {
+    document.querySelector("#frequency").classList.remove('d-none')
+    // frequency
+    replaceText("frequency", frequency)
     // time
     const triggerTime = edsPayload.schedulePayload.triggerTime || "8AM"
     replaceText("trigger-time", triggerTime)
