@@ -1,7 +1,7 @@
 ---
 title: "Create EDS Job"
 draft: false
-weight: 3000
+weight: 1000
 tags:
   - create
 geekdocNav: false

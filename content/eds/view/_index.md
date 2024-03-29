@@ -1,7 +1,7 @@
 ---
 title: "View EDS Job"
 draft: false
-weight: 4000
+weight: 2000
 tags:
   - view
 geekdocNav: false
