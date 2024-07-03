@@ -1,5 +1,5 @@
 ---
-title: "Exhibit A - Scope of Work"
+title: "Exhibit A"
 draft: false
 weight: 5000
 tags:

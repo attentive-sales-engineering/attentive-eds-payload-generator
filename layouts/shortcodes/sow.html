@@ -12,21 +12,21 @@
   .Params.id => {{ .Params.id }}
   </pre> -->
 
+  <h2>Professional Services Description</h2>
+
   <h2><span class="" data-client-name>{Client Name}</span>&nbsp;&ndash;&nbsp;EDS&nbsp;<span class="bold" data-api>{API}
     </span>&nbsp;API
   </h2>
   <p><span class="" data-date>{Date}</span></p>
 
-  <h2>Background</h2>
-  <p>This Statement of Work defines the client's request to submit <span class="bold" data-api>{API}</span> API
-    requests for users via CSV upload.
-  </p>
+  <p><b>Project Summary:</b> This Statement of Work defines the client's request to submit <span data-api>{API}</span> API
+    requests for users via CSV upload.</p>
 
-  <h2>Purpose</h2>
-  <p>This Statement of Work covers the allowable scope of the project. Any term not defined herein shall have the
-    meaning set forth in the Attentive Master Subscription Agreement or the relevant Order Form.</p>
+  <p><b>Technical Description:</b> Attentive will map the data from a CSV file provided by the client to Attentive's <span data-api>{API}</span> API.</p>
 
-  <h2>Specification</h2>
+  <p><b>Estimated Project Cost:</b> Attentive provides Professional Services for building an EDS job at a flat rate of $3,000.</p>
+
+  <p><b>Project Specifications:</b></p>
   <ol>
     <li>Client will upload files to SFTP with the following path and filename:<br><span class="bold" data-file-name-and-date>{fileNameAndDate}</span></li>
     <li id="date-format" class="d-none">The <span class="bold" data-date-format>{[[dateFormat]]}</span> portion of the filename represents the date the file will be processed. The actual filename should look like this:<br><span id="example-date" class="bold d-none" data-example-date>{exampleDate}</span>.</li>
@@ -38,10 +38,6 @@
     <li>The file will contain a header row that lists the field names.</li>
     <li>Each row will include the field values.</li>
   </ol>
-
-  <h2>Level of Effort</h2>
-  <p>This job is expected to take 8 hours of development time to configure and test, once the client has provided a data file in the required format.</p>
-
 
   <h2 class="pagebreak">API Payload</h2>
   <p>The fields in the file will be mapped to the API as shown in the payload below, where API property names are
