@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>identity on Attentive EDS</title>
+    <title>Identity on Attentive EDS</title>
     <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/identity/</link>
-    <description>Recent content in identity on Attentive EDS</description>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="https://johnchaffee.github.io/attentive-eds-payload-generator/tags/identity/index.xml" rel="self" type="application/rss+xml" />
+    <description>Recent content in Identity on Attentive EDS</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="https://johnchaffee.github.io/attentive-eds-payload-generator/tags/identity/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Identity</title>
       <link>https://johnchaffee.github.io/attentive-eds-payload-generator/api/identity/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/api/identity/</guid>
       <description> EDS Job Task ID Client ID Task Name Open companyId in new tab attentive-auth-token Submit Cancel Export JSON Payload Export Filename Submit Cancel GET POST PUT PATCH DELETE File SFTP Encrypt Schedule Meta User Payload Headers Params Column Header Properties Column Header &amp;plus; Items Column Header Price Column Header Subscriptions Column Header JSON Body File Params Value Complete only if client-hosted SFTP (leave blank if Attentive is host) Client SFTP Value Complete only if file is encrypted (leave blank if file is not encrypted) File Encryption Value Meta Params Value Authorization Header Bearer Token User Properties Column Header &amp;plus; Custom Identifiers Column Header Schedule Params Value Source Payload Target Payload Response Status: &amp;#123;&amp;nbsp;&amp;#125; &amp;#10005; </description>
     </item>
-    
   </channel>
 </rss>

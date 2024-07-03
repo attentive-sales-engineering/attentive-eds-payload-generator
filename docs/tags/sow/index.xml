@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sow on Attentive EDS</title>
+    <title>Sow on Attentive EDS</title>
     <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/sow/</link>
-    <description>Recent content in sow on Attentive EDS</description>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="https://johnchaffee.github.io/attentive-eds-payload-generator/tags/sow/index.xml" rel="self" type="application/rss+xml" />
+    <description>Recent content in Sow on Attentive EDS</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="https://johnchaffee.github.io/attentive-eds-payload-generator/tags/sow/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Exhibit A - Scope of Work</title>
+      <title>Exhibit A</title>
       <link>https://johnchaffee.github.io/attentive-eds-payload-generator/eds/sow/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/eds/sow/</guid>
-      <description>{Client Name}&amp;nbsp;&amp;ndash;&amp;nbsp;EDS&amp;nbsp;{API} &amp;nbsp;API {Date}
-Background This Statement of Work defines the client&#39;s request to submit {API} API requests for users via CSV upload. Purpose This Statement of Work covers the allowable scope of the project. Any term not defined herein shall have the meaning set forth in the Attentive Master Subscription Agreement or the relevant Order Form.
-Specification Client will upload files to SFTP with the following path and filename:</description>
+      <description>Professional Services Description {Client Name}&amp;nbsp;&amp;ndash;&amp;nbsp;EDS&amp;nbsp;{API} &amp;nbsp;API {Date}&#xA;Project Summary: This Statement of Work defines the client&#39;s request to submit {API} API requests for users via CSV upload.&#xA;Technical Description: Attentive will map the data from a CSV file provided by the client to Attentive&#39;s {API} API.&#xA;Estimated Project Cost: Attentive provides Professional Services for building an EDS job at a flat rate of $3,000.&#xA;Project Specifications:&#xA;Client will upload files to SFTP with the following path and filename:</description>
     </item>
-    
   </channel>
 </rss>

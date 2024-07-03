@@ -4,6 +4,8 @@
     <title>Create EDS Job on Attentive EDS</title>
     <link>https://johnchaffee.github.io/attentive-eds-payload-generator/eds/create/</link>
     <description>Recent content in Create EDS Job on Attentive EDS</description>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="https://johnchaffee.github.io/attentive-eds-payload-generator/eds/create/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="https://johnchaffee.github.io/attentive-eds-payload-generator/eds/create/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
