@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>View on Attentive EDS</title>
-    <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/view/</link>
+    <link>https://attentive-sales-engineering.github.io/attentive-eds-payload-generator/tags/view/</link>
     <description>Recent content in View on Attentive EDS</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="https://johnchaffee.github.io/attentive-eds-payload-generator/tags/view/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://attentive-sales-engineering.github.io/attentive-eds-payload-generator/tags/view/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>View EDS Job</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/eds/view/</link>
+      <link>https://attentive-sales-engineering.github.io/attentive-eds-payload-generator/eds/view/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/eds/view/</guid>
-      <description>View</description>
+      <guid>https://attentive-sales-engineering.github.io/attentive-eds-payload-generator/eds/view/</guid>
+      <description>&lt;p&gt;View&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

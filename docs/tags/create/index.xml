@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Create on Attentive EDS</title>
-    <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/create/</link>
+    <link>https://attentive-sales-engineering.github.io/attentive-eds-payload-generator/tags/create/</link>
     <description>Recent content in Create on Attentive EDS</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="https://johnchaffee.github.io/attentive-eds-payload-generator/tags/create/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://attentive-sales-engineering.github.io/attentive-eds-payload-generator/tags/create/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Create EDS Job</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/eds/create/</link>
+      <link>https://attentive-sales-engineering.github.io/attentive-eds-payload-generator/eds/create/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/eds/create/</guid>
-      <description>Create</description>
+      <guid>https://attentive-sales-engineering.github.io/attentive-eds-payload-generator/eds/create/</guid>
+      <description>&lt;p&gt;Create&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

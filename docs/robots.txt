@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /tags/*
 
-Sitemap: https://johnchaffee.github.io/attentive-eds-payload-generator/sitemap.xml
+Sitemap: https://attentive-sales-engineering.github.io/attentive-eds-payload-generator/sitemap.xml
