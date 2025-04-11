@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Identity on Attentive EDS</title>
-    <link>https://johnchaffee.github.io/attentive-eds-payload-generator/api/identity/</link>
+    <link>https://attentive-sales-engineering.github.io/attentive-eds-payload-generator/api/identity/</link>
     <description>Recent content in Identity on Attentive EDS</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="https://johnchaffee.github.io/attentive-eds-payload-generator/api/identity/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://attentive-sales-engineering.github.io/attentive-eds-payload-generator/api/identity/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

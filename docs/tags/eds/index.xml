@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Eds on Attentive EDS</title>
-    <link>https://johnchaffee.github.io/attentive-eds-payload-generator/tags/eds/</link>
+    <link>https://attentive-sales-engineering.github.io/attentive-eds-payload-generator/tags/eds/</link>
     <description>Recent content in Eds on Attentive EDS</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="https://johnchaffee.github.io/attentive-eds-payload-generator/tags/eds/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://attentive-sales-engineering.github.io/attentive-eds-payload-generator/tags/eds/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Attentive EDS</title>
-      <link>https://johnchaffee.github.io/attentive-eds-payload-generator/</link>
+      <link>https://attentive-sales-engineering.github.io/attentive-eds-payload-generator/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://johnchaffee.github.io/attentive-eds-payload-generator/</guid>
-      <description> Custom Attributes Custom Events eCommerce Add to Cart eCommerce Product View eCommerce Purchase Identity Messages Privacy Request Subscribe Unsubscribe </description>
+      <guid>https://attentive-sales-engineering.github.io/attentive-eds-payload-generator/</guid>
+      <description>&lt;ul&gt;&#xA;&lt;li&gt;&lt;a&#xA;  class=&#34;gdoc-markdown__link&#34;&#xA;  href=&#34;./api/custom-attributes/&#34;&#xA;  &#xA;&gt;Custom Attributes&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a&#xA;  class=&#34;gdoc-markdown__link&#34;&#xA;  href=&#34;./api/custom-events/&#34;&#xA;  &#xA;&gt;Custom Events&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a&#xA;  class=&#34;gdoc-markdown__link&#34;&#xA;  href=&#34;./api/ecommerce-add-to-cart/&#34;&#xA;  &#xA;&gt;eCommerce Add to Cart&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a&#xA;  class=&#34;gdoc-markdown__link&#34;&#xA;  href=&#34;./api/ecommerce-product-view/&#34;&#xA;  &#xA;&gt;eCommerce Product View&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a&#xA;  class=&#34;gdoc-markdown__link&#34;&#xA;  href=&#34;./api/ecommerce-purchase/&#34;&#xA;  &#xA;&gt;eCommerce Purchase&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a&#xA;  class=&#34;gdoc-markdown__link&#34;&#xA;  href=&#34;./api/identity/&#34;&#xA;  &#xA;&gt;Identity&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a&#xA;  class=&#34;gdoc-markdown__link&#34;&#xA;  href=&#34;./api/messages/&#34;&#xA;  &#xA;&gt;Messages&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a&#xA;  class=&#34;gdoc-markdown__link&#34;&#xA;  href=&#34;./api/privacy-request/&#34;&#xA;  &#xA;&gt;Privacy Request&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a&#xA;  class=&#34;gdoc-markdown__link&#34;&#xA;  href=&#34;./api/subscribe/&#34;&#xA;  &#xA;&gt;Subscribe&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a&#xA;  class=&#34;gdoc-markdown__link&#34;&#xA;  href=&#34;./api/unsubscribe/&#34;&#xA;  &#xA;&gt;Unsubscribe&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
   </channel>
 </rss>
